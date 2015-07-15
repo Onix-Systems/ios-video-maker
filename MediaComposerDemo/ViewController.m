@@ -10,7 +10,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "SAVideoRangeSlider.h"
 
-@interface ViewController () <SAVideoRangeSliderDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate>
+@interface ViewController () <SAVideoRangeSliderDelegate, UIGestureRecognizerDelegate>
 @property (strong, nonatomic) SAVideoRangeSlider *mySAVideoRangeSlider;
 @property (strong, nonatomic) AVAssetExportSession *exportSession;
 @property (strong, nonatomic) NSString *originalVideoPath;
