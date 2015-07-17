@@ -33,7 +33,7 @@
     self.originalVideoPath = [mainBundle pathForResource: @"MaroonSugar" ofType: @"mp4"];
     NSURL *videoFileUrl = [NSURL fileURLWithPath:self.originalVideoPath];
     
-        
+    
     self.mySAVideoRangeSlider = [[SAVideoRangeSlider alloc] initWithFrame:CGRectMake(0, 100, 500, 50) videoUrl:videoFileUrl ];
     self.mySAVideoRangeSlider.bubleText.font = [UIFont systemFontOfSize:12];
     [self.mySAVideoRangeSlider setPopoverBubbleSize:120 height:60];
@@ -80,11 +80,58 @@
 }
 
 -(void)playMovie: (NSString *) path{
-    NSURL *url = [NSURL fileURLWithPath:path];
-    MPMoviePlayerViewController *theMovie = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
-    [self presentMoviePlayerViewControllerAnimated:theMovie];
-    theMovie.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
-    [theMovie.moviePlayer play];
+//    NSURL *url = [NSURL fileURLWithPath:path];
+//    MPMoviePlayerViewController *theMovie = [[MPMoviePlayerViewController alloc] initWithContentURL:url];
+//    [self presentMoviePlayerViewControllerAnimated:theMovie];
+//    theMovie.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+//    [theMovie.moviePlayer play];
+    
+    NSBundle *mainBundle = [NSBundle mainBundle];
+    
+    NSString *video1 = [mainBundle pathForResource: @"MaroonSugar" ofType: @"mp4"];
+    NSString *video2 = [mainBundle pathForResource: @"WizKhalifaFurious" ofType: @"mp4"];
+    
+//    NSArray *videoClipPaths = @[video1,video2];
+    NSArray *videoClipPaths = [NSArray arrayWithObjects:[NSURL fileURLWithPath:video1], [NSURL fileURLWithPath:video2], nil];
+    AVMutableComposition *mixComposition = [AVMutableComposition composition];
+    AVMutableCompositionTrack *compositionTrack = [mixComposition addMutableTrackWithMediaType:AVMediaTypeVideo preferredTrackID:kCMPersistentTrackID_Invalid];
+    NSError * error = nil;
+    NSMutableArray * timeRanges = [NSMutableArray arrayWithCapacity:videoClipPaths.count];
+    NSMutableArray * tracks = [NSMutableArray arrayWithCapacity:videoClipPaths.count];
+    for (int i=0; i<[videoClipPaths count]; i++) {
+        AVAsset *assetClip = [[AVURLAsset alloc] initWithURL:videoClipPaths[i] options:nil];
+        AVAssetTrack *clipVideoTrackB = [[assetClip tracksWithMediaType:AVMediaTypeVideo] objectAtIndex:0];
+        
+        [timeRanges addObject:[NSValue valueWithCMTimeRange:CMTimeRangeMake(kCMTimeZero, assetClip.duration)]];
+        [tracks addObject:clipVideoTrackB];
+    }
+    [compositionTrack insertTimeRanges:timeRanges ofTracks:tracks atTime:kCMTimeZero error:&error];
+    
+    AVAssetExportSession *exporter = [[AVAssetExportSession alloc] initWithAsset:mixComposition presetName:AVAssetExportPresetHighestQuality];
+    NSParameterAssert(exporter != nil);
+    NSArray *t;
+    NSString *u;
+    
+    t = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    u = [t objectAtIndex:0];
+    NSString *finalPath = [u stringByAppendingPathComponent:@"final.mov"];
+    NSURL *lastURL = [NSURL fileURLWithPath:finalPath];
+    exporter.outputFileType = AVFileTypeQuickTimeMovie;
+    exporter.outputURL = lastURL;
+    [exporter exportAsynchronouslyWithCompletionHandler:^(void){
+        switch (exporter.status) {
+            case AVAssetExportSessionStatusFailed:
+                NSLog(@"exporting failed");
+                break;
+            case AVAssetExportSessionStatusCompleted:
+                NSLog(@"exporting completed");
+                //UISaveVideoAtPathToSavedPhotosAlbum(filePath, self, nil, NULL);
+                break;
+            case AVAssetExportSessionStatusCancelled:
+                NSLog(@"export cancelled");
+                break;
+        }
+    }];
 }
 
 - (IBAction)trimBtnTouchUpInside:(id)sender {

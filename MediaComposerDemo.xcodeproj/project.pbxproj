@@ -19,7 +19,7 @@
 		24349C611B56526C00848994 /* SASliderRight.m in Sources */ = {isa = PBXBuildFile; fileRef = 24349C5C1B56526C00848994 /* SASliderRight.m */; };
 		24349C621B56526C00848994 /* SAVideoRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 24349C5E1B56526C00848994 /* SAVideoRangeSlider.m */; };
 		24349C651B56591C00848994 /* MaroonSugar.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 24349C631B56565400848994 /* MaroonSugar.mp4 */; };
-		24349C661B56591E00848994 /* WizKhalifa-Furious.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 24349C641B56565400848994 /* WizKhalifa-Furious.mp4 */; };
+		24349C661B56591E00848994 /* WizKhalifaFurious.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 24349C641B56565400848994 /* WizKhalifaFurious.mp4 */; };
 		24349C681B56597300848994 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24349C671B56597300848994 /* MediaPlayer.framework */; };
 		24349C6A1B56597C00848994 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24349C691B56597C00848994 /* AVFoundation.framework */; };
 		24349C6C1B56598200848994 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24349C6B1B56598200848994 /* CoreMedia.framework */; };
@@ -62,7 +62,7 @@
 		24349C5D1B56526C00848994 /* SAVideoRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAVideoRangeSlider.h; sourceTree = "<group>"; };
 		24349C5E1B56526C00848994 /* SAVideoRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAVideoRangeSlider.m; sourceTree = "<group>"; };
 		24349C631B56565400848994 /* MaroonSugar.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaroonSugar.mp4; sourceTree = "<group>"; };
-		24349C641B56565400848994 /* WizKhalifa-Furious.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "WizKhalifa-Furious.mp4"; sourceTree = "<group>"; };
+		24349C641B56565400848994 /* WizKhalifaFurious.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = WizKhalifaFurious.mp4; sourceTree = "<group>"; };
 		24349C671B56597300848994 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		24349C691B56597C00848994 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		24349C6B1B56598200848994 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -136,7 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				24349C631B56565400848994 /* MaroonSugar.mp4 */,
-				24349C641B56565400848994 /* WizKhalifa-Furious.mp4 */,
+				24349C641B56565400848994 /* WizKhalifaFurious.mp4 */,
 				24349C301B5650D000848994 /* Info.plist */,
 				24349C311B5650D000848994 /* main.m */,
 			);
@@ -280,7 +280,7 @@
 			files = (
 				24349C651B56591C00848994 /* MaroonSugar.mp4 in Resources */,
 				24349C3B1B5650D000848994 /* Main.storyboard in Resources */,
-				24349C661B56591E00848994 /* WizKhalifa-Furious.mp4 in Resources */,
+				24349C661B56591E00848994 /* WizKhalifaFurious.mp4 in Resources */,
 				24349C401B5650D000848994 /* LaunchScreen.xib in Resources */,
 				24349C3D1B5650D000848994 /* Images.xcassets in Resources */,
 			);
@@ -503,6 +503,7 @@
 				24349C511B5650D000848994 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		24349C521B5650D000848994 /* Build configuration list for PBXNativeTarget "MediaComposerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -511,6 +512,7 @@
 				24349C541B5650D000848994 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
