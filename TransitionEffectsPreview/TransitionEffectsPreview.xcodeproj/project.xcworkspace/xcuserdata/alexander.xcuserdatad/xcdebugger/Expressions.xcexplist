@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[Transition getImageNo:]:Transition.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController frameSliderChanged]:ViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.filterSlider.value">
+            </PersistentString>
+            <PersistentString
+               value = "self.frameSlider.value">
+            </PersistentString>
+            <PersistentString
+               value = "self.frameSliderCurrentValue">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ViewController drawCurrentTransitionFrame]:ViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TransitionFilter setDynamicAttributesForStep:totalSteps:]:TransitionFilter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.filter.attributes[param]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[Transition setTo:]:Transition.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
