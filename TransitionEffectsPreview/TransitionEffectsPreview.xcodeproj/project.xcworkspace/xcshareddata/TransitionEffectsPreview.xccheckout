@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>152FDA4C-E702-4216-805A-0B1561221559</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>TransitionEffectsPreview</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2D63DCC4EA5C95C3787E698CD30435E020DD2C6E</key>
 		<string>https://bitbucket.org/onix-systems/variouseditor.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>TransitionEffectsPreview/TransitionEffectsPreview.xcodeproj/project.xcworkspace</string>
+	<string>TransitionEffectsPreview/TransitionEffectsPreview.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2D63DCC4EA5C95C3787E698CD30435E020DD2C6E</key>
