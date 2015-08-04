@@ -22,8 +22,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
-    
-    @IBOutlet weak var debugImageView: UIImageView!
+    @IBOutlet weak var debugView: APLCompositionDebugView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,10 +30,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         tableView.dataSource = self
         tableView.delegate = self
         tableView.editing = true
+ 
+        let mainBundle = NSBundle.mainBundle();
         
         self.updateButtonsState()
-        
-        self.composition.debugImageView = self.debugImageView
+
     }
     
     var playerController : PlayerViewController?
@@ -58,6 +58,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             if (currentPlayerAsset != newAsset) {
                 self.currentPlayerAsset = newAsset
                 self.playerController!.loadAsset(asset: newAsset, withVideoComposition: self.composition.mutableVideoComposition)
+                
+                self.debugView.player = self.playerController!.player!;
+                self.debugView.synchronizeToComposition(self.composition.mutableComposition, videoComposition: self.composition.mutableVideoComposition, audioMix: self.composition.mutableAudioMix)
+                self.debugView.setNeedsDisplay()
+
             }
         } else {
 
@@ -85,6 +90,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+        if (sourceIndexPath == destinationIndexPath) {
+            return
+        }
         
         let segmentToMove = self.composition.getSegment(sourceIndexPath.row)
         self.composition.deleteSegmentAtIndex(sourceIndexPath.row)
@@ -118,11 +126,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
-        self.composition.addSegmentWithPickerInfo(info)
+        self.composition.addSegmentWithPickerInfo(info) {
+            self.tableView.reloadData()
+        }
         
         self.imagePicker?.dismissViewControllerAnimated(true) {}
         
-        tableView.reloadData()
+        self.tableView.reloadData()
         self.updateButtonsState()
     }
 
@@ -159,7 +169,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBAction func toolbarSaveAction(sender: UIBarButtonItem) {
-        self.composition.exportMovieToFile()
+        self.saveButton.enabled = false
+        self.composition.exportMovieToFile() {
+            self.saveButton.enabled = true
+        }
     }
 
     @IBAction func playMovieFormResources(sender: UIBarButtonItem) {

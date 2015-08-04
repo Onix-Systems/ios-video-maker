@@ -15,9 +15,10 @@
 		111375011B4FF37F002DCB23 /* TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111375001B4FF37F002DCB23 /* TestTests.swift */; };
 		111B61F61B6679B70099A920 /* VideoComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B61F51B6679B70099A920 /* VideoComposition.swift */; };
 		111B61F81B6679DA0099A920 /* VideoCompositionSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 111B61F71B6679DA0099A920 /* VideoCompositionSegment.swift */; };
-		113F153A1B623BA30082D769 /* MaroonSugar.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 113F15371B623A050082D769 /* MaroonSugar.mp4 */; };
+		1123CB0F1B6D5477005FA319 /* APLCompositionDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1123CB0E1B6D5477005FA319 /* APLCompositionDebugView.m */; };
 		113F153C1B6280300082D769 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 113F153B1B6280300082D769 /* AVFoundation.framework */; };
 		113F153E1B6280470082D769 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 113F153D1B6280470082D769 /* CoreImage.framework */; };
+		116C538F1B70B29800DD5828 /* TransitionFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116C538E1B70B29800DD5828 /* TransitionFilters.swift */; };
 		11B52FD41B68BC9A00AA9D40 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B52FD31B68BC9A00AA9D40 /* PlayerView.swift */; };
 		11B52FD71B68D07500AA9D40 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B52FD61B68D07500AA9D40 /* PlayerViewController.swift */; };
 		11B86EB41B6B8B68003D7392 /* EmptyPleaceholder.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 11B86EB31B6B8B68003D7392 /* EmptyPleaceholder.m4v */; };
@@ -49,9 +50,12 @@
 		111375001B4FF37F002DCB23 /* TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTests.swift; sourceTree = "<group>"; };
 		111B61F51B6679B70099A920 /* VideoComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoComposition.swift; sourceTree = "<group>"; };
 		111B61F71B6679DA0099A920 /* VideoCompositionSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCompositionSegment.swift; sourceTree = "<group>"; };
-		113F15371B623A050082D769 /* MaroonSugar.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaroonSugar.mp4; sourceTree = "<group>"; };
+		1123CB0C1B6D5476005FA319 /* Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Test-Bridging-Header.h"; sourceTree = "<group>"; };
+		1123CB0D1B6D5477005FA319 /* APLCompositionDebugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLCompositionDebugView.h; sourceTree = "<group>"; };
+		1123CB0E1B6D5477005FA319 /* APLCompositionDebugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLCompositionDebugView.m; sourceTree = "<group>"; };
 		113F153B1B6280300082D769 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		113F153D1B6280470082D769 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		116C538E1B70B29800DD5828 /* TransitionFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransitionFilters.swift; sourceTree = "<group>"; };
 		11B52FD31B68BC9A00AA9D40 /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		11B52FD61B68D07500AA9D40 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		11B86EB31B6B8B68003D7392 /* EmptyPleaceholder.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = EmptyPleaceholder.m4v; sourceTree = "<group>"; };
@@ -103,6 +107,7 @@
 		111374E71B4FF37E002DCB23 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				1123CB0B1B6D5455005FA319 /* DebugView */,
 				11F59CC11B6A611E003AD828 /* VideoComposition */,
 				11B52FD51B68D05A00AA9D40 /* Player */,
 				111374EA1B4FF37E002DCB23 /* AppDelegate.swift */,
@@ -119,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				11B86EB31B6B8B68003D7392 /* EmptyPleaceholder.m4v */,
-				113F15371B623A050082D769 /* MaroonSugar.mp4 */,
 				111374E91B4FF37E002DCB23 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -140,6 +144,16 @@
 				111374FF1B4FF37F002DCB23 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1123CB0B1B6D5455005FA319 /* DebugView */ = {
+			isa = PBXGroup;
+			children = (
+				1123CB0D1B6D5477005FA319 /* APLCompositionDebugView.h */,
+				1123CB0E1B6D5477005FA319 /* APLCompositionDebugView.m */,
+				1123CB0C1B6D5476005FA319 /* Test-Bridging-Header.h */,
+			);
+			name = DebugView;
 			sourceTree = "<group>";
 		};
 		113F153F1B6280560082D769 /* Frameworks */ = {
@@ -164,6 +178,7 @@
 		11F59CC11B6A611E003AD828 /* VideoComposition */ = {
 			isa = PBXGroup;
 			children = (
+				116C538E1B70B29800DD5828 /* TransitionFilters.swift */,
 				111B61F51B6679B70099A920 /* VideoComposition.swift */,
 				111B61F71B6679DA0099A920 /* VideoCompositionSegment.swift */,
 				11F59CBF1B6A491A003AD828 /* VideoCompositor.swift */,
@@ -221,6 +236,7 @@
 				TargetAttributes = {
 					111374E41B4FF37E002DCB23 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = GJX986XEH7;
 					};
 					111374F91B4FF37F002DCB23 = {
 						CreatedOnToolsVersion = 6.4;
@@ -253,7 +269,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				11B86EB41B6B8B68003D7392 /* EmptyPleaceholder.m4v in Resources */,
-				113F153A1B623BA30082D769 /* MaroonSugar.mp4 in Resources */,
 				111374F01B4FF37E002DCB23 /* Main.storyboard in Resources */,
 				111374F51B4FF37E002DCB23 /* LaunchScreen.xib in Resources */,
 				111374F21B4FF37E002DCB23 /* Images.xcassets in Resources */,
@@ -276,6 +291,8 @@
 			files = (
 				111374ED1B4FF37E002DCB23 /* ViewController.swift in Sources */,
 				111374EB1B4FF37E002DCB23 /* AppDelegate.swift in Sources */,
+				116C538F1B70B29800DD5828 /* TransitionFilters.swift in Sources */,
+				1123CB0F1B6D5477005FA319 /* APLCompositionDebugView.m in Sources */,
 				111B61F81B6679DA0099A920 /* VideoCompositionSegment.swift in Sources */,
 				11B52FD41B68BC9A00AA9D40 /* PlayerView.swift in Sources */,
 				111B61F61B6679B70099A920 /* VideoComposition.swift in Sources */,
@@ -410,9 +427,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Test/Test-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -420,9 +441,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Test/Test-Bridging-Header.h";
 			};
 			name = Release;
 		};

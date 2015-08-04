@@ -32,7 +32,7 @@ class VideoCompositor : NSObject, AVVideoCompositing {
     var sourcePixelBufferAttributes: [NSObject : AnyObject]! {
         get {
             return [
-                kCVPixelBufferPixelFormatTypeKey : kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
+                kCVPixelBufferPixelFormatTypeKey : kCVPixelFormatType_32ARGB,
                 kCVPixelBufferOpenGLESCompatibilityKey : NSNumber(bool: true)
             ];
         }
@@ -41,7 +41,7 @@ class VideoCompositor : NSObject, AVVideoCompositing {
     var requiredPixelBufferAttributesForRenderContext: [NSObject : AnyObject]! {
         get {
             return [
-                kCVPixelBufferPixelFormatTypeKey : kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange,
+                kCVPixelBufferPixelFormatTypeKey : kCVPixelFormatType_32ARGB,
                 kCVPixelBufferOpenGLESCompatibilityKey : NSNumber(bool: true)
             ];
         }
@@ -53,9 +53,16 @@ class VideoCompositor : NSObject, AVVideoCompositing {
     }
     
     func startVideoCompositionRequest(request: AVAsynchronousVideoCompositionRequest!) {
-        var imageInstruction : StillImageInstuction? = request.videoCompositionInstruction as? StillImageInstuction
-        
-        var passthroughInstruction : PassthroughImageInstuction? = request.videoCompositionInstruction as? PassthroughImageInstuction
+        self.requestNumber++
+        dispatch_async(self.renderingQueue[(self.requestNumber % 2)]) {
+            self.processRequest(request)
+        }
+    }
+    
+    func processRequest(request: AVAsynchronousVideoCompositionRequest!) {
+        var imageInstruction = request.videoCompositionInstruction as? StillImageInstuction
+        var passthroughInstruction = request.videoCompositionInstruction as? PassthroughInstuction
+        var transitionInstruction = request.videoCompositionInstruction as? TransitionInstuction
         
         if (imageInstruction != nil) {
             let unmanagedBuffer : Unmanaged<CVImageBuffer> = request.renderContext.newPixelBuffer()
@@ -73,19 +80,38 @@ class VideoCompositor : NSObject, AVVideoCompositing {
             
             ciContext.render(resultImage, toCVPixelBuffer: buffer)
             
-            if (imageInstruction!.debugImageView != nil) {
-                dispatch_async(dispatch_get_main_queue()) {
-                    var bufferImage = CIImage(CVPixelBuffer: buffer)
-                    if (bufferImage != nil) {
-                        imageInstruction!.debugImageView!.image = UIImage(CIImage: bufferImage)
-                    } else {
-                        imageInstruction!.debugImageView!.image = UIImage(CIImage: resultImage)
-                    }
-                }
-            }
-
             request.finishWithComposedVideoFrame(buffer)
             //unmanagedBuffer.release()
+            
+        } else if (transitionInstruction != nil) {
+            let unmanagedBuffer : Unmanaged<CVImageBuffer> = request.renderContext.newPixelBuffer()
+            let buffer : CVPixelBuffer = unmanagedBuffer.takeRetainedValue()
+            let bufferSize = CGSize(width: CVPixelBufferGetWidth(buffer), height: CVPixelBufferGetHeight(buffer))
+ 
+            let filter = CIFilter(name: "CIAffineTransform")
+
+            var fromImage : CIImage = transitionInstruction!.getPreviousImage(request: request)
+            var transformValue = NSValue(CGAffineTransform: VideoCompositor.getAspectFitTransform(image: fromImage, desiredSize: bufferSize))
+            filter.setDefaults()
+            filter.setValue(fromImage, forKey: kCIInputImageKey)
+            filter.setValue(transformValue, forKey: "inputTransform")
+            fromImage = filter.valueForKey(kCIOutputImageKey) as! CIImage
+          
+            var toImage : CIImage = transitionInstruction!.getCurrentImage(request: request)
+            transformValue = NSValue(CGAffineTransform: VideoCompositor.getAspectFitTransform(image: toImage, desiredSize: bufferSize))
+            filter.setDefaults()
+            filter.setValue(toImage, forKey: kCIInputImageKey)
+            filter.setValue(transformValue, forKey: "inputTransform")
+            toImage = filter.valueForKey(kCIOutputImageKey) as! CIImage
+            
+            let timeRange = transitionInstruction!.timeRange
+            let inputTime : Double = (CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(timeRange.start)) / CMTimeGetSeconds(timeRange.duration)
+            
+            let resultImage = transitionInstruction?.transitionFilter.getTransitionFromImage(fromImage, toImage: toImage, inputTime: inputTime)
+            
+            ciContext.render(resultImage, toCVPixelBuffer: buffer)
+            
+            request.finishWithComposedVideoFrame(buffer)
             
         } else {
             let sourceTrackIDs = request.sourceTrackIDs
@@ -100,6 +126,8 @@ class VideoCompositor : NSObject, AVVideoCompositing {
     
     
     var ciContext : CIContext
+    var renderingQueue = [dispatch_queue_t]()
+    var requestNumber : Int = 0
     override init() {
 //        ciContext = CIContext();
         
@@ -107,6 +135,9 @@ class VideoCompositor : NSObject, AVVideoCompositing {
         var options = [kCIContextWorkingColorSpace : NSNull()]
         self.ciContext = CIContext(EAGLContext: myEAGLContext, options: options)
 
+        self.renderingQueue.append(dispatch_queue_create("CustomVideoCompositorRenderingQueue1", DISPATCH_QUEUE_SERIAL))
+        self.renderingQueue.append(dispatch_queue_create("CustomVideoCompositorRenderingQueue2", DISPATCH_QUEUE_SERIAL))
+        
         super.init()
     }
 }

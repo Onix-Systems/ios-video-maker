@@ -74,7 +74,7 @@
         NSNumber *maxValue = self.filter.attributes[param][@"CIAttributeSliderMax"];
         NSNumber *value = @(minValue.doubleValue + ((maxValue.doubleValue - minValue.doubleValue) * multipler));
         
-        [self.filter setValue:value forKey:param];
+        [self.filter setValue:value forKey:param ];
     }
 };
 

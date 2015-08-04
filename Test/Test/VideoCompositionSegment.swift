@@ -29,42 +29,47 @@ class VideoCompositionSegment {
 }
 
 class VideoCompositionVideoSegment: VideoCompositionSegment {
-    let asset : AVAsset;
+    let asset : AVURLAsset;
     
     var videoTrack : AVAssetTrack?
     var audioTrack : AVAssetTrack?
     var thumbnailImage : UIImage?
     
-    init(assetURL : NSURL) {
+    init(assetURL : NSURL, onLoad : Void -> Void) {
         self.asset = AVURLAsset(URL: assetURL, options: [AVURLAssetPreferPreciseDurationAndTimingKey : true])
         
         super.init();
         
         self.asset.loadValuesAsynchronouslyForKeys(["duration", "tracks"]) {
             var error = NSErrorPointer();
-            if (self.asset.statusOfValueForKey("duration", error: error) == .Loaded) {
+            let durationStatus = self.asset.statusOfValueForKey("duration", error: error)
+            if (durationStatus == .Failed) {
+                NSLog("Failed to load duration of asset - \(self.asset) with error = \(error)")
+                return
+            }
+            let tracksStatus = self.asset.statusOfValueForKey("tracks", error: error)
+            if (tracksStatus == .Failed) {
+                NSLog("Failed to load tracks of asset - \(self.asset) with error = \(error)")
+                return
+            }
+            
+            if (durationStatus == .Loaded && tracksStatus == .Loaded) {
                 
                 if (self.asset.tracksWithMediaType(AVMediaTypeVideo).count > 0) {
                     self.videoTrack = self.asset.tracksWithMediaType(AVMediaTypeVideo)[0] as? AVAssetTrack
                 }
                 
                 if (self.asset.tracksWithMediaType(AVMediaTypeAudio).count > 0) {
-                    self.videoTrack = self.asset.tracksWithMediaType(AVMediaTypeAudio)[0] as? AVAssetTrack
+                    self.audioTrack = self.asset.tracksWithMediaType(AVMediaTypeAudio)[0] as? AVAssetTrack
                 }
 
                 self.duration = self.asset.duration
                 
-                let imageGenerator = AVAssetImageGenerator(asset: self.asset)
-                
-                let durationSeconds = CMTimeGetSeconds(self.asset.duration);
-                let thumbnailTime = CMTimeMakeWithSeconds(durationSeconds/10.0, 1000);
-                var errorPointer = NSErrorPointer()
-                var actualTime = UnsafeMutablePointer<CMTime>()
-                
-                let thumbnailCGImage : CGImageRef = imageGenerator.copyCGImageAtTime(thumbnailTime, actualTime: actualTime, error: errorPointer)
-                self.thumbnailImage = UIImage(CGImage: thumbnailCGImage)
+                NSLog("Successfully loaded asset \(self.asset)")
                 
                 self.isLoaded = true
+                
+                onLoad();
             }
         }
     }
@@ -74,8 +79,25 @@ class VideoCompositionVideoSegment: VideoCompositionSegment {
     }
     
     override func getThumbnail(onReady: UIImage -> Void) {
-        if (self.isLoaded) {
+        if (self.thumbnailImage != nil) {
             onReady(self.thumbnailImage!)
+            return
+        }
+        if (self.isLoaded) {
+            dispatch_async(dispatch_get_main_queue()) {
+                let imageGenerator = AVAssetImageGenerator(asset: self.asset)
+                
+                let durationSeconds = CMTimeGetSeconds(self.asset.duration);
+                let thumbnailTime = CMTimeMakeWithSeconds(durationSeconds/10.0, 1000);
+
+                var errorPointer = NSErrorPointer()
+                var actualTime = UnsafeMutablePointer<CMTime>()
+                
+                let thumbnailCGImage : CGImageRef = imageGenerator.copyCGImageAtTime(thumbnailTime, actualTime: actualTime, error: errorPointer)
+                self.thumbnailImage = UIImage(CGImage: thumbnailCGImage)
+
+                onReady(self.thumbnailImage!)
+            }
         }
     }
     

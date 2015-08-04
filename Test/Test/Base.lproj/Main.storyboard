@@ -19,20 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Tvv-mV-vit">
-                                <rect key="frame" x="0.0" y="308" width="600" height="248"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell multipleTouchEnabled="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" id="34r-OM-eKy">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="34r-OM-eKy" id="c0P-s4-5ek">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roR-Ei-vRz">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="274"/>
                                 <connections>
                                     <segue destination="b4h-ZI-O7n" kind="embed" identifier="playerContoller" id="MtY-XV-xvB"/>
                                 </connections>
@@ -58,25 +46,32 @@
                                             <action selector="toolbarSaveAction:" destination="BYZ-38-t0r" id="SIb-OM-Nma"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="MAn-Ml-yam"/>
-                                    <barButtonItem systemItem="play" id="Icg-1u-QkR">
-                                        <connections>
-                                            <action selector="playMovieFormResources:" destination="BYZ-38-t0r" id="sLY-Su-Tw2"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="dpc-fb-Fqb"/>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PLp-VC-E1W">
-                                <rect key="frame" x="344" y="364.5" width="240" height="135"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNH-Tc-ekU" customClass="APLCompositionDebugView">
+                                <rect key="frame" x="0.0" y="274" width="600" height="0.0"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="PLp-VC-E1W" secondAttribute="height" multiplier="16:9" id="6cs-fw-52h"/>
-                                    <constraint firstAttribute="width" constant="240" id="V2C-MS-FBJ"/>
+                                    <constraint firstAttribute="height" id="vDM-LO-Rvu"/>
                                 </constraints>
-                            </imageView>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="74" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Tvv-mV-vit">
+                                <rect key="frame" x="0.0" y="282" width="600" height="273.5"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell multipleTouchEnabled="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="imageCell" id="34r-OM-eKy">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="34r-OM-eKy" id="c0P-s4-5ek">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Tvv-mV-vit" firstAttribute="top" secondItem="pNH-Tc-ekU" secondAttribute="bottom" constant="8" id="190-6L-XQe"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="969-yO-ejc" secondAttribute="bottom" id="2WQ-cD-M0M"/>
                             <constraint firstAttribute="trailingMargin" secondItem="roR-Ei-vRz" secondAttribute="trailing" constant="-16" id="46G-7v-jBF"/>
                             <constraint firstItem="Tvv-mV-vit" firstAttribute="top" secondItem="roR-Ei-vRz" secondAttribute="bottom" constant="8" id="94O-6x-dat"/>
@@ -84,18 +79,28 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Tvv-mV-vit" secondAttribute="trailing" constant="-16" id="JDg-dy-ebf"/>
                             <constraint firstItem="roR-Ei-vRz" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="Ngf-RO-eS0"/>
                             <constraint firstAttribute="centerX" secondItem="roR-Ei-vRz" secondAttribute="centerX" id="Sea-KL-wvo"/>
-                            <constraint firstItem="PLp-VC-E1W" firstAttribute="centerY" secondItem="Tvv-mV-vit" secondAttribute="centerY" id="UlN-ZP-bR2"/>
+                            <constraint firstItem="pNH-Tc-ekU" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="XFw-VN-iq1"/>
                             <constraint firstItem="roR-Ei-vRz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="XHf-9i-pHz"/>
+                            <constraint firstItem="pNH-Tc-ekU" firstAttribute="height" secondItem="Tvv-mV-vit" secondAttribute="height" id="ZAz-Xj-yfM"/>
                             <constraint firstItem="Tvv-mV-vit" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="20" id="a9d-uS-LqC"/>
                             <constraint firstAttribute="centerY" secondItem="roR-Ei-vRz" secondAttribute="bottom" id="dx2-pk-zYB"/>
-                            <constraint firstItem="PLp-VC-E1W" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="ge3-VF-RSd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pNH-Tc-ekU" secondAttribute="trailing" constant="-16" id="hSn-lE-72v"/>
+                            <constraint firstItem="pNH-Tc-ekU" firstAttribute="top" secondItem="roR-Ei-vRz" secondAttribute="bottom" id="j5c-hY-lUL"/>
+                            <constraint firstItem="roR-Ei-vRz" firstAttribute="height" secondItem="pNH-Tc-ekU" secondAttribute="height" id="jps-7D-p1T"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="roR-Ei-vRz" secondAttribute="trailing" constant="-16" id="lQO-gP-ja7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="969-yO-ejc" secondAttribute="trailing" constant="-16" id="qg1-Gt-ycw"/>
+                            <constraint firstItem="roR-Ei-vRz" firstAttribute="height" secondItem="Tvv-mV-vit" secondAttribute="height" id="ryI-U4-xbx"/>
                             <constraint firstItem="969-yO-ejc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-16" id="trh-PM-iEJ"/>
                             <constraint firstItem="969-yO-ejc" firstAttribute="top" secondItem="Tvv-mV-vit" secondAttribute="bottom" id="xR3-kQ-XER"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="46G-7v-jBF"/>
                                 <exclude reference="Sea-KL-wvo"/>
+                                <exclude reference="dx2-pk-zYB"/>
+                                <exclude reference="jps-7D-p1T"/>
+                                <exclude reference="ZAz-Xj-yfM"/>
+                                <exclude reference="94O-6x-dat"/>
                                 <exclude reference="a9d-uS-LqC"/>
                             </mask>
                         </variation>
@@ -103,7 +108,7 @@
                     <connections>
                         <outlet property="addButton" destination="uiX-5c-aCT" id="Owu-EK-OCX"/>
                         <outlet property="cameraButton" destination="m9W-N1-q7D" id="T19-EF-ZW0"/>
-                        <outlet property="debugImageView" destination="PLp-VC-E1W" id="tOe-qR-E4r"/>
+                        <outlet property="debugView" destination="pNH-Tc-ekU" id="Au8-sh-SRe"/>
                         <outlet property="saveButton" destination="kyA-Fa-79x" id="On2-Oz-8QS"/>
                         <outlet property="tableView" destination="Tvv-mV-vit" id="OWi-Ed-KdH"/>
                         <outlet property="timelineLabel" destination="7x1-rj-8mq" id="KSF-5z-8se"/>
@@ -121,18 +126,18 @@
                         <viewControllerLayoutGuide type="bottom" id="QT1-Xc-Gc0"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="pXY-Wy-TfW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="274"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UXy-Xu-0hC" customClass="PlayerView" customModule="Test" customModuleProvider="target">
-                                <rect key="frame" x="87" y="8" width="426" height="240"/>
+                                <rect key="frame" x="110" y="8" width="380" height="214"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="UXy-Xu-0hC" secondAttribute="height" multiplier="16:9" id="otG-DJ-edN"/>
                                 </constraints>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5PV-Qb-0CW">
-                                <rect key="frame" x="0.0" y="256" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="230" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Hev-Q9-zzf"/>
                                     <barButtonItem systemItem="play" id="2nD-bg-j5M">
@@ -153,7 +158,7 @@
                                 </items>
                             </toolbar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7x1-rj-8mq">
-                                <rect key="frame" x="556.5" y="269" width="35.5" height="17"/>
+                                <rect key="frame" x="556" y="243" width="35.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
