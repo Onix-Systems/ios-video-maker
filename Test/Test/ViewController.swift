@@ -160,6 +160,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
     
+    @IBAction func toolbarAdd2Icon(sender: AnyObject) {
+            showImagePicker(.SavedPhotosAlbum)
+    }
+    
     @IBAction func toolbarAddAction(sender: UIBarButtonItem) {
         showImagePicker(.PhotoLibrary)
     }
