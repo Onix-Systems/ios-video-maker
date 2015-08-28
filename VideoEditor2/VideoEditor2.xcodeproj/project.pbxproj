@@ -14,6 +14,7 @@
 		116A5D271B82189700466E99 /* TWPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D221B82189700466E99 /* TWPhotoPickerController.m */; };
 		116A5D2A1B82274900466E99 /* Albums.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D291B82274900466E99 /* Albums.m */; };
 		116A5D2D1B8351BE00466E99 /* ImageSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D2C1B8351BE00466E99 /* ImageSelectController.m */; };
+		11EEC67F1B90439F0079EFF4 /* ImageSelectPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EEC67E1B90439F0079EFF4 /* ImageSelectPlayerView.m */; };
 		11EFEDC51B81C27D00078735 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC41B81C27D00078735 /* main.m */; };
 		11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC71B81C27D00078735 /* AppDelegate.m */; };
 		11EFEDD11B81C27D00078735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EFEDCF1B81C27D00078735 /* Main.storyboard */; };
@@ -67,6 +68,8 @@
 		116A5D291B82274900466E99 /* Albums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Albums.m; sourceTree = "<group>"; };
 		116A5D2B1B8351BE00466E99 /* ImageSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectController.h; sourceTree = "<group>"; };
 		116A5D2C1B8351BE00466E99 /* ImageSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectController.m; sourceTree = "<group>"; };
+		11EEC67D1B90439F0079EFF4 /* ImageSelectPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectPlayerView.h; sourceTree = "<group>"; };
+		11EEC67E1B90439F0079EFF4 /* ImageSelectPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectPlayerView.m; sourceTree = "<group>"; };
 		11EFEDBF1B81C27D00078735 /* VideoEditor2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EFEDC31B81C27D00078735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11EFEDC41B81C27D00078735 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -244,6 +247,8 @@
 				11F43D671B8483CE00011C2D /* ImageSelectCollectionViewCell.m */,
 				11F43D691B84B40100011C2D /* ImageSelectCollectionViewHeader.h */,
 				11F43D6A1B84B40100011C2D /* ImageSelectCollectionViewHeader.m */,
+				11EEC67D1B90439F0079EFF4 /* ImageSelectPlayerView.h */,
+				11EEC67E1B90439F0079EFF4 /* ImageSelectPlayerView.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -456,6 +461,7 @@
 				116A5D2D1B8351BE00466E99 /* ImageSelectController.m in Sources */,
 				11EFEDC51B81C27D00078735 /* main.m in Sources */,
 				11EFEE0C1B820BEB00078735 /* UIImagePickerController+Edit.m in Sources */,
+				11EEC67F1B90439F0079EFF4 /* ImageSelectPlayerView.m in Sources */,
 				116A5D241B82189700466E99 /* TWPhoto.m in Sources */,
 				11EFEDFE1B820B6300078735 /* DZNPhotoDisplayViewController.m in Sources */,
 				11F43D6E1B84CCB500011C2D /* VideoEditorAssetsCollection.m in Sources */,

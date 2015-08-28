@@ -1,1 +1,0 @@
-../../../AMWaveTransition/Source/AMWaveTransition.h

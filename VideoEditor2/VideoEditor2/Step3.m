@@ -10,13 +10,10 @@
 #import "DZNPhotoPickerController.h"
 #import "TWPhotoPickerController.h"
 #import "ImageSelectController.h"
-#import <AMWaveTransition.h>
 
 @interface Step3 () <UINavigationControllerDelegate> {
     UIPopoverController *popoverController;
 }
-
-@property (strong, nonatomic) IBOutlet AMWaveTransition *interactive;
 @end
 
 @implementation Step3
@@ -152,47 +149,5 @@
         [controller loadDataFromALAssetsGroup:nil];
     }
 }
-
-//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-//                                  animationControllerForOperation:(UINavigationControllerOperation)operation
-//                                               fromViewController:(UIViewController*)fromVC
-//                                                 toViewController:(UIViewController*)toVC
-//{
-//    if (operation != UINavigationControllerOperationNone) {
-//        // Return your preferred transition operation
-//        return [AMWaveTransition transitionWithOperation:operation];
-//    }
-//    return nil;
-//}
-//
-//- (void) viewDidLoad
-//{
-//    [super viewDidLoad];
-//    self.interactive = [[AMWaveTransition alloc] init];
-//}
-//- (void)viewDidAppear:(BOOL)animated
-//{
-//    [super viewDidAppear:animated];
-//    //[self.interactive attachInteractiveGestureToNavigationController:self.navigationController];
-//}
-//
-//- (void)viewDidDisappear:(BOOL)animated
-//{
-//    [super viewDidDisappear:animated];
-//    
-//    [self.navigationController setDelegate:self];
-//    [self.interactive detachInteractiveGesture];
-//}
-//
-//
-//- (void)dealloc
-//{
-//    [self.navigationController setDelegate:nil];
-//}
-//
-//- (NSArray*)visibleCells
-//{
-//    return [self.tableView visibleCells];
-//}
 
 @end

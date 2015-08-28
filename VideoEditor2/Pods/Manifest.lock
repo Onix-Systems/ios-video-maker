@@ -20,7 +20,6 @@ PODS:
   - AFNetworking/UIKit (2.4.1):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - AMWaveTransition (0.6.0)
   - DZNEmptyDataSet (1.3.3)
   - GROAuth2SessionManager (0.2.3):
     - AFNetworking (~> 2.4.1)
@@ -31,7 +30,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (= 2.4.1)
-  - AMWaveTransition
   - DZNEmptyDataSet (= 1.3.3)
   - GROAuth2SessionManager (= 0.2.3)
   - MBProgressHUD (= 0.9)
@@ -39,7 +37,6 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 41d45d2c14219af0fa5addf3cfd433a002c13c9f
-  AMWaveTransition: a00588006f144d289a390aabcfa1fa1e16bb9296
   DZNEmptyDataSet: b86df9ac7565733e9fe147b5c4f654a0b799cdee
   GROAuth2SessionManager: c265ea7e6d33512e7b079ccc9bb509dba2d43131
   MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66

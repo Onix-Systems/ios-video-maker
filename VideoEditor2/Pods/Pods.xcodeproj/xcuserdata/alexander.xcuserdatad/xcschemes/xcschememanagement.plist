@@ -9,11 +9,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AMWaveTransition.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>DZNEmptyDataSet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -42,37 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>013809B67DEA34FF7219EA74DBBCEB79</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>21677024E66E934B38866A44F240D76D</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>412660DA8B58B2C5E5F53EC010DA3949</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>5352D432641F0656C90741034E32F31E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>74A7B3334D7168DD05080A3AE3AE060A</key>
+		<key>747AB2B70896DF683BEE09A53C817770</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>95EA39747D225D973811076050E5C08E</key>
+		<key>94D000B2C88BEE9AC3EE5B9A5ECC369A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E8C43F0E6921F946CE4D92579BC52205</key>
+		<key>9CE7FE83456AF73C0B2DF932E3371B7B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B99F8BAA07D2D42DC00982F2E56449DC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CC6C1308156C224C84A5E55696CBCCB0</key>
 		<dict>
 			<key>primary</key>
 			<true/>

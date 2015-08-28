@@ -19,6 +19,7 @@
 
 @interface DZNPhotoServiceClient ()
 @property (nonatomic, copy) DZNHTTPRequestCompletion completion;
+@property (nonatomic, strong) NSString* instagramMaxTagId;
 @end
 
 @implementation DZNPhotoServiceClient
@@ -195,7 +196,13 @@
         [params setObject:@"photography" forKey:@"graphical_styles"];
         [params setObject:@"true" forKey:@"exclude_nudity"];
     }
-    
+    else if (self.service == DZNPhotoPickerControllerServiceInstagram) {
+        if (page > 1 && self.instagramMaxTagId != nil) {
+            [params setObject:self.instagramMaxTagId forKey:@"max_tag_id"];
+        } else {
+            self.instagramMaxTagId = nil;
+        }
+    }
     return params;
 }
 
@@ -230,6 +237,9 @@
         return [DZNPhotoTag photoTagListFromService:self.service withResponse:objects];
     }
     else if ([[class name] isEqualToString:[DZNPhotoMetadata name]]) {
+        if (self.service == DZNPhotoPickerControllerServiceInstagram) {
+            self.instagramMaxTagId = [json valueForKeyPath:@"pagination.next_max_tag_id"];
+        }
         return [DZNPhotoMetadata metadataListWithResponse:objects service:self.service];
     }
     

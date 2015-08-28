@@ -193,6 +193,7 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="playButton" destination="2nD-bg-j5M" id="rc2-np-iwG"/>
+                        <outlet property="playerView" destination="UXy-Xu-0hC" id="gC5-Kk-dAL"/>
                         <outlet property="timelineLabel" destination="7x1-rj-8mq" id="UA2-zk-8ur"/>
                         <outlet property="timelineSlider" destination="2cw-Ve-2WV" id="iFX-Kn-Svf"/>
                         <outlet property="toolbar" destination="5PV-Qb-0CW" id="YWn-kW-ZNb"/>

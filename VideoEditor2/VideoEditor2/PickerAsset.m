@@ -46,7 +46,26 @@
 }
 
 - (NSURL*) getURL {
-    return [self.asset valueForProperty: ALAssetPropertyAssetURL];
+    NSURL *url1 = [self.asset valueForProperty: ALAssetPropertyAssetURL];
+    
+    NSURL *url2 = [self.asset defaultRepresentation].url;
+    
+    if ([url1 isEqual:url2]) {
+        return url1;
+    } else {
+        return url2;
+    }
+}
+
+- (BOOL) isVideo {
+    if ([self.asset valueForProperty: ALAssetPropertyType] == ALAssetTypeVideo) {
+        return true;
+    }
+    return false;
+}
+
+- (NSNumber*) duration {
+    return [self.asset valueForProperty: ALAssetPropertyDuration];
 }
 
 @end

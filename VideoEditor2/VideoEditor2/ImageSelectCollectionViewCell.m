@@ -18,6 +18,9 @@
 - (IBAction)selectButtonAction:(id)sender {
     self.asset.selected = !self.asset.selected;
     [self updateState];
+    if (!self.asset.selected && self.delegate) {
+        [self.delegate assetWasUnselected];
+    }
 }
 
 -(void) updateState {
@@ -30,6 +33,17 @@
     } else {
         self.selectButton.backgroundColor = [UIColor clearColor];
         [self.selectButton setTitle:@" " forState: UIControlStateNormal];
+    }
+    
+    if (self.asset.isVideo) {
+        double seconds = round(self.asset.duration.doubleValue);
+        double minutes = floor(seconds / 60);
+        seconds = seconds - minutes*60;
+        
+        self.videoDurationLabel.text = [NSString stringWithFormat:@"%.0f:%02.0f", minutes, seconds];
+        self.videoDurationLabel.hidden = NO;
+    } else {
+        self.videoDurationLabel.hidden = YES;
     }
     
     self.selectButton.layer.cornerRadius = (self.selectButton.bounds.size.height / 2);

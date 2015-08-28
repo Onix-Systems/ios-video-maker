@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>E2F1A304-3116-4F48-92F4-852615B64BBA</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Test</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>2D63DCC4EA5C95C3787E698CD30435E020DD2C6E</key>
 		<string>https://bitbucket.org/onix-systems/variouseditor.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Test/Test.xcodeproj</string>
+	<string>Test/Test.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>2D63DCC4EA5C95C3787E698CD30435E020DD2C6E</key>

@@ -19,6 +19,8 @@
 
 @property (nonatomic) BOOL selected;
 @property (nonatomic,readonly) NSInteger selectionNumber;
+@property (nonatomic,readonly) BOOL isVideo;
+@property (nonatomic,readonly) NSNumber* duration;
 
 - (NSURL*) getURL;
 

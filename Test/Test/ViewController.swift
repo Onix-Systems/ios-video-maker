@@ -59,9 +59,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.currentPlayerAsset = newAsset
                 self.playerController!.loadAsset(asset: newAsset, withVideoComposition: self.composition.mutableVideoComposition)
                 
-                self.debugView.player = self.playerController!.player!;
-                self.debugView.synchronizeToComposition(self.composition.mutableComposition, videoComposition: self.composition.mutableVideoComposition, audioMix: self.composition.mutableAudioMix)
-                self.debugView.setNeedsDisplay()
+//                self.debugView.player = self.playerController!.player!;
+//                self.debugView.synchronizeToComposition(self.composition.mutableComposition, videoComposition: self.composition.mutableVideoComposition, audioMix: self.composition.mutableAudioMix)
+//                self.debugView.setNeedsDisplay()
 
             }
         } else {

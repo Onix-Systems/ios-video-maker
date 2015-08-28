@@ -196,22 +196,23 @@ class PlayerViewController: UIViewController {
     
     var playerItemObserverIsSetup = false
     func loadAsset(#asset : AVAsset, withVideoComposition videoComposition : AVVideoComposition?) {
-//        let keys = ["duration", "tracks"]
+        let keys = ["duration", "tracks"]
         
         self.player = nil
         self.playerItem = nil
         
         self.asset = asset
         
-//        asset.loadValuesAsynchronouslyForKeys(keys) {
-            var error = NSErrorPointer();
+        asset.loadValuesAsynchronouslyForKeys(keys) {
+            dispatch_async(dispatch_get_main_queue()) {
+                var error = NSErrorPointer();
                 
-//            let tracksStatus = asset.statusOfValueForKey("duration", error: error)
-        
-//            switch (tracksStatus) {
-//                case AVKeyValueStatus.Loaded:
-//                    NSLog("loaded. Duration=%d %d", asset.duration.value, asset.duration.timescale)
-        
+                let tracksStatus = asset.statusOfValueForKey("duration", error: error)
+                
+                switch (tracksStatus) {
+                case AVKeyValueStatus.Loaded:
+                    NSLog("loaded. Duration=%d %d", asset.duration.value, asset.duration.timescale)
+                    
                     self.playerItem = AVPlayerItem(asset: asset)
                     
                     if (videoComposition != nil) {
@@ -220,24 +221,31 @@ class PlayerViewController: UIViewController {
                     
                     self.playerItem!.addObserver(self, forKeyPath: "status", options: NSKeyValueObservingOptions.Initial, context: self.playerItemObservingContext)
                     self.playerItemObserverIsSetup = true
-        
-                    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("playerFinishedPaying"), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
-
-                    self.player = AVPlayer(playerItem: self.playerItem!)
                     
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("playerFinishedPaying"), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerItem)
+                    
+                    
+                    assert(self.playerItem != nil, "self.playerItem")
+                    
+                    
+                    self.player = AVPlayer(playerItem: self.playerItem!)
                     self.playerView.player = self.player!
                     
-//                case AVKeyValueStatus.Failed:
-//                    NSLog("Error loading asset")
-//        
-//                case AVKeyValueStatus.Cancelled:
-//                    NSLog("Loading canceled")
-//        
-//                default :
-//                    break
-//            }
-//        }
-    
+                    //self.playerView.player = AVPlayer(playerItem: self.playerItem!)!
+                    //self.player = self.playerView.player
+                    
+                case AVKeyValueStatus.Failed:
+                    NSLog("Error loading asset")
+                    
+                case AVKeyValueStatus.Cancelled:
+                    NSLog("Loading canceled")
+                    
+                default :
+                    break
+                }
+            }
+        }
+
     }
     
     func removePlayerItemObservers() {

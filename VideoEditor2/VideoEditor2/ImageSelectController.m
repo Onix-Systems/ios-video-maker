@@ -10,10 +10,15 @@
 #import "PickerAssetsCollection.h"
 #import "ImageSelectCollectionViewCell.h"
 #import "ImageSelectCollectionViewHeader.h"
+#import "ImageSelectPlayerView.h"
 #import "TWImageScrollView.h"
 
-@interface ImageSelectController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ImageSelectController () <UICollectionViewDataSource, UICollectionViewDelegate, ImageSelectCollectionViewCellDelegate>
+
+@property (weak, nonatomic) IBOutlet ImageSelectPlayerView*videoPlayerView;
+
 @property (weak, nonatomic) IBOutlet TWImageScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *gridImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *gripImageView;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topPositionConstraint;
@@ -215,8 +220,17 @@
     PickerAsset *asset = [self getAssetForIndexPath:indexPath];
     
     cell.asset = asset;
+    cell.delegate = self;
     
     return cell;
+}
+
+- (void) assetWasUnselected {
+    __weak ImageSelectController *weakSelf = self;
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [weakSelf.collectionView reloadData];
+    });
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
@@ -241,7 +255,20 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     PickerAsset *asset = [self getAssetForIndexPath:indexPath];
     
-    [self.scrollView displayImage: asset.originalImage];
+    if (asset.isVideo) {
+        self.videoPlayerView.hidden = NO;
+        self.scrollView.hidden = YES;
+        self.gridImageView.hidden = YES;
+        
+        [self.videoPlayerView playVideoFromURL:[asset getURL]];
+        
+    } else {
+        self.videoPlayerView.hidden = YES;
+        self.scrollView.hidden = NO;
+        self.gridImageView.hidden = NO;
+        
+        [self.scrollView displayImage: asset.originalImage];
+    }
 }
 
 @end
