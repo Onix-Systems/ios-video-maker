@@ -42,6 +42,8 @@
 		11F43D681B8483CE00011C2D /* ImageSelectCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D671B8483CE00011C2D /* ImageSelectCollectionViewCell.m */; };
 		11F43D6B1B84B40100011C2D /* ImageSelectCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D6A1B84B40100011C2D /* ImageSelectCollectionViewHeader.m */; };
 		11F43D6E1B84CCB500011C2D /* VideoEditorAssetsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D6D1B84CCB500011C2D /* VideoEditorAssetsCollection.m */; };
+		AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1801B98896C00403713 /* Fabric.framework */; };
+		AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1811B98896C00403713 /* Crashlytics.framework */; };
 		FB3ACDA7BE4B896EFFA0C234 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6148C19E5C1D05E669F93A /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -127,6 +129,8 @@
 		11F43D6C1B84CCB500011C2D /* VideoEditorAssetsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoEditorAssetsCollection.h; sourceTree = "<group>"; };
 		11F43D6D1B84CCB500011C2D /* VideoEditorAssetsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoEditorAssetsCollection.m; sourceTree = "<group>"; };
 		69B654D231D53CB9E236F108 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		AAB4B1801B98896C00403713 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		AAB4B1811B98896C00403713 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C56F4BA644EAFB399D32217B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		CC6148C19E5C1D05E669F93A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -137,6 +141,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FB3ACDA7BE4B896EFFA0C234 /* libPods.a in Frameworks */,
+				AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */,
+				AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -153,6 +159,8 @@
 		001EE5003AB58BC390DCC64B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AAB4B1801B98896C00403713 /* Fabric.framework */,
+				AAB4B1811B98896C00403713 /* Crashlytics.framework */,
 				CC6148C19E5C1D05E669F93A /* libPods.a */,
 			);
 			name = Frameworks;
@@ -329,6 +337,7 @@
 				11EFEDBC1B81C27D00078735 /* Frameworks */,
 				11EFEDBD1B81C27D00078735 /* Resources */,
 				693DCAA6E342EF114B94F59F /* Copy Pods Resources */,
+				AAB4B17F1B98893F00403713 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -368,6 +377,7 @@
 				TargetAttributes = {
 					11EFEDBE1B81C27D00078735 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = GJX986XEH7;
 					};
 					11EFEDDA1B81C27D00078735 = {
 						CreatedOnToolsVersion = 6.4;
@@ -444,6 +454,19 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
+		};
+		AAB4B17F1B98893F00403713 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 71b87d4516d60ca4803f075498a8b283db3c13d3 289d003c56f0db9f78ee8728e8865b1d21d6fe6d9d7e9f7c698bd550899b3982";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -611,6 +634,11 @@
 			baseConfigurationReference = C56F4BA644EAFB399D32217B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = VideoEditor2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -622,6 +650,11 @@
 			baseConfigurationReference = 69B654D231D53CB9E236F108 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = VideoEditor2/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
