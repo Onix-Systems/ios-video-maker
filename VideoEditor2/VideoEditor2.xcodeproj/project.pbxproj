@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		116A5D231B82189700466E99 /* TWImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D1A1B82189700466E99 /* TWImageScrollView.m */; };
-		116A5D241B82189700466E99 /* TWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D1C1B82189700466E99 /* TWPhoto.m */; };
-		116A5D251B82189700466E99 /* TWPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D1E1B82189700466E99 /* TWPhotoCollectionViewCell.m */; };
-		116A5D261B82189700466E99 /* TWPhotoLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D201B82189700466E99 /* TWPhotoLoader.m */; };
-		116A5D271B82189700466E99 /* TWPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D221B82189700466E99 /* TWPhotoPickerController.m */; };
+		113BD9321B987A0400AAF954 /* ImageSelectCollectionViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 113BD9311B987A0400AAF954 /* ImageSelectCollectionViewFooter.m */; };
 		116A5D2A1B82274900466E99 /* Albums.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D291B82274900466E99 /* Albums.m */; };
 		116A5D2D1B8351BE00466E99 /* ImageSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D2C1B8351BE00466E99 /* ImageSelectController.m */; };
+		11B4AE081B9493BB00DB43AD /* ImageSelectDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE071B9493BB00DB43AD /* ImageSelectDataSource.m */; };
+		11B4AE0E1B959D5400DB43AD /* ImageSelectVideoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE0D1B959D5400DB43AD /* ImageSelectVideoDataSource.m */; };
+		11B4AE111B95A72200DB43AD /* ImageSelectCameraRollDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE101B95A72200DB43AD /* ImageSelectCameraRollDataSource.m */; };
+		11B4AE141B95B76600DB43AD /* ImageSelectMomentsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */; };
+		11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */; };
+		11B4AE1B1B95BF7200DB43AD /* ImageSelectScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE1A1B95BF7200DB43AD /* ImageSelectScrollView.m */; };
+		11B4AE1E1B95E14200DB43AD /* ImageSelectDZNDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */; };
 		11EEC67F1B90439F0079EFF4 /* ImageSelectPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EEC67E1B90439F0079EFF4 /* ImageSelectPlayerView.m */; };
 		11EFEDC51B81C27D00078735 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC41B81C27D00078735 /* main.m */; };
 		11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC71B81C27D00078735 /* AppDelegate.m */; };
@@ -35,7 +38,6 @@
 		11EFEE1B1B820BF600078735 /* DZNPhotoServiceFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEE151B820BF600078735 /* DZNPhotoServiceFactory.m */; };
 		11EFEE1C1B820BF600078735 /* DZNPhotoTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEE171B820BF600078735 /* DZNPhotoTag.m */; };
 		11EFEE1F1B820C0300078735 /* UIImagePickerController+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEE1E1B820C0300078735 /* UIImagePickerController+Block.m */; };
-		11F43D5C1B84655C00011C2D /* PickerAssetsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D5B1B84655C00011C2D /* PickerAssetsCollection.m */; };
 		11F43D5F1B84674E00011C2D /* PickerAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D5E1B84674E00011C2D /* PickerAsset.m */; };
 		11F43D681B8483CE00011C2D /* ImageSelectCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D671B8483CE00011C2D /* ImageSelectCollectionViewCell.m */; };
 		11F43D6B1B84B40100011C2D /* ImageSelectCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D6A1B84B40100011C2D /* ImageSelectCollectionViewHeader.m */; };
@@ -54,20 +56,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		116A5D191B82189700466E99 /* TWImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWImageScrollView.h; path = InstagramPhotoPicker/TWPhotoPicker/TWImageScrollView.h; sourceTree = "<group>"; };
-		116A5D1A1B82189700466E99 /* TWImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWImageScrollView.m; path = InstagramPhotoPicker/TWPhotoPicker/TWImageScrollView.m; sourceTree = "<group>"; };
-		116A5D1B1B82189700466E99 /* TWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWPhoto.h; path = InstagramPhotoPicker/TWPhotoPicker/TWPhoto.h; sourceTree = "<group>"; };
-		116A5D1C1B82189700466E99 /* TWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWPhoto.m; path = InstagramPhotoPicker/TWPhotoPicker/TWPhoto.m; sourceTree = "<group>"; };
-		116A5D1D1B82189700466E99 /* TWPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWPhotoCollectionViewCell.h; path = InstagramPhotoPicker/TWPhotoPicker/TWPhotoCollectionViewCell.h; sourceTree = "<group>"; };
-		116A5D1E1B82189700466E99 /* TWPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWPhotoCollectionViewCell.m; path = InstagramPhotoPicker/TWPhotoPicker/TWPhotoCollectionViewCell.m; sourceTree = "<group>"; };
-		116A5D1F1B82189700466E99 /* TWPhotoLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWPhotoLoader.h; path = InstagramPhotoPicker/TWPhotoPicker/TWPhotoLoader.h; sourceTree = "<group>"; };
-		116A5D201B82189700466E99 /* TWPhotoLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWPhotoLoader.m; path = InstagramPhotoPicker/TWPhotoPicker/TWPhotoLoader.m; sourceTree = "<group>"; };
-		116A5D211B82189700466E99 /* TWPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TWPhotoPickerController.h; path = InstagramPhotoPicker/TWPhotoPicker/TWPhotoPickerController.h; sourceTree = "<group>"; };
-		116A5D221B82189700466E99 /* TWPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TWPhotoPickerController.m; path = InstagramPhotoPicker/TWPhotoPicker/TWPhotoPickerController.m; sourceTree = "<group>"; };
+		113BD9301B987A0400AAF954 /* ImageSelectCollectionViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectCollectionViewFooter.h; sourceTree = "<group>"; };
+		113BD9311B987A0400AAF954 /* ImageSelectCollectionViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectCollectionViewFooter.m; sourceTree = "<group>"; };
 		116A5D281B82274900466E99 /* Albums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Albums.h; sourceTree = "<group>"; };
 		116A5D291B82274900466E99 /* Albums.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Albums.m; sourceTree = "<group>"; };
 		116A5D2B1B8351BE00466E99 /* ImageSelectController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectController.h; sourceTree = "<group>"; };
 		116A5D2C1B8351BE00466E99 /* ImageSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectController.m; sourceTree = "<group>"; };
+		11B4AE061B9493BB00DB43AD /* ImageSelectDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectDataSource.h; sourceTree = "<group>"; };
+		11B4AE071B9493BB00DB43AD /* ImageSelectDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectDataSource.m; sourceTree = "<group>"; };
+		11B4AE0C1B959D5400DB43AD /* ImageSelectVideoDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectVideoDataSource.h; sourceTree = "<group>"; };
+		11B4AE0D1B959D5400DB43AD /* ImageSelectVideoDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectVideoDataSource.m; sourceTree = "<group>"; };
+		11B4AE0F1B95A72200DB43AD /* ImageSelectCameraRollDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectCameraRollDataSource.h; sourceTree = "<group>"; };
+		11B4AE101B95A72200DB43AD /* ImageSelectCameraRollDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectCameraRollDataSource.m; sourceTree = "<group>"; };
+		11B4AE121B95B76600DB43AD /* ImageSelectMomentsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectMomentsDataSource.h; sourceTree = "<group>"; };
+		11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectMomentsDataSource.m; sourceTree = "<group>"; };
+		11B4AE151B95B86100DB43AD /* BaseImageSelectDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseImageSelectDataSource.h; sourceTree = "<group>"; };
+		11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseImageSelectDataSource.m; sourceTree = "<group>"; };
+		11B4AE191B95BF7200DB43AD /* ImageSelectScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectScrollView.h; sourceTree = "<group>"; };
+		11B4AE1A1B95BF7200DB43AD /* ImageSelectScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectScrollView.m; sourceTree = "<group>"; };
+		11B4AE1C1B95E14200DB43AD /* ImageSelectDZNDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectDZNDataSource.h; sourceTree = "<group>"; };
+		11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectDZNDataSource.m; sourceTree = "<group>"; };
 		11EEC67D1B90439F0079EFF4 /* ImageSelectPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectPlayerView.h; sourceTree = "<group>"; };
 		11EEC67E1B90439F0079EFF4 /* ImageSelectPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectPlayerView.m; sourceTree = "<group>"; };
 		11EFEDBF1B81C27D00078735 /* VideoEditor2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,8 +118,6 @@
 		11EFEE171B820BF600078735 /* DZNPhotoTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DZNPhotoTag.m; path = DZNPhotoPickerController/Classes/Services/DZNPhotoTag.m; sourceTree = "<group>"; };
 		11EFEE1D1B820C0300078735 /* UIImagePickerController+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImagePickerController+Block.h"; path = "DZNPhotoPickerController/Classes/UIImagePickerController/UIImagePickerController+Block.h"; sourceTree = "<group>"; };
 		11EFEE1E1B820C0300078735 /* UIImagePickerController+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImagePickerController+Block.m"; path = "DZNPhotoPickerController/Classes/UIImagePickerController/UIImagePickerController+Block.m"; sourceTree = "<group>"; };
-		11F43D5A1B84655C00011C2D /* PickerAssetsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerAssetsCollection.h; sourceTree = "<group>"; };
-		11F43D5B1B84655C00011C2D /* PickerAssetsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerAssetsCollection.m; sourceTree = "<group>"; };
 		11F43D5D1B84674E00011C2D /* PickerAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerAsset.h; sourceTree = "<group>"; };
 		11F43D5E1B84674E00011C2D /* PickerAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerAsset.m; sourceTree = "<group>"; };
 		11F43D661B8483CE00011C2D /* ImageSelectCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectCollectionViewCell.h; sourceTree = "<group>"; };
@@ -152,21 +158,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		116A5D181B82188100466E99 /* InstagramPhotoPicker */ = {
+		11B4AE181B95B8C800DB43AD /* ImageSelectDataSources */ = {
 			isa = PBXGroup;
 			children = (
-				116A5D191B82189700466E99 /* TWImageScrollView.h */,
-				116A5D1A1B82189700466E99 /* TWImageScrollView.m */,
-				116A5D1B1B82189700466E99 /* TWPhoto.h */,
-				116A5D1C1B82189700466E99 /* TWPhoto.m */,
-				116A5D1D1B82189700466E99 /* TWPhotoCollectionViewCell.h */,
-				116A5D1E1B82189700466E99 /* TWPhotoCollectionViewCell.m */,
-				116A5D1F1B82189700466E99 /* TWPhotoLoader.h */,
-				116A5D201B82189700466E99 /* TWPhotoLoader.m */,
-				116A5D211B82189700466E99 /* TWPhotoPickerController.h */,
-				116A5D221B82189700466E99 /* TWPhotoPickerController.m */,
+				11B4AE151B95B86100DB43AD /* BaseImageSelectDataSource.h */,
+				11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */,
+				11B4AE061B9493BB00DB43AD /* ImageSelectDataSource.h */,
+				11B4AE071B9493BB00DB43AD /* ImageSelectDataSource.m */,
+				11B4AE0C1B959D5400DB43AD /* ImageSelectVideoDataSource.h */,
+				11B4AE0D1B959D5400DB43AD /* ImageSelectVideoDataSource.m */,
+				11B4AE0F1B95A72200DB43AD /* ImageSelectCameraRollDataSource.h */,
+				11B4AE101B95A72200DB43AD /* ImageSelectCameraRollDataSource.m */,
+				11B4AE121B95B76600DB43AD /* ImageSelectMomentsDataSource.h */,
+				11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */,
+				11B4AE1C1B95E14200DB43AD /* ImageSelectDZNDataSource.h */,
+				11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */,
 			);
-			name = InstagramPhotoPicker;
+			name = ImageSelectDataSources;
 			sourceTree = "<group>";
 		};
 		11EFEDB61B81C27D00078735 = {
@@ -192,7 +200,6 @@
 		11EFEDC11B81C27D00078735 /* VideoEditor2 */ = {
 			isa = PBXGroup;
 			children = (
-				116A5D181B82188100466E99 /* InstagramPhotoPicker */,
 				11EFEDF41B820B4F00078735 /* DZNPhotoPickerController */,
 				11F43D591B8462CC00011C2D /* Models */,
 				11EFEDEB1B81D2D700078735 /* Controllers */,
@@ -243,10 +250,14 @@
 				116A5D291B82274900466E99 /* Albums.m */,
 				116A5D2B1B8351BE00466E99 /* ImageSelectController.h */,
 				116A5D2C1B8351BE00466E99 /* ImageSelectController.m */,
+				11B4AE191B95BF7200DB43AD /* ImageSelectScrollView.h */,
+				11B4AE1A1B95BF7200DB43AD /* ImageSelectScrollView.m */,
 				11F43D661B8483CE00011C2D /* ImageSelectCollectionViewCell.h */,
 				11F43D671B8483CE00011C2D /* ImageSelectCollectionViewCell.m */,
 				11F43D691B84B40100011C2D /* ImageSelectCollectionViewHeader.h */,
 				11F43D6A1B84B40100011C2D /* ImageSelectCollectionViewHeader.m */,
+				113BD9301B987A0400AAF954 /* ImageSelectCollectionViewFooter.h */,
+				113BD9311B987A0400AAF954 /* ImageSelectCollectionViewFooter.m */,
 				11EEC67D1B90439F0079EFF4 /* ImageSelectPlayerView.h */,
 				11EEC67E1B90439F0079EFF4 /* ImageSelectPlayerView.m */,
 			);
@@ -288,12 +299,11 @@
 		11F43D591B8462CC00011C2D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				11B4AE181B95B8C800DB43AD /* ImageSelectDataSources */,
 				11F43D6C1B84CCB500011C2D /* VideoEditorAssetsCollection.h */,
 				11F43D6D1B84CCB500011C2D /* VideoEditorAssetsCollection.m */,
 				11F43D5D1B84674E00011C2D /* PickerAsset.h */,
 				11F43D5E1B84674E00011C2D /* PickerAsset.m */,
-				11F43D5A1B84655C00011C2D /* PickerAssetsCollection.h */,
-				11F43D5B1B84655C00011C2D /* PickerAssetsCollection.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -445,32 +455,34 @@
 				11EFEE191B820BF600078735 /* DZNPhotoServiceClient.m in Sources */,
 				11EFEDFF1B820B6300078735 /* DZNPhotoPickerController.m in Sources */,
 				11EFEDFD1B820B6300078735 /* DZNPhotoDisplayViewCell.m in Sources */,
+				11B4AE081B9493BB00DB43AD /* ImageSelectDataSource.m in Sources */,
 				11F43D681B8483CE00011C2D /* ImageSelectCollectionViewCell.m in Sources */,
+				11B4AE141B95B76600DB43AD /* ImageSelectMomentsDataSource.m in Sources */,
+				113BD9321B987A0400AAF954 /* ImageSelectCollectionViewFooter.m in Sources */,
 				11EFEE1F1B820C0300078735 /* UIImagePickerController+Block.m in Sources */,
 				11EFEE1C1B820BF600078735 /* DZNPhotoTag.m in Sources */,
+				11B4AE111B95A72200DB43AD /* ImageSelectCameraRollDataSource.m in Sources */,
 				11EFEDEE1B81D2EF00078735 /* Step2.m in Sources */,
-				116A5D261B82189700466E99 /* TWPhotoLoader.m in Sources */,
 				116A5D2A1B82274900466E99 /* Albums.m in Sources */,
 				11EFEE001B820B6300078735 /* DZNPhotoPickerControllerConstants.m in Sources */,
+				11B4AE1B1B95BF7200DB43AD /* ImageSelectScrollView.m in Sources */,
+				11B4AE1E1B95E14200DB43AD /* ImageSelectDZNDataSource.m in Sources */,
 				11EFEDF11B81D31600078735 /* Step3.m in Sources */,
 				11EFEE1B1B820BF600078735 /* DZNPhotoServiceFactory.m in Sources */,
 				11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */,
-				11F43D5C1B84655C00011C2D /* PickerAssetsCollection.m in Sources */,
 				11F43D6B1B84B40100011C2D /* ImageSelectCollectionViewHeader.m in Sources */,
 				11EFEE181B820BF600078735 /* DZNPhotoMetadata.m in Sources */,
 				116A5D2D1B8351BE00466E99 /* ImageSelectController.m in Sources */,
 				11EFEDC51B81C27D00078735 /* main.m in Sources */,
 				11EFEE0C1B820BEB00078735 /* UIImagePickerController+Edit.m in Sources */,
+				11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */,
 				11EEC67F1B90439F0079EFF4 /* ImageSelectPlayerView.m in Sources */,
-				116A5D241B82189700466E99 /* TWPhoto.m in Sources */,
 				11EFEDFE1B820B6300078735 /* DZNPhotoDisplayViewController.m in Sources */,
 				11F43D6E1B84CCB500011C2D /* VideoEditorAssetsCollection.m in Sources */,
 				11EFEE1A1B820BF600078735 /* DZNPhotoServiceConstants.m in Sources */,
-				116A5D251B82189700466E99 /* TWPhotoCollectionViewCell.m in Sources */,
-				116A5D231B82189700466E99 /* TWImageScrollView.m in Sources */,
-				116A5D271B82189700466E99 /* TWPhotoPickerController.m in Sources */,
 				11F43D5F1B84674E00011C2D /* PickerAsset.m in Sources */,
 				11EFEE0B1B820BEB00078735 /* DZNPhotoEditorViewController.m in Sources */,
+				11B4AE0E1B959D5400DB43AD /* ImageSelectVideoDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

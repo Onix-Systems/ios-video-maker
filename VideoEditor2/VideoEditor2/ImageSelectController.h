@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "ImageSelectDataSource.h"
 
 @interface ImageSelectController : UIViewController
 
 @property (nonatomic) BOOL displayInMomentsStyle;
 
--(void) loadDataFromALAssetsGroup: (ALAssetsGroup*) group;
+-(void) loadDataFromDataSource: (BaseImageSelectDataSource*) dataSource;
 @end

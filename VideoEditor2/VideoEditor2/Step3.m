@@ -8,8 +8,10 @@
 
 #import "Step3.h"
 #import "DZNPhotoPickerController.h"
-#import "TWPhotoPickerController.h"
+#import "ImageSelectMomentsDataSource.h"
 #import "ImageSelectController.h"
+#import "ImageSelectDZNDataSource.h"
+
 
 @interface Step3 () <UINavigationControllerDelegate> {
     UIPopoverController *popoverController;
@@ -28,7 +30,7 @@
 #define kFlickrConsumerSecret           @"f35bf89a60e411a5"
     
 #define kInstagramConsumerKey           @"16759bba4b7e4831b80bf3412e7dcb16"
-#define kInstagramConsumerSecret        @"701c5a99144a401c8285b0c9df999509"
+#define kInstagramConsumerSecret        @""
     
 #define kGoogleImagesConsumerKey        @"AIzaSyBiRs6vQmTVseUnMqUtJwpaJX-m5o9Djr0"
 #define kGoogleImagesSearchEngineID     @"018335320449571565407:tg2a0fkobws"        //cx
@@ -71,36 +73,41 @@
 - (IBAction)cameraButtonAction {
 }
 
-- (IBAction)momentsButtonAction {
-    TWPhotoPickerController *photoPicker = [[TWPhotoPickerController alloc] init];
-    
-    photoPicker.cropBlock = ^(UIImage *image) {
-        //do something
-        //self.imageView.image = image;
-    };
-    
-    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:photoPicker];
-    [navCon setNavigationBarHidden:YES];
-    
-    [self presentViewController:navCon animated:YES completion:NULL];
-}
-
-
-- (IBAction)albumsButtonAction {
-}
-
 - (IBAction)internetButtonAction {
-    //DZNPhotoPickerController doesn't support more than 4 photo service providers
-    [self showDZVPhotoPickerForServces: DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
-     |DZNPhotoPickerControllerServiceGettyImages
-     ];
+    [self showImageSelectForDZVServices:DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
+     |DZNPhotoPickerControllerServiceGettyImages];
 }
 
 - (IBAction)facebookButtonAction {
 }
 
 - (IBAction)instagramButtonAction {
+    [self showImageSelectForDZVServices:DZNPhotoPickerControllerServiceInstagram];
+}
+
+- (IBAction)instagram2ButtonAction {
     [self showDZVPhotoPickerForServces: DZNPhotoPickerControllerServiceInstagram];
+}
+
+- (IBAction)internet2ButtonAction {
+    //DZNPhotoPickerController doesn't support more than 4 photo service providers
+    [self showDZVPhotoPickerForServces: DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
+     |DZNPhotoPickerControllerServiceGettyImages
+     ];
+
+}
+
+-(void) showImageSelectForDZVServices:(DZNPhotoPickerControllerServices) services {
+    ImageSelectController *imageSelect = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectController"];
+    
+    ImageSelectDZNDataSource *dataSource = [ImageSelectDZNDataSource new];
+    
+    dataSource.initialSearchTerm = @"California";
+    dataSource.supportedServices = services;
+    
+    [imageSelect loadDataFromDataSource:dataSource];
+    
+    [self presentController:imageSelect];
 }
 
 - (void) showDZVPhotoPickerForServces: (DZNPhotoPickerControllerServices) services {
@@ -146,7 +153,7 @@
     if([segue.identifier isEqualToString:@"displayMomentsAlbum"]) {
         ImageSelectController *controller = segue.destinationViewController;
         controller.displayInMomentsStyle = YES;
-        [controller loadDataFromALAssetsGroup:nil];
+        [controller loadDataFromDataSource:[ImageSelectMomentsDataSource new]];
     }
 }
 

@@ -8,26 +8,68 @@
 
 #import "PickerAsset.h"
 #import "VideoEditorAssetsCollection.h"
+#import "DZNPhotoMetadata.h"
+
+@interface PickerAsset ()
+
+@property (nonatomic, strong) ALAsset *asset;
+@property (nonatomic, strong) DZNPhotoMetadata* dznMetaData;
+
+@end
 
 @implementation PickerAsset
 
-- (UIImage *)thumbnailImage {
-    return [UIImage imageWithCGImage:self.asset.thumbnail];
++(PickerAsset*) makeFromALAsset: (ALAsset *) asset
+{
+    PickerAsset* newAsset = [PickerAsset new];
+    newAsset.asset = asset;
+    return newAsset;
 }
 
-- (UIImage *)originalImage {
-    return [UIImage imageWithCGImage:self.asset.defaultRepresentation.fullResolutionImage
-                               scale:self.asset.defaultRepresentation.scale
-                         orientation:(UIImageOrientation)self.asset.defaultRepresentation.orientation];
++(PickerAsset*) makeFromDZNMetaData: (DZNPhotoMetadata *) dznMetaData
+{
+    PickerAsset* newAsset = [PickerAsset new];
+    newAsset.dznMetaData = dznMetaData;
+    return newAsset;
 }
 
-- (BOOL) selected {
+
+- (UIImage *)thumbnailImage
+{
+    if (self.asset != nil) {
+        return [UIImage imageWithCGImage:self.asset.thumbnail];
+    }
+
+    return nil;
+}
+
+- (NSURL *)thumbnailImageURL
+{
+    if (self.dznMetaData != nil) {
+        return self.dznMetaData.thumbURL;
+    }
+    
+    return nil;
+}
+
+- (UIImage *)originalImage
+{
+    if (self.asset != nil) {
+        return [UIImage imageWithCGImage:self.asset.defaultRepresentation.fullResolutionImage scale:self.asset.defaultRepresentation.scale orientation:(UIImageOrientation)self.asset.defaultRepresentation.orientation];
+    }
+    
+    return nil;
+}
+
+- (BOOL) selected
+{
     VideoEditorAssetsCollection *collection = [VideoEditorAssetsCollection currentlyEditedCollection];
     
     return [collection hasAsset:self];
 }
 
-- (void) setSelected:(BOOL)selected {
+- (void) setSelected:(BOOL)selected
+{
     VideoEditorAssetsCollection *collection = [VideoEditorAssetsCollection currentlyEditedCollection];
     BOOL isAreadySelected = self.selected;
     
@@ -40,32 +82,47 @@
     }
 }
 
-- (NSInteger) selectionNumber {
+- (NSInteger) selectionNumber
+{
     VideoEditorAssetsCollection *collection = [VideoEditorAssetsCollection currentlyEditedCollection];
     return [collection getIndexOfAsset:self] + 1;
 }
 
-- (NSURL*) getURL {
-    NSURL *url1 = [self.asset valueForProperty: ALAssetPropertyAssetURL];
-    
-    NSURL *url2 = [self.asset defaultRepresentation].url;
-    
-    if ([url1 isEqual:url2]) {
-        return url1;
-    } else {
-        return url2;
+- (NSURL*) getURL
+{
+    if (self.asset != nil) {
+        return [self.asset defaultRepresentation].url;
     }
+    
+    if (self.dznMetaData != nil) {
+        return self.dznMetaData.sourceURL;
+    }
+
+    return nil;
 }
 
-- (BOOL) isVideo {
-    if ([self.asset valueForProperty: ALAssetPropertyType] == ALAssetTypeVideo) {
+- (NSDate*) getDate
+{
+    if (self.asset != nil) {
+        return [self.asset valueForProperty:ALAssetPropertyDate];
+    }
+    return nil;
+}
+
+- (BOOL) isVideo
+{
+    if (self.asset != nil && [self.asset valueForProperty: ALAssetPropertyType] == ALAssetTypeVideo) {
         return true;
     }
     return false;
 }
 
-- (NSNumber*) duration {
-    return [self.asset valueForProperty: ALAssetPropertyDuration];
+- (NSNumber*) duration
+{
+    if (self.asset != nil) {
+        return [self.asset valueForProperty: ALAssetPropertyDuration];
+    }
+    return @0.0;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "ImageSelectCollectionViewCell.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @implementation ImageSelectCollectionViewCell
 
@@ -24,7 +25,12 @@
 }
 
 -(void) updateState {
-    self.imageView.image = self.asset.thumbnailImage;
+    UIImage *image = self.asset.thumbnailImage;
+    if (image != nil) {
+        self.imageView.image = image;
+    } else {
+        [self.imageView sd_setImageWithURL:self.asset.thumbnailImageURL];
+    }
     
     if (self.asset.selected) {
         self.selectButton.backgroundColor = [UIColor blueColor];
