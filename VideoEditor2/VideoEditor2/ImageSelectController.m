@@ -27,7 +27,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *searchResultsTableView;
 @property (strong, nonatomic) UISearchBar *searchBar;
-@property (nonatomic) CGFloat searchBarRequiredHeight;
 @property (strong, nonatomic) NSMutableArray *searchTagsList;
 @property (strong, nonatomic) NSTimer *searchTimer;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
@@ -51,7 +50,6 @@
         [weakSelf reloadData];
     };
     
-    self.searchBarRequiredHeight = 0.0;
     if (self.dataSource.supportSearch) {
         self.searchBar = [UISearchBar new];
         self.searchBar.delegate = self;
@@ -60,14 +58,14 @@
         NSArray* searchScopes = [self.dataSource getSeachScopes];
         if (searchScopes.count > 1) {
             self.searchBar.scopeButtonTitles = searchScopes;
-            self.searchBar.showsScopeBar = YES;
-            self.searchBar.selectedScopeButtonIndex = [self.dataSource selectedSearchScope];
         }
         
         [self.searchBar sizeToFit];
-        self.searchBarRequiredHeight = self.searchBar.frame.size.height;
+        [self.collectionView.collectionViewLayout invalidateLayout];
+
         self.searchBar.showsScopeBar = NO;
         [self.searchBar sizeToFit];
+        [self.collectionView.collectionViewLayout invalidateLayout];
         
         self.searchTagsList = [NSMutableArray new];
     }
@@ -148,6 +146,7 @@
     self.topPositionConstraint.constant = 0;
     if (self.searchBar != nil) {
         [self.searchBar sizeToFit];
+        [self.collectionView.collectionViewLayout invalidateLayout];
     }
     [self.view setNeedsLayout];
 }
@@ -268,7 +267,7 @@
     if ([self hasSections]) {
         return CGSizeMake(0, 50);
     } else if (self.dataSource.supportSearch) {
-        return CGSizeMake(0, self.searchBarRequiredHeight);
+        return CGSizeMake(0, self.searchBar.frame.size.height);
     }
     
     return CGSizeMake(0, 0);
@@ -300,6 +299,7 @@
     self.searchBar.text = [self.dataSource getCurrentSearchTerm];
     self.searchBar.showsScopeBar = NO;
     [self.searchBar sizeToFit];
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 -(void) startSearch: (NSString* ) searchTerm {
@@ -341,6 +341,7 @@
         self.searchBar.selectedScopeButtonIndex = [self.dataSource selectedSearchScope];
     }
     [self.searchBar sizeToFit];
+    [self.collectionView.collectionViewLayout invalidateLayout];
     self.searchBar.showsCancelButton = YES;
     
     [self.searchTagsList removeAllObjects];
