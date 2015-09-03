@@ -228,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectController.m"
-            timestampString = "462978445.822548"
+            timestampString = "462980760.168571"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "-collectionView:layout:referenceSizeForHeaderInSection:"
             landmarkType = "5">
          </BreakpointContent>

@@ -288,7 +288,12 @@
         self.scrollView.hidden = NO;
         self.gridImageView.hidden = NO;
         
-        [self.scrollView displayImage: asset.originalImage];
+        UIImage* image = asset.originalImage;
+        if (image != nil) {
+            [self.scrollView displayImage: asset.originalImage];
+        } else {
+            [self.scrollView displayImageFromURL: [asset getURL]];
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "ImageSelectScrollView.h"
+#import <UIImageView+WebCache.h>
 
 @interface ImageSelectScrollView ()
 
@@ -16,8 +17,14 @@
 
 @implementation ImageSelectScrollView
 
--(void) displayImage:(UIImage *)image {
+-(void) displayImage:(UIImage *)image
+{
     self.imageView.image = image;
+}
+
+- (void)displayImageFromURL:(NSURL *)url
+{
+    [self.imageView sd_setImageWithURL:url];
 }
 
 @end

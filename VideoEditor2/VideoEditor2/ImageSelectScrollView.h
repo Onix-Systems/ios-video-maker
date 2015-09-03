@@ -12,5 +12,6 @@
 @interface ImageSelectScrollView : UIScrollView
 
 - (void)displayImage:(UIImage *)image;
+- (void)displayImageFromURL:(NSURL *)url;
 
 @end
