@@ -93,6 +93,11 @@
     [self setActivityIndicatorsVisible: NO];
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.videoPlayerView cleanPlayer];
+}
+
 
 - (IBAction)panGestureAction:(UIPanGestureRecognizer *)sender {
     CGFloat minOffset = (self.scrollView.frame.size.height -20-44) * -1;

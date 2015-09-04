@@ -15,5 +15,6 @@
 @property (weak,nonatomic) AVPlayer *player;
 
 -(void) playVideoFromURL: (NSURL*) url;
+-(void) cleanPlayer;
 
 @end
