@@ -11,9 +11,12 @@
 
 @interface ImageSelectMomentsDataSource ()
 
+@property (strong, nonatomic) NSMutableDictionary *momentsTitles;
 @property (strong, nonatomic) NSMutableDictionary *momentsData;
 @property (strong, nonatomic) NSMutableArray *momentsKeys;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
+
+
 @end
 
 @implementation ImageSelectMomentsDataSource
@@ -29,65 +32,53 @@
     return self;
 }
 
--(void)parseAssets {
-    if ((self.momentsData != nil) && (self.momentsKeys != nil)) {
-        return;
-    }
+-(void)loadAssets {
+    self.isLoading = YES;
     
+    self.momentsTitles = [NSMutableDictionary new];
     self.momentsData = [NSMutableDictionary new];
+    self.momentsKeys = [NSMutableArray new];
     
-    for (int i =0; i < self.assets.count; i++) {
-        PickerAsset *asset = self.assets[i];
+    PHFetchOptions* options = [PHFetchOptions new];
+    //options.predicate = [NSPredicate predicateWithFormat:@"estimatedAssetCount > 0"];
+    
+    PHFetchResult *results = [PHAssetCollection fetchAssetCollectionsWithType: PHAssetCollectionTypeMoment subtype:PHAssetCollectionSubtypeAny options:options];
+    
+    for(PHAssetCollection *collection in results) {
+        NSString *key = collection.localIdentifier;
+
+        NSString *title = collection.localizedTitle != nil ? collection.localizedTitle : [self.dateFormatter stringFromDate:collection.startDate];
         
-        NSDate* date = [asset getDate];
-        NSTimeInterval timeInterval = [date timeIntervalSince1970];
+        self.momentsTitles[key] = title;
         
-        timeInterval = timeInterval - fmod(timeInterval, 60*60*24);
+        [self.momentsKeys addObject:key];
         
-        NSDate *cleanDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];
-        
-        if (self.momentsData[cleanDate] == nil) {
-            self.momentsData[cleanDate] = [NSMutableArray new];
+        PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
+        NSMutableArray* assets = [NSMutableArray new];
+        for (PHAsset *asset in results) {
+            [assets addObject:[PickerAsset makeFromPHAsset:asset]];
         }
-        [((NSMutableArray*) self.momentsData[cleanDate]) addObject:asset];
+        self.momentsData[key] = assets;
     }
-    
-    self.momentsKeys = [NSMutableArray arrayWithArray:[self.momentsData allKeys]];
-    
-    [self.momentsKeys sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        NSDate *d1 = obj1;
-        NSDate *d2 = obj2;
-        return [d1 compare:d2];
-    }];
+
+    self.isLoading = NO;
+    self.didFinishLoading(nil);
 }
 
 -(NSInteger)getNumberofSectionsInData {
-    [self parseAssets];
     return self.momentsKeys.count;
 }
 
 -(NSDictionary*) getAssetsBySections {
-    [self parseAssets];
     return self.momentsData;
 }
 
 -(NSArray*) getSectionsKeys {
-    [self parseAssets];
     return self.momentsKeys;
 }
 
 -(NSString*) getSectionTitle: (id) sectionKey {
-    NSDate *date = sectionKey;
-
-    return [self.dateFormatter stringFromDate:date];
-}
-
--(NSMutableDictionary*) momentsData {
-    if (_momentsData == nil) {
-
-    }
-    
-    return _momentsData;
+    return self.momentsTitles[sectionKey];
 }
 
 @end

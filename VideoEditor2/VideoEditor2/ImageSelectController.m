@@ -83,6 +83,7 @@
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    [self.collectionView reloadData];
     
     self.definesPresentationContext = YES;
     
@@ -212,7 +213,8 @@
         NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
         return sectionData.count;
     }
-    return self.dataSource.assets.count;
+    NSInteger count = self.dataSource.assets.count;
+    return count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -286,19 +288,18 @@
         self.scrollView.hidden = YES;
         self.gridImageView.hidden = YES;
         
-        [self.videoPlayerView playVideoFromURL:[asset getURL]];
+        [asset loadVideoAsset:^(AVAsset *asset) {
+            [self.videoPlayerView playVideoFromAsset:asset];
+        }];
         
     } else {
         self.videoPlayerView.hidden = YES;
         self.scrollView.hidden = NO;
         self.gridImageView.hidden = NO;
         
-        UIImage* image = asset.originalImage;
-        if (image != nil) {
-            [self.scrollView displayImage: asset.originalImage];
-        } else {
-            [self.scrollView displayImageFromURL: [asset getURL]];
-        }
+        [asset loadOriginalImage:^(UIImage *resultImage) {
+            [self.scrollView displayImage: resultImage];
+        }];
     }
 }
 

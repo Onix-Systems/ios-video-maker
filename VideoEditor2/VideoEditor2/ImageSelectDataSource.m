@@ -11,16 +11,22 @@
 
 @interface ImageSelectDataSource()
 
-@property (strong,nonatomic) ALAssetsGroup* group;
+@property (strong,nonatomic) PHAssetCollection* collection;
 
 @end
 
 @implementation ImageSelectDataSource
 
--(instancetype)initWithAssetsGroup:(ALAssetsGroup *)group {
++(PHImageManager*) getImageManager
+{
+    return [PHImageManager defaultManager];
+}
+
+-(instancetype)initWithAssetsCollection:(PHAssetCollection *)collection
+{
     self = [super init];
     if (self) {
-        self.group = group;
+        self.collection = collection;
         
         self.assets = [NSArray new];
         
@@ -34,12 +40,16 @@
 -(void)loadAssets {
     self.isLoading = YES;
     
+    PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:self.collection options:nil];
     NSMutableArray* assets = [NSMutableArray new];
-    [self loadAssetsFromGrop:self.group into:assets withCmpletion:^(NSError *error){
-        self.assets = assets;
-        self.isLoading = YES;
-        self.didFinishLoading(error);
-    }];
+    
+    for (PHAsset *asset in results) {
+        [assets addObject:[PickerAsset makeFromPHAsset:asset]];
+    }
+    
+    self.assets = assets;
+    self.isLoading = NO;
+    self.didFinishLoading(nil);
 }
 
 @end

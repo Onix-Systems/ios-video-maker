@@ -11,8 +11,6 @@
 		116A5D2A1B82274900466E99 /* Albums.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D291B82274900466E99 /* Albums.m */; };
 		116A5D2D1B8351BE00466E99 /* ImageSelectController.m in Sources */ = {isa = PBXBuildFile; fileRef = 116A5D2C1B8351BE00466E99 /* ImageSelectController.m */; };
 		11B4AE081B9493BB00DB43AD /* ImageSelectDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE071B9493BB00DB43AD /* ImageSelectDataSource.m */; };
-		11B4AE0E1B959D5400DB43AD /* ImageSelectVideoDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE0D1B959D5400DB43AD /* ImageSelectVideoDataSource.m */; };
-		11B4AE111B95A72200DB43AD /* ImageSelectCameraRollDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE101B95A72200DB43AD /* ImageSelectCameraRollDataSource.m */; };
 		11B4AE141B95B76600DB43AD /* ImageSelectMomentsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */; };
 		11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */; };
 		11B4AE1B1B95BF7200DB43AD /* ImageSelectScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE1A1B95BF7200DB43AD /* ImageSelectScrollView.m */; };
@@ -66,10 +64,6 @@
 		116A5D2C1B8351BE00466E99 /* ImageSelectController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectController.m; sourceTree = "<group>"; };
 		11B4AE061B9493BB00DB43AD /* ImageSelectDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectDataSource.h; sourceTree = "<group>"; };
 		11B4AE071B9493BB00DB43AD /* ImageSelectDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectDataSource.m; sourceTree = "<group>"; };
-		11B4AE0C1B959D5400DB43AD /* ImageSelectVideoDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectVideoDataSource.h; sourceTree = "<group>"; };
-		11B4AE0D1B959D5400DB43AD /* ImageSelectVideoDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectVideoDataSource.m; sourceTree = "<group>"; };
-		11B4AE0F1B95A72200DB43AD /* ImageSelectCameraRollDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectCameraRollDataSource.h; sourceTree = "<group>"; };
-		11B4AE101B95A72200DB43AD /* ImageSelectCameraRollDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectCameraRollDataSource.m; sourceTree = "<group>"; };
 		11B4AE121B95B76600DB43AD /* ImageSelectMomentsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectMomentsDataSource.h; sourceTree = "<group>"; };
 		11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectMomentsDataSource.m; sourceTree = "<group>"; };
 		11B4AE151B95B86100DB43AD /* BaseImageSelectDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseImageSelectDataSource.h; sourceTree = "<group>"; };
@@ -173,10 +167,6 @@
 				11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */,
 				11B4AE061B9493BB00DB43AD /* ImageSelectDataSource.h */,
 				11B4AE071B9493BB00DB43AD /* ImageSelectDataSource.m */,
-				11B4AE0C1B959D5400DB43AD /* ImageSelectVideoDataSource.h */,
-				11B4AE0D1B959D5400DB43AD /* ImageSelectVideoDataSource.m */,
-				11B4AE0F1B95A72200DB43AD /* ImageSelectCameraRollDataSource.h */,
-				11B4AE101B95A72200DB43AD /* ImageSelectCameraRollDataSource.m */,
 				11B4AE121B95B76600DB43AD /* ImageSelectMomentsDataSource.h */,
 				11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */,
 				11B4AE1C1B95E14200DB43AD /* ImageSelectDZNDataSource.h */,
@@ -484,7 +474,6 @@
 				113BD9321B987A0400AAF954 /* ImageSelectCollectionViewFooter.m in Sources */,
 				11EFEE1F1B820C0300078735 /* UIImagePickerController+Block.m in Sources */,
 				11EFEE1C1B820BF600078735 /* DZNPhotoTag.m in Sources */,
-				11B4AE111B95A72200DB43AD /* ImageSelectCameraRollDataSource.m in Sources */,
 				11EFEDEE1B81D2EF00078735 /* Step2.m in Sources */,
 				116A5D2A1B82274900466E99 /* Albums.m in Sources */,
 				11EFEE001B820B6300078735 /* DZNPhotoPickerControllerConstants.m in Sources */,
@@ -505,7 +494,6 @@
 				11EFEE1A1B820BF600078735 /* DZNPhotoServiceConstants.m in Sources */,
 				11F43D5F1B84674E00011C2D /* PickerAsset.m in Sources */,
 				11EFEE0B1B820BEB00078735 /* DZNPhotoEditorViewController.m in Sources */,
-				11B4AE0E1B959D5400DB43AD /* ImageSelectVideoDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,7 +638,7 @@
 			baseConfigurationReference = 69B654D231D53CB9E236F108 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

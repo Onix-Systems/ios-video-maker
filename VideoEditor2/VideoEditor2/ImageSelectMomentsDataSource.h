@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ImageSelectCameraRollDataSource.h"
+#import "BaseImageSelectDataSource.h"
 
-@interface ImageSelectMomentsDataSource : ImageSelectCameraRollDataSource
+@interface ImageSelectMomentsDataSource : BaseImageSelectDataSource
 
 @end

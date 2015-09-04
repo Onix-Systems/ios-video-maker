@@ -109,7 +109,10 @@
 
 -(void) playVideoFromURL: (NSURL*) url {
     AVURLAsset* asset = [AVURLAsset assetWithURL:url];
+    [self playVideoFromAsset:asset];
+}
 
+-(void) playVideoFromAsset: (AVAsset*) asset {
     [self cleanPlayer];
     
     [asset loadValuesAsynchronouslyForKeys:@[@"tracks", @"duration"] completionHandler:^{

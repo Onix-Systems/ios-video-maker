@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 #import "BaseImageSelectDataSource.h"
 
 @interface ImageSelectDataSource : BaseImageSelectDataSource
--(instancetype)initWithAssetsGroup:(ALAssetsGroup *)group;
+
++(PHImageManager*) getImageManager;
+
+-(instancetype)initWithAssetsCollection:(PHAssetCollection *)collection;
 @end

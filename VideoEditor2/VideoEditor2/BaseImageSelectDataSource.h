@@ -7,14 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
+#import "PickerAsset.h"
 
 typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 
-@interface BaseImageSelectDataSource : NSObject
-
-+(ALAssetsLibrary*) assetLibrary;
--(void) loadAssetsFromGrop: (ALAssetsGroup*) group into: (NSMutableArray*) assets withCmpletion:(PickerAssetLoadCompletionBlock) groupLoaded;
+@interface BaseImageSelectDataSource : NSObject;
 
 @property (strong, nonatomic) NSArray *assets;
 @property (nonatomic) BOOL isLoading;

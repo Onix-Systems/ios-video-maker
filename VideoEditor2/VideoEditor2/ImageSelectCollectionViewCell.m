@@ -25,12 +25,23 @@
 }
 
 -(void) updateState {
-    UIImage *image = self.asset.thumbnailImage;
-    if (image != nil) {
-        self.imageView.image = image;
-    } else {
-        [self.imageView sd_setImageWithURL:self.asset.thumbnailImageURL];
-    }
+    NSInteger currentTag = self.imageView.tag + 1;
+    self.imageView.tag = currentTag;
+    
+    __weak ImageSelectCollectionViewCell* weakSelf = self;
+    
+    [self.asset loadThumbnailImage: ^(UIImage* resultImage) {
+        if (resultImage != nil && weakSelf.imageView.tag == currentTag) {
+            weakSelf.imageView.image = resultImage;
+            [weakSelf setNeedsDisplay];
+        }
+    }];
+    
+//    if (image != nil) {
+//        self.imageView.image = image;
+//    } else {
+//        [self.imageView sd_setImageWithURL:self.asset.thumbnailImageURL];
+//    }
     
     if (self.asset.selected) {
         self.selectButton.backgroundColor = [UIColor blueColor];

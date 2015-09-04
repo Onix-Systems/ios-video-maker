@@ -9,7 +9,8 @@
 #import "Albums.h"
 #import "ImageSelectController.h"
 #import "ImageSelectDataSource.h"
-#import "ImageSelectVideoDataSource.h"
+
+#include <Photos/Photos.h>
 
 @interface Albums () <UITableViewDelegate, UITableViewDataSource>
 
@@ -24,47 +25,99 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
+//    [BaseImageSelectDataSource.assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+//        if (group != nil) {
+//            [self.albums addObject: group];
+//        } else {
+//            [self.tableView reloadData];
+//        }
+//        
+//    } failureBlock:^(NSError *error) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
+//                                                        message:error.localizedDescription
+//                                                       delegate:nil
+//                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
+//                                              otherButtonTitles:nil];
+//        [alert show];
+//    }];
+    
     self.albums = [NSMutableArray new];
     
-    [BaseImageSelectDataSource.assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-        if (group != nil) {
-            [self.albums addObject: group];
-        } else {
-            [self.tableView reloadData];
-        }
-        
-    } failureBlock:^(NSError *error) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
-                                                        message:error.localizedDescription
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                              otherButtonTitles:nil];
-        [alert show];
-    }];
-   
+    
+    [self fetchAlbums:PHAssetCollectionTypeSmartAlbum subType:PHAssetCollectionSubtypeSmartAlbumVideos];
+    [self fetchAlbums:PHAssetCollectionTypeAlbum subType:PHAssetCollectionSubtypeAny];
+    [self fetchAlbums:PHAssetCollectionTypeSmartAlbum subType:PHAssetCollectionSubtypeSmartAlbumUserLibrary];
+    
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
 }
 
+-(void)fetchAlbums:(PHAssetCollectionType)type subType: (PHAssetCollectionSubtype) subType {
+    PHFetchOptions* options = [PHFetchOptions new];
+    //options.predicate = [NSPredicate predicateWithFormat:@"estimatedAssetCount > 0"];
+    
+    PHFetchResult *results = [PHAssetCollection fetchAssetCollectionsWithType: type subtype:subType options:options];
+    
+    for(PHAssetCollection *collection in results) {
+        [self.albums addObject:collection];
+    }
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.albums.count > 0 ? self.albums.count + 1 : 0;
+    NSInteger count = self.albums.count;
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlbumsTableViewCell" forIndexPath:indexPath];
     
-    if (indexPath.row == 0) {
-        
-        cell.textLabel.text = @"Video";
-
-    } else {
-        ALAssetsGroup *album = self.albums[indexPath.row - 1];
-        
-        cell.textLabel.text = [album valueForProperty:ALAssetsGroupPropertyName];
-        cell.imageView.image = [UIImage imageWithCGImage:[album posterImage]];
-        
+    PHAssetCollection *album = self.albums[indexPath.row];
+    
+    NSString *type;
+    
+    switch (album.assetCollectionType) {
+        case PHAssetCollectionTypeAlbum: type = @"TypeAlbum"; break;
+        case PHAssetCollectionTypeSmartAlbum: type = @"TypeSmartAlbum"; break;
+        case PHAssetCollectionTypeMoment: type = @"TypeMoment"; break;
+        default: type = @"zzz"; break;
     }
     
+    NSString *subType;
+    
+    switch (album.assetCollectionSubtype) {
+        case PHAssetCollectionSubtypeAlbumRegular: subType = @"SubtypeAlbumRegular"; break;
+        case PHAssetCollectionSubtypeAlbumSyncedEvent: subType = @"SubtypeAlbumSyncedEvent"; break;
+        case PHAssetCollectionSubtypeAlbumSyncedFaces: subType = @"SubtypeAlbumSyncedFaces"; break;
+        case PHAssetCollectionSubtypeAlbumSyncedAlbum: subType = @"SubtypeAlbumSyncedAlbum"; break;
+        case PHAssetCollectionSubtypeAlbumImported: subType = @"SubtypeAlbumImported"; break;
+        case PHAssetCollectionSubtypeAlbumMyPhotoStream: subType = @"SubtypeAlbumMyPhotoStream"; break;
+        case PHAssetCollectionSubtypeAlbumCloudShared: subType = @"SubtypeAlbumCloudShared"; break;
+        case PHAssetCollectionSubtypeSmartAlbumGeneric: subType = @"SubtypeSmartAlbumGeneric"; break;
+        case PHAssetCollectionSubtypeSmartAlbumPanoramas: subType = @"SubtypeSmartAlbumPanoramas"; break;
+        case PHAssetCollectionSubtypeSmartAlbumVideos: subType = @"SubtypeSmartAlbumVideos"; break;
+        case PHAssetCollectionSubtypeSmartAlbumFavorites: subType = @"SubtypeSmartAlbumFavorites"; break;
+        case PHAssetCollectionSubtypeSmartAlbumTimelapses: subType = @"SubtypeSmartAlbumTimelapses"; break;
+        case PHAssetCollectionSubtypeSmartAlbumAllHidden: subType = @"SubtypeSmartAlbumAllHidden"; break;
+        case PHAssetCollectionSubtypeSmartAlbumRecentlyAdded: subType = @"SubtypeSmartAlbumRecentlyAdded"; break;
+        case PHAssetCollectionSubtypeSmartAlbumBursts: subType = @"SubtypeSmartAlbumBursts"; break;
+        case PHAssetCollectionSubtypeSmartAlbumSlomoVideos: subType = @"SubtypeSmartAlbumSlomoVideos"; break;
+        case PHAssetCollectionSubtypeSmartAlbumUserLibrary: subType = @"SubtypeSmartAlbumUserLibrary"; break;
+        case PHAssetCollectionSubtypeAny: subType = @"SubtypeAny"; break;
+
+        default:
+            break;
+    }
+    
+    NSString *name = album.localizedTitle;
+    
+    cell.textLabel.text = name;
+    PHFetchResult *keyAssets = [PHAsset fetchKeyAssetsInAssetCollection:album options:nil];
+    PHImageRequestOptions* options = [PHImageRequestOptions new];
+    [[PHImageManager defaultManager] requestImageForAsset:keyAssets[0] targetSize:CGSizeMake(100.0, 100.0) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+        cell.imageView.image = result;
+        [cell setNeedsLayout];
+    }];
+
     return cell;
 }
 
@@ -76,12 +129,8 @@
     if ([segue.identifier isEqual: @"displayImageSelectFromAlbum"]) {
         ImageSelectController *controller = segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-        
-        if (indexPath.row == 0) {
-            [controller loadDataFromDataSource:[ImageSelectVideoDataSource new]];
-        } else {
-            [controller loadDataFromDataSource:[[ImageSelectDataSource alloc] initWithAssetsGroup:self.albums[indexPath.row - 1]]];
-        }
+
+        [controller loadDataFromDataSource:[[ImageSelectDataSource alloc] initWithAssetsCollection:self.albums[indexPath.row]]];
     }
 }
 

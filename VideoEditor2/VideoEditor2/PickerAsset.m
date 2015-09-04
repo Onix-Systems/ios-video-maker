@@ -9,17 +9,19 @@
 #import "PickerAsset.h"
 #import "VideoEditorAssetsCollection.h"
 #import "DZNPhotoMetadata.h"
+#import "ImageSelectDataSource.h"
+#import <SDWebImage/SDWebImageManager.h>
 
 @interface PickerAsset ()
 
-@property (nonatomic, strong) ALAsset *asset;
+@property (nonatomic, strong) PHAsset* asset;
 @property (nonatomic, strong) DZNPhotoMetadata* dznMetaData;
 
 @end
 
 @implementation PickerAsset
 
-+(PickerAsset*) makeFromALAsset: (ALAsset *) asset
++(PickerAsset*) makeFromPHAsset: (PHAsset *) asset
 {
     PickerAsset* newAsset = [PickerAsset new];
     newAsset.asset = asset;
@@ -33,32 +35,44 @@
     return newAsset;
 }
 
-
-- (UIImage *)thumbnailImage
+-(void) loadThumbnailImage: (ImageLoadCompletionBlock) completionBlock
 {
     if (self.asset != nil) {
-        return [UIImage imageWithCGImage:self.asset.thumbnail];
+        PHImageRequestOptions* options = [PHImageRequestOptions new];
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
+        
+        [[ImageSelectDataSource getImageManager] requestImageForAsset:self.asset targetSize:CGSizeMake(100.0, 100.0) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            completionBlock(result);
+        }];
+        return;
     }
-
-    return nil;
-}
-
-- (NSURL *)thumbnailImageURL
-{
     if (self.dznMetaData != nil) {
-        return self.dznMetaData.thumbURL;
+        [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.thumbURL options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            //do nothing
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            completionBlock(image);
+        }];
     }
-    
-    return nil;
 }
 
-- (UIImage *)originalImage
+-(void) loadOriginalImage: (ImageLoadCompletionBlock) completionBlock
 {
     if (self.asset != nil) {
-        return [UIImage imageWithCGImage:self.asset.defaultRepresentation.fullResolutionImage scale:self.asset.defaultRepresentation.scale orientation:(UIImageOrientation)self.asset.defaultRepresentation.orientation];
+        PHImageRequestOptions* options = [PHImageRequestOptions new];
+        options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
+        
+        [[ImageSelectDataSource getImageManager] requestImageForAsset:self.asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            completionBlock(result);
+        }];
+        return;
     }
-    
-    return nil;
+    if (self.dznMetaData != nil) {
+        [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.sourceURL options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            //do nothing
+        } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            completionBlock(image);
+        }];
+    }
 }
 
 - (BOOL) selected
@@ -88,14 +102,14 @@
     return [collection getIndexOfAsset:self] + 1;
 }
 
-- (NSURL*) getURL
+- (NSString*) getIdentifier
 {
     if (self.asset != nil) {
-        return [self.asset defaultRepresentation].url;
+        return self.asset.localIdentifier;
     }
     
     if (self.dznMetaData != nil) {
-        return self.dznMetaData.sourceURL;
+        return [self.dznMetaData.sourceURL absoluteString];
     }
 
     return nil;
@@ -104,23 +118,35 @@
 - (NSDate*) getDate
 {
     if (self.asset != nil) {
-        return [self.asset valueForProperty:ALAssetPropertyDate];
+        return self.asset.creationDate;
     }
     return nil;
 }
 
 - (BOOL) isVideo
 {
-    if (self.asset != nil && [self.asset valueForProperty: ALAssetPropertyType] == ALAssetTypeVideo) {
+    if (self.asset != nil && self.asset.mediaType == PHAssetMediaTypeVideo) {
         return true;
     }
     return false;
 }
 
+-(void) loadVideoAsset: (void(^)(AVAsset *asset)) completionBlock
+{
+    if ([self isVideo]) {
+        
+        PHVideoRequestOptions* options = [PHVideoRequestOptions new];
+        
+        [[ImageSelectDataSource getImageManager] requestAVAssetForVideo:self.asset options:options resultHandler:^(AVAsset *asset, AVAudioMix *audioMix, NSDictionary *info) {
+            completionBlock(asset);
+        }];
+    }
+};
+
 - (NSNumber*) duration
 {
     if (self.asset != nil) {
-        return [self.asset valueForProperty: ALAssetPropertyDuration];
+        return @(self.asset.duration);
     }
     return @0.0;
 }

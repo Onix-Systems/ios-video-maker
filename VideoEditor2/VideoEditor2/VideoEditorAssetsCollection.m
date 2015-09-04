@@ -40,13 +40,13 @@
 }
 
 -(NSInteger) getIndexOfAsset: (PickerAsset*) asset {
-    NSURL *url = [asset getURL];
+    NSString *assetID = [asset getIdentifier];
     
     NSInteger index = -1;
     for (PickerAsset* existingAsset in self.assets) {
         index++;
         
-        if ([url isEqual:[existingAsset getURL]]) {
+        if ([assetID isEqual:[existingAsset getIdentifier]]) {
             return index;
         }
     }

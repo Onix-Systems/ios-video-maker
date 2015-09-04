@@ -7,25 +7,29 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 #import <UIKit/UIKit.h>
 #import "DZNPhotoMetadata.h"
 
-@interface PickerAsset : NSObject
+typedef void(^ImageLoadCompletionBlock)(UIImage* resultImage);
 
-@property (nonatomic, readonly) UIImage *thumbnailImage;
-@property (nonatomic, readonly) NSURL *thumbnailImageURL;
-@property (nonatomic, readonly) UIImage *originalImage;
+@interface PickerAsset : NSObject
 
 @property (nonatomic) BOOL selected;
 @property (nonatomic,readonly) NSInteger selectionNumber;
 @property (nonatomic,readonly) BOOL isVideo;
 @property (nonatomic,readonly) NSNumber* duration;
 
-- (NSURL*) getURL;
-- (NSDate*) getDate;
 
-+(PickerAsset*) makeFromALAsset: (ALAsset *) asset;
+-(void) loadThumbnailImage: (ImageLoadCompletionBlock) completionBlock;
+-(void) loadOriginalImage: (ImageLoadCompletionBlock) completionBlock;
+-(void) loadVideoAsset: (void(^)(AVAsset *asset)) completionBlock;
+
+- (NSString*) getIdentifier;
+- (NSDate*) getDate;
+- (AVAsset*) getVideoAsset;
+
++(PickerAsset*) makeFromPHAsset: (PHAsset *) asset;
 +(PickerAsset*) makeFromDZNMetaData: (DZNPhotoMetadata *) dznMetaData;
 
 @end
