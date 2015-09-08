@@ -112,11 +112,14 @@
     
     cell.textLabel.text = name;
     PHFetchResult *keyAssets = [PHAsset fetchKeyAssetsInAssetCollection:album options:nil];
-    PHImageRequestOptions* options = [PHImageRequestOptions new];
-    [[PHImageManager defaultManager] requestImageForAsset:keyAssets[0] targetSize:CGSizeMake(100.0, 100.0) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-        cell.imageView.image = result;
-        [cell setNeedsLayout];
-    }];
+    if (keyAssets.count > 0) {
+        PHImageRequestOptions* options = [PHImageRequestOptions new];
+    
+        [[PHImageManager defaultManager] requestImageForAsset:keyAssets[0] targetSize:CGSizeMake(100.0, 100.0) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            cell.imageView.image = result;
+            [cell setNeedsLayout];
+        }];
+    };
 
     return cell;
 }
