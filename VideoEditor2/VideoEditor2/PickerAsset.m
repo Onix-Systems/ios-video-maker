@@ -12,6 +12,8 @@
 #import "ImageSelectDataSource.h"
 #import <SDWebImage/SDWebImageManager.h>
 
+#define hiRezSize CGSizeMake(720, 480)
+
 @interface PickerAsset ()
 
 @property (nonatomic, strong) PHAsset* asset;
@@ -60,16 +62,32 @@
     if (self.asset != nil) {
         PHImageRequestOptions* options = [PHImageRequestOptions new];
         options.deliveryMode = PHImageRequestOptionsDeliveryModeOpportunistic;
+        options.networkAccessAllowed = YES;
+        options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+            if (self.progressIndicator != nil) {
+                //NSLog(@"Set progress indicator for %@ to %.3f", [self getIdentifier], progress);
+                [self.progressIndicator setDownloadingProgress: (CGFloat)progress];
+            }
+        };
         
-        [[ImageSelectDataSource getImageManager] requestImageForAsset:self.asset targetSize:PHImageManagerMaximumSize contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+        [[ImageSelectDataSource getImageManager] requestImageForAsset:self.asset targetSize:hiRezSize contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+            if (self.progressIndicator != nil) {
+                [self.progressIndicator setDownloadingProgress: 1];
+            }
             completionBlock(result);
         }];
         return;
     }
     if (self.dznMetaData != nil) {
         [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.sourceURL options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            //do nothing
+            if (self.progressIndicator != nil) {
+                //NSLog(@"Set progress indicator for %@ to %.3f", [self getIdentifier], (CGFloat)receivedSize/expectedSize);
+                [self.progressIndicator setDownloadingProgress: (CGFloat)receivedSize/expectedSize];
+            }
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+            if (self.progressIndicator != nil) {
+                [self.progressIndicator setDownloadingProgress: 1];
+            }
             completionBlock(image);
         }];
     }
@@ -88,9 +106,11 @@
     BOOL isAreadySelected = self.selected;
     
     if (selected && !isAreadySelected) {
-        [collection addAsset:self];
+        [self loadOriginalImage:^(UIImage *resultImage) {
+            [collection addAsset:self];
+        }];
     }
-    
+
     if (!selected && isAreadySelected) {
         [collection removeAsset:self];
     }

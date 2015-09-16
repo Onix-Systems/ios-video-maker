@@ -9,7 +9,7 @@
 #import "Step3.h"
 #import "DZNPhotoPickerController.h"
 #import "ImageSelectMomentsDataSource.h"
-#import "ImageSelectController.h"
+#import "ImageSelectorController.h"
 #import "ImageSelectDZNDataSource.h"
 
 
@@ -73,8 +73,18 @@
 - (IBAction)cameraButtonAction {
 }
 
+- (IBAction)momentsButtonAction {
+    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
+    
+    ImageSelectMomentsDataSource *dataSource = [ImageSelectMomentsDataSource new];
+    
+    imageSelector.dataSource = dataSource;
+    
+    [self presentViewController:imageSelector animated:YES completion:NULL];
+}
+
 - (IBAction)internetButtonAction {
-    [self showImageSelectForDZVServices:DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
+    [self showImageSelectorForDZVServices:DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
      |DZNPhotoPickerControllerServiceGettyImages];
 }
 
@@ -82,7 +92,7 @@
 }
 
 - (IBAction)instagramButtonAction {
-    [self showImageSelectForDZVServices:DZNPhotoPickerControllerServiceInstagram];
+    [self showImageSelectorForDZVServices:DZNPhotoPickerControllerServiceInstagram];
 }
 
 - (IBAction)instagram2ButtonAction {
@@ -94,20 +104,19 @@
     [self showDZVPhotoPickerForServces: DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
      |DZNPhotoPickerControllerServiceGettyImages
      ];
-
 }
 
--(void) showImageSelectForDZVServices:(DZNPhotoPickerControllerServices) services {
-    ImageSelectController *imageSelect = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectController"];
+-(void) showImageSelectorForDZVServices:(DZNPhotoPickerControllerServices) services {
+    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
     
     ImageSelectDZNDataSource *dataSource = [ImageSelectDZNDataSource new];
     
     dataSource.initialSearchTerm = @"California";
     dataSource.supportedServices = services;
     
-    [imageSelect loadDataFromDataSource:dataSource];
+    imageSelector.dataSource = dataSource;
     
-    [self presentController:imageSelect];
+    [self presentController:imageSelector];
 }
 
 - (void) showDZVPhotoPickerForServces: (DZNPhotoPickerControllerServices) services {
@@ -147,14 +156,6 @@
 - (void)dismissController:(UIViewController *)controller
 {
         [controller dismissViewControllerAnimated:YES completion:NULL];
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.identifier isEqualToString:@"displayMomentsAlbum"]) {
-        ImageSelectController *controller = segue.destinationViewController;
-        controller.displayInMomentsStyle = YES;
-        [controller loadDataFromDataSource:[ImageSelectMomentsDataSource new]];
-    }
 }
 
 @end

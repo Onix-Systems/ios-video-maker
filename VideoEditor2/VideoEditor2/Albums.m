@@ -7,7 +7,7 @@
 //
 
 #import "Albums.h"
-#import "ImageSelectController.h"
+#import "ImageSelectorController.h"
 #import "ImageSelectDataSource.h"
 
 #include <Photos/Photos.h>
@@ -24,25 +24,7 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
-//    [BaseImageSelectDataSource.assetLibrary enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-//        if (group != nil) {
-//            [self.albums addObject: group];
-//        } else {
-//            [self.tableView reloadData];
-//        }
-//        
-//    } failureBlock:^(NSError *error) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
-//                                                        message:error.localizedDescription
-//                                                       delegate:nil
-//                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
-//                                              otherButtonTitles:nil];
-//        [alert show];
-//    }];
-    
     self.albums = [NSMutableArray new];
-    
     
     [self fetchAlbums:PHAssetCollectionTypeSmartAlbum subType:PHAssetCollectionSubtypeSmartAlbumVideos];
     [self fetchAlbums:PHAssetCollectionTypeAlbum subType:PHAssetCollectionSubtypeAny];
@@ -126,15 +108,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqual: @"displayImageSelectFromAlbum"]) {
-        ImageSelectController *controller = segue.destinationViewController;
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:sender];
-
-        [controller loadDataFromDataSource:[[ImageSelectDataSource alloc] initWithAssetsCollection:self.albums[indexPath.row]]];
-    }
+    
+    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
+    
+    ImageSelectDataSource *dataSource = [[ImageSelectDataSource alloc] initWithAssetsCollection:self.albums[indexPath.row]];
+    
+    imageSelector.dataSource = dataSource;
+    
+    [self presentViewController:imageSelector animated:YES completion:NULL];
 }
 
 @end
