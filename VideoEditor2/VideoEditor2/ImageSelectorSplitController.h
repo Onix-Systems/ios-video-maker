@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "PickerAsset.h"
+#import "VAsset.h"
 
 @protocol ImageSelectorSplitControllerDelegate
 
 -(void)willStartVerticalResizing;
 -(void)didFinishedVertivalResizing;
+
+-(void)didPresentLeftController;
+-(void)didPresentRightController;
 
 @end
 
@@ -23,12 +26,13 @@
 @property (nonatomic, strong) UIViewController* leftViewController;
 @property (nonatomic, strong) UIViewController* rightViewController;
 @property (nonatomic, strong) UIViewController* bottomViewController;
+
 @property (nonatomic, weak) id<ImageSelectorSplitControllerDelegate> delegate;
 
 - (void) scrollTopViewToTop: (BOOL) toTop;
 - (void) scrollLeftViewToLeft: (BOOL) toLeft;
 
-- (void) displayAssetPreview: (PickerAsset*) asset autoPlay: (BOOL) autoPlay;
+- (void) displayAssetPreview: (VAsset*) asset autoPlay: (BOOL) autoPlay;
 
 
 @end

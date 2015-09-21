@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "PickerAsset.h"
+#import "VAsset.h"
 
 @protocol ImageSelectorStateIndicatorDelegate
 
@@ -17,7 +17,7 @@
 
 @end
 
-@interface ImageSelectorStateIndicator : UIView <PickerAssetDownloadProgressIndicator>
+@interface ImageSelectorStateIndicator : UIView
 
 @property (nonatomic, strong) UIColor *borderColor;
 @property (nonatomic, strong) UIColor *borderShadowColor;
@@ -29,6 +29,7 @@
 
 -(void)setClearState;
 -(void)setSelected: (NSInteger) selectionNumber;
+-(void)setDownloading: (BOOL) downloading;
 -(void)setDownloadingProgress: (CGFloat) downloadPercent;
 
 

@@ -7,7 +7,7 @@
 //
 
 #import "ImageSelectDataSource.h"
-
+#import "VAssetPHImage.h"
 
 @interface ImageSelectDataSource()
 
@@ -44,7 +44,7 @@
     NSMutableArray* assets = [NSMutableArray new];
     
     for (PHAsset *asset in results) {
-        [assets addObject:[PickerAsset makeFromPHAsset:asset]];
+        [assets addObject:[VAssetPHImage makeFromPHAsset:asset]];
     }
     
     self.assets = assets;

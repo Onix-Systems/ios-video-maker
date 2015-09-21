@@ -16,7 +16,7 @@
 #import "DZNPhotoServiceFactory.h"
 #import "DZNPhotoTag.h"
 
-@interface ImageSelectorCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ImageSelectorCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ImageSelectorCollectionViewCellDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIView *noSearchResultsView;
@@ -44,7 +44,7 @@
     return nil;
 }
 
--(void) displayAsset: (PickerAsset*) asset autoPlay: (BOOL) autoPlay
+-(void) displayAsset: (VAsset*) asset autoPlay: (BOOL) autoPlay
 {
     ImageSelectorSplitController* splitController = [self getSplitController];
     if (splitController != nil) {
@@ -86,7 +86,7 @@
         [self.collectionView reloadData];
         
         if (!self.firstAssetDisplayed) {
-            PickerAsset* firstAsset = nil;
+            VAsset* firstAsset = nil;
             if (self.dataSource.assets.count > 0) {
                 firstAsset = self.dataSource.assets[0];
             } else if ([self.dataSource getNumberofSectionsInData] > 0) {
@@ -145,8 +145,8 @@
     return 1;
 }
 
-- (PickerAsset*) getAssetForIndexPath: (NSIndexPath*)indexPath {
-    PickerAsset *asset = nil;
+- (VAsset*) getAssetForIndexPath: (NSIndexPath*)indexPath {
+    VAsset *asset = nil;
     
     if ([self hasSections]) {
         id sectionKey = [self.dataSource getSectionsKeys][indexPath.section];
@@ -171,13 +171,12 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     ImageSelectorCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageSelectorCollectionViewCell" forIndexPath:indexPath];
-    PickerAsset *asset = [self getAssetForIndexPath:indexPath];
+    VAsset *asset = [self getAssetForIndexPath:indexPath];
     
-    cell.asset = asset;
+    [cell setAsset:asset forIndexPath:indexPath withSelectionStorage: self.selectionStorage cellDelegate:self];
     
     return cell;
 }
-
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
     
@@ -223,8 +222,36 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    PickerAsset *asset = [self getAssetForIndexPath:indexPath];
+    VAsset *asset = [self getAssetForIndexPath:indexPath];
+    NSLog(@"got display action for asset %ld", (long)indexPath.row);
     [self displayAsset:asset autoPlay:YES];
+}
+
+
+-(void) selectoinActionForIndexPath:(NSIndexPath *)indexPath
+{
+    VAsset *asset = [self getAssetForIndexPath:indexPath];
+    
+    NSLog(@"got selection action for asset %ld", (long)indexPath.row);
+    
+    if ([asset isDownloading]) {
+        [asset cancelDownloading];
+    } else if ([self.selectionStorage hasAsset:asset]) {
+        [self.selectionStorage removeAsset:asset];
+        [self.collectionView reloadData];
+    } else {
+        [asset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished) {
+            if (requestFinished) {
+                [self.selectionStorage addAsset:asset];
+                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+                [self displayAsset:asset autoPlay:YES];
+            } else if (![asset isVideo]){
+                [self displayAsset:asset autoPlay:NO];
+            }
+            
+        }];
+    }
+    
 }
 
 - (void) hideSearchControls {

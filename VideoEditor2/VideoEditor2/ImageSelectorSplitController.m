@@ -41,6 +41,7 @@
         [self addChildViewController:controller];
         controller.view.frame = view.bounds;
         [view addSubview:controller.view];
+
         
         [view addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[controllerView]|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:@{@"controllerView" : controller.view}]];
         [view addConstraints: [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[controllerView]|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:@{@"controllerView" : controller.view}]];
@@ -94,12 +95,12 @@
 
 - (CGFloat) getOffsetForLeftPositionPosition
 {
-    return self.rightView.frame.size.width;
+    return 0;
 }
 
 - (CGFloat) getOffsetForRightPositionPosition
 {
-    return 0;
+    return self.rightView.frame.size.width;
 }
 
 - (void) initPositions
@@ -120,6 +121,8 @@
     [self addController:self.bottomViewController toView:self.bottomView];
     
     [self initPositions];
+    
+    [self.delegate didPresentLeftController];
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -222,9 +225,9 @@
         case UIGestureRecognizerStateFailed:
         {
             if (self.leftPositionConstraint.constant < self.leftGestureBeginConstant) {
-                self.leftPositionConstraint.constant = [self getOffsetForRightPositionPosition];
-            } else {
                 self.leftPositionConstraint.constant = [self getOffsetForLeftPositionPosition];
+            } else {
+                self.leftPositionConstraint.constant = [self getOffsetForRightPositionPosition];
             }
             
             [self.view setNeedsLayout];
@@ -243,11 +246,12 @@
         {
             CGPoint translation = [sender translationInView:self.view];
             
-            CGFloat newConstant = self.topGestureBeginConstant;
-            newConstant -= translation.x;
+            CGFloat newConstant = self.leftGestureBeginConstant;
+            CGFloat x = translation.x;
+            newConstant += x;
             
-            CGFloat allowedMin = [self getOffsetForRightPositionPosition];
-            CGFloat allowedMax = [self getOffsetForLeftPositionPosition];
+            CGFloat allowedMin = [self getOffsetForLeftPositionPosition];
+            CGFloat allowedMax = [self getOffsetForRightPositionPosition];
             
             newConstant = newConstant > allowedMax ? allowedMax : newConstant;
             newConstant = newConstant < allowedMin ? allowedMin : newConstant;
@@ -296,7 +300,7 @@
 }
 
 
-- (void) displayAssetPreview: (PickerAsset*) asset autoPlay: (BOOL) autoPlay
+- (void) displayAssetPreview: (VAsset*) asset autoPlay: (BOOL) autoPlay
 {
     if (self.leftViewController != nil && [self.leftViewController isKindOfClass:[ImageSelectorPreviewController class]]) {
         ImageSelectorPreviewController* previewController = (ImageSelectorPreviewController*)self.leftViewController;

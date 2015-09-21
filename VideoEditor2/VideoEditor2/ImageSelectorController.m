@@ -13,6 +13,8 @@
 #import "ImageSelectorCollectionViewController.h"
 #import "ImageSelectorCollageController.h"
 
+#import "VDocument.h"
+
 @interface ImageSelectorController () <ImageSelectorSplitControllerDelegate>
 
 @property (nonatomic, strong) ImageSelectorSplitController *splitController;
@@ -23,13 +25,16 @@
 
 - (void)viewDidLoad
 {
+    VDocument* currentDoccument = [VDocument getCurrentDocument];
+    
     self.splitController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorSplitController"];
     
     ImageSelectorPreviewController *previewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorPreviewController"];
     
     ImageSelectorCollectionViewController *collectionController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorCollectionViewController"];
     [collectionController loadDataFromDataSource:self.dataSource];
-    
+    collectionController.selectionStorage = currentDoccument.assetsCollection;
+   
     ImageSelectorCollageController *collageController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorCollageController"];
     
     self.splitController.leftViewController = previewController;
@@ -44,18 +49,40 @@
     self.splitController.delegate = self;
 }
 
+-(ImageSelectorCollageController*) getCollageControler
+{
+    return (ImageSelectorCollageController*) self.splitController.rightViewController;
+}
+
+-(ImageSelectorCollectionViewController*) getCollectionViewConrtroller
+{
+    return (ImageSelectorCollectionViewController*) self.splitController.bottomViewController;
+}
+
 - (void) willStartVerticalResizing
 {
-    ImageSelectorCollageController* collageController = (ImageSelectorCollageController*) self.splitController.rightViewController;
+    ImageSelectorCollageController* collageController = [self getCollageControler];
     
     [collageController willStartResizing];
 }
 
 - (void) didFinishedVertivalResizing
 {
-    ImageSelectorCollageController* collageController = (ImageSelectorCollageController*) self.splitController.rightViewController;
+    ImageSelectorCollageController* collageController = [self getCollageControler];
     
     [collageController didFinishedResizing];
+}
+
+- (void) didPresentLeftController {
+    ImageSelectorCollectionViewController* collectionViewConrtroller =  [self getCollectionViewConrtroller];
+    
+    VDocument* currentDoccument = [VDocument getCurrentDocument];
+
+    collectionViewConrtroller.selectionStorage = currentDoccument.assetsCollection;
+}
+
+- (void) didPresentRightController {
+    
 }
 
 @end

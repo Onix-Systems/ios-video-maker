@@ -29,14 +29,14 @@
     self.gridImageView.hidden = NO;
 }
 
--(void) displayAsset: (PickerAsset*) asset autoPlay: (BOOL) autoPlay
+-(void) displayAsset: (VAsset*) asset autoPlay: (BOOL) autoPlay
 {
     if (asset.isVideo) {
         self.playerView.hidden = NO;
         self.scrollView.hidden = YES;
         self.gridImageView.hidden = YES;
         
-        [asset loadVideoAsset:^(AVAsset *asset) {
+        [asset downloadVideoAsset:^(AVAsset *asset, AVAudioMix* audioMix) {
             [self.playerView playVideoFromAsset:asset autoPlay:autoPlay];
         }];
         
@@ -47,7 +47,7 @@
         
         NSInteger requestTag = ++self.scrollView.tag;
         
-        [asset loadOriginalImage:^(UIImage *resultImage) {
+        [asset getPreviewImageForSize:self.gridImageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
             if (requestTag == self.scrollView.tag) {
                 [self.scrollView displayImage: resultImage];
             }

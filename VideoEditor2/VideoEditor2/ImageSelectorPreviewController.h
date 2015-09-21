@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "PickerAsset.h"
+#import "VAsset.h"
 
 @interface ImageSelectorPreviewController : UIViewController
 
--(void) displayAsset: (PickerAsset*) asset autoPlay: (BOOL) autoPlay;
+-(void) displayAsset: (VAsset*) asset autoPlay: (BOOL) autoPlay;
 @end

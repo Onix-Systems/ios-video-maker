@@ -6,18 +6,18 @@
 //  Copyright (c) 2015 Onix-Systems. All rights reserved.
 //
 
-#import "VideoEditorAssetsCollection.h"
+#import "AssetsCollection.h"
 
-@interface VideoEditorAssetsCollection ()
+@interface AssetsCollection ()
 
-@property (strong, nonatomic, readwrite) NSMutableArray* assets;
+@property (strong, nonatomic) NSMutableArray* assets;
 
 @end
 
-@implementation VideoEditorAssetsCollection
+@implementation AssetsCollection
 
 +(instancetype) currentlyEditedCollection {
-    static VideoEditorAssetsCollection *sharedCollection = nil;
+    static AssetsCollection *sharedCollection = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedCollection = [[self alloc] init];
@@ -35,15 +35,15 @@
     return self;
 }
 
--(BOOL) hasAsset: (PickerAsset*) asset {
+-(BOOL) hasAsset: (VAsset*) asset {
     return [self getIndexOfAsset:asset] >= 0 ? YES : NO;
 }
 
--(NSInteger) getIndexOfAsset: (PickerAsset*) asset {
+-(NSInteger) getIndexOfAsset: (VAsset*) asset {
     NSString *assetID = [asset getIdentifier];
     
     NSInteger index = -1;
-    for (PickerAsset* existingAsset in self.assets) {
+    for (VAsset* existingAsset in self.assets) {
         index++;
         
         if ([assetID isEqual:[existingAsset getIdentifier]]) {
@@ -53,16 +53,21 @@
     return -1;
 }
 
--(void) addAsset: (PickerAsset*) asset {
+-(void) addAsset: (VAsset*) asset {
     [self.assets addObject:asset];
 }
 
--(void) removeAsset: (PickerAsset*) asset {
+-(void) removeAsset: (VAsset*) asset {
     NSInteger index = [self getIndexOfAsset:asset];
     
     if (index >= 0) {
         [self.assets removeObject:self.assets[index]];
     }
+}
+
+-(AssetsCollection*) findSubcollectionWithAsset: (VAsset*) asset
+{
+    return nil;
 }
 
 @end

@@ -13,7 +13,8 @@
 
 @interface ImageSelectorStateIndicator ()
 
-@property (nonatomic) NSInteger selectionNumer;
+@property (nonatomic) NSInteger selectionNumber;
+@property (nonatomic) BOOL downloading;
 @property (nonatomic) CGFloat downloadProgress;
 @property (nonatomic, strong) UILabel* selectionLabel;
 
@@ -80,25 +81,39 @@
 
 -(void)setClearState
 {
-    self.selectionNumer = -1;
+    self.selectionNumber = -1;
+    self.downloading = NO;
     self.downloadProgress = -1;
     
     self.selectionLabel.text = @"";
-    
     [self setNeedsDisplay];
 }
 
 -(void)setSelected: (NSInteger) selectionNumber
 {
-    self.downloadProgress = -1;
-    if (selectionNumber > 0) {
-        self.selectionNumer = selectionNumber;
-        self.selectionLabel.text = [NSString stringWithFormat:@"%ld", (long)self.selectionNumer];
-    } else {
-        self.selectionNumer = 0;
-        self.selectionLabel.text = @"✓";
-    }
+    self.selectionNumber = selectionNumber;
+    [self updateSelectionLabel];
     [self setNeedsDisplay];
+}
+
+-(void)updateSelectionLabel
+{
+    if (self.downloading) {
+        self.selectionLabel.text = @"↓";
+    } else if (self.selectionNumber >= 0) {
+        self.selectionLabel.text = [NSString stringWithFormat:@"%ld", (long)self.selectionNumber + 1];
+    } else if (self.selectionNumber == NSIntegerMax) {
+        self.selectionLabel.text = @"✓";
+    } else {
+        self.selectionLabel.text = @"";
+    }
+}
+
+-(void) setDownloading:(BOOL)downloading {
+    if (self.downloading != downloading) {
+        _downloading = downloading;
+        [self setNeedsDisplay];
+    }
 }
 
 -(void)setDownloadingProgress: (CGFloat) downloadPercent
@@ -109,15 +124,17 @@
 
 -(BOOL) isSelected
 {
-    return self.selectionNumer > 0;
+    return self.selectionNumber >= 0;
 }
 
 -(BOOL)isDownloading
 {
-    return self.downloadProgress >= 0 && self.downloadProgress < 1;
+    return self.downloading;
 }
 
 - (void) drawRect:(CGRect)rect {
+    [self updateSelectionLabel];
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGRect controlRect = self.bounds;
@@ -143,7 +160,7 @@
     CGContextSetStrokeColorWithColor(context, self.borderColor.CGColor);
     CGContextSetLineWidth(context, borderWidth);
     
-    if ([self isSelected] && ![self isDownloading]) {
+    if ([self isSelected] || [self isDownloading]) {
         CGContextSetFillColorWithColor(context, self.selectedBackgroundColor.CGColor);
     } else {
         CGContextSetFillColorWithColor(context, [UIColor clearColor].CGColor);

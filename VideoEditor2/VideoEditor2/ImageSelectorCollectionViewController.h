@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "BaseImageSelectDataSource.h"
+#import "AssetsCollection.h"
 
 @interface ImageSelectorCollectionViewController : UIViewController
+
+@property (nonatomic, strong) AssetsCollection* selectionStorage;
 
 -(void) loadDataFromDataSource: (BaseImageSelectDataSource*) dataSource;
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <Photos/Photos.h>
-#import "PickerAsset.h"
+#import "VAsset.h"
 
 typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 

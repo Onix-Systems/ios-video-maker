@@ -7,8 +7,9 @@
 //
 
 #import "ImageSelectDZNDataSource.h"
+#import "DZNPhotoMetadata.h"
 #import "DZNPhotoServiceFactory.h"
-#import "PickerAsset.h"
+#import "VAssetWebImage.h"
 
 @interface ImageSelectDZNDataSource ()
 
@@ -73,7 +74,7 @@
         if (list) {
             DZNPhotoMetadata* metaData = nil;
             for (metaData in list) {
-                [self.mutableAssetsList addObject:[PickerAsset makeFromDZNMetaData:metaData]];
+                [self.mutableAssetsList addObject:[VAssetWebImage makeFromDZNMetaData:metaData]];
             }
         }
         

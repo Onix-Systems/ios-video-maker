@@ -7,7 +7,8 @@
 //
 
 #import "ImageSelectMomentsDataSource.h"
-#import "PickerAsset.h"
+#import "VAsset.h"
+#import "VAssetPHImage.h"
 
 @interface ImageSelectMomentsDataSource ()
 
@@ -56,7 +57,7 @@
         PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
         NSMutableArray* assets = [NSMutableArray new];
         for (PHAsset *asset in results) {
-            [assets addObject:[PickerAsset makeFromPHAsset:asset]];
+            [assets addObject:[VAssetPHImage makeFromPHAsset:asset]];
         }
         self.momentsData[key] = assets;
     }

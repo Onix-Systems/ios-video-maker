@@ -7,7 +7,7 @@
 //
 
 #import "CollageLayoutView.h"
-#import "PickerAsset.h"
+#import "VAsset.h"
 
 @interface CollageLayoutView ()
 
@@ -35,13 +35,12 @@
         UIImageView* imageView = self.imageViews[i];
         
         if (i < self.assets.count) {
-            PickerAsset* asset = self.assets[i];
+            VAsset* asset = self.assets[i];
             
-            [asset loadOriginalImage:^(UIImage *resultImage) {
+            [asset getPreviewImageForSize:imageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
                 imageView.image = resultImage;
-                [self setNeedsDisplay];
             }];
-            
+             
         } else {
             imageView.image = nil;
         }

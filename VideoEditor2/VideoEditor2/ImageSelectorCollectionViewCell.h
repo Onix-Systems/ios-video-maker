@@ -9,16 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "PickerAsset.h"
+#import "VAsset.h"
 #import "ImageSelectorStateIndicator.h"
+#import "AssetsCollection.h"
+
+@protocol ImageSelectorCollectionViewCellDelegate
+
+-(void) selectoinActionForIndexPath:(NSIndexPath *)indexPath;
+
+@end
 
 @interface ImageSelectorCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) PickerAsset* asset;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *videoDurationLabel;
-@property (weak, nonatomic) IBOutlet ImageSelectorStateIndicator *stateIndicator;
-
-//@property (weak, nonatomic) id<ImageSelectCollectionViewCellDelegate> delegate;
+-(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage cellDelegate: (id<ImageSelectorCollectionViewCellDelegate>) delegate;
 
 @end

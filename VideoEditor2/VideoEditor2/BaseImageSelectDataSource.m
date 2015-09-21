@@ -7,7 +7,7 @@
 //
 
 #import "BaseImageSelectDataSource.h"
-#import "PickerAsset.h"
+#import "VAsset.h"
 
 @implementation BaseImageSelectDataSource
 
@@ -21,7 +21,7 @@
     return 0;
 }
 
--(PickerAsset*) getAssetatIndex:(NSInteger)index {
+-(VAsset*) getAssetatIndex:(NSInteger)index {
     return nil;
 }
 
