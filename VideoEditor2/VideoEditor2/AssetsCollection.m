@@ -31,15 +31,27 @@
     self = [super init];
     if (self) {
         self.assets = [NSMutableArray new];
+        self.isNumerable = YES;
     }
     return self;
 }
 
 -(BOOL) hasAsset: (VAsset*) asset {
-    return [self getIndexOfAsset:asset] >= 0 ? YES : NO;
+    return [self findIndexOfAsset:asset] >= 0 ? YES : NO;
 }
 
--(NSInteger) getIndexOfAsset: (VAsset*) asset {
+-(NSInteger) getIndexOfAsset: (VAsset*) asset
+{
+    NSInteger index = [self findIndexOfAsset:asset];
+    
+    if (index >= 0) {
+        return self.isNumerable ? index : NSIntegerMax;
+    }
+    
+    return -1;
+}
+
+-(NSInteger) findIndexOfAsset: (VAsset*) asset {
     NSString *assetID = [asset getIdentifier];
     
     NSInteger index = -1;
@@ -55,14 +67,21 @@
 
 -(void) addAsset: (VAsset*) asset {
     [self.assets addObject:asset];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAssetsCollectionAssetAddedNitification object:self];
 }
 
 -(void) removeAsset: (VAsset*) asset {
-    NSInteger index = [self getIndexOfAsset:asset];
+    NSInteger index = [self findIndexOfAsset:asset];
     
     if (index >= 0) {
         [self.assets removeObject:self.assets[index]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAssetsCollectionAssetRemovedNitification object:self];
     }
+}
+
+-(NSArray*) getAssets
+{
+    return self.assets;
 }
 
 -(AssetsCollection*) findSubcollectionWithAsset: (VAsset*) asset

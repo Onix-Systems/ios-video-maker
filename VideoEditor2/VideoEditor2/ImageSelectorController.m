@@ -12,6 +12,8 @@
 #import "ImageSelectorPreviewController.h"
 #import "ImageSelectorCollectionViewController.h"
 #import "ImageSelectorCollageController.h"
+#import "VAssetCollage.h"
+#import "AssetsCollection.h"
 
 #import "VDocument.h"
 
@@ -25,6 +27,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     VDocument* currentDoccument = [VDocument getCurrentDocument];
     
     self.splitController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorSplitController"];
@@ -73,7 +77,7 @@
     [collageController didFinishedResizing];
 }
 
-- (void) didPresentLeftController {
+- (void) willPresentLeftController {
     ImageSelectorCollectionViewController* collectionViewConrtroller =  [self getCollectionViewConrtroller];
     
     VDocument* currentDoccument = [VDocument getCurrentDocument];
@@ -81,7 +85,20 @@
     collectionViewConrtroller.selectionStorage = currentDoccument.assetsCollection;
 }
 
-- (void) didPresentRightController {
+- (void) willPresentRightController {
+    AssetsCollection* newCollection = [AssetsCollection new];
+    newCollection.isNumerable = NO;
+    
+    ImageSelectorCollectionViewController* collectionViewConrtroller =  [self getCollectionViewConrtroller];
+    ImageSelectorCollageController* collageConrtroller =  [self getCollageControler];
+   
+    VAsset* lastActiveAsset = collectionViewConrtroller.lastActiveAsset;
+    if (lastActiveAsset != nil) {
+        [newCollection addAsset:lastActiveAsset];
+    }
+    
+    collectionViewConrtroller.selectionStorage = newCollection;
+    collageConrtroller.assetsCollecton = newCollection;
     
 }
 

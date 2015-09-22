@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftPositionConstraint;
 
 @property (nonatomic) CGFloat topGestureBeginConstant;
-@property (nonatomic) CGFloat leftGestureBeginConstant;
+@property (nonatomic) CGFloat horizontalGestureBeginConstant;
 
 @end
 
@@ -93,12 +93,12 @@
     return 0;
 }
 
-- (CGFloat) getOffsetForLeftPositionPosition
+- (CGFloat) getOffsetForLeftGripPosition
 {
     return 0;
 }
 
-- (CGFloat) getOffsetForRightPositionPosition
+- (CGFloat) getOffsetForRightGripPosition
 {
     return self.rightView.frame.size.width;
 }
@@ -107,8 +107,7 @@
 {
     [self.view layoutIfNeeded];
     self.topPositionConstraint.constant = [self getOffsetForBottomPosition];
-    self.leftPositionConstraint.constant = [self getOffsetForRightPositionPosition];
-
+    self.leftPositionConstraint.constant = [self getOffsetForRightGripPosition];
     [self.view layoutIfNeeded];
 }
 
@@ -121,17 +120,26 @@
     [self addController:self.bottomViewController toView:self.bottomView];
     
     [self initPositions];
-    
-    [self.delegate didPresentLeftController];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    if (self.delegate != nil) {
+        [self.delegate willPresentLeftController];
+    };
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [self initPositions];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.leftPositionConstraint.constant != 0) {
+            self.leftPositionConstraint.constant = [self getOffsetForRightGripPosition];
+            [self.view layoutIfNeeded];
+        };
+    });
 }
 
 - (IBAction)horizontalGripPanGestureAction:(UIPanGestureRecognizer *)sender
 {
-    
     switch (sender.state) {
             
         case UIGestureRecognizerStateEnded:
@@ -224,10 +232,16 @@
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
         {
-            if (self.leftPositionConstraint.constant < self.leftGestureBeginConstant) {
-                self.leftPositionConstraint.constant = [self getOffsetForLeftPositionPosition];
+            if (self.leftPositionConstraint.constant < self.horizontalGestureBeginConstant) {
+                self.leftPositionConstraint.constant = [self getOffsetForLeftGripPosition];
+                if (self.delegate != nil) {
+                    [self.delegate willPresentRightController];
+                }
             } else {
-                self.leftPositionConstraint.constant = [self getOffsetForRightPositionPosition];
+                self.leftPositionConstraint.constant = [self getOffsetForRightGripPosition];
+                if (self.delegate != nil) {
+                    [self.delegate willPresentLeftController];
+                };
             }
             
             [self.view setNeedsLayout];
@@ -239,19 +253,19 @@
         }
         case UIGestureRecognizerStateBegan:
         {
-            self.leftGestureBeginConstant = self.leftPositionConstraint.constant;
+            self.horizontalGestureBeginConstant = self.leftPositionConstraint.constant;
             break;
         }
         case UIGestureRecognizerStateChanged:
         {
             CGPoint translation = [sender translationInView:self.view];
             
-            CGFloat newConstant = self.leftGestureBeginConstant;
+            CGFloat newConstant = self.horizontalGestureBeginConstant;
             CGFloat x = translation.x;
             newConstant += x;
             
-            CGFloat allowedMin = [self getOffsetForLeftPositionPosition];
-            CGFloat allowedMax = [self getOffsetForRightPositionPosition];
+            CGFloat allowedMin = [self getOffsetForLeftGripPosition];
+            CGFloat allowedMax = [self getOffsetForRightGripPosition];
             
             newConstant = newConstant > allowedMax ? allowedMax : newConstant;
             newConstant = newConstant < allowedMin ? allowedMin : newConstant;
@@ -271,20 +285,31 @@
 
 - (void) scrollLeftViewToLeft: (BOOL) toLeft
 {
-    CGFloat newTopPosition = toLeft ?  [self getOffsetForLeftPositionPosition] : [self getOffsetForRightPositionPosition];
+    CGFloat newHorizontalPosition;
     
-    self.leftPositionConstraint.constant = newTopPosition;
+    if (toLeft) {
+        newHorizontalPosition = [self getOffsetForLeftGripPosition];
+        if (self.delegate != nil) {
+            [self.delegate willPresentRightController];
+        }
+    } else {
+        newHorizontalPosition = [self getOffsetForRightGripPosition];
+        if (self.delegate != nil) {
+            [self.delegate willPresentLeftController];
+        }
+    };
+    
+    self.leftPositionConstraint.constant = newHorizontalPosition;
     [self.view setNeedsLayout];
     
     [UIView animateWithDuration:.3f animations:^{
-        
         [self.view layoutIfNeeded];
     }];
 }
 
 - (IBAction)verticalGripTapGestureAction:(UITapGestureRecognizer *)sender
 {
-    [self scrollLeftViewToLeft: (self.leftPositionConstraint.constant != [self getOffsetForLeftPositionPosition])];
+    [self scrollLeftViewToLeft: (self.leftPositionConstraint.constant != [self getOffsetForLeftGripPosition])];
 }
 
 

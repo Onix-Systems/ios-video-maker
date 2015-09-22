@@ -14,6 +14,7 @@
 @interface ImageSelectorCollectionViewController : UIViewController
 
 @property (nonatomic, strong) AssetsCollection* selectionStorage;
+@property (strong, readonly) VAsset* lastActiveAsset;
 
 -(void) loadDataFromDataSource: (BaseImageSelectDataSource*) dataSource;
 

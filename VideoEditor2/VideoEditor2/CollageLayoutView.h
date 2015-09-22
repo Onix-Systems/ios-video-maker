@@ -9,11 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "CollageLayout.h"
 
 @interface CollageLayoutView : UIView
 
 //array of CGRect
-@property (strong, nonatomic) NSArray* layoutRects;
+@property (strong, nonatomic) CollageLayout* collageLayout;
 //array of PickerAssets
 @property (strong, nonatomic) NSArray* assets;
 

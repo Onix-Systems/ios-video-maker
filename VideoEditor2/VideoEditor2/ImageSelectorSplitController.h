@@ -16,8 +16,8 @@
 -(void)willStartVerticalResizing;
 -(void)didFinishedVertivalResizing;
 
--(void)didPresentLeftController;
--(void)didPresentRightController;
+-(void)willPresentLeftController;
+-(void)willPresentRightController;
 
 @end
 

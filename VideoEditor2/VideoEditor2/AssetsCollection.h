@@ -11,10 +11,17 @@
 
 @interface AssetsCollection : NSObject
 
+#define kAssetsCollectionAssetAddedNitification @"kAssetsCollectionAssetAddedNitification"
+#define kAssetsCollectionAssetRemovedNitification @"kAssetsCollectionAssetRemovedNitification"
+
+@property (nonatomic) BOOL isNumerable;
+
 -(BOOL) hasAsset: (VAsset*) asset;
 -(NSInteger) getIndexOfAsset: (VAsset*) asset;
 -(void) addAsset: (VAsset*) asset;
 -(void) removeAsset: (VAsset*) asset;
+
+-(NSArray*) getAssets;
 
 -(AssetsCollection*) findSubcollectionWithAsset: (VAsset*) asset;
 

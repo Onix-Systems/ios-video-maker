@@ -57,12 +57,12 @@
     return CGRectMake((2*offset + width) * i + offset, 0, width, height);
 }
 
--(void) addCoollageLayout: (NSArray*)layoutRects
+-(void) addCoollageLayout: (CollageLayout*)collageLayout
 {
     CGRect collageViewFrame = [self getFrameForSubview: self.collageLayouts.count];
     
     CollageLayoutView* collageLayoutView = [[CollageLayoutView alloc]initWithFrame:collageViewFrame];
-    collageLayoutView.layoutRects = layoutRects;
+    collageLayoutView.collageLayout = collageLayout;
     
     [self.collageLayouts addObject:collageLayoutView];
 

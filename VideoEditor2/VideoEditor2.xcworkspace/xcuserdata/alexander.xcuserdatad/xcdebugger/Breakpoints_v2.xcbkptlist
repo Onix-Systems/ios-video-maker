@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectorController.m"
-            timestampString = "464507779.902789"
+            timestampString = "464548749.393583"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -84,44 +84,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectorCollectionViewController.m"
-            timestampString = "463585952.443742"
+            timestampString = "464607813.669135"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-getSplitController"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VideoEditor2/ImageSelectorCollectionViewController.m"
-            timestampString = "463592538.87226"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "-reloadData"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VideoEditor2/CollageLayoutView.m"
-            timestampString = "464284166.918558"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "97"
-            endingLineNumber = "97"
-            landmarkName = "-layoutSubviews"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -212,11 +180,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectorCollageController.m"
-            timestampString = "464102464.158696"
+            timestampString = "464616573.98979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "-scrollViewDidEndScrollingAnimation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -260,43 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectorSplitController.m"
-            timestampString = "464530964.681586"
+            timestampString = "464607556.72445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
-            landmarkName = "-verticalGripPanGestureAction:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VideoEditor2/ImageSelectorSplitController.m"
-            timestampString = "464530964.681586"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "-verticalGripPanGestureAction:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VideoEditor2/ImageSelectorSplitController.m"
-            timestampString = "464530964.681586"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "-verticalGripPanGestureAction:"
             landmarkType = "5">
          </BreakpointContent>
@@ -451,11 +387,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectorCollectionViewController.m"
-            timestampString = "464527676.34353"
+            timestampString = "464607813.669135"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
+            startingLineNumber = "253"
+            endingLineNumber = "253"
             landmarkName = "-selectoinActionForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -467,11 +403,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectorCollectionViewController.m"
-            timestampString = "464532771.739859"
+            timestampString = "464607813.669135"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "-selectoinActionForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -483,11 +419,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/ImageSelectorCollectionViewController.m"
-            timestampString = "464532774.731508"
+            timestampString = "464607813.669135"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "269"
+            endingLineNumber = "269"
             landmarkName = "-selectoinActionForIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -521,6 +457,22 @@
             startingLineNumber = "158"
             endingLineNumber = "158"
             landmarkName = "-createImageLoadRequest:trackProgress:withCompletion:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "VideoEditor2/ImageSelectorController.m"
+            timestampString = "464548749.393583"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-willPresentLeftController"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

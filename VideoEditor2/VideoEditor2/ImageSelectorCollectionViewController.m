@@ -32,6 +32,8 @@
 
 @property (strong, nonatomic) BaseImageSelectDataSource *dataSource;
 
+@property (strong,readwrite) VAsset* lastActiveAsset;
+
 @end
 
 @implementation ImageSelectorCollectionViewController
@@ -98,6 +100,7 @@
             }
             if (firstAsset != nil) {
                 self.firstAssetDisplayed = YES;
+                self.lastActiveAsset = firstAsset;
                 [self displayAsset:firstAsset autoPlay:NO];
             }
         }
@@ -132,6 +135,17 @@
     self.searchResultsTableView.dataSource = self;
     self.searchResultsTableView.delegate = self;
     self.searchResultsTableView.hidden = YES;
+    
+    self.lastActiveAsset = nil;
+}
+
+-(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    if (self.searchBar != nil) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.searchBar sizeToFit];
+        });
+    }
 }
 
 -(BOOL)hasSections {
@@ -223,7 +237,9 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     VAsset *asset = [self getAssetForIndexPath:indexPath];
-    NSLog(@"got display action for asset %ld", (long)indexPath.row);
+
+    self.lastActiveAsset = asset;
+    
     [self displayAsset:asset autoPlay:YES];
 }
 
@@ -236,10 +252,14 @@
     
     if ([asset isDownloading]) {
         [asset cancelDownloading];
+        
     } else if ([self.selectionStorage hasAsset:asset]) {
         [self.selectionStorage removeAsset:asset];
         [self.collectionView reloadData];
+        
     } else {
+        self.lastActiveAsset = asset;
+        
         [asset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished) {
             if (requestFinished) {
                 [self.selectionStorage addAsset:asset];
@@ -252,6 +272,13 @@
         }];
     }
     
+}
+
+
+-(void) setSelectionStorage:(AssetsCollection *)selectionStorage
+{
+    _selectionStorage = selectionStorage;
+    [self reloadData];
 }
 
 - (void) hideSearchControls {

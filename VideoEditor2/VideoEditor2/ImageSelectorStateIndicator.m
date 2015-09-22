@@ -100,10 +100,10 @@
 {
     if (self.downloading) {
         self.selectionLabel.text = @"↓";
-    } else if (self.selectionNumber >= 0) {
-        self.selectionLabel.text = [NSString stringWithFormat:@"%ld", (long)self.selectionNumber + 1];
     } else if (self.selectionNumber == NSIntegerMax) {
         self.selectionLabel.text = @"✓";
+    } else if (self.selectionNumber >= 0) {
+        self.selectionLabel.text = [NSString stringWithFormat:@"%ld", (long)self.selectionNumber + 1];
     } else {
         self.selectionLabel.text = @"";
     }

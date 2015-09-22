@@ -9,11 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "CollageLayout.h"
+
 #import "DMPagingScrollView.h"
 
 @interface CollageLayoutSelectorView : DMPagingScrollView
 
--(void) addCoollageLayout: (NSArray*)layoutRects;
+-(void) addCoollageLayout: (CollageLayout*)collageLayout;
 -(NSArray*)getLayouts;
 
 -(NSInteger) getCurrentPageNo;

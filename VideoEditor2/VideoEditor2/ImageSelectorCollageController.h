@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "AssetsCollection.h"
 
 @interface ImageSelectorCollageController : UIViewController
+
+@property (nonatomic, weak) AssetsCollection* assetsCollecton;
 
 -(void)willStartResizing;
 -(void)didFinishedResizing;

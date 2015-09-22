@@ -8,11 +8,12 @@
 
 #import "ImageSelectorCollageController.h"
 #import "CollageLayoutSelectorView.h"
+#import "CollageLayoutView.h"
 
 @interface ImageSelectorCollageController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet CollageLayoutSelectorView *layoutsView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic) NSInteger destinationPageNo;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomSpacingConstraint;
 @property (nonatomic) CGFloat originalBottomSpacing;
@@ -20,6 +21,11 @@
 @end
 
 @implementation ImageSelectorCollageController
+
+- (void)dealloc
+{
+    [self unsubscribeFromAssetsCollectionNotifications];
+}
 
 -(void) viewDidLoad {
     
@@ -29,45 +35,44 @@
     
     self.layoutsView.delegate = self;
 
-    [self.layoutsView addCoollageLayout:@[
-                                         [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
-                                         ]];
+    [self.layoutsView addCoollageLayout:[CollageLayout layoutWithFrames: @[
+            [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
+    ]]];
     
-    [self.layoutsView addCoollageLayout:@[
+    [self.layoutsView addCoollageLayout:[CollageLayout layoutWithFrames: @[
                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
                               [NSValue valueWithCGRect:CGRectMake(0, 1, 1, 1)],
                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
                               [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
-                              ]];
+    ]]];
     
-    [self.layoutsView addCoollageLayout:@[
+    [self.layoutsView addCoollageLayout:[CollageLayout layoutWithFrames: @[
                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 2)],
                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 2)]
-                              ]];
+    ]]];
     
-    [self.layoutsView addCoollageLayout:@[
+    [self.layoutsView addCoollageLayout:[CollageLayout layoutWithFrames: @[
                               [NSValue valueWithCGRect:CGRectMake(0, 0, 2, 1)],
                               [NSValue valueWithCGRect:CGRectMake(0, 1, 2, 1)]
-                              ]];
+    ]]];
     
-    [self.layoutsView addCoollageLayout:@[
+    [self.layoutsView addCoollageLayout:[CollageLayout layoutWithFrames: @[
                               [NSValue valueWithCGRect:CGRectMake(0, 0, 2, 1)],
                               [NSValue valueWithCGRect:CGRectMake(0, 1, 1, 1)],
                               [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
-                              ]];
+    ]]];
     
-    [self.layoutsView addCoollageLayout:@[
+    [self.layoutsView addCoollageLayout:[CollageLayout layoutWithFrames: @[
                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
                               [NSValue valueWithCGRect:CGRectMake(0, 1, 2, 1)]
-                              ]];
+    ]]];
     
-    [self.layoutsView addCoollageLayout:@[
+    [self.layoutsView addCoollageLayout:[CollageLayout layoutWithFrames: @[
                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 2)],
                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
                               [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
-                              ]];
-    
+    ]]];
     self.pageControl.numberOfPages = [self.layoutsView getLayouts].count;
 }
 
@@ -128,6 +133,50 @@
 {
     [self.layoutsView didFinishedResizing];
     self.pageControl.currentPage = [self.layoutsView getCurrentPageNo];
+}
+
+-(void) updateAssetsInCollageLayoutSelector
+{
+    NSArray *assets = nil;
+    
+    if (self.assetsCollecton != nil) {
+        assets = [self.assetsCollecton getAssets];
+    }
+    
+    NSArray* layouts = [self.layoutsView getLayouts];
+    
+    for (int i = 0; i < layouts.count; i++) {
+        CollageLayoutView* layout = layouts[i];
+        layout.assets = assets;
+    }
+    
+}
+
+-(void) setAssetsCollecton:(AssetsCollection *)assetsCollecton
+{
+    [self unsubscribeFromAssetsCollectionNotifications];
+    
+    _assetsCollecton = assetsCollecton;
+    
+    [self subscribeToAssetsCollectionNotifications];
+    
+    [self updateAssetsInCollageLayoutSelector];
+}
+
+-(void) subscribeToAssetsCollectionNotifications
+{
+    if (self.assetsCollecton != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsInCollageLayoutSelector) name:kAssetsCollectionAssetAddedNitification object:self.assetsCollecton];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsInCollageLayoutSelector) name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollecton];
+    }
+}
+
+-(void) unsubscribeFromAssetsCollectionNotifications
+{
+    if (self.assetsCollecton != nil) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetAddedNitification object:self.assetsCollecton];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollecton];
+    }
 }
 
 @end
