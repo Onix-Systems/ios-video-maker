@@ -122,13 +122,6 @@
     [self initPositions];
 }
 
--(void)viewWillAppear:(BOOL)animated
-{
-    if (self.delegate != nil) {
-        [self.delegate willPresentLeftController];
-    };
-}
-
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (self.leftPositionConstraint.constant != 0) {

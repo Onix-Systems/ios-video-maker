@@ -9,9 +9,9 @@
 #import "CollageLayoutSelectorView.h"
 #import "CollageLayoutView.h"
 
-@interface CollageLayoutSelectorView ()
+@interface CollageLayoutSelectorView () <CollageLayoutViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray* collageLayouts;
+@property (strong, nonatomic) NSMutableArray* collageLayoutViews;
 @property (nonatomic) CGFloat subViewOffset;
 @property (nonatomic) CGFloat currentItemWidth;
 
@@ -42,7 +42,7 @@
 
 - (void) setup
 {
-    self.collageLayouts = [NSMutableArray new];
+    self.collageLayoutViews = [NSMutableArray new];
     self.pagingEnabled = YES;
     self.subViewOffset = 20;
     self.resizingInprogress = NO;
@@ -57,14 +57,28 @@
     return CGRectMake((2*offset + width) * i + offset, 0, width, height);
 }
 
--(void) addCoollageLayout: (CollageLayout*)collageLayout
+
+-(void)cleanExisitngCoollageLayoutViews
 {
-    CGRect collageViewFrame = [self getFrameForSubview: self.collageLayouts.count];
+    for (int i=0; i< self.collageLayoutViews.count; i++) {
+        CollageLayoutView* collageLayoutView = self.collageLayoutViews[i];
+        [collageLayoutView removeFromSuperview];
+    }
+    
+    [self.collageLayoutViews removeAllObjects];
+}
+
+-(void) addCoollageLayoutViewForCollageLaout: (CollageLayout*)collageLayout withAssetsCollection: (AssetsCollection*) assetsCollection;
+{
+    CGRect collageViewFrame = [self getFrameForSubview: self.collageLayoutViews.count];
     
     CollageLayoutView* collageLayoutView = [[CollageLayoutView alloc]initWithFrame:collageViewFrame];
-    collageLayoutView.collageLayout = collageLayout;
+    collageLayoutView.delegate = self;
     
-    [self.collageLayouts addObject:collageLayoutView];
+    collageLayoutView.collageLayout = collageLayout;
+    collageLayoutView.assetsCollecton = assetsCollection;
+    
+    [self.collageLayoutViews addObject:collageLayoutView];
 
     
     [self addSubview:collageLayoutView];
@@ -72,8 +86,8 @@
     [self setNeedsLayout];
 }
 
--(NSArray*)getLayouts {
-    return self.collageLayouts;
+-(NSArray*)getCollageLayoutViews {
+    return self.collageLayoutViews;
 };
 
 -(void)layoutSubviews
@@ -86,9 +100,9 @@
     
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
     
-    for (NSInteger i = 0; i < self.collageLayouts.count; i++) {
+    for (NSInteger i = 0; i < self.collageLayoutViews.count; i++) {
         lastFrame = [self getFrameForSubview:i];
-        CollageLayoutView* collageLayoutView = self.collageLayouts[i];
+        CollageLayoutView* collageLayoutView = self.collageLayoutViews[i];
         
         collageLayoutView.frame = lastFrame;
         [collageLayoutView setNeedsLayout];
@@ -130,5 +144,11 @@
     self.pagingEnabled = YES;
     self.resizingInprogress = NO;
 }
+
+-(void) collageLayoutViewTouchUpInsideAction: (CollageLayoutView*) collageLayoutView {
+    if (self.delegate != nil) {
+        [self.collageLayoutSelectorDelegate collageLayoutSelectorGotSelectedLayout:collageLayoutView];
+    }
+};
 
 @end

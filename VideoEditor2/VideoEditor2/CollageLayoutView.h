@@ -10,12 +10,22 @@
 #import <UIKit/UIKit.h>
 
 #import "CollageLayout.h"
+#import "AssetsCollection.h"
 
-@interface CollageLayoutView : UIView
+@class CollageLayoutView;
+@protocol CollageLayoutViewDelegate
+
+-(void) collageLayoutViewTouchUpInsideAction: (CollageLayoutView*) collageLayoutView;
+
+@end
+
+@interface CollageLayoutView: UIView
 
 //array of CGRect
 @property (strong, nonatomic) CollageLayout* collageLayout;
 //array of PickerAssets
-@property (strong, nonatomic) NSArray* assets;
+@property (strong, nonatomic) AssetsCollection* assetsCollecton;
+
+@property (weak, nonatomic) id<CollageLayoutViewDelegate> delegate;
 
 @end

@@ -20,6 +20,11 @@
 
 @implementation CollageLayoutView
 
+- (void)dealloc
+{
+    [self unsubscribeFromAssetsCollectionNotifications];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -29,21 +34,62 @@
         self.plusBadge = [[CollageLayoutViewPlusBadge alloc] initWithFrame:[self getFrameForPlusBagde]];
         self.plusBadge.hidden = YES;
         
+        UITapGestureRecognizer *gestureRecogniger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchupAction:)];
+        gestureRecogniger.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:gestureRecogniger];
+        
         [self addSubview:self.plusBadge];
     }
     return self;
 }
 
--(void) setAssets:(NSArray *)assets
+
+-(void) touchupAction: (UITapGestureRecognizer*) sender
 {
-    _assets = assets;
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        if (self.delegate != nil) {
+            [self.delegate collageLayoutViewTouchUpInsideAction:self];
+        }
+    }
+}
+
+-(void) setAssetsCollecton:(AssetsCollection *)assetsCollecton
+{
+    [self unsubscribeFromAssetsCollectionNotifications];
+    
+    _assetsCollecton = assetsCollecton;
+    
+    [self subscribeToAssetsCollectionNotifications];
+    
+    [self updateAssetsView];
+}
+
+-(void) subscribeToAssetsCollectionNotifications
+{
+    if (self.assetsCollecton != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetAddedNitification object:self.assetsCollecton];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollecton];
+    }
+}
+
+-(void) unsubscribeFromAssetsCollectionNotifications
+{
+    if (self.assetsCollecton != nil) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetAddedNitification object:self.assetsCollecton];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollecton];
+    }
+}
+
+-(void) updateAssetsView
+{
+    NSArray* assets = [self.assetsCollecton getAssets];
     
     for (NSInteger i = 0; i < self.imageViews.count; i++) {
         UIImageView* imageView = self.imageViews[i];
         
-        if (self.assets.count > 0) {
-            NSInteger j = i % self.assets.count;
-            VAsset* asset = self.assets[j];
+        if (assets.count > 0) {
+            NSInteger j = i % assets.count;
+            VAsset* asset = assets[j];
             
             [asset getPreviewImageForSize:imageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
                 imageView.image = resultImage;
@@ -54,7 +100,7 @@
         }
     }
     
-    self.plusBadge.hidden = (self.assets.count > self.imageViews.count) ? NO : YES;
+    self.plusBadge.hidden = (assets.count > self.imageViews.count) ? NO : YES;
     
     dispatch_async(dispatch_get_main_queue(), ^{
         [self setNeedsDisplay];
@@ -133,7 +179,7 @@
         imageView.frame = frame;
     }
     
-    self.plusBadge.frame = [self getFrameForPlusBagde];
+    [self updateAssetsView];
 }
 
 @end

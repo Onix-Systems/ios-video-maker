@@ -10,13 +10,23 @@
 #import <UIKit/UIKit.h>
 
 #import "CollageLayout.h"
+#import "CollageLayoutView.h"
 
 #import "DMPagingScrollView.h"
 
+@protocol CollageLayoutSelectorViewDelegate
+
+-(void) collageLayoutSelectorGotSelectedLayout: (CollageLayoutView*) collageLayoutView;
+
+@end
+
 @interface CollageLayoutSelectorView : DMPagingScrollView
 
--(void) addCoollageLayout: (CollageLayout*)collageLayout;
--(NSArray*)getLayouts;
+@property (weak, nonatomic) id<CollageLayoutSelectorViewDelegate> collageLayoutSelectorDelegate;
+
+-(void) cleanExisitngCoollageLayoutViews;
+-(void) addCoollageLayoutViewForCollageLaout: (CollageLayout*)collageLayout withAssetsCollection: (AssetsCollection*) assetsCollection;
+-(NSArray*)getCollageLayoutViews;
 
 -(NSInteger) getCurrentPageNo;
 -(void) setCurrentPageNo: (NSInteger) currentPage;

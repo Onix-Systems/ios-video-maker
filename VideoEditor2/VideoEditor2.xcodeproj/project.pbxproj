@@ -32,6 +32,7 @@
 		11B4AE141B95B76600DB43AD /* ImageSelectMomentsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */; };
 		11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */; };
 		11B4AE1E1B95E14200DB43AD /* ImageSelectDZNDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */; };
+		11B596EA1BB186D000CF7253 /* CollageCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B596E91BB186D000CF7253 /* CollageCreationViewController.m */; settings = {ASSET_TAGS = (); }; };
 		11EFEDC51B81C27D00078735 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC41B81C27D00078735 /* main.m */; };
 		11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC71B81C27D00078735 /* AppDelegate.m */; };
 		11EFEDD11B81C27D00078735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EFEDCF1B81C27D00078735 /* Main.storyboard */; };
@@ -120,6 +121,8 @@
 		11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseImageSelectDataSource.m; sourceTree = "<group>"; };
 		11B4AE1C1B95E14200DB43AD /* ImageSelectDZNDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectDZNDataSource.h; sourceTree = "<group>"; };
 		11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectDZNDataSource.m; sourceTree = "<group>"; };
+		11B596E81BB186D000CF7253 /* CollageCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollageCreationViewController.h; sourceTree = "<group>"; };
+		11B596E91BB186D000CF7253 /* CollageCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollageCreationViewController.m; sourceTree = "<group>"; };
 		11EFEDBF1B81C27D00078735 /* VideoEditor2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EFEDC31B81C27D00078735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11EFEDC41B81C27D00078735 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				1105788C1BA1BC72000A8EA5 /* ImageSelectorCollageController.m */,
 				11B0413A1BB14B1B007DB2A4 /* CollageLayoutViewPlusBadge.h */,
 				11B0413B1BB14B1B007DB2A4 /* CollageLayoutViewPlusBadge.m */,
+				11B596E81BB186D000CF7253 /* CollageCreationViewController.h */,
+				11B596E91BB186D000CF7253 /* CollageCreationViewController.m */,
 			);
 			name = Collage;
 			sourceTree = "<group>";
@@ -588,6 +593,7 @@
 				11B0412D1BAC3356007DB2A4 /* VAssetPHImage.m in Sources */,
 				11B0413C1BB14B1B007DB2A4 /* CollageLayoutViewPlusBadge.m in Sources */,
 				1157DDE71BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m in Sources */,
+				11B596EA1BB186D000CF7253 /* CollageCreationViewController.m in Sources */,
 				11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */,
 				11669CDC1BA6E7E400C0BFF0 /* ImageSelectorStateIndicator.m in Sources */,
 				1157DDEA1BA074B300A8D4CB /* ImageSelectorCollectionViewHeader.m in Sources */,

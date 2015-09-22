@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[ImageSelectorCollageController collageLayoutSelectorGotSelectedLayout:]:ImageSelectorCollageController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.parentViewController">
+            </PersistentString>
+            <PersistentString
+               value = "self.parentViewController.parentViewController">
+            </PersistentString>
+            <PersistentString
+               value = "self.navigationController">
+            </PersistentString>
+            <PersistentString
+               value = "self.parentViewController.parentViewController.navigationController">
+            </PersistentString>
+            <PersistentString
+               value = "self.parentViewController.navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[CollageCreationViewController setCollageLayoutView:]:CollageCreationViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.collageLayoutViewConainer.bounds">
+            </PersistentString>
+            <PersistentString
+               value = "self.collageLayoutViewConainer">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
