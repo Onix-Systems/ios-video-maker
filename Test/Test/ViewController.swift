@@ -31,7 +31,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         tableView.delegate = self
         tableView.editing = true
  
-        let mainBundle = NSBundle.mainBundle();
+//        let mainBundle = NSBundle.mainBundle();
         
         self.updateButtonsState()
 
@@ -59,9 +59,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.currentPlayerAsset = newAsset
                 self.playerController!.loadAsset(asset: newAsset, withVideoComposition: self.composition.mutableVideoComposition)
                 
-//                self.debugView.player = self.playerController!.player!;
-//                self.debugView.synchronizeToComposition(self.composition.mutableComposition, videoComposition: self.composition.mutableVideoComposition, audioMix: self.composition.mutableAudioMix)
-//                self.debugView.setNeedsDisplay()
+                self.debugView.player = self.playerController!.player!;
+                self.debugView.synchronizeToComposition(self.composition.mutableComposition, videoComposition: self.composition.mutableVideoComposition, audioMix: self.composition.mutableAudioMix)
+                self.debugView.setNeedsDisplay()
 
             }
         } else {
@@ -108,7 +108,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("imageCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("imageCell", forIndexPath: indexPath) 
         
         self.composition.getSegment(indexPath.row).getThumbnail(){
             (image : UIImage) -> Void in
@@ -125,7 +125,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Dispose of any resources that can be recreated.
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         self.composition.addSegmentWithPickerInfo(info) {
             self.tableView.reloadData()
         }
@@ -150,7 +150,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imagePicker!.showsCameraControls = true
         }
         
-        imagePicker!.mediaTypes = [kUTTypeMovie, kUTTypeImage];
+        imagePicker!.mediaTypes = [String(kUTTypeMovie), String(kUTTypeImage)];
         
         imagePicker!.allowsEditing = true;
         

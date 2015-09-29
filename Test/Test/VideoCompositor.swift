@@ -13,8 +13,8 @@ import UIKit
 
 class VideoCompositor : NSObject, AVVideoCompositing {
     
-    static func getAspectFitTransform(#image: CIImage, desiredSize: CGSize) -> CGAffineTransform {
-        let imageRect = image.extent()
+    static func getAspectFitTransform(image image: CIImage, desiredSize: CGSize) -> CGAffineTransform {
+        let imageRect = image.extent
         
         let yScale = imageRect.height / desiredSize.height
         let xScale = imageRect.width / desiredSize.width
@@ -29,7 +29,7 @@ class VideoCompositor : NSObject, AVVideoCompositing {
         return CGAffineTransformConcat(scaleTransform, translationTransform)
     }
     
-    var sourcePixelBufferAttributes: [NSObject : AnyObject]! {
+    var sourcePixelBufferAttributes: [String : AnyObject]? {
         get {
             return [
                 kCVPixelBufferPixelFormatTypeKey : kCVPixelFormatType_32ARGB,
@@ -38,7 +38,7 @@ class VideoCompositor : NSObject, AVVideoCompositing {
         }
     }
     
-    var requiredPixelBufferAttributesForRenderContext: [NSObject : AnyObject]! {
+    var requiredPixelBufferAttributesForRenderContext: [String : AnyObject] {
         get {
             return [
                 kCVPixelBufferPixelFormatTypeKey : kCVPixelFormatType_32ARGB,
@@ -48,11 +48,11 @@ class VideoCompositor : NSObject, AVVideoCompositing {
     }
     
     var renderContext : AVVideoCompositionRenderContext?
-    func renderContextChanged(newRenderContext: AVVideoCompositionRenderContext!) {
+    func renderContextChanged(newRenderContext: AVVideoCompositionRenderContext) {
         self.renderContext = newRenderContext
     }
     
-    func startVideoCompositionRequest(request: AVAsynchronousVideoCompositionRequest!) {
+    func startVideoCompositionRequest(request: AVAsynchronousVideoCompositionRequest) {
         self.requestNumber++
         dispatch_async(self.renderingQueue[(self.requestNumber % 2)]) {
             self.processRequest(request)
@@ -131,8 +131,8 @@ class VideoCompositor : NSObject, AVVideoCompositing {
     override init() {
 //        ciContext = CIContext();
         
-        var myEAGLContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
-        var options = [kCIContextWorkingColorSpace : NSNull()]
+        let myEAGLContext = EAGLContext(API: EAGLRenderingAPI.OpenGLES2)
+        let options = [kCIContextWorkingColorSpace : NSNull()]
         self.ciContext = CIContext(EAGLContext: myEAGLContext, options: options)
 
         self.renderingQueue.append(dispatch_queue_create("CustomVideoCompositorRenderingQueue1", DISPATCH_QUEUE_SERIAL))

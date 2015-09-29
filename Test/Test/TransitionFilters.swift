@@ -37,14 +37,14 @@ class TransitionFilter : NSObject {
     func getTransitionFromImage(fromImage : CIImage, toImage : CIImage, inputTime : Double) -> CIImage {
         
         let filter = CIFilter(name: self.filterName)
-        filter.setDefaults()
+        filter!.setDefaults()
         
-        filter.setValue(fromImage, forKey: "inputImage")
-        filter.setValue(toImage, forKey: "inputTargetImage")
+        filter!.setValue(fromImage, forKey: "inputImage")
+        filter!.setValue(toImage, forKey: "inputTargetImage")
         
-        filter.setValue(NSNumber(double: inputTime), forKey: "inputTime")
+        filter!.setValue(NSNumber(double: inputTime), forKey: "inputTime")
         
-        return filter.valueForKey(kCIOutputImageKey) as! CIImage
+        return filter!.valueForKey(kCIOutputImageKey) as! CIImage
         
     }
     

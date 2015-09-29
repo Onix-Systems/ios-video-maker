@@ -151,7 +151,7 @@ class VideoComposition: NSObject {
         
         var audioMixParameters = [AVMutableAudioMixInputParameters]()
             
-        let placeholderVideoTrack : AVAssetTrack = self.placeholder.tracksWithMediaType(AVMediaTypeVideo)[0] as! AVAssetTrack
+        let placeholderVideoTrack : AVAssetTrack = self.placeholder.tracksWithMediaType(AVMediaTypeVideo)[0] 
 
         //self.audioTrack = self.mutableComposition.addMutableTrackWithMediaType(AVMediaTypeAudio, preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
         
@@ -188,17 +188,23 @@ class VideoComposition: NSObject {
                 } else if (segment.segmentType() == .image) {
                     //Transition from ... to image
                     if (previousSegment.segmentType() == VideoCompositionSegemntType.image) {
-                        //image to image transition
-                        //put empty placeholder into transition timerange
-                        videoTracks[currentTrackIndex].insertTimeRange(CMTimeRangeMake(kCMTimeZero, transitionDuration), ofTrack: placeholderVideoTrack, atTime: currentSegmentStartTime, error: nil)
+                        do {
+                            //image to image transition
+                            //put empty placeholder into transition timerange
+                            try videoTracks[currentTrackIndex].insertTimeRange(CMTimeRangeMake(kCMTimeZero, transitionDuration), ofTrack: placeholderVideoTrack, atTime: currentSegmentStartTime)
+                        } catch _ {
+                        }
                     }
                     
                     //shift start time for the transition duration
                     currentSegmentStartTime = CMTimeAdd(currentSegmentStartTime, transitionDuration)
 
                     passThroughTimeRange = CMTimeRangeMake(currentSegmentStartTime, timeRangeInOriginal.duration)
-                    //fill image timerange with empty placeholder
-                    videoTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: placeholderVideoTrack, atTime: currentSegmentStartTime, error: nil)
+                    do {
+                        //fill image timerange with empty placeholder
+                        try videoTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: placeholderVideoTrack, atTime: currentSegmentStartTime)
+                    } catch _ {
+                    }
                 }
             } else {
                 transitionTimeRange = nil
@@ -225,15 +231,21 @@ class VideoComposition: NSObject {
             let videoSegment = segment as? VideoCompositionVideoSegment
             
             if (imageSegment != nil) {
-                let segmentInstruction = StillImageInstuction(image: imageSegment!.image.CGImage, timeRange: passThroughTimeRange)
+                let segmentInstruction = StillImageInstuction(image: imageSegment!.image.CGImage!, timeRange: passThroughTimeRange)
                 instructions.append(segmentInstruction)
             }
             
             if (videoSegment != nil) {
-                videoTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: videoSegment!.videoTrack, atTime: currentSegmentStartTime, error: nil)
+                do {
+                    try videoTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: videoSegment!.videoTrack!, atTime: currentSegmentStartTime)
+                } catch _ {
+                }
                 
                 if (videoSegment?.audioTrack != nil) {
-                    audioTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: videoSegment!.audioTrack, atTime: currentSegmentStartTime, error: nil)
+                    do {
+                        try audioTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: videoSegment!.audioTrack!, atTime: currentSegmentStartTime)
+                    } catch _ {
+                    }
                     
                     if (hasTransitionBefore) {
                         let param1 = AVMutableAudioMixInputParameters(track: audioTracks[currentTrackIndex])
@@ -296,12 +308,15 @@ class VideoComposition: NSObject {
             var segmentTimeRange = CMTimeRangeMake(currentSegmentStartTime, timeRangeInOriginal.duration)
             
             let videoSegment = segment as! VideoCompositionVideoSegment
-            let clipVideoTrack : AVAssetTrack = asset.tracksWithMediaType(AVMediaTypeVideo)[0] as! AVAssetTrack;
+            let clipVideoTrack : AVAssetTrack = asset.tracksWithMediaType(AVMediaTypeVideo)[0] ;
             let videoSegemntTrack = videoSegment.videoTrack
             
             NSLog("Assert tracks \(clipVideoTrack == videoSegemntTrack ? 1 : 0) clipVideoTrack \(clipVideoTrack) VideoSegmentTrack \(videoSegemntTrack)")
             
-            videoTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: videoSegment.videoTrack, atTime: currentSegmentStartTime, error: nil)
+            do {
+                try videoTracks[currentTrackIndex].insertTimeRange(timeRangeInOriginal, ofTrack: videoSegment.videoTrack!, atTime: currentSegmentStartTime)
+            } catch _ {
+            }
             
             var segmentInstruction = AVMutableVideoCompositionInstruction()
             segmentInstruction.timeRange = segmentTimeRange
@@ -327,35 +342,35 @@ class VideoComposition: NSObject {
         
         var urlPart : NSURL
         
-        urlPart = (fileManager.URLForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true, error: nil))!
+        urlPart = (try? fileManager.URLForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true))!
         urlPart = urlPart.URLByAppendingPathComponent(dateFormatter.stringFromDate(NSDate()))
-        let url = urlPart.URLByAppendingPathExtension(UTTypeCopyPreferredTagWithClass(AVFileTypeQuickTimeMovie, kUTTagClassFilenameExtension).takeRetainedValue() as String)
+        let url = urlPart.URLByAppendingPathExtension(UTTypeCopyPreferredTagWithClass(AVFileTypeQuickTimeMovie, String(kUTTagClassFilenameExtension))!.takeRetainedValue() as String)
             
         NSLog("Export movie to URL = \(url)")
         
-        exportSession.outputURL = url
+        exportSession!.outputURL = url
         
-        exportSession.outputFileType = AVFileTypeQuickTimeMovie
-        exportSession.shouldOptimizeForNetworkUse = true
-        exportSession.videoComposition = self.mutableVideoComposition
-        exportSession.audioMix = self.mutableAudioMix
+        exportSession!.outputFileType = AVFileTypeQuickTimeMovie
+        exportSession!.shouldOptimizeForNetworkUse = true
+        exportSession!.videoComposition = self.mutableVideoComposition
+        exportSession!.audioMix = self.mutableAudioMix
         
-        exportSession.exportAsynchronouslyWithCompletionHandler() {
+        exportSession!.exportAsynchronouslyWithCompletionHandler() {
             dispatch_async(dispatch_get_main_queue()) {
-                if (exportSession.status == AVAssetExportSessionStatus.Completed) {
+                if (exportSession!.status == AVAssetExportSessionStatus.Completed) {
                     NSLog("Export finished; status==Completed;")
                     
                     let assetsLibrary = ALAssetsLibrary()
-                    if (assetsLibrary.videoAtPathIsCompatibleWithSavedPhotosAlbum(exportSession.outputURL)) {
+                    if (assetsLibrary.videoAtPathIsCompatibleWithSavedPhotosAlbum(exportSession!.outputURL)) {
                         NSLog("Add to asset library")
-                        assetsLibrary.writeVideoAtPathToSavedPhotosAlbum(exportSession.outputURL, completionBlock : {
+                        assetsLibrary.writeVideoAtPathToSavedPhotosAlbum(exportSession!.outputURL, completionBlock : {
                             (_ : NSURL!, error : NSError!) -> Void in
                             
                             NSLog("Finished adding to asset library - \(error)")
                         });
                     }
                 } else {
-                    NSLog("Export finished; status!=Completed; error=\(exportSession.error)")
+                    NSLog("Export finished; status!=Completed; error=\(exportSession!.error)")
                 }
                 
                 onFinished()

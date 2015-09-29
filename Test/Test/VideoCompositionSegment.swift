@@ -41,7 +41,7 @@ class VideoCompositionVideoSegment: VideoCompositionSegment {
         super.init();
         
         self.asset.loadValuesAsynchronouslyForKeys(["duration", "tracks"]) {
-            var error = NSErrorPointer();
+            let error = NSErrorPointer();
             let durationStatus = self.asset.statusOfValueForKey("duration", error: error)
             if (durationStatus == .Failed) {
                 NSLog("Failed to load duration of asset - \(self.asset) with error = \(error)")
@@ -90,13 +90,23 @@ class VideoCompositionVideoSegment: VideoCompositionSegment {
                 let durationSeconds = CMTimeGetSeconds(self.asset.duration);
                 let thumbnailTime = CMTimeMakeWithSeconds(durationSeconds/10.0, 1000);
 
-                var errorPointer = NSErrorPointer()
-                var actualTime = UnsafeMutablePointer<CMTime>()
+                let errorPointer = NSErrorPointer()
+                let actualTime = UnsafeMutablePointer<CMTime>()
                 
-                let thumbnailCGImage : CGImageRef = imageGenerator.copyCGImageAtTime(thumbnailTime, actualTime: actualTime, error: errorPointer)
-                self.thumbnailImage = UIImage(CGImage: thumbnailCGImage)
+                let thumbnailCGImage : CGImageRef?
+                do {
+                    thumbnailCGImage = try imageGenerator.copyCGImageAtTime(thumbnailTime, actualTime: actualTime)
+                } catch let error as NSError {
+                    errorPointer.memory = error
+                    thumbnailCGImage = nil
+                } catch {
+                    fatalError()
+                }
+                if (thumbnailCGImage != nil) {
+                    self.thumbnailImage = UIImage(CGImage: thumbnailCGImage!)
 
-                onReady(self.thumbnailImage!)
+                    onReady(self.thumbnailImage!)
+                }
             }
         }
     }

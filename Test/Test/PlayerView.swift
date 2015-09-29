@@ -18,7 +18,7 @@ class PlayerView: UIView {
     
     var player : AVPlayer {
         get {
-            return (self.layer as! AVPlayerLayer).player
+            return (self.layer as! AVPlayerLayer).player!
         }
         set(player) {
             (self.layer as! AVPlayerLayer).player = player

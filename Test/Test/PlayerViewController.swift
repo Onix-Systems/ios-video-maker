@@ -74,7 +74,7 @@ class PlayerViewController: UIViewController {
     func updatePlayButton() {
         let buttonStyle : UIBarButtonSystemItem = self.playingNow ? UIBarButtonSystemItem.Pause : UIBarButtonSystemItem.Play;
         
-        var newPlayButton  = UIBarButtonItem(barButtonSystemItem: buttonStyle, target: self, action: Selector("playButtonAction:"))
+        let newPlayButton  = UIBarButtonItem(barButtonSystemItem: buttonStyle, target: self, action: Selector("playButtonAction:"))
         
         var items = self.toolbar.items
         
@@ -182,20 +182,20 @@ class PlayerViewController: UIViewController {
         let originalVideoPath = mainBundle.pathForResource(resurce, ofType: ofType);
         let url = NSURL(fileURLWithPath: originalVideoPath!)
         
-        self.loadAsset(fromURL: url!)
+        self.loadAsset(fromURL: url)
     }
     
     func loadAsset(fromURL url : NSURL) {
-        var asset : AVURLAsset! = AVURLAsset(URL: url, options: [AVURLAssetPreferPreciseDurationAndTimingKey : true])
+        let asset : AVURLAsset! = AVURLAsset(URL: url, options: [AVURLAssetPreferPreciseDurationAndTimingKey : true])
         self.loadAsset(asset: asset)
     }
     
-    func loadAsset(#asset : AVAsset) {
+    func loadAsset(asset asset : AVAsset) {
         self.loadAsset(asset: asset, withVideoComposition: nil)
     }
     
     var playerItemObserverIsSetup = false
-    func loadAsset(#asset : AVAsset, withVideoComposition videoComposition : AVVideoComposition?) {
+    func loadAsset(asset asset : AVAsset, withVideoComposition videoComposition : AVVideoComposition?) {
         let keys = ["duration", "tracks"]
         
         self.player = nil
@@ -205,7 +205,7 @@ class PlayerViewController: UIViewController {
         
         asset.loadValuesAsynchronouslyForKeys(keys) {
             dispatch_async(dispatch_get_main_queue()) {
-                var error = NSErrorPointer();
+                let error = NSErrorPointer();
                 
                 let tracksStatus = asset.statusOfValueForKey("duration", error: error)
                 
@@ -255,7 +255,7 @@ class PlayerViewController: UIViewController {
         }
     }
 
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         NSLog("observedValue for \(keyPath) of \(object) = \(object)")
         NSLog("playerItem.status = %@", [self.playerItem!.status == .ReadyToPlay ? "ReadyToPlay" : self.playerItem!.status == .Failed ? "Failed" : "UnknownStatus"])
         NSLog("playerItem.error = \(self.playerItem!.error)")

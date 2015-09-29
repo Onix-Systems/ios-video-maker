@@ -21,7 +21,7 @@ class StillImageInstuction : NSObject, AVVideoCompositionInstructionProtocol {
     
     @objc var containsTweening: Bool = true
     
-     @objc var requiredSourceTrackIDs: [AnyObject]! {
+     @objc var requiredSourceTrackIDs: [NSValue]? {
         get {
             return []
         }
@@ -47,7 +47,7 @@ class PassthroughInstuction : NSObject, AVVideoCompositionInstructionProtocol {
     @objc var containsTweening: Bool = true
   
     var sourceTrackID : CMPersistentTrackID
-    @objc var requiredSourceTrackIDs: [AnyObject]! {
+    @objc var requiredSourceTrackIDs: [NSValue]? {
         get {
             return [NSNumber(int: self.sourceTrackID)]
         }
@@ -73,7 +73,7 @@ class TransitionInstuction : NSObject, AVVideoCompositionInstructionProtocol {
     @objc var containsTweening: Bool = true
     
     var sourceTrackIDs = [NSNumber]()
-    @objc var requiredSourceTrackIDs: [AnyObject]! {
+    @objc var requiredSourceTrackIDs: [NSValue]? {
         get {
             return sourceTrackIDs
         }
