@@ -76,7 +76,7 @@
     collageLayoutView.delegate = self;
     
     collageLayoutView.collageLayout = collageLayout;
-    collageLayoutView.assetsCollecton = assetsCollection;
+    collageLayoutView.assetsCollection = assetsCollection;
     
     [self.collageLayoutViews addObject:collageLayoutView];
 

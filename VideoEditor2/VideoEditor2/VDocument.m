@@ -11,6 +11,7 @@
 @interface VDocument ()
 
 @property (strong, readwrite) AssetsCollection* assetsCollection;
+@property (strong, readwrite) VSegmentsCollection* segmentsCollection;
 
 @end
 
@@ -35,6 +36,9 @@
     self = [super init];
     if (self) {
         self.assetsCollection = [AssetsCollection new];
+        self.segmentsCollection = [VSegmentsCollection new];
+        
+        self.segmentsCollection.assetsCollection = self.assetsCollection;
     }
     return self;
 }

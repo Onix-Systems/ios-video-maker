@@ -244,7 +244,7 @@
 }
 
 
--(void) selectoinActionForIndexPath:(NSIndexPath *)indexPath
+-(void) selectionActionForIndexPath:(NSIndexPath *)indexPath
 {
     VAsset *asset = [self getAssetForIndexPath:indexPath];
     

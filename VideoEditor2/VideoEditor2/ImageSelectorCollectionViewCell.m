@@ -68,7 +68,7 @@
 }
 
 -(void)stateIndicatorTouchUpInsideAction {
-    [self.delegate selectoinActionForIndexPath: self.indexPath];
+    [self.delegate selectionActionForIndexPath: self.indexPath];
 }
 
 -(void) updateState {
@@ -93,7 +93,7 @@
         }
         
         if (self.asset.isVideo) {
-            double seconds = round(self.asset.duration.doubleValue);
+            double seconds = round(self.asset.duration);
             double minutes = floor(seconds / 60);
             seconds = seconds - minutes*60;
             

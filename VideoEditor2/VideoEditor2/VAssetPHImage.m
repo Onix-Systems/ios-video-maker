@@ -7,17 +7,13 @@
 //
 
 #import "VAssetPHImage.h"
+#import "VInstructionStillImage.h"
 
 @interface VAssetPHImage ()
 
 @property (nonatomic, strong) PHAsset* asset;
 
 @property (readwrite) double downloadPercent;
-
-@property (strong) UIImage* downloadedImage;
-@property (strong) AVAsset* downloadedAsset;
-@property (strong) AVAudioMix* downloadedAudioMix;
-
 
 @property () PHImageRequestID lastRequestID;
 
@@ -55,9 +51,9 @@
     return NO;
 }
 
-- (NSNumber*) duration
+- (double) duration
 {
-    return @(self.asset.duration);
+    return self.asset.duration;
 }
 
 - (NSString*) getIdentifier

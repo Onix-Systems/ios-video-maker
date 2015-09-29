@@ -7,16 +7,19 @@
 //
 
 #import "ImageSelectorPreviewController.h"
-#import "ImageSelectorPlayerView.h"
+#import "PlayerView.h"
 #import "ImageSelectorScrollView.h"
 
-@interface ImageSelectorPreviewController ()
+@interface ImageSelectorPreviewController () <PlayerViewDelegate>
 
-@property (weak, nonatomic) IBOutlet ImageSelectorPlayerView *playerView;
+@property (weak, nonatomic) IBOutlet PlayerView *playerView;
 
 @property (weak, nonatomic) IBOutlet ImageSelectorScrollView *scrollView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *gridImageView;
+
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIView *playerControlPanel;
 
 @end
 
@@ -24,26 +27,51 @@
 
 - (void)viewDidLoad
 {
-    self.playerView.hidden = YES;
-    self.scrollView.hidden = NO;
-    self.gridImageView.hidden = NO;
+    [self hidePlayerview:YES];
+    self.playerView.delegate = self;
+}
+
+- (void) hidePlayerview:(BOOL)hidden {
+    self.playerView.hidden = hidden;
+    self.playerControlPanel.hidden = hidden;
+    self.scrollView.hidden = !hidden;
+    self.gridImageView.hidden = !hidden;
+    [self.playerView cleanPlayer];
+}
+
+-(void) playerStateDidChanged:(PlayerView *)playerView {
+    if (playerView.isReadyToPlay) {
+        self.playButton.enabled = YES;
+        if (playerView.isPlayingNow) {
+            [self.playButton setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+        } else {
+            [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+        }
+    } else {
+        [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+        //        self.playButton.enabled = NO;
+    }
+}
+
+- (IBAction)playButtonAction:(id)sender {
+    if (self.playerView.isPlayingNow) {
+        [self.playerView pause];
+    } else {
+        [self.playerView play];
+    }
 }
 
 -(void) displayAsset: (VAsset*) asset autoPlay: (BOOL) autoPlay
 {
     if (asset.isVideo) {
-        self.playerView.hidden = NO;
-        self.scrollView.hidden = YES;
-        self.gridImageView.hidden = YES;
+        [self hidePlayerview:NO];
         
         [asset downloadVideoAsset:^(AVAsset *asset, AVAudioMix* audioMix) {
             [self.playerView playVideoFromAsset:asset autoPlay:autoPlay];
         }];
         
     } else {
-        self.playerView.hidden = YES;
-        self.scrollView.hidden = NO;
-        self.gridImageView.hidden = NO;
+        [self hidePlayerview:YES];
         
         NSInteger requestTag = ++self.scrollView.tag;
         

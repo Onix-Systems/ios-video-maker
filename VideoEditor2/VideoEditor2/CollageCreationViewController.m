@@ -25,7 +25,7 @@
     
     CollageLayoutView* newCollageLayoutView = [[CollageLayoutView alloc] initWithFrame:CGRectZero];
     newCollageLayoutView.collageLayout = collageLayoutView.collageLayout;
-    newCollageLayoutView.assetsCollecton = collageLayoutView.assetsCollecton;
+    newCollageLayoutView.assetsCollection = collageLayoutView.assetsCollection;
     newCollageLayoutView.delegate = nil;
     _collageLayoutView = newCollageLayoutView;
     

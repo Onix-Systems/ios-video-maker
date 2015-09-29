@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface VideoCompositor : NSObject
+@interface VideoCompositor : NSObject <AVVideoCompositing>
 
 @end

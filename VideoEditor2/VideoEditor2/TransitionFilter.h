@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreImage/CoreImage.h>
 
 @interface TransitionFilter : NSObject
+
+@property (strong, nonatomic, readonly) NSString* filterName;
++ (TransitionFilter*) transitionFilterWithFilterName: (NSString*) filterName;
+
++ (NSString*) getRandomFilterName;
+
+- (instancetype)initWithFilterName: (NSString*) filterName;
+-(CIImage*) getTransitionFromImage: (CIImage*) fromImage toImage: (CIImage*) toImage inputTime: (double) inputTime;
 
 @end

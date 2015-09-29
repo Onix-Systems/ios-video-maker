@@ -10,4 +10,13 @@
 
 @implementation VInstrucionPassthrough
 
+-(void) processRequest: (AVAsynchronousVideoCompositionRequest*) request usingCIContext: (CIContext*) ciContext
+{
+    CVPixelBufferRef passthroughFrame = [request sourceFrameByTrackID: self.sourceTrackID];
+    CFRetain(passthroughFrame);
+    [request finishWithComposedVideoFrame: passthroughFrame];
+    CFRelease(passthroughFrame);
+}
+
+
 @end

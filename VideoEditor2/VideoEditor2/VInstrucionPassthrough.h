@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VCompositionInstruction.h"
 
-@interface VInstrucionPassthrough : NSObject
+@interface VInstrucionPassthrough : VCompositionInstruction
+
+@property (nonatomic) CMPersistentTrackID sourceTrackID;
 
 @end

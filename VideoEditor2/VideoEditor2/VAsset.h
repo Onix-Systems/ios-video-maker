@@ -10,13 +10,19 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "VideoComposition.h"
+
 typedef void(^VAssetDownloadCompletionBlock)(UIImage* resultImage, BOOL requestFinished);
 #define kVAssetDownloadProgressNotification @"kVAssetDownloadProgressNotification"
 
 @interface VAsset : NSObject
 
 @property (nonatomic,readonly) BOOL isVideo;
-@property (nonatomic,readonly) NSNumber* duration;
+@property (readonly) double duration;
+
+@property (strong, nonatomic) UIImage* downloadedImage;
+@property (strong) AVAsset* downloadedAsset;
+@property (strong) AVAudioMix* downloadedAudioMix;
 
 - (NSString*) getIdentifier;
 -(double) getDownloadPercent;
@@ -30,5 +36,7 @@ typedef void(^VAssetDownloadCompletionBlock)(UIImage* resultImage, BOOL requestF
 
 -(BOOL) isDownloading;
 -(void) cancelDownloading;
+
+-(void) putIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo;
 
 @end

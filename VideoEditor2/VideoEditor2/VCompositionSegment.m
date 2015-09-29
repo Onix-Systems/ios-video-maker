@@ -8,23 +8,12 @@
 
 #import "VCompositionSegment.h"
 
-@interface VCompositionSegment ()
-
-@property (nonatomic, readwrite) CMTime duration;
-@property (nonatomic, readwrite) BOOL isLoaded;
-
-@end
 
 @implementation VCompositionSegment
 
-- (instancetype)init
+-(CMTime)duration
 {
-    self = [super init];
-    if (self) {
-        self.duration = kCMTimeZero;
-        self.isLoaded = NO;
-    }
-    return self;
+    return kCMTimeZero;
 }
 
 @end

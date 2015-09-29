@@ -15,7 +15,7 @@
 
 @protocol ImageSelectorCollectionViewCellDelegate
 
--(void) selectoinActionForIndexPath:(NSIndexPath *)indexPath;
+-(void) selectionActionForIndexPath:(NSIndexPath *)indexPath;
 
 @end
 

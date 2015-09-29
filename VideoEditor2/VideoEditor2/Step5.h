@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface Step5 : NSObject
+@interface Step5 : UIViewController
 
 @end

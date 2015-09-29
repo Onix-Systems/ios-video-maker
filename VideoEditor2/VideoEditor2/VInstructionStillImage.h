@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "VCompositionInstruction.h"
 
-@interface VInstructionStillImage : NSObject
+@interface VInstructionStillImage : VCompositionInstruction
+
+@property (nonatomic, strong) CIImage* image;
 
 @end

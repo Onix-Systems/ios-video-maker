@@ -8,11 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "AssetsCollection.h"
+#import "VSegmentsCollection.h"
 
 @interface VDocument : NSObject
 
 +(VDocument*) getCurrentDocument;
 
 @property (strong, readonly) AssetsCollection* assetsCollection;
+@property (strong, readonly) VSegmentsCollection* segmentsCollection;
 
 @end

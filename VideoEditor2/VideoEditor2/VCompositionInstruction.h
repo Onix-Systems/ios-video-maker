@@ -7,7 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface VCompositionInstruction : NSObject
+@interface VCompositionInstruction : NSObject <AVVideoCompositionInstruction>
+
+@property (nonatomic) CMTimeRange timeRange;
+@property (nonatomic) BOOL enablePostProcessing;
+@property (nonatomic) BOOL containsTweening;
+@property (nonatomic) NSArray<NSValue *> *requiredSourceTrackIDs;
+@property (nonatomic) CMPersistentTrackID passthroughTrackID; // kCMPersistentTrackID_Invalid if not a passthrough instruction
+
++(CGAffineTransform) getAspectFitTransformFromSize: (CGSize) originalSize toSize: (CGSize) requiredSize;
+
+-(void) processRequest: (AVAsynchronousVideoCompositionRequest*) request usingCIContext: (CIContext*) ciContext;
+
 
 @end

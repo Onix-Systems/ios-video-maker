@@ -98,7 +98,7 @@
     }
     
     collectionViewConrtroller.selectionStorage = newCollection;
-    collageConrtroller.assetsCollecton = newCollection;
+    collageConrtroller.assetsCollection = newCollection;
     
 }
 

@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		110578871BA1A380000A8EA5 /* ImageSelectorScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 110578861BA1A380000A8EA5 /* ImageSelectorScrollView.m */; };
-		1105788A1BA1A494000A8EA5 /* ImageSelectorPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 110578891BA1A494000A8EA5 /* ImageSelectorPlayerView.m */; };
 		1105788D1BA1BC72000A8EA5 /* ImageSelectorCollageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1105788C1BA1BC72000A8EA5 /* ImageSelectorCollageController.m */; };
+		114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421351BB3F1DC006722BD /* VSegmentsCollection.m */; settings = {ASSET_TAGS = (); }; };
+		114421391BB51409006722BD /* VCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421381BB51409006722BD /* VCompositionInstruction.m */; settings = {ASSET_TAGS = (); }; };
 		1157DDE71BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157DDE61BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m */; };
 		1157DDEA1BA074B300A8D4CB /* ImageSelectorCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157DDE91BA074B300A8D4CB /* ImageSelectorCollectionViewHeader.m */; };
 		1157DDED1BA074DF00A8D4CB /* ImageSelectorCollectionViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157DDEC1BA074DF00A8D4CB /* ImageSelectorCollectionViewFooter.m */; };
@@ -22,6 +23,10 @@
 		119B87741BA0259B000E5BD3 /* ImageSelectorPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 119B87731BA0259B000E5BD3 /* ImageSelectorPreviewController.m */; };
 		119B87771BA02956000E5BD3 /* ImageSelectorCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 119B87761BA02956000E5BD3 /* ImageSelectorCollectionViewController.m */; };
 		119B877A1BA050D7000E5BD3 /* ImageSelectorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 119B87791BA050D7000E5BD3 /* ImageSelectorController.m */; };
+		11A27B321BB5A22B00F06685 /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A27B311BB5A22B00F06685 /* PlayerView.m */; settings = {ASSET_TAGS = (); }; };
+		11A27B371BB9372600F06685 /* EmptyTrackPleaceholder.m4v in Resources */ = {isa = PBXBuildFile; fileRef = 11A27B361BB9372600F06685 /* EmptyTrackPleaceholder.m4v */; settings = {ASSET_TAGS = (); }; };
+		11A27B3A1BB9644800F06685 /* APLCompositionDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A27B391BB9644800F06685 /* APLCompositionDebugView.m */; settings = {ASSET_TAGS = (); }; };
+		11A27B3E1BBA555900F06685 /* VInstrucionPassthrough.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A27B3D1BBA555900F06685 /* VInstrucionPassthrough.m */; settings = {ASSET_TAGS = (); }; };
 		11B041261BAC2964007DB2A4 /* VDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B041251BAC2964007DB2A4 /* VDocument.m */; settings = {ASSET_TAGS = (); }; };
 		11B0412A1BAC2DFC007DB2A4 /* VAssetWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B041291BAC2DFC007DB2A4 /* VAssetWebImage.m */; settings = {ASSET_TAGS = (); }; };
 		11B0412D1BAC3356007DB2A4 /* VAssetPHImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0412C1BAC3356007DB2A4 /* VAssetPHImage.m */; settings = {ASSET_TAGS = (); }; };
@@ -33,6 +38,14 @@
 		11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */; };
 		11B4AE1E1B95E14200DB43AD /* ImageSelectDZNDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */; };
 		11B596EA1BB186D000CF7253 /* CollageCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B596E91BB186D000CF7253 /* CollageCreationViewController.m */; settings = {ASSET_TAGS = (); }; };
+		11D70F431BB27EC60091723A /* Step5.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F421BB27EC60091723A /* Step5.m */; settings = {ASSET_TAGS = (); }; };
+		11D70F471BB281BF0091723A /* TransitionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F461BB281BF0091723A /* TransitionFilter.m */; settings = {ASSET_TAGS = (); }; };
+		11D70F4A1BB287640091723A /* VCompositionSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F491BB287640091723A /* VCompositionSegment.m */; settings = {ASSET_TAGS = (); }; };
+		11D70F4D1BB28C0B0091723A /* VTransitionSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F4C1BB28C0B0091723A /* VTransitionSegment.m */; settings = {ASSET_TAGS = (); }; };
+		11D70F501BB28C7A0091723A /* VAssetSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F4F1BB28C7A0091723A /* VAssetSegment.m */; settings = {ASSET_TAGS = (); }; };
+		11D70F531BB28D2F0091723A /* VideoComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F521BB28D2F0091723A /* VideoComposition.m */; settings = {ASSET_TAGS = (); }; };
+		11D70F561BB29CA50091723A /* VideoCompositor.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F551BB29CA50091723A /* VideoCompositor.m */; settings = {ASSET_TAGS = (); }; };
+		11EB14721BB58BD200035F94 /* VInstructionStillImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EB14711BB58BD200035F94 /* VInstructionStillImage.m */; settings = {ASSET_TAGS = (); }; };
 		11EFEDC51B81C27D00078735 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC41B81C27D00078735 /* main.m */; };
 		11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC71B81C27D00078735 /* AppDelegate.m */; };
 		11EFEDD11B81C27D00078735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EFEDCF1B81C27D00078735 /* Main.storyboard */; };
@@ -73,10 +86,12 @@
 /* Begin PBXFileReference section */
 		110578851BA1A380000A8EA5 /* ImageSelectorScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectorScrollView.h; sourceTree = "<group>"; };
 		110578861BA1A380000A8EA5 /* ImageSelectorScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectorScrollView.m; sourceTree = "<group>"; };
-		110578881BA1A494000A8EA5 /* ImageSelectorPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectorPlayerView.h; sourceTree = "<group>"; };
-		110578891BA1A494000A8EA5 /* ImageSelectorPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectorPlayerView.m; sourceTree = "<group>"; };
 		1105788B1BA1BC72000A8EA5 /* ImageSelectorCollageController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectorCollageController.h; sourceTree = "<group>"; };
 		1105788C1BA1BC72000A8EA5 /* ImageSelectorCollageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectorCollageController.m; sourceTree = "<group>"; };
+		114421341BB3F1DC006722BD /* VSegmentsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSegmentsCollection.h; sourceTree = "<group>"; };
+		114421351BB3F1DC006722BD /* VSegmentsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSegmentsCollection.m; sourceTree = "<group>"; };
+		114421371BB51409006722BD /* VCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCompositionInstruction.h; sourceTree = "<group>"; };
+		114421381BB51409006722BD /* VCompositionInstruction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCompositionInstruction.m; sourceTree = "<group>"; };
 		1157DDE51BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectorCollectionViewCell.h; sourceTree = "<group>"; };
 		1157DDE61BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectorCollectionViewCell.m; sourceTree = "<group>"; };
 		1157DDE81BA074B300A8D4CB /* ImageSelectorCollectionViewHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectorCollectionViewHeader.h; sourceTree = "<group>"; };
@@ -101,6 +116,13 @@
 		119B87761BA02956000E5BD3 /* ImageSelectorCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectorCollectionViewController.m; sourceTree = "<group>"; };
 		119B87781BA050D7000E5BD3 /* ImageSelectorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageSelectorController.h; sourceTree = "<group>"; };
 		119B87791BA050D7000E5BD3 /* ImageSelectorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectorController.m; sourceTree = "<group>"; };
+		11A27B301BB5A22B00F06685 /* PlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerView.h; sourceTree = "<group>"; };
+		11A27B311BB5A22B00F06685 /* PlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerView.m; sourceTree = "<group>"; };
+		11A27B361BB9372600F06685 /* EmptyTrackPleaceholder.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = EmptyTrackPleaceholder.m4v; sourceTree = "<group>"; };
+		11A27B381BB9644800F06685 /* APLCompositionDebugView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLCompositionDebugView.h; sourceTree = "<group>"; };
+		11A27B391BB9644800F06685 /* APLCompositionDebugView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLCompositionDebugView.m; sourceTree = "<group>"; };
+		11A27B3C1BBA555900F06685 /* VInstrucionPassthrough.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VInstrucionPassthrough.h; sourceTree = "<group>"; };
+		11A27B3D1BBA555900F06685 /* VInstrucionPassthrough.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VInstrucionPassthrough.m; sourceTree = "<group>"; };
 		11B041241BAC2964007DB2A4 /* VDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VDocument.h; sourceTree = "<group>"; };
 		11B041251BAC2964007DB2A4 /* VDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VDocument.m; sourceTree = "<group>"; };
 		11B041281BAC2DFC007DB2A4 /* VAssetWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAssetWebImage.h; sourceTree = "<group>"; };
@@ -123,6 +145,22 @@
 		11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectDZNDataSource.m; sourceTree = "<group>"; };
 		11B596E81BB186D000CF7253 /* CollageCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollageCreationViewController.h; sourceTree = "<group>"; };
 		11B596E91BB186D000CF7253 /* CollageCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollageCreationViewController.m; sourceTree = "<group>"; };
+		11D70F411BB27EC60091723A /* Step5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step5.h; sourceTree = "<group>"; };
+		11D70F421BB27EC60091723A /* Step5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step5.m; sourceTree = "<group>"; };
+		11D70F451BB281BF0091723A /* TransitionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionFilter.h; sourceTree = "<group>"; };
+		11D70F461BB281BF0091723A /* TransitionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionFilter.m; sourceTree = "<group>"; };
+		11D70F481BB287640091723A /* VCompositionSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCompositionSegment.h; sourceTree = "<group>"; };
+		11D70F491BB287640091723A /* VCompositionSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCompositionSegment.m; sourceTree = "<group>"; };
+		11D70F4B1BB28C0B0091723A /* VTransitionSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTransitionSegment.h; sourceTree = "<group>"; };
+		11D70F4C1BB28C0B0091723A /* VTransitionSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTransitionSegment.m; sourceTree = "<group>"; };
+		11D70F4E1BB28C7A0091723A /* VAssetSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAssetSegment.h; sourceTree = "<group>"; };
+		11D70F4F1BB28C7A0091723A /* VAssetSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VAssetSegment.m; sourceTree = "<group>"; };
+		11D70F511BB28D2F0091723A /* VideoComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoComposition.h; sourceTree = "<group>"; };
+		11D70F521BB28D2F0091723A /* VideoComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoComposition.m; sourceTree = "<group>"; };
+		11D70F541BB29CA50091723A /* VideoCompositor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCompositor.h; sourceTree = "<group>"; };
+		11D70F551BB29CA50091723A /* VideoCompositor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCompositor.m; sourceTree = "<group>"; };
+		11EB14701BB58BD200035F94 /* VInstructionStillImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VInstructionStillImage.h; sourceTree = "<group>"; };
+		11EB14711BB58BD200035F94 /* VInstructionStillImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VInstructionStillImage.m; sourceTree = "<group>"; };
 		11EFEDBF1B81C27D00078735 /* VideoEditor2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EFEDC31B81C27D00078735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11EFEDC41B81C27D00078735 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -205,6 +243,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		114421331BB30D7B006722BD /* Segments */ = {
+			isa = PBXGroup;
+			children = (
+				11D70F481BB287640091723A /* VCompositionSegment.h */,
+				11D70F491BB287640091723A /* VCompositionSegment.m */,
+				11D70F4B1BB28C0B0091723A /* VTransitionSegment.h */,
+				11D70F4C1BB28C0B0091723A /* VTransitionSegment.m */,
+				11D70F4E1BB28C7A0091723A /* VAssetSegment.h */,
+				11D70F4F1BB28C7A0091723A /* VAssetSegment.m */,
+			);
+			name = Segments;
+			sourceTree = "<group>";
+		};
 		115C21121BA94F16002DD526 /* DMPagingScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,12 +301,28 @@
 				1157DDEC1BA074DF00A8D4CB /* ImageSelectorCollectionViewFooter.m */,
 				110578851BA1A380000A8EA5 /* ImageSelectorScrollView.h */,
 				110578861BA1A380000A8EA5 /* ImageSelectorScrollView.m */,
-				110578881BA1A494000A8EA5 /* ImageSelectorPlayerView.h */,
-				110578891BA1A494000A8EA5 /* ImageSelectorPlayerView.m */,
 				11669CDA1BA6E7E400C0BFF0 /* ImageSelectorStateIndicator.h */,
 				11669CDB1BA6E7E400C0BFF0 /* ImageSelectorStateIndicator.m */,
 			);
 			name = ImageSelector;
+			sourceTree = "<group>";
+		};
+		11A27B331BB92C3E00F06685 /* PlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				11A27B301BB5A22B00F06685 /* PlayerView.h */,
+				11A27B311BB5A22B00F06685 /* PlayerView.m */,
+			);
+			name = PlayerView;
+			sourceTree = "<group>";
+		};
+		11A27B3B1BB9644D00F06685 /* DebugView */ = {
+			isa = PBXGroup;
+			children = (
+				11A27B381BB9644800F06685 /* APLCompositionDebugView.h */,
+				11A27B391BB9644800F06685 /* APLCompositionDebugView.m */,
+			);
+			name = DebugView;
 			sourceTree = "<group>";
 		};
 		11B041271BAC2DA3007DB2A4 /* Assets */ = {
@@ -271,8 +338,6 @@
 				11B0412C1BAC3356007DB2A4 /* VAssetPHImage.m */,
 				11B041341BAEE356007DB2A4 /* VAssetCollage.h */,
 				11B041351BAEE356007DB2A4 /* VAssetCollage.m */,
-				11B041371BAEE416007DB2A4 /* CollageLayout.h */,
-				11B041381BAEE416007DB2A4 /* CollageLayout.m */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -290,6 +355,37 @@
 				11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */,
 			);
 			name = ImageSelectDataSources;
+			sourceTree = "<group>";
+		};
+		11D70F441BB281AE0091723A /* VideoComposition */ = {
+			isa = PBXGroup;
+			children = (
+				11A27B3B1BB9644D00F06685 /* DebugView */,
+				11EB146F1BB58B6600035F94 /* Instructions */,
+				114421331BB30D7B006722BD /* Segments */,
+				114421341BB3F1DC006722BD /* VSegmentsCollection.h */,
+				114421351BB3F1DC006722BD /* VSegmentsCollection.m */,
+				11D70F511BB28D2F0091723A /* VideoComposition.h */,
+				11D70F521BB28D2F0091723A /* VideoComposition.m */,
+				11D70F541BB29CA50091723A /* VideoCompositor.h */,
+				11D70F551BB29CA50091723A /* VideoCompositor.m */,
+				11D70F451BB281BF0091723A /* TransitionFilter.h */,
+				11D70F461BB281BF0091723A /* TransitionFilter.m */,
+			);
+			name = VideoComposition;
+			sourceTree = "<group>";
+		};
+		11EB146F1BB58B6600035F94 /* Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				114421371BB51409006722BD /* VCompositionInstruction.h */,
+				114421381BB51409006722BD /* VCompositionInstruction.m */,
+				11EB14701BB58BD200035F94 /* VInstructionStillImage.h */,
+				11EB14711BB58BD200035F94 /* VInstructionStillImage.m */,
+				11A27B3C1BBA555900F06685 /* VInstrucionPassthrough.h */,
+				11A27B3D1BBA555900F06685 /* VInstrucionPassthrough.m */,
+			);
+			name = Instructions;
 			sourceTree = "<group>";
 		};
 		11EFEDB61B81C27D00078735 = {
@@ -319,12 +415,14 @@
 				11EFEDF41B820B4F00078735 /* DZNPhotoPickerController */,
 				11F43D591B8462CC00011C2D /* Models */,
 				11669CD31BA2CB9E00C0BFF0 /* Collage */,
+				11A27B331BB92C3E00F06685 /* PlayerView */,
 				119B87711BA02571000E5BD3 /* ImageSelector */,
 				11EFEDEB1B81D2D700078735 /* Controllers */,
 				11EFEDC61B81C27D00078735 /* AppDelegate.h */,
 				11EFEDC71B81C27D00078735 /* AppDelegate.m */,
 				11EFEDCF1B81C27D00078735 /* Main.storyboard */,
 				11EFEDD21B81C27D00078735 /* Images.xcassets */,
+				11A27B361BB9372600F06685 /* EmptyTrackPleaceholder.m4v */,
 				11EFEDD41B81C27D00078735 /* LaunchScreen.xib */,
 				11EFEDC21B81C27D00078735 /* Supporting Files */,
 			);
@@ -366,6 +464,8 @@
 				11EFEDF01B81D31600078735 /* Step3.m */,
 				116A5D281B82274900466E99 /* Albums.h */,
 				116A5D291B82274900466E99 /* Albums.m */,
+				11D70F411BB27EC60091723A /* Step5.h */,
+				11D70F421BB27EC60091723A /* Step5.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -407,8 +507,11 @@
 			children = (
 				11B041271BAC2DA3007DB2A4 /* Assets */,
 				11B4AE181B95B8C800DB43AD /* ImageSelectDataSources */,
+				11D70F441BB281AE0091723A /* VideoComposition */,
 				11B041241BAC2964007DB2A4 /* VDocument.h */,
 				11B041251BAC2964007DB2A4 /* VDocument.m */,
+				11B041371BAEE416007DB2A4 /* CollageLayout.h */,
+				11B041381BAEE416007DB2A4 /* CollageLayout.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -509,6 +612,7 @@
 				11EFEDD11B81C27D00078735 /* Main.storyboard in Resources */,
 				11EFEDD61B81C27D00078735 /* LaunchScreen.xib in Resources */,
 				11EFEDD31B81C27D00078735 /* Images.xcassets in Resources */,
+				11A27B371BB9372600F06685 /* EmptyTrackPleaceholder.m4v in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,10 +679,10 @@
 				11EFEE191B820BF600078735 /* DZNPhotoServiceClient.m in Sources */,
 				11EFEDFF1B820B6300078735 /* DZNPhotoPickerController.m in Sources */,
 				11669CD21BA2C79200C0BFF0 /* CollageLayoutView.m in Sources */,
-				1105788A1BA1A494000A8EA5 /* ImageSelectorPlayerView.m in Sources */,
 				11EFEDFD1B820B6300078735 /* DZNPhotoDisplayViewCell.m in Sources */,
 				11B4AE081B9493BB00DB43AD /* ImageSelectDataSource.m in Sources */,
 				11B4AE141B95B76600DB43AD /* ImageSelectMomentsDataSource.m in Sources */,
+				11A27B3A1BB9644800F06685 /* APLCompositionDebugView.m in Sources */,
 				11EFEE1F1B820C0300078735 /* UIImagePickerController+Block.m in Sources */,
 				11EFEE1C1B820BF600078735 /* DZNPhotoTag.m in Sources */,
 				11EFEDEE1B81D2EF00078735 /* Step2.m in Sources */,
@@ -591,6 +695,8 @@
 				11B041261BAC2964007DB2A4 /* VDocument.m in Sources */,
 				11B0412A1BAC2DFC007DB2A4 /* VAssetWebImage.m in Sources */,
 				11B0412D1BAC3356007DB2A4 /* VAssetPHImage.m in Sources */,
+				11D70F501BB28C7A0091723A /* VAssetSegment.m in Sources */,
+				11EB14721BB58BD200035F94 /* VInstructionStillImage.m in Sources */,
 				11B0413C1BB14B1B007DB2A4 /* CollageLayoutViewPlusBadge.m in Sources */,
 				1157DDE71BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m in Sources */,
 				11B596EA1BB186D000CF7253 /* CollageCreationViewController.m in Sources */,
@@ -600,22 +706,32 @@
 				11669CD91BA30E4A00C0BFF0 /* CollageLayoutSelectorView.m in Sources */,
 				1105788D1BA1BC72000A8EA5 /* ImageSelectorCollageController.m in Sources */,
 				1160511D1B9F028200D67551 /* ImageSelectorSplitController.m in Sources */,
+				11D70F561BB29CA50091723A /* VideoCompositor.m in Sources */,
 				11B041361BAEE356007DB2A4 /* VAssetCollage.m in Sources */,
+				11D70F531BB28D2F0091723A /* VideoComposition.m in Sources */,
+				11D70F4A1BB287640091723A /* VCompositionSegment.m in Sources */,
+				11D70F4D1BB28C0B0091723A /* VTransitionSegment.m in Sources */,
 				11EFEE181B820BF600078735 /* DZNPhotoMetadata.m in Sources */,
 				1157DDED1BA074DF00A8D4CB /* ImageSelectorCollectionViewFooter.m in Sources */,
 				11EFEDC51B81C27D00078735 /* main.m in Sources */,
 				110578871BA1A380000A8EA5 /* ImageSelectorScrollView.m in Sources */,
+				114421391BB51409006722BD /* VCompositionInstruction.m in Sources */,
 				11EFEE0C1B820BEB00078735 /* UIImagePickerController+Edit.m in Sources */,
 				11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */,
 				115C21151BA94F23002DD526 /* DMPagingScrollView.m in Sources */,
+				11D70F431BB27EC60091723A /* Step5.m in Sources */,
+				11A27B321BB5A22B00F06685 /* PlayerView.m in Sources */,
 				11EFEDFE1B820B6300078735 /* DZNPhotoDisplayViewController.m in Sources */,
+				11D70F471BB281BF0091723A /* TransitionFilter.m in Sources */,
 				11B041391BAEE416007DB2A4 /* CollageLayout.m in Sources */,
 				11F43D6E1B84CCB500011C2D /* AssetsCollection.m in Sources */,
 				119B87741BA0259B000E5BD3 /* ImageSelectorPreviewController.m in Sources */,
 				11EFEE1A1B820BF600078735 /* DZNPhotoServiceConstants.m in Sources */,
 				11F43D5F1B84674E00011C2D /* VAsset.m in Sources */,
 				11EFEE0B1B820BEB00078735 /* DZNPhotoEditorViewController.m in Sources */,
+				114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */,
 				119B877A1BA050D7000E5BD3 /* ImageSelectorController.m in Sources */,
+				11A27B3E1BBA555900F06685 /* VInstrucionPassthrough.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -747,7 +863,7 @@
 			baseConfigurationReference = C56F4BA644EAFB399D32217B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -756,6 +872,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a6a4faf1-b8ae-4cd8-b677-29090f3cef49";
 			};
 			name = Debug;
 		};
@@ -764,7 +881,7 @@
 			baseConfigurationReference = 69B654D231D53CB9E236F108 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -773,6 +890,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "a6a4faf1-b8ae-4cd8-b677-29090f3cef49";
 			};
 			name = Release;
 		};

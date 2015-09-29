@@ -10,6 +10,7 @@
 
 #import "AssetsCollection.h"
 #import "VCompositionSegment.h"
+#import "VideoComposition.h"
 
 #define kVSegmentsCollectionModifiedNotification @"kVSegmentsCollectionModifiedNotification";
 
@@ -22,6 +23,9 @@
 
 -(void) moveSegmentFromIndex: (NSInteger) fromIndex toIndex: (NSInteger) toIndex;
 -(void) deleteSegmentAtIndex: (NSInteger) index;
--(VCompositionSegment*) getSegment : (NSInteger) index;
+-(VCompositionSegment*) getSegment: (NSInteger) index;
+
+
+-(VideoComposition*) getVideoComposition;
 
 @end

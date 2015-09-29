@@ -172,7 +172,7 @@ enum { kBannerHeight = 20, kIdealRowHeight = 36, kGapAfterRows = 4 };
 			stage->timeRange = instruction.timeRange;
 			NSMutableDictionary *rampsDictionary = [[NSMutableDictionary alloc] init];
 			
-			if ([instruction isKindOfClass:[AVVideoCompositionInstruction class]]) {
+            if ([instruction isKindOfClass:[AVVideoCompositionInstruction class]]) {
 				NSMutableArray *layerNames = [[NSMutableArray alloc] init];
 				for (AVVideoCompositionLayerInstruction *layerInstruction in instruction.layerInstructions) {
 					NSMutableArray *ramp = [[NSMutableArray alloc] init];

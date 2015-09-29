@@ -13,7 +13,8 @@
 
 @interface VSegmentsCollection ()
 
-@property (strong, nonatomic) NSMutableArray* segments;
+@property (strong, nonatomic) NSMutableArray<VCompositionSegment *> *segments;
+@property (strong, nonatomic) VideoComposition* videoComposition;
 
 @end
 
@@ -24,6 +25,7 @@
     self = [super init];
     if (self) {
         self.segments = [NSMutableArray new];
+        self.videoComposition = nil;
     }
     return self;
 }
@@ -142,7 +144,9 @@
     NSArray *assets = [self.assetsCollection getAssets];
     for (int i = 0; i < assets.count; i++) {
         if (![self hasAssetInSegments:assets[i]]) {
-            [self insertAssetSegment:assets[i] intoPosition:self.segments.count];
+            VAssetSegment* segment = [VAssetSegment new];
+            segment.asset = assets[i];
+            [self insertAssetSegment:segment intoPosition:self.segments.count];
         }
     }
     
@@ -176,7 +180,7 @@
 
 -(void) setAssetsCollection:(AssetsCollection *)assetsCollection {
     [self unsubscribeFromAssetsCollectionNotifications];
-    _assetsCollection = self.assetsCollection;
+    _assetsCollection = assetsCollection;
     [self subscribeToAssetsCollectionNotifications];
     
     [self.segments removeAllObjects];
@@ -189,6 +193,37 @@
         aSegment.asset = asset;
         [self insertAssetSegment:aSegment intoPosition:self.segments.count];
     }
+}
+
+-(VideoComposition*) getVideoComposition
+{
+    self.videoComposition = [self makeVideoComposition];
+    
+    return self.videoComposition;
+}
+
+-(VideoComposition*) makeVideoComposition
+{
+    VideoComposition* videoComposition = [VideoComposition new];
+    
+    CMTime segmentStartTime = kCMTimeZero;
+    for (int i = 0; i < self.segmentsCount; i++) {
+        VCompositionSegment *segment = self.segments[i];
+        
+        CMTime segmentEndTime = CMTimeAdd(segmentStartTime, segment.duration);
+        
+        CMTimeRange segmentTimeRange = CMTimeRangeFromTimeToTime(segmentStartTime, segmentEndTime);
+        
+        if ([segment class] == [VAssetSegment class]) {
+            VAssetSegment* aSegment = (VAssetSegment*)segment;
+            
+            [aSegment putIntoVideoComosition :videoComposition withinTimeRange:segmentTimeRange intoTrackNo: 1 + (i%2) ];
+        }
+
+        segmentStartTime = segmentEndTime;
+    }
+    
+    return videoComposition;
 }
 
 @end

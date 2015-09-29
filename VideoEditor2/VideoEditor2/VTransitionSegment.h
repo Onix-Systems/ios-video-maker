@@ -9,11 +9,16 @@
 #import <Foundation/Foundation.h>
 
 #import "VCompositionSegment.h"
-#import "VideoCompositionAssetSegment.h"
+@class VAssetSegment;
 
 @interface VTransitionSegment : VCompositionSegment
 
-@property (weak, nonatomic) VideoCompositionAssetSegment* frontSegment;
-@property (weak, nonatomic) VideoCompositionAssetSegment* rearSegment;
+@property (weak, nonatomic) VAssetSegment* frontSegment;
+@property (weak, nonatomic) VAssetSegment* rearSegment;
+
+@property (strong, nonatomic) NSString* transitionType;
+@property (nonatomic, readwrite) CMTime transitionDuration;
+
+-(CIImage*) drawTransitionForTime: (CMTime) inputTime frontFrame: (CIImage*) frontFrame rearFrame: (CIImage*) rearFrame;
 
 @end

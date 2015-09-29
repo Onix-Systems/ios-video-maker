@@ -16,9 +16,9 @@
     return false;
 }
 
-- (NSNumber*) duration
+- (double) duration
 {
-    return @0.0;
+    return 0.0;
 }
 
 - (NSString*) getIdentifier
@@ -58,6 +58,11 @@
 }
 
 -(void) cancelDownloading
+{
+    
+}
+
+-(void) putIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo
 {
     
 }

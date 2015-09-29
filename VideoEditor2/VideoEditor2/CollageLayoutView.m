@@ -53,11 +53,11 @@
     }
 }
 
--(void) setAssetsCollecton:(AssetsCollection *)assetsCollecton
+-(void) setAssetsCollection:(AssetsCollection *)assetsCollection
 {
     [self unsubscribeFromAssetsCollectionNotifications];
     
-    _assetsCollecton = assetsCollecton;
+    _assetsCollection = assetsCollection;
     
     [self subscribeToAssetsCollectionNotifications];
     
@@ -66,23 +66,23 @@
 
 -(void) subscribeToAssetsCollectionNotifications
 {
-    if (self.assetsCollecton != nil) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetAddedNitification object:self.assetsCollecton];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollecton];
+    if (self.assetsCollection != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetAddedNitification object:self.assetsCollection];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollection];
     }
 }
 
 -(void) unsubscribeFromAssetsCollectionNotifications
 {
-    if (self.assetsCollecton != nil) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetAddedNitification object:self.assetsCollecton];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollecton];
+    if (self.assetsCollection != nil) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetAddedNitification object:self.assetsCollection];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollection];
     }
 }
 
 -(void) updateAssetsView
 {
-    NSArray* assets = [self.assetsCollecton getAssets];
+    NSArray* assets = [self.assetsCollection getAssets];
     
     for (NSInteger i = 0; i < self.imageViews.count; i++) {
         UIImageView* imageView = self.imageViews[i];

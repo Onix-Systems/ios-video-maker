@@ -24,7 +24,7 @@
 //array of CGRect
 @property (strong, nonatomic) CollageLayout* collageLayout;
 //array of PickerAssets
-@property (strong, nonatomic) AssetsCollection* assetsCollecton;
+@property (strong, nonatomic) AssetsCollection* assetsCollection;
 
 @property (weak, nonatomic) id<CollageLayoutViewDelegate> delegate;
 

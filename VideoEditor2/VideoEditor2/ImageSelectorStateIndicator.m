@@ -66,11 +66,15 @@
 
 -(void) touchupAction: (UITapGestureRecognizer*) sender
 {
+    NSLog(@"touchupAction sender.state == UIGestureRecognizerStateEnded %@", sender.state == UIGestureRecognizerStateEnded ? @"+" : @"-");
     if (sender.state == UIGestureRecognizerStateEnded) {
         if (self.delegate != nil) {
             [self.delegate stateIndicatorTouchUpInsideAction];
         }
     }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay];
+    });
 }
 
 -(void) setSelectedTextColor:(UIColor *)selectedTextColor

@@ -11,13 +11,14 @@
 
 #import <SDWebImage/SDWebImageManager.h>
 
+#import "VInstructionStillImage.h"
+
 
 @interface VAssetWebImage ()
 
 @property (nonatomic, strong) DZNPhotoMetadata* dznMetaData;
 @property (readwrite) double downloadPercent;
 
-@property (strong) UIImage* downloadedImage;
 @property (strong) UIImage* temporaryImage;
 
 @property (strong) id <SDWebImageOperation> currentDownloadingOperation;
@@ -51,9 +52,9 @@
     return false;
 }
 
-- (NSNumber*) duration
+- (double) duration
 {
-    return @0.0;
+    return 0.0;
 }
 
 - (NSString*) getIdentifier

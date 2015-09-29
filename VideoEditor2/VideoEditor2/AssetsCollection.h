@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "VAsset.h"
 
-@interface AssetsCollection : NSObject
-
 #define kAssetsCollectionAssetAddedNitification @"kAssetsCollectionAssetAddedNitification"
 #define kAssetsCollectionAssetRemovedNitification @"kAssetsCollectionAssetRemovedNitification"
+
+@interface AssetsCollection : NSObject
 
 @property (nonatomic) BOOL isNumerable;
 

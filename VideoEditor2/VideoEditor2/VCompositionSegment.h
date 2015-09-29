@@ -9,10 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
-#import "VAsset.h"
+#import "VideoComposition.h"
 
 @interface VCompositionSegment : NSObject
 
-@property (nonatomic, readonly) CMTime duration;
+-(CMTime)duration;
 
 @end

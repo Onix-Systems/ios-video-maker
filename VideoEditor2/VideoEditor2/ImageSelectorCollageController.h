@@ -12,7 +12,7 @@
 
 @interface ImageSelectorCollageController : UIViewController
 
-@property (nonatomic, weak) AssetsCollection* assetsCollecton;
+@property (nonatomic, weak) AssetsCollection* assetsCollection;
 
 -(void)willStartResizing;
 -(void)didFinishedResizing;
