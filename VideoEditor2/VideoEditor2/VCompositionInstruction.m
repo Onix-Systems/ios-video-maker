@@ -7,10 +7,19 @@
 //
 
 #import "VCompositionInstruction.h"
+#import "VEStillImage.h"
+
+@interface VCompositionInstruction ()
+
+@property (strong, nonatomic) VEffect* frameProvider;
+@property (strong, nonatomic) NSMutableArray* stillImages;
+@property (strong, nonatomic) NSMutableArray* registeredTrackIDs;
+
+@end
 
 @implementation VCompositionInstruction
 
-- (instancetype)init
+- (instancetype)initWithFrameProvider: (VEffect*) frameProvider
 {
     self = [super init];
     if (self) {
@@ -18,24 +27,87 @@
         self.containsTweening = NO;
         self.requiredSourceTrackIDs = nil;
         self.passthroughTrackID = kCMPersistentTrackID_Invalid;
+        
+        self.frameProvider = frameProvider;
+        
+        self.registeredTrackIDs = [NSMutableArray arrayWithCapacity:[self.frameProvider getNumberOfInputFrames]];
+        
+        self.stillImages = [NSMutableArray arrayWithCapacity:[self.frameProvider getNumberOfInputFrames]];
+        
+        for (int i = 0; i < [self.frameProvider getNumberOfInputFrames]; i++) {
+            [self.registeredTrackIDs addObject:
+            [NSNumber numberWithInt:kCMPersistentTrackID_Invalid]];
+            
+            [self.stillImages addObject: [NSNull null]];
+        }
     }
     return self;
 }
 
-+(CGAffineTransform) getAspectFitTransformFromSize: (CGSize) originalSize toSize: (CGSize) requiredSize
+-(void) registerTrackID: (CMPersistentTrackID) trackID asInputFrameProvider: (NSInteger) inputFrameNumber
 {
-    CGFloat yScale = originalSize.height / requiredSize.height;
-    CGFloat xScale = originalSize.width / requiredSize.width;
-    CGFloat scale = 1 / (xScale > yScale ? xScale : yScale);
-    
-    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
-    
-    CGFloat xShift = (requiredSize.width - (originalSize.width * scale)) / 2;
-    CGFloat yShift = (requiredSize.height - (originalSize.height * scale)) / 2;
-    
-    CGAffineTransform translationTransform = CGAffineTransformMakeTranslation(xShift, yShift);
-    
-    return CGAffineTransformConcat(scaleTransform, translationTransform);
+    self.registeredTrackIDs[inputFrameNumber] = [NSNumber numberWithInt:trackID];
+    self.stillImages[inputFrameNumber] = [VEStillImage new];
 }
+
+-(void)setRequiredSourceTrackIDs:(NSArray<NSValue *> *)requiredSourceTrackIDs
+{
+    //the operation is not valid - do nothing; use registerTrackID: asInputFrameProvider:
+}
+
+-(NSArray<NSValue*>*)requiredSourceTrackIDs
+{
+    NSMutableArray* requiredSourceTrackIDs = [NSMutableArray new];
+    
+    for (NSNumber* number in self.registeredTrackIDs) {
+        if ([number intValue] != kCMPersistentTrackID_Invalid) {
+            [requiredSourceTrackIDs addObject:number];
+        }
+    }
+    
+    return requiredSourceTrackIDs;
+}
+
+-(void) processRequest:(AVAsynchronousVideoCompositionRequest *)request usingCIContext:(CIContext *)ciContext
+{
+    CVPixelBufferRef newFrameBuffer = request.renderContext.newPixelBuffer;
+    self.frameProvider.finalSize = CGSizeMake(CVPixelBufferGetWidth(newFrameBuffer), CVPixelBufferGetHeight(newFrameBuffer));
+    
+    for (int i = 0; i < [self.frameProvider getNumberOfInputFrames]; i++) {
+        NSNumber *number = self.registeredTrackIDs[i];
+        CMPersistentTrackID trackID = number.intValue;
+        
+        if (trackID != kCMPersistentTrackID_Invalid && self.stillImages[i] != [NSNull null]) {
+            VEStillImage* stillImage = self.stillImages[i];
+
+            [stillImage setPixelBuffer: [request sourceFrameByTrackID: trackID]];
+            [self.frameProvider setInputFrameProvider:stillImage forInputFrameNum:i];
+        }
+    }
+
+    double requestTime = (CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.timeRange.start)) / CMTimeGetSeconds(self.timeRange.duration);
+    
+    CIImage* newFrameImage = [self.frameProvider getFrameForTime:requestTime];
+    [ciContext render:newFrameImage toCVPixelBuffer:newFrameBuffer];
+    
+    [request finishWithComposedVideoFrame: newFrameBuffer];
+    
+    for (int i = 0; i < [self.frameProvider getNumberOfInputFrames]; i++) {
+        NSNumber *number = self.registeredTrackIDs[i];
+        CMPersistentTrackID trackID = (CMPersistentTrackID)number.longValue;
+        
+        if (trackID != kCMPersistentTrackID_Invalid && self.stillImages[i] != [NSNull null]) {
+            VEStillImage* stillImage = self.stillImages[i];
+            
+            [stillImage releasePixelBuffer];
+        }
+    }
+    CVPixelBufferRelease(newFrameBuffer);
+    
+}
+
+
+
+
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
+#import "VEffect.h"
 
 @interface VCompositionInstruction : NSObject <AVVideoCompositionInstruction>
 
@@ -17,9 +18,11 @@
 @property (nonatomic) NSArray<NSValue *> *requiredSourceTrackIDs;
 @property (nonatomic) CMPersistentTrackID passthroughTrackID; // kCMPersistentTrackID_Invalid if not a passthrough instruction
 
-+(CGAffineTransform) getAspectFitTransformFromSize: (CGSize) originalSize toSize: (CGSize) requiredSize;
+
+- (instancetype)initWithFrameProvider: (VEffect*) frameProvider;
 
 -(void) processRequest: (AVAsynchronousVideoCompositionRequest*) request usingCIContext: (CIContext*) ciContext;
 
+-(void) registerTrackID: (CMPersistentTrackID) trackID asInputFrameProvider: (NSInteger) inputFrameNumber;
 
 @end

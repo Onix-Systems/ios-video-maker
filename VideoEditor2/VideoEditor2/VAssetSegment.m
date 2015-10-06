@@ -7,8 +7,9 @@
 //
 
 #import "VAssetSegment.h"
-#import "VInstructionStillImage.h"
-#import "VInstrucionPassthrough.h"
+#import "VCompositionInstruction.h"
+#import "VEAspectFit.h"
+#import "VEStillImage.h"
 
 @implementation VAssetSegment
 
@@ -58,9 +59,12 @@
 //        AVMutableCompositionTrack *aTrack = [videoComposition getAudioTrackNo:trackNo];
 //        [self insertTimeRange:trackTimeRange ofTrack:audioTrack atTime:timeRange.start intoTrack:aTrack];
         
-        VInstrucionPassthrough *instruction = [VInstrucionPassthrough new];
+        VEAspectFit* aspectFitEffect = [VEAspectFit new];
+        
+        VCompositionInstruction *instruction = [[VCompositionInstruction alloc] initWithFrameProvider:aspectFitEffect];
+        
         instruction.timeRange = timeRange;
-        instruction.sourceTrackID = vTrack.trackID;
+        [instruction registerTrackID:vTrack.trackID asInputFrameProvider:0];
         
         [videoComposition appendVideoCompositionInstruction:instruction];
 
@@ -70,10 +74,18 @@
         
         [self insertTimeRange:CMTimeRangeMake(kCMTimeZero, timeRange.duration) ofTrack:placeholderVideoTrack atTime:timeRange.start intoTrack:destinationTrack];
         
-        VInstructionStillImage* instruction = [VInstructionStillImage new];
-        instruction.timeRange = timeRange;
-        instruction.image = [CIImage imageWithCGImage:[self.asset.downloadedImage CGImage]];
+        UIImage *assetImage = self.asset.downloadedImage;
         
+        VEStillImage* stillImage = [VEStillImage new];
+        stillImage.image = [CIImage imageWithCGImage:[assetImage CGImage]];
+        stillImage.finalSize = assetImage.size;
+        
+        VEAspectFit* aspectFitEffect = [VEAspectFit new];
+        [aspectFitEffect setInputFrameProvider:stillImage forInputFrameNum:0];
+        
+        VCompositionInstruction *instruction = [[VCompositionInstruction alloc] initWithFrameProvider:aspectFitEffect];
+        instruction.timeRange = timeRange;
+
         [videoComposition appendVideoCompositionInstruction:instruction];
     }
 }

@@ -7,11 +7,7 @@
 //
 
 #import "VideoCompositor.h"
-
-#import <AVFoundation/AVFoundation.h>
-#import <CoreImage/CoreImage.h>
-
-#import "VInstructionStillImage.h"
+#import "VCompositionInstruction.h"
 
 @interface VideoCompositor ()
 
@@ -73,7 +69,7 @@
 
 -(void) processRequest: (AVAsynchronousVideoCompositionRequest*) request
 {
-    if ([request.videoCompositionInstruction superclass] == [VCompositionInstruction class]) {
+    if ([request.videoCompositionInstruction class] == [VCompositionInstruction class]) {
         VCompositionInstruction* instruction = (VCompositionInstruction*)request.videoCompositionInstruction;
         
         [instruction processRequest: request usingCIContext:self.ciContext];

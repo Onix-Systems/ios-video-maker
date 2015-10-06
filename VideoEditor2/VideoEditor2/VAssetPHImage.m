@@ -7,7 +7,6 @@
 //
 
 #import "VAssetPHImage.h"
-#import "VInstructionStillImage.h"
 
 @interface VAssetPHImage ()
 

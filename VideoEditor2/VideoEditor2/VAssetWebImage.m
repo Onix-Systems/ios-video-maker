@@ -11,8 +11,6 @@
 
 #import <SDWebImage/SDWebImageManager.h>
 
-#import "VInstructionStillImage.h"
-
 
 @interface VAssetWebImage ()
 
