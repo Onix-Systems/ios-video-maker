@@ -12,14 +12,14 @@
 
 @interface VEffect : NSObject
 
-@property (nonatomic) CGSize finalSize;
+@property (nonatomic) CGSize originalSize;
 
 -(NSDictionary*) getAttributes;
 -(void) setupParameterAttributes: (NSString*) paramName defaultValue: (NSObject*) defaultValue;
 -(NSObject*) getParamValue: (NSString*) paramName;
 -(NSDictionary*) getParameters;
 
--(CIImage*) getFrameForTime: (double) time;
+-(CIImage*) getImageForFrameSize: (CGSize) frameSize atTime: (double) time;
 
 -(NSInteger) getNumberOfInputFrames;
 -(VEffect*) getInputFrameProvider: (NSInteger) inputFrameNumber;

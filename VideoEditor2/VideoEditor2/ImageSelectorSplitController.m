@@ -24,6 +24,8 @@
 @property (nonatomic) CGFloat topGestureBeginConstant;
 @property (nonatomic) CGFloat horizontalGestureBeginConstant;
 
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *okButtonItem;
+
 @end
 
 @implementation ImageSelectorSplitController
@@ -286,6 +288,8 @@
             [self.delegate willPresentRightController];
         }
     } else {
+        self.navigationItem.title = @"SELECT";
+        
         newHorizontalPosition = [self getOffsetForRightGripPosition];
         if (self.delegate != nil) {
             [self.delegate willPresentLeftController];
@@ -326,4 +330,24 @@
         [previewController displayAsset:asset autoPlay:autoPlay];
     }
 }
+
+-(void) hideOkButton
+{
+    if ([self.navigationItem.rightBarButtonItems indexOfObjectIdenticalTo:self.okButtonItem] != NSNotFound) {
+        NSMutableArray *buttons = [self.navigationItem.rightBarButtonItems mutableCopy];
+        [buttons removeObject:self.okButtonItem];
+        self.navigationItem.rightBarButtonItems = buttons;
+    }
+    
+}
+
+-(void) showOkButton
+{
+    if ([self.navigationItem.rightBarButtonItems indexOfObjectIdenticalTo:self.okButtonItem] == NSNotFound) {
+        NSMutableArray *buttons = [self.navigationItem.rightBarButtonItems mutableCopy];
+        [buttons addObject:self.okButtonItem];
+        self.navigationItem.rightBarButtonItems = buttons;
+    }
+}
+
 @end

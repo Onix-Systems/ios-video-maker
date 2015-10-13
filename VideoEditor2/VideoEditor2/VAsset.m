@@ -13,7 +13,12 @@
 
 - (BOOL) isVideo
 {
-    return false;
+    return NO;
+}
+
+-(BOOL) isStatic
+{
+    return YES;
 }
 
 - (double) duration
@@ -54,7 +59,7 @@
 
 -(BOOL) isDownloading
 {
-    return false;
+    return NO;
 }
 
 -(void) cancelDownloading
@@ -62,9 +67,9 @@
     
 }
 
--(void) putIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo
+-(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo
 {
-    
+    return nil;
 }
 
 @end

@@ -12,6 +12,6 @@
 
 @interface CollageCreationViewController : UIViewController
 
-@property (strong, nonatomic) CollageLayoutView* collageLayoutView;
+-(void) setupCollageWithAssets:(AssetsCollection *)assetsCollection andLayout: (CollageLayout*)collageLayout;
 
 @end

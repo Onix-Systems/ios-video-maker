@@ -7,6 +7,7 @@
 //
 
 #import "VAssetPHImage.h"
+#import "VEStillImage.h"
 
 @interface VAssetPHImage ()
 
@@ -48,6 +49,11 @@
         return YES;
     }
     return NO;
+}
+
+-(BOOL) isStatic
+{
+    return YES;
 }
 
 - (double) duration
@@ -219,6 +225,25 @@
         [[PHImageManager defaultManager] cancelImageRequest:self.lastRequestID];
         self.lastRequestID = PHInvalidImageRequestID;
         [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+    }
+}
+
+-(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo
+{
+    AVMutableCompositionTrack* activeTrack = [videoComposition getVideoTrackNo:activeTrackNo];
+    CMPersistentTrackID activeTrackID = activeTrack.trackID;
+    
+    if (self.isVideo) {
+        [videoInstructoin registerTrackID: activeTrackID asInputFrameProvider:0];
+        
+        return nil;
+    } else {
+        VEStillImage* imageFrame = [VEStillImage new];
+        
+        imageFrame.image = [CIImage imageWithCGImage:[self.downloadedImage CGImage]];
+        imageFrame.originalSize = self.downloadedImage.size;
+        
+        return imageFrame;
     }
 }
 

@@ -83,6 +83,9 @@
     VDocument* currentDoccument = [VDocument getCurrentDocument];
 
     collectionViewConrtroller.selectionStorage = currentDoccument.assetsCollection;
+    
+    self.splitController.navigationItem.title = @"SELECT";
+    [self.splitController showOkButton];
 }
 
 - (void) willPresentRightController {
@@ -100,6 +103,8 @@
     collectionViewConrtroller.selectionStorage = newCollection;
     collageConrtroller.assetsCollection = newCollection;
     
+    self.splitController.navigationItem.title = @"Select collage layout";
+    [self.splitController hideOkButton];
 }
 
 @end

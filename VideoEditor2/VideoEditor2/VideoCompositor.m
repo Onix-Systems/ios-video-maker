@@ -41,7 +41,7 @@
 -(NSDictionary*) sourcePixelBufferAttributes
 {
     return @{
-             (id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInteger:kCVPixelFormatType_32ARGB],
+             (id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInteger:kCVPixelFormatType_32BGRA],
             (id)kCVPixelBufferOpenGLESCompatibilityKey : [NSNumber numberWithBool: YES]
             };
 }
@@ -49,7 +49,7 @@
 -(NSDictionary*) requiredPixelBufferAttributesForRenderContext
 {
     return @{
-            (id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInteger:kCVPixelFormatType_32ARGB],
+            (id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInteger:kCVPixelFormatType_32BGRA],
             (id) kCVPixelBufferOpenGLESCompatibilityKey : [NSNumber numberWithBool: YES]
             };
 }
@@ -75,7 +75,8 @@
         [instruction processRequest: request usingCIContext:self.ciContext];
     }
     
-}//    var imageInstruction = request.videoCompositionInstruction as? StillImageInstuction
+}
+//    var imageInstruction = request.videoCompositionInstruction as? StillImageInstuction
 //    var passthroughInstruction = request.videoCompositionInstruction as? PassthroughInstuction
 //    var transitionInstruction = request.videoCompositionInstruction as? TransitionInstuction
 //    

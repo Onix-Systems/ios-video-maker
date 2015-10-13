@@ -12,9 +12,15 @@
 #import "AssetsCollection.h"
 #import "CollageLayout.h"
 
+#define kCollageEffectNone @""
+#define kCollageEffectKenBurns @"KenBurns"
+#define kCollageEffectSlidingPanels @"SlidingPanels"
+#define kCollageEffectShiftingTiles @"ShiftingTiles"
+
 @interface VAssetCollage : VAsset
 
-@property (strong) AssetsCollection* assetsCollection;
-@property (strong) CollageLayout* layout;
+@property (strong, nonatomic) AssetsCollection* assetsCollection;
+@property (strong, nonatomic) CollageLayout* collageLayout;
+@property (strong, nonatomic) NSString* collageEffect;
 
 @end

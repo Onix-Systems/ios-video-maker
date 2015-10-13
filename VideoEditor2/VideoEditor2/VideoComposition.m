@@ -51,7 +51,8 @@
         self.videoCompositionInstructions = [NSMutableArray new];
         self.audioMixInputParameters = [NSMutableArray new];
         
-        CGSize videoSize = CGSizeMake(720, 480);
+        //CGSize videoSize = CGSizeMake(1920, 1080);
+        CGSize videoSize = CGSizeMake(1280, 720);
         [self setVideoFrameSize:videoSize];
     }
     return self;

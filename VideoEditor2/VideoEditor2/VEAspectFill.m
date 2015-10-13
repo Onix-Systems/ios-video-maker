@@ -10,19 +10,18 @@
 
 @implementation VEAspectFill
 
-
--(CGAffineTransform) getImageTransformForTime:(double)time
+-(CGAffineTransform) getImageTransformForFrameAtTime:(double)time toSize:(CGSize) finalSize
 {
-    CGSize originalSize = [self getInputFrameProvider:0].finalSize;
+    CGSize originalSize = [self getInputFrameProvider:0].originalSize;
     
-    CGFloat yScale = originalSize.height / self.finalSize.height;
-    CGFloat xScale = originalSize.width / self.finalSize.width;
+    CGFloat yScale = originalSize.height / finalSize.height;
+    CGFloat xScale = originalSize.width / finalSize.width;
     CGFloat scale = 1 / (xScale < yScale ? xScale : yScale);
     
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
     
-    CGFloat xShift = (self.finalSize.width - (originalSize.width * scale)) / 2;
-    CGFloat yShift = (self.finalSize.height - (originalSize.height * scale)) / 2;
+    CGFloat xShift = (finalSize.width - (originalSize.width * scale)) / 2;
+    CGFloat yShift = (finalSize.height - (originalSize.height * scale)) / 2;
     
     CGAffineTransform translationTransform = CGAffineTransformMakeTranslation(xShift, yShift);
     

@@ -23,7 +23,8 @@
 
 @implementation PlayerView
 
-+ (Class)layerClass {
++ (Class)layerClass
+{
     return AVPlayerLayer.class;
 }
 
@@ -44,7 +45,8 @@
     [self cleanPlayer];
 }
 
-- (AVPlayer*)player {
+- (AVPlayer*)player
+{
     return ((AVPlayerLayer*)self.layer).player;
 }
 
@@ -52,33 +54,45 @@
     ((AVPlayerLayer*)self.layer).player = player;
 }
 
-- (void)updateControls {
+- (void)updateControls
+{
     if (self.delegate) {
         [self.delegate playerStateDidChanged:self];
     }
 }
 
-- (BOOL)isReadyToPlay {
-    return self.player != nil && self.playerItem.status == AVPlayerItemStatusReadyToPlay;
+- (BOOL)isReadyToPlay
+{
+    return (self.player != nil) && (self.playerItem != nil) && (self.playerItem.status == AVPlayerItemStatusReadyToPlay);
 }
 
-- (void)play {
+- (void)play
+{
     if (self.isReadyToPlay && !self.isPlayingNow) {
         self.isPlayingNow = YES;
         [self.player play];
+        [self updateControls];
     }
-    [self updateControls];
 }
 
-- (void)pause {
-    if (self.isReadyToPlay && self.isPlayingNow) {
+- (void)pause
+{
+    [self pauseAndUpdateControls:YES];
+}
+
+-(void)pauseAndUpdateControls: (BOOL)updateControls
+{
+    if (self.isPlayingNow) {
         self.isPlayingNow = NO;
         [self.player pause];
+        if (updateControls) {
+            [self updateControls];
+        }
     }
-    [self updateControls];
 }
 
-- (void)setPlayerItem:(AVPlayerItem *)playerItem {
+- (void)setPlayerItem:(AVPlayerItem *)playerItem
+{
     if (_playerItem != nil && self.playerItemObserversSetUp ) {
         [_playerItem removeObserver:self forKeyPath:@"status"];
         [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -90,7 +104,7 @@
 
 - (void)cleanPlayer
 {
-    [self pause];
+    [self pauseAndUpdateControls:NO];
     self.player = nil;
     self.playerItem = nil;
     [self updateControls];
@@ -135,7 +149,8 @@
     }];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     if (object == self.playerItem) {
         if ([keyPath isEqualToString:@"status"] && self.playerItem.status == AVPlayerItemStatusReadyToPlay) {
             if (self.autoPlay) {

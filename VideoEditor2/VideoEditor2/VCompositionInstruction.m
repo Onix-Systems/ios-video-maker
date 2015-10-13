@@ -8,6 +8,7 @@
 
 #import "VCompositionInstruction.h"
 #import "VEStillImage.h"
+#import <UIKit/UIKit.h>
 
 @interface VCompositionInstruction ()
 
@@ -70,8 +71,8 @@
 
 -(void) processRequest:(AVAsynchronousVideoCompositionRequest *)request usingCIContext:(CIContext *)ciContext
 {
-    CVPixelBufferRef newFrameBuffer = request.renderContext.newPixelBuffer;
-    self.frameProvider.finalSize = CGSizeMake(CVPixelBufferGetWidth(newFrameBuffer), CVPixelBufferGetHeight(newFrameBuffer));
+    CVPixelBufferRef newFrameBuffer = [[request renderContext] newPixelBuffer];
+    CGSize frameSize = CGSizeMake(CVPixelBufferGetWidth(newFrameBuffer), CVPixelBufferGetHeight(newFrameBuffer));
     
     for (int i = 0; i < [self.frameProvider getNumberOfInputFrames]; i++) {
         NSNumber *number = self.registeredTrackIDs[i];
@@ -85,9 +86,14 @@
         }
     }
 
-    double requestTime = (CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.timeRange.start)) / CMTimeGetSeconds(self.timeRange.duration);
+    double requestTime = CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.timeRange.start);
     
-    CIImage* newFrameImage = [self.frameProvider getFrameForTime:requestTime];
+    CIImage* frameBackground = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
+    
+    CIImage* frameContent = [self.frameProvider getImageForFrameSize:frameSize atTime:requestTime];
+    
+    CIImage* newFrameImage = [frameContent imageByCompositingOverImage:frameBackground];
+    
     [ciContext render:newFrameImage toCVPixelBuffer:newFrameBuffer];
     
     [request finishWithComposedVideoFrame: newFrameBuffer];

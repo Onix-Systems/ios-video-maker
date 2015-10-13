@@ -11,6 +11,6 @@
 
 @interface VEImageTransform : VEffect
 
--(CGAffineTransform) getImageTransformForTime: (double) time;
+-(CGAffineTransform) getImageTransformForFrameAtTime:(double)time toSize:(CGSize) finalSize;
 
 @end

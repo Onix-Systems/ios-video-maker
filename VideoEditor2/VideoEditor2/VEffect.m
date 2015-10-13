@@ -28,7 +28,7 @@
 
         self.mutableInputFrameProviders = [NSMutableArray new];
 
-        self.finalSize = CGSizeZero;
+        self.originalSize = CGSizeZero;
     }
     return self;
 }
@@ -85,7 +85,7 @@
     self.mutableInputFrameProviders[inputFrameNumber] = provider;
 }
 
--(CIImage*) getFrameForTime:(double)time
+-(CIImage*) getImageForFrameSize: (CGSize) frameSize atTime: (double) time
 {
     return nil;
 }

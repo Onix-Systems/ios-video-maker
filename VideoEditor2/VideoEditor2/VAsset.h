@@ -18,6 +18,7 @@ typedef void(^VAssetDownloadCompletionBlock)(UIImage* resultImage, BOOL requestF
 @interface VAsset : NSObject
 
 @property (nonatomic,readonly) BOOL isVideo;
+@property (nonatomic,readonly) BOOL isStatic;
 @property (readonly) double duration;
 
 @property (strong, nonatomic) UIImage* downloadedImage;
@@ -37,6 +38,6 @@ typedef void(^VAssetDownloadCompletionBlock)(UIImage* resultImage, BOOL requestF
 -(BOOL) isDownloading;
 -(void) cancelDownloading;
 
--(void) putIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo;
+-(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo;
 
 @end

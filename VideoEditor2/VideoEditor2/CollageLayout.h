@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface CollageLayout : NSObject
 
 //array fo CGRect
-@property (strong) NSArray* frames;
-+(CollageLayout*)layoutWithFrames:(NSArray*) frames;
+@property (strong) NSArray<NSValue *>* frames;
++(CollageLayout*)layoutWithFrames:(NSArray<NSValue *>*) frames;
+
+-(CGFloat) getLayoutWidth;
+-(CGFloat) getLayoutHeight;
+-(NSArray*) getLayoutFramesForSize: (CGSize) finalSize;
 
 @end

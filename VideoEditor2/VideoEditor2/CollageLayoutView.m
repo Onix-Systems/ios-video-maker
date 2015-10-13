@@ -136,30 +136,6 @@
     });
 }
 
--(CGFloat) getLayoutWidth {
-    CGFloat layoutSize = 1;
-    
-    for (NSInteger i = 0; i < self.collageLayout.frames.count; i++) {
-        CGRect rect = [self.collageLayout.frames[i] CGRectValue];
-        
-        layoutSize = MAX(layoutSize, rect.origin.x + rect.size.width);
-    }
-    
-    return layoutSize;
-}
-
--(CGFloat) getLayoutHeight {
-    CGFloat layoutSize = 1;
-    
-    for (NSInteger i = 0; i < self.collageLayout.frames.count; i++) {
-        CGRect rect = [self.collageLayout.frames[i] CGRectValue];
-        
-        layoutSize = MAX(layoutSize, rect.origin.y + rect.size.height);
-    }
-    
-    return layoutSize;
-}
-
 -(CGRect) getFrameForPlusBagde
 {
     CGFloat size  = 30;
@@ -168,8 +144,8 @@
 }
 
 -(void)layoutSubviews {
-    CGFloat xScale = self.bounds.size.width / [self getLayoutWidth];
-    CGFloat yScale = self.bounds.size.height / [self getLayoutHeight];
+    CGFloat xScale = self.bounds.size.width / [self.collageLayout getLayoutWidth];
+    CGFloat yScale = self.bounds.size.height / [self.collageLayout getLayoutHeight];
     
     for (NSInteger i = 0; i < self.imageViews.count; i++) {
         UIImageView *imageView = self.imageViews[i];

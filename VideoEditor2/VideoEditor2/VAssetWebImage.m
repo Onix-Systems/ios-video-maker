@@ -11,6 +11,8 @@
 
 #import <SDWebImage/SDWebImageManager.h>
 
+#import "VEStillImage.h"
+
 
 @interface VAssetWebImage ()
 
@@ -47,7 +49,12 @@
 
 - (BOOL) isVideo
 {
-    return false;
+    return NO;
+}
+
+-(BOOL) isStatic
+{
+    return YES;
 }
 
 - (double) duration
@@ -136,6 +143,15 @@
         self.currentDownloadingOperation = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
     }
+}
+
+-(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo
+{
+    VEStillImage* imageFrame = [VEStillImage new];
+    imageFrame.image = [CIImage imageWithCGImage:[self.downloadedImage CGImage]];
+    imageFrame.originalSize = self.downloadedImage.size;
+    
+    return imageFrame;
 }
 
 @end

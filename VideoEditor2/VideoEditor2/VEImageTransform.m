@@ -15,15 +15,15 @@
     return 1;
 }
 
--(CGAffineTransform) getImageTransformForTime:(double)time
+-(CGAffineTransform) getImageTransformForFrameAtTime:(double)time toSize:(CGSize) finalSize
 {
     return CGAffineTransformIdentity;
 }
 
--(CIImage*) getFrameForTime:(double)time
+-(CIImage*) getImageForFrameSize: (CGSize) frameSize atTime: (double) time
 {
-    CIImage* originalFrame = [[self getInputFrameProvider:0] getFrameForTime:time];
-    CGAffineTransform imageTransform = [self getImageTransformForTime: time];
+    CIImage* originalFrame = [[self getInputFrameProvider:0] getImageForFrameSize:frameSize atTime:time];
+    CGAffineTransform imageTransform = [self getImageTransformForFrameAtTime:time toSize:frameSize];
     
     CIFilter* filter = [CIFilter filterWithName:@"CIAffineTransform"];
     [filter setDefaults];

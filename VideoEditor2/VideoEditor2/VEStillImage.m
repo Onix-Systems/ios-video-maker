@@ -26,7 +26,7 @@
     return self;
 }
 
--(CIImage*) getFrameForTime:(double)time
+-(CIImage*) getImageForFrameSize: (CGSize) frameSize atTime: (double) time
 {
     return self.image;
 }
@@ -39,9 +39,9 @@
     
     //_pixelBuffer = CVPixelBufferRetain(pixelBuffer);
     self.image = [CIImage imageWithCVPixelBuffer: pixelBuffer];
-    NSLog(@"Image from pixelBuffer (%@) is equal to %@", pixelBuffer, self.image);
+    NSLog(@"Image from pixelBuffer is equal to %@", self.image);
     
-    self.finalSize = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
+    self.originalSize = CGSizeMake(CVPixelBufferGetWidth(pixelBuffer), CVPixelBufferGetHeight(pixelBuffer));
 }
 
 -(void) releasePixelBuffer

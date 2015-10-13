@@ -23,6 +23,8 @@
 
 @interface ImageSelectorSplitController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
+
 @property (nonatomic, strong) UIViewController* leftViewController;
 @property (nonatomic, strong) UIViewController* rightViewController;
 @property (nonatomic, strong) UIViewController* bottomViewController;
@@ -34,5 +36,7 @@
 
 - (void) displayAssetPreview: (VAsset*) asset autoPlay: (BOOL) autoPlay;
 
+-(void) hideOkButton;
+-(void) showOkButton;
 
 @end
