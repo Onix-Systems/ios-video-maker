@@ -114,7 +114,7 @@ class VideoCompositor : NSObject, AVVideoCompositing {
             request.finishWithComposedVideoFrame(buffer)
             
         } else {
-            let sourceTrackIDs = request.sourceTrackIDs
+            let sourceTrackIDs = request.
             let sourceTrackID = sourceTrackIDs[0] as? NSNumber
             
             let unmanagedSourceBuffer = request.sourceFrameByTrackID(sourceTrackID!.intValue)
