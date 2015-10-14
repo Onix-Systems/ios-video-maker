@@ -26,12 +26,13 @@
 
 - (double) duration
 {
-    double duration = 2.0;
+    double duration = kSlotRoundDuration;
+    
     if (self.assetsCollection != nil && self.collageLayout != nil) {
         NSInteger assetsCount = self.assetsCollection.getAssets.count;
         NSInteger framesCount = self.collageLayout.frames.count;
         
-        duration = 2.0 * ((assetsCount / framesCount) + ((assetsCount % framesCount > 0) ? 1 : 0));
+        duration = kSlotRoundDuration * ((assetsCount / framesCount) + ((assetsCount % framesCount > 0) ? 1 : 0));
     }
     
     return duration;

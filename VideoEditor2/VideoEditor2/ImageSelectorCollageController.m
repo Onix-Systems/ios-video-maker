@@ -89,7 +89,7 @@
     self.pageControl.numberOfPages = [self.layoutsView getCollageLayoutViews].count;
 }
 
--(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+-(void)updatePageControllFromScrollview
 {
     if (self.destinationPageNo < 0) {
         self.pageControl.currentPage = [self.layoutsView getCurrentPageNo];
@@ -98,6 +98,16 @@
             self.destinationPageNo = -1;
         }
     }
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    [self updatePageControllFromScrollview];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self updatePageControllFromScrollview];
 }
 
 - (IBAction)pageControlValueChanged:(UIPageControl *)sender {

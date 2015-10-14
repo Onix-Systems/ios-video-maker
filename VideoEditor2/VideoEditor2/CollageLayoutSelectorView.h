@@ -20,7 +20,7 @@
 
 @end
 
-@interface CollageLayoutSelectorView : DMPagingScrollView
+@interface CollageLayoutSelectorView : UIScrollView
 
 @property (weak, nonatomic) id<CollageLayoutSelectorViewDelegate> collageLayoutSelectorDelegate;
 

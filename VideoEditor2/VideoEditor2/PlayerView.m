@@ -156,7 +156,7 @@
             if (self.autoPlay) {
                 [self play];
             } else {
-                [self pause];
+                [self updateControls];
             }
         }
     }

@@ -26,19 +26,20 @@
         
     } else {
         [slot.timeLine setState:kSlotTimeLineStateHidden forTime:.0 additionalInfo:nil];
-        double showingMoment = (kSlotRoundDuration * roundNumber) - (kShowHideDuration / 2);
+        double showingMoment = (kSlotRoundDuration * roundNumber);
         slot.startTime = showingMoment;
-        [slot.timeLine setState:kSlotTimeLineStateShowing forTime:showingMoment additionalInfo:nil];
-        [slot.timeLine setState:kSlotTimeLineStateShown forTime:(showingMoment + kShowHideDuration) additionalInfo:nil];
+        [slot.timeLine setState:kSlotTimeLineStateShowing forTime:showingMoment - 0.01 additionalInfo:nil];
+        [slot.timeLine setState:kSlotTimeLineStateShown forTime:(showingMoment + (kShowHideDuration /2)) additionalInfo:nil];
     }
     
     if ((roundNumber + 1) < totalRounds) {
         double hidingMoment = (kSlotRoundDuration * (roundNumber + 1)) - (kShowHideDuration / 2);
         [slot.timeLine setState:kSlotTimeLineStateHidding forTime:hidingMoment additionalInfo:nil];
-        [slot.timeLine setState:kSlotTimeLineStateHidden forTime:(hidingMoment + kShowHideDuration) additionalInfo:nil];
-        slot.endTime = hidingMoment + kShowHideDuration;
+        [slot.timeLine setState:kSlotTimeLineStateHidden forTime:(kSlotRoundDuration * (roundNumber + 1)) additionalInfo:nil];
+        slot.endTime = kSlotRoundDuration * (roundNumber + 1);
     } else {
-        slot.endTime = kSlotRoundDuration * totalRounds;
+        [slot.timeLine setState:kSlotTimeLineStateHidden forTime:(kSlotRoundDuration * totalRounds + 0.01) additionalInfo:nil];
+        slot.endTime = kSlotRoundDuration * totalRounds + 0.01;
     }
     
     [slot setupForFinalSize:frame andOriginalSize:assetCocmponent.originalSize];

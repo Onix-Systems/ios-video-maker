@@ -123,6 +123,7 @@
     }
 
     VideoComposition* videoComposition = [self.segmentsCollection getVideoComposition];
+    [videoComposition setVideoFrameSize:CGSizeMake(600, 600)];
     
     [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
 }

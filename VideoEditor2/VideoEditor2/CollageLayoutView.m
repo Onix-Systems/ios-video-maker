@@ -16,6 +16,8 @@
 @property (strong, nonatomic) NSMutableArray* imageViews;
 @property (strong, nonatomic) CollageLayoutViewPlusBadge* plusBadge;
 
+@property (strong, nonatomic) NSTimer* imageRefreshTimer;
+
 @end
 
 @implementation CollageLayoutView
@@ -82,6 +84,8 @@
 
 -(void) updateAssetsView
 {
+    [self clearImagesRefreshTimer];
+    
     NSArray* assets = [self.assetsCollection getAssets];
     
     for (NSInteger i = 0; i < self.imageViews.count; i++) {
@@ -100,6 +104,7 @@
         }
     }
     
+    self.plusBadge.frame = [self getFrameForPlusBagde];
     self.plusBadge.hidden = (assets.count > self.imageViews.count) ? NO : YES;
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -129,6 +134,7 @@
         [self.imageViews removeLastObject];
     }
     
+    self.plusBadge.frame = [self getFrameForPlusBagde];
     [self addSubview:self.plusBadge];
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -143,6 +149,14 @@
     return CGRectMake(self.bounds.size.width - (size * 2), size, size, size);
 }
 
+-(void) clearImagesRefreshTimer
+{
+    if (self.imageRefreshTimer != nil) {
+        [self.imageRefreshTimer invalidate];
+        self.imageRefreshTimer = nil;
+    }
+}
+
 -(void)layoutSubviews {
     CGFloat xScale = self.bounds.size.width / [self.collageLayout getLayoutWidth];
     CGFloat yScale = self.bounds.size.height / [self.collageLayout getLayoutHeight];
@@ -154,6 +168,12 @@
         
         imageView.frame = frame;
     }
+    
+    
+    [self clearImagesRefreshTimer];
+    self.imageRefreshTimer = [NSTimer timerWithTimeInterval:0.25 target:self selector:@selector(updateAssetsView) userInfo:nil repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:self.imageRefreshTimer forMode:NSDefaultRunLoopMode];
+
     
     [self updateAssetsView];
 }

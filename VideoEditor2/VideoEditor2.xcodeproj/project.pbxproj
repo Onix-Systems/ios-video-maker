@@ -17,6 +17,8 @@
 		111D84BA1BCB7CC200912E91 /* TimeLineStateDescriptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84B91BCB7CC200912E91 /* TimeLineStateDescriptor.m */; settings = {ASSET_TAGS = (); }; };
 		111D84BD1BCBEB1300912E91 /* VESlidingPanelsCollage.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84BC1BCBEB1300912E91 /* VESlidingPanelsCollage.m */; settings = {ASSET_TAGS = (); }; };
 		111D84C01BCBEB4700912E91 /* VESlidingPanelsCollageSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84BF1BCBEB4700912E91 /* VESlidingPanelsCollageSlot.m */; settings = {ASSET_TAGS = (); }; };
+		111D84CC1BCE8C0200912E91 /* VEOrigamiCollage.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84CB1BCE8C0200912E91 /* VEOrigamiCollage.m */; settings = {ASSET_TAGS = (); }; };
+		111D84CF1BCE8C1000912E91 /* VEOrigamiCollageSlot.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84CE1BCE8C1000912E91 /* VEOrigamiCollageSlot.m */; settings = {ASSET_TAGS = (); }; };
 		114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421351BB3F1DC006722BD /* VSegmentsCollection.m */; settings = {ASSET_TAGS = (); }; };
 		114421391BB51409006722BD /* VCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421381BB51409006722BD /* VCompositionInstruction.m */; settings = {ASSET_TAGS = (); }; };
 		1157DDE71BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157DDE61BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m */; };
@@ -115,6 +117,10 @@
 		111D84BC1BCBEB1300912E91 /* VESlidingPanelsCollage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VESlidingPanelsCollage.m; sourceTree = "<group>"; };
 		111D84BE1BCBEB4700912E91 /* VESlidingPanelsCollageSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VESlidingPanelsCollageSlot.h; sourceTree = "<group>"; };
 		111D84BF1BCBEB4700912E91 /* VESlidingPanelsCollageSlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VESlidingPanelsCollageSlot.m; sourceTree = "<group>"; };
+		111D84CA1BCE8C0200912E91 /* VEOrigamiCollage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VEOrigamiCollage.h; sourceTree = "<group>"; };
+		111D84CB1BCE8C0200912E91 /* VEOrigamiCollage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VEOrigamiCollage.m; sourceTree = "<group>"; };
+		111D84CD1BCE8C1000912E91 /* VEOrigamiCollageSlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VEOrigamiCollageSlot.h; sourceTree = "<group>"; };
+		111D84CE1BCE8C1000912E91 /* VEOrigamiCollageSlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VEOrigamiCollageSlot.m; sourceTree = "<group>"; };
 		114421341BB3F1DC006722BD /* VSegmentsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSegmentsCollection.h; sourceTree = "<group>"; };
 		114421351BB3F1DC006722BD /* VSegmentsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSegmentsCollection.m; sourceTree = "<group>"; };
 		114421371BB51409006722BD /* VCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCompositionInstruction.h; sourceTree = "<group>"; };
@@ -291,6 +297,10 @@
 				111D84BC1BCBEB1300912E91 /* VESlidingPanelsCollage.m */,
 				111D84BE1BCBEB4700912E91 /* VESlidingPanelsCollageSlot.h */,
 				111D84BF1BCBEB4700912E91 /* VESlidingPanelsCollageSlot.m */,
+				111D84CA1BCE8C0200912E91 /* VEOrigamiCollage.h */,
+				111D84CB1BCE8C0200912E91 /* VEOrigamiCollage.m */,
+				111D84CD1BCE8C1000912E91 /* VEOrigamiCollageSlot.h */,
+				111D84CE1BCE8C1000912E91 /* VEOrigamiCollageSlot.m */,
 			);
 			name = CollageEffects;
 			sourceTree = "<group>";
@@ -794,6 +804,7 @@
 				110578871BA1A380000A8EA5 /* ImageSelectorScrollView.m in Sources */,
 				111D84A91BC7DC8700912E91 /* VEKenBurnsCollage.m in Sources */,
 				114421391BB51409006722BD /* VCompositionInstruction.m in Sources */,
+				111D84CC1BCE8C0200912E91 /* VEOrigamiCollage.m in Sources */,
 				11EFEE0C1B820BEB00078735 /* UIImagePickerController+Edit.m in Sources */,
 				11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */,
 				115C21151BA94F23002DD526 /* DMPagingScrollView.m in Sources */,
@@ -810,6 +821,7 @@
 				11F43D5F1B84674E00011C2D /* VAsset.m in Sources */,
 				11EFEE0B1B820BEB00078735 /* DZNPhotoEditorViewController.m in Sources */,
 				116BBDD01BBBBA8E00376A5B /* VEAspectFit.m in Sources */,
+				111D84CF1BCE8C1000912E91 /* VEOrigamiCollageSlot.m in Sources */,
 				111D84B41BCB7C1300912E91 /* TimeLine.m in Sources */,
 				114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */,
 				119B877A1BA050D7000E5BD3 /* ImageSelectorController.m in Sources */,
@@ -955,7 +967,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8eada7c2-ae9f-4801-b089-9e4a1c6710f3";
+				PROVISIONING_PROFILE = "26b3b897-5fd5-4098-a3dc-fe940f1bbf66";
 			};
 			name = Debug;
 		};
@@ -973,7 +985,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8eada7c2-ae9f-4801-b089-9e4a1c6710f3";
+				PROVISIONING_PROFILE = "26b3b897-5fd5-4098-a3dc-fe940f1bbf66";
 			};
 			name = Release;
 		};

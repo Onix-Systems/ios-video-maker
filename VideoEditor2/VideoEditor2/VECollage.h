@@ -13,7 +13,7 @@
 #import "VAssetCollage.h"
 #import "VECollageSlot.h"
 
-#define kShowHideDuration 0.750
+#define kShowHideDuration 0.25
 #define kSlidingDuration 0.50
 #define kSlotRoundDuration 2.0
 

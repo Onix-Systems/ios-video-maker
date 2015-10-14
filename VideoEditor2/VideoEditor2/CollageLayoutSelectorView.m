@@ -43,7 +43,7 @@
 - (void) setup
 {
     self.collageLayoutViews = [NSMutableArray new];
-    self.pagingEnabled = YES;
+    //self.pagingEnabled = YES;
     self.subViewOffset = 20;
     self.resizingInprogress = NO;
 }
@@ -95,8 +95,8 @@
     [super layoutSubviews];
     self.currentItemWidth = self.bounds.size.height;
 
-    self.pageWidth = self.currentItemWidth + 2*self.subViewOffset;
-    self.pageHeight = self.currentItemWidth;
+//    self.pageWidth = self.currentItemWidth + 2*self.subViewOffset;
+//    self.pageHeight = self.currentItemWidth;
     
     CGRect lastFrame = CGRectMake(0, 0, 0, 0);
     
@@ -134,14 +134,14 @@
 
 -(void)willStartResizing
 {
-    self.pagingEnabled = NO;
+    //self.pagingEnabled = NO;
     self.resizingInprogress = YES;
     self.fixedPageNumber = [self getCurrentPageNo];
 }
 
 -(void)didFinishedResizing
 {
-    self.pagingEnabled = YES;
+    //self.pagingEnabled = YES;
     self.resizingInprogress = NO;
 }
 

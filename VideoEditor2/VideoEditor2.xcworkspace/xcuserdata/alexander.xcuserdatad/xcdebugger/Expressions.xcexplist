@@ -3,6 +3,15 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[VESlidingPanelsCollageSlot slideInImage:toDirection:slideTimePercent:]:VESlidingPanelsCollageSlot.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[VECollage getImageOfTime:]:VECollage.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[VEKenBurnsCollageSlot setupMovementForTime:]:VEKenBurnsCollageSlot.m">
+      </ContextState>
+      <ContextState
          contextName = "-[ImageSelectorCollageController collageLayoutSelectorGotSelectedLayout:]:ImageSelectorCollageController.m">
          <PersistentStrings>
             <PersistentString
@@ -23,6 +32,32 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[VESlidingPanelsCollage createSlotWithFrameProvider:forFrame:roundNumber:totalNumberOfRounds:]:VESlidingPanelsCollage.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[VEKenBurnsCollageSlot getTranstaledImageFromFrameProvider:atTime:]:VEKenBurnsCollageSlot.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[VECollageSlot getTranstaledImageFromFrameProvider:atTime:]:VECollageSlot.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "frameProvider">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[VEKenBurnsCollageSlot setupForFinalSize:andOriginalSize:]:VEKenBurnsCollageSlot.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[CollageCreationViewController saveButtonAction:]:CollageCreationViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TimeLine setState:forTime:additionalInfo:]:TimeLine.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[VECollage putFrames:intoLayout:ofSize:]:VECollage.m">
+      </ContextState>
+      <ContextState
          contextName = "-[CollageCreationViewController setCollageLayoutView:]:CollageCreationViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -32,6 +67,12 @@
                value = "self.collageLayoutViewConainer">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[VESlidingPanelsCollageSlot getTranstaledImageFromFrameProvider:atTime:]:VESlidingPanelsCollageSlot.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[TimeLine getStateForTime:]:TimeLine.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

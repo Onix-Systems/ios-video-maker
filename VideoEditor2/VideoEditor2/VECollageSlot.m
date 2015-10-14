@@ -40,15 +40,15 @@
     if ([stateDescriptor.currentState isEqualToString:kSlotTimeLineStateHidden]) {
         return nil;
     } else {
-        double opacity = 1.0;
+        double opacity = 0.0;
         
         double currentTimePeriodDurationPercent = (time - stateDescriptor.currentStateTime) / (stateDescriptor.nextStateTime - stateDescriptor.currentStateTime);
-        
-        if ([stateDescriptor.currentState isEqual:kSlotTimeLineStateShowing]) {
-            opacity = 1 * currentTimePeriodDurationPercent;
-        }
-        if ([stateDescriptor.currentState isEqual:kSlotTimeLineStateHidding]) {
-            opacity = 1 - 1 * currentTimePeriodDurationPercent;
+        if ([stateDescriptor.currentState isEqual:kSlotTimeLineStateShown]) {
+            opacity = 1.0;
+        } else if ([stateDescriptor.currentState isEqual:kSlotTimeLineStateShowing]) {
+            opacity = 1 - 0.7 * currentTimePeriodDurationPercent;
+        } else if ([stateDescriptor.currentState isEqual:kSlotTimeLineStateHidding]) {
+            opacity = 0.3 + 0.7 * currentTimePeriodDurationPercent;
         }
         CIImage* image = [self makeSlotImageFromFrameProvider:frameProvider atTime:time];
         
@@ -56,8 +56,8 @@
             CIFilter *filter = [CIFilter filterWithName:@"CIDissolveTransition"];
             [filter setDefaults];
             
-            [filter setValue:[CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]] forKey:@"inputImage"];
-            [filter setValue:image forKey:@"inputTargetImage"];
+            [filter setValue:image forKey:@"inputImage"];
+            [filter setValue:[CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]] forKey:@"inputTargetImage"];
             
             [filter setValue:[NSNumber numberWithDouble:opacity] forKey:@"inputTime"];
             
