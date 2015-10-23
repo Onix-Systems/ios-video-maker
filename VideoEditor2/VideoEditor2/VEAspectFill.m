@@ -10,22 +10,29 @@
 
 @implementation VEAspectFill
 
--(CGAffineTransform) getImageTransformForFrameAtTime:(double)time toSize:(CGSize) finalSize
+-(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
-    CGSize originalSize = [self getInputFrameProvider:0].originalSize;
+    CIImage* originalFrame = [self.frameProvider getFrameForRequest:request];
     
-    CGFloat yScale = originalSize.height / finalSize.height;
-    CGFloat xScale = originalSize.width / finalSize.width;
+    CGSize originalSize = [self.frameProvider getOriginalSize];
+    
+    CGFloat yScale = originalSize.height / self.finalSize.height;
+    CGFloat xScale = originalSize.width / self.finalSize.width;
     CGFloat scale = 1 / (xScale < yScale ? xScale : yScale);
     
     CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
     
-    CGFloat xShift = (finalSize.width - (originalSize.width * scale)) / 2;
-    CGFloat yShift = (finalSize.height - (originalSize.height * scale)) / 2;
+    CGFloat xShift = (self.finalSize.width - (originalSize.width * scale)) / 2;
+    CGFloat yShift = (self.finalSize.height - (originalSize.height * scale)) / 2;
     
     CGAffineTransform translationTransform = CGAffineTransformMakeTranslation(xShift, yShift);
     
-    return CGAffineTransformConcat(scaleTransform, translationTransform);
+    CGAffineTransform imageTransform = CGAffineTransformConcat(scaleTransform, translationTransform);
+    
+    CIImage* result = [originalFrame imageByApplyingTransform:imageTransform];
+    result = [result imageByCroppingToRect:CGRectMake(0,0, self.finalSize.width, self.finalSize.height)];
+    
+    return result;
 }
 
 @end

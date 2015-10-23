@@ -7,12 +7,12 @@
 //
 
 #import "VCompositionInstruction.h"
-#import "VEStillImage.h"
+#import "VStillImage.h"
 #import <UIKit/UIKit.h>
 
 @interface VCompositionInstruction ()
 
-@property (strong, nonatomic) VEffect* frameProvider;
+@property (strong, nonatomic) VFrameProvider* frameProvider;
 @property (strong, nonatomic) NSMutableArray* stillImages;
 @property (strong, nonatomic) NSMutableArray* registeredTrackIDs;
 
@@ -20,7 +20,7 @@
 
 @implementation VCompositionInstruction
 
-- (instancetype)initWithFrameProvider: (VEffect*) frameProvider
+- (instancetype)initWithFrameProvider: (VFrameProvider*) frameProvider
 {
     self = [super init];
     if (self) {
@@ -31,29 +31,19 @@
         
         self.frameProvider = frameProvider;
         
-        self.registeredTrackIDs = [NSMutableArray arrayWithCapacity:[self.frameProvider getNumberOfInputFrames]];
-        
-        self.stillImages = [NSMutableArray arrayWithCapacity:[self.frameProvider getNumberOfInputFrames]];
-        
-        for (int i = 0; i < [self.frameProvider getNumberOfInputFrames]; i++) {
-            [self.registeredTrackIDs addObject:
-            [NSNumber numberWithInt:kCMPersistentTrackID_Invalid]];
-            
-            [self.stillImages addObject: [NSNull null]];
-        }
+        self.registeredTrackIDs = [NSMutableArray new];
     }
     return self;
 }
 
--(void) registerTrackID: (CMPersistentTrackID) trackID asInputFrameProvider: (NSInteger) inputFrameNumber
+-(void) registerTrackIDAsInputFrameProvider: (CMPersistentTrackID) trackID
 {
-    self.registeredTrackIDs[inputFrameNumber] = [NSNumber numberWithInt:trackID];
-    self.stillImages[inputFrameNumber] = [VEStillImage new];
+    [self.registeredTrackIDs addObject: [NSNumber numberWithInt:trackID]];
 }
 
 -(void)setRequiredSourceTrackIDs:(NSArray<NSValue *> *)requiredSourceTrackIDs
 {
-    //the operation is not valid - do nothing; use registerTrackID: asInputFrameProvider:
+    //the operation is not valid - do nothing; use registerTrackIDAsInputFrameProvider:
 }
 
 -(NSArray<NSValue*>*)requiredSourceTrackIDs
@@ -72,44 +62,23 @@
 -(void) processRequest:(AVAsynchronousVideoCompositionRequest *)request usingCIContext:(CIContext *)ciContext
 {
     CVPixelBufferRef newFrameBuffer = [[request renderContext] newPixelBuffer];
-    CGSize frameSize = CGSizeMake(CVPixelBufferGetWidth(newFrameBuffer), CVPixelBufferGetHeight(newFrameBuffer));
     
-    for (int i = 0; i < [self.frameProvider getNumberOfInputFrames]; i++) {
-        NSNumber *number = self.registeredTrackIDs[i];
-        CMPersistentTrackID trackID = number.intValue;
-        
-        if (trackID != kCMPersistentTrackID_Invalid && self.stillImages[i] != [NSNull null]) {
-            VEStillImage* stillImage = self.stillImages[i];
-
-            [stillImage setPixelBuffer: [request sourceFrameByTrackID: trackID]];
-            [self.frameProvider setInputFrameProvider:stillImage forInputFrameNum:i];
-        }
-    }
-
-    double requestTime = CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.timeRange.start);
+    VFrameRequest* frameRequest = [VFrameRequest new];
+    frameRequest.videoCompositionRequest = request;
+    frameRequest.time = CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.timeRange.start);
+    frameRequest.frameSize = CGSizeMake(CVPixelBufferGetWidth(newFrameBuffer), CVPixelBufferGetHeight(newFrameBuffer));
     
+    CIImage* frameContent = [self.frameProvider getFrameForRequest:frameRequest];
+
     CIImage* frameBackground = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
-    
-    CIImage* frameContent = [self.frameProvider getImageForFrameSize:frameSize atTime:requestTime];
-    
     CIImage* newFrameImage = [frameContent imageByCompositingOverImage:frameBackground];
     
     [ciContext render:newFrameImage toCVPixelBuffer:newFrameBuffer];
-    
     [request finishWithComposedVideoFrame: newFrameBuffer];
     
-    for (int i = 0; i < [self.frameProvider getNumberOfInputFrames]; i++) {
-        NSNumber *number = self.registeredTrackIDs[i];
-        CMPersistentTrackID trackID = (CMPersistentTrackID)number.longValue;
-        
-        if (trackID != kCMPersistentTrackID_Invalid && self.stillImages[i] != [NSNull null]) {
-            VEStillImage* stillImage = self.stillImages[i];
-            
-            [stillImage releasePixelBuffer];
-        }
-    }
-    CVPixelBufferRelease(newFrameBuffer);
+    [frameRequest markRequestAsFinished];
     
+    CVPixelBufferRelease(newFrameBuffer);
 }
 
 

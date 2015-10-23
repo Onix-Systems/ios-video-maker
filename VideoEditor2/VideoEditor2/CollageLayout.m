@@ -10,12 +10,9 @@
 
 @implementation CollageLayout
 
-+(CollageLayout*)layoutWithFrames:(NSArray*) frames
+-(void)setFrames:(NSArray<NSValue *> *)frames
 {
-    CollageLayout* layout = [CollageLayout new];
-    layout.frames = frames;
-    
-    return layout;
+    _frames = frames;
 }
 
 -(CGFloat) getLayoutWidth {
@@ -44,7 +41,7 @@
     return layoutSize;
 }
 
--(NSArray*) getLayoutFramesForSize:(CGSize)finalSize
+-(NSArray*) getStillFramesForFinalSize:(CGSize)finalSize
 {
     double xScale = finalSize.width / [self getLayoutWidth];
     double yScale = finalSize.height / [self getLayoutHeight];
@@ -61,4 +58,9 @@
     return frames;
 }
 
+-(NSArray*) getFramesForFinalSize:(CGSize)finalSize andTime:(double)time;
+{
+    return [self getStillFramesForFinalSize:finalSize];
+}
+    
 @end

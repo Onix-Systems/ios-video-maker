@@ -7,7 +7,8 @@
 //
 
 #import "VAssetPHImage.h"
-#import "VEStillImage.h"
+#import "VStillImage.h"
+#import "VCoreVideoFrameProvider.h"
 
 @interface VAssetPHImage ()
 
@@ -16,6 +17,9 @@
 @property (readwrite) double downloadPercent;
 
 @property () PHImageRequestID lastRequestID;
+
+@property (strong,nonatomic) VStillImage* imageFrameProvider;
+@property (strong,nonatomic) VCoreVideoFrameProvider* videoFrameProvider;
 
 @end
 
@@ -121,6 +125,7 @@
     }
     
     self.downloadPercent = 0;
+    [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
     
     self.lastRequestID = [self createImageLoadRequest:size trackProgress:^(double progress) {
         self.downloadPercent = progress;
@@ -228,22 +233,20 @@
     }
 }
 
--(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo
+-(VFrameProvider*)getFrameProvider
 {
-    AVMutableCompositionTrack* activeTrack = [videoComposition getVideoTrackNo:activeTrackNo];
-    CMPersistentTrackID activeTrackID = activeTrack.trackID;
-    
     if (self.isVideo) {
-        [videoInstructoin registerTrackID: activeTrackID asInputFrameProvider:0];
+        self.videoFrameProvider = [VCoreVideoFrameProvider new];
+        self.videoFrameProvider.asset = self.downloadedAsset;
         
-        return nil;
+        return self.videoFrameProvider;
     } else {
-        VEStillImage* imageFrame = [VEStillImage new];
+        self.imageFrameProvider = [VStillImage new];
         
-        imageFrame.image = [CIImage imageWithCGImage:[self.downloadedImage CGImage]];
-        imageFrame.originalSize = self.downloadedImage.size;
+        self.imageFrameProvider.image = [CIImage imageWithCGImage:[self.downloadedImage CGImage]];
+        self.imageFrameProvider.imageSize = self.downloadedImage.size;
         
-        return imageFrame;
+        return self.imageFrameProvider;
     }
 }
 

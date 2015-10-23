@@ -8,9 +8,18 @@
 
 #import "VAssetCollage.h"
 
-#import "VECollage.h"
-#import "VEKenBurnsCollage.h"
-#import "VESlidingPanelsCollage.h"
+#import "VProvidersCollection.h"
+
+#import "VCollageBuilder.h"
+#import "VKenBurnsCollageBuilder.h"
+#import "VSlidingPanelsCollageBuilder.h"
+#import "VOrigamiCollageBuilder.h"
+
+@interface VAssetCollage()
+
+@property (strong,nonatomic) VFrameProvider* cachedFrameProvider;
+
+@end
 
 @implementation VAssetCollage
 
@@ -24,61 +33,70 @@
     return NO;
 }
 
+-(void)clearCache
+{
+    self.cachedFrameProvider = nil;
+}
+
 - (double) duration
 {
-    double duration = kSlotRoundDuration;
-    
-    if (self.assetsCollection != nil && self.collageLayout != nil) {
-        NSInteger assetsCount = self.assetsCollection.getAssets.count;
-        NSInteger framesCount = self.collageLayout.frames.count;
-        
-        duration = kSlotRoundDuration * ((assetsCount / framesCount) + ((assetsCount % framesCount > 0) ? 1 : 0));
-    }
-    
-    return duration;
+    return [self.cachedFrameProvider getDuration];
 }
 
 -(void)setCollageEffect:(NSString *)collageEffect
 {
     _collageEffect = collageEffect;
+    [self clearCache];
 }
 
 -(void)setAssetsCollection:(AssetsCollection *)assetsCollection
 {
     _assetsCollection = assetsCollection;
+    [self clearCache];
 }
 
--(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo
+-(void)setFinalSize:(CGSize)finalSize
 {
-    NSInteger lastUsedTrackNo = 1;
-    NSArray* assets = [self.assetsCollection getAssets];
-    NSMutableArray* assetComponents = [NSMutableArray new];
-    
-    for (int i = 0; i < assets.count; i++) {
-        VAsset *asset = assets[i];
-        
-        NSInteger trackNo = activeTrackNo;
-        if (asset.isVideo) {
-            trackNo = lastUsedTrackNo++;
-        }
-        [assetComponents addObject:[asset createFrameProviderForVideoComposition:videoComposition wihtInstruction:videoInstructoin activeTrackNo:trackNo]];
-    }
-    
-    CGFloat collageHeight = MIN(videoComposition.mutableComposition.naturalSize.height, videoComposition.mutableComposition.naturalSize.height);
-    
-    VECollage* collageEffect = nil;
-    
-    if ([self.collageEffect isEqualToString:kCollageEffectKenBurns]) {
-        collageEffect = [VEKenBurnsCollage new];
-    } else if ([self.collageEffect isEqualToString:kCollageEffectSlidingPanels]) {
-        collageEffect = [VESlidingPanelsCollage new];
-    } else {
-        collageEffect = [VECollage new];
-    }
+    _finalSize = finalSize;
+    [self clearCache];
+}
 
-    [collageEffect putFrames:assetComponents intoLayout:self.collageLayout ofSize:CGSizeMake(collageHeight, collageHeight)];
+-(VFrameProvider*)cachedFrameProvider
+{
+    if (_cachedFrameProvider == nil) {
+        NSArray* assets = [self.assetsCollection getAssets];
+        NSMutableArray* collageItems = [NSMutableArray new];
+        
+        for (int i = 0; i < assets.count; i++) {
+            VAsset *asset = assets[i];
+            
+            [collageItems addObject:[asset getFrameProvider]];
+        }
+        
+        CGFloat collageHeight = MIN(self.finalSize.height, self.finalSize.height);
+        CGSize collageSize = CGSizeMake(collageHeight, collageHeight);
+        
+        VCollageBuilder* collageBuilder = nil;
+        
+        if ([self.collageEffect isEqualToString:kCollageEffectKenBurns]) {
+            collageBuilder = [VKenBurnsCollageBuilder new];
+        } else if ([self.collageEffect isEqualToString:kCollageEffectSlidingPanels]) {
+            collageBuilder = [VSlidingPanelsCollageBuilder new];
+        } else if ([self.collageEffect isEqualToString:kCollageEffectOrigami]) {
+            collageBuilder = [VOrigamiCollageBuilder new];
+        } else {
+            collageBuilder = [VCollageBuilder new];
+        }
+        
+        _cachedFrameProvider = [collageBuilder makeCollageWithItems:collageItems layoutFrames:self.collageLayout.frames finalSize:collageSize];
+    }
     
-    return collageEffect;
+    return _cachedFrameProvider;
+}
+
+-(VFrameProvider*) getFrameProvider
+{
+    return self.cachedFrameProvider;
 }
 
 @end

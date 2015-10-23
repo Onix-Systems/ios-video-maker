@@ -40,51 +40,61 @@
     
     _assetsCollection = assetsCollection;
     
-    [self.layoutsView addCoollageLayoutViewForCollageLaout: [CollageLayout layoutWithFrames:
-                                                             @[
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)]
-                                                               ]] withAssetsCollection: self.assetsCollection];
+    CollageLayout* layout = nil;
     
-    [self.layoutsView addCoollageLayoutViewForCollageLaout: [CollageLayout layoutWithFrames:
-                                                             @[
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 1, 1, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
-                                                               ]] withAssetsCollection: self.assetsCollection];
+    layout = [CollageLayout new];
+    [layout setFrames: @[
+                         [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)]
+                         ]];
+    [self.layoutsView addCoollageLayoutViewForCollageLaout:layout withAssetsCollection: self.assetsCollection];
     
-    [self.layoutsView addCoollageLayoutViewForCollageLaout: [CollageLayout layoutWithFrames:
-                                                             @[
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 2)],
-                                                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 2)]
-                                                               ]] withAssetsCollection: self.assetsCollection];
+    layout = [CollageLayout new];
+    [layout setFrames: @[
+                         [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(0, 1, 1, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
+                         ]];
+    [self.layoutsView addCoollageLayoutViewForCollageLaout:layout withAssetsCollection: self.assetsCollection];
 
-    [self.layoutsView addCoollageLayoutViewForCollageLaout: [CollageLayout layoutWithFrames:
-                                                             @[
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 0, 2, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 1, 2, 1)]
-                                                               ]] withAssetsCollection: self.assetsCollection];
     
-    [self.layoutsView addCoollageLayoutViewForCollageLaout: [CollageLayout layoutWithFrames:
-                                                             @[
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 0, 2, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 1, 1, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
-                                                               ]] withAssetsCollection: self.assetsCollection];
+    layout = [CollageLayout new];
+    [layout setFrames: @[
+                         [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 2)],
+                         [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 2)]
+                         ]];
+    [self.layoutsView addCoollageLayoutViewForCollageLaout:layout withAssetsCollection: self.assetsCollection];
+
+    layout = [CollageLayout new];
+    [layout setFrames: @[
+                         [NSValue valueWithCGRect:CGRectMake(0, 0, 2, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(0, 1, 2, 1)]
+                         ]];
+    [self.layoutsView addCoollageLayoutViewForCollageLaout:layout withAssetsCollection: self.assetsCollection];
     
-    [self.layoutsView addCoollageLayoutViewForCollageLaout: [CollageLayout layoutWithFrames:
-                                                             @[
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 1, 2, 1)]
-                                                               ]] withAssetsCollection: self.assetsCollection];
+    layout = [CollageLayout new];
+    [layout setFrames: @[
+                         [NSValue valueWithCGRect:CGRectMake(0, 0, 2, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(0, 1, 1, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
+                         ]];
+    [self.layoutsView addCoollageLayoutViewForCollageLaout:layout withAssetsCollection: self.assetsCollection];
     
-    [self.layoutsView addCoollageLayoutViewForCollageLaout: [CollageLayout layoutWithFrames:
-                                                             @[
-                                                               [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 2)],
-                                                               [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
-                                                               [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
-                                                               ]] withAssetsCollection: self.assetsCollection];
+    layout = [CollageLayout new];
+    [layout setFrames: @[
+                         [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(0, 1, 2, 1)]
+                         ]];
+    [self.layoutsView addCoollageLayoutViewForCollageLaout:layout withAssetsCollection: self.assetsCollection];
+    
+    layout = [CollageLayout new];
+    [layout setFrames: @[
+                         [NSValue valueWithCGRect:CGRectMake(0, 0, 1, 2)],
+                         [NSValue valueWithCGRect:CGRectMake(1, 0, 1, 1)],
+                         [NSValue valueWithCGRect:CGRectMake(1, 1, 1, 1)]
+                         ]];
+    [self.layoutsView addCoollageLayoutViewForCollageLaout:layout withAssetsCollection: self.assetsCollection];
 
     self.pageControl.numberOfPages = [self.layoutsView getCollageLayoutViews].count;
 }

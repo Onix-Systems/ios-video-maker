@@ -1,5 +1,5 @@
 //
-//  PickerAsset.m
+//  VAsset.m
 //  VideoEditor2
 //
 //  Created by Alexander on 8/19/15.
@@ -67,7 +67,7 @@
     
 }
 
--(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo
+-(VFrameProvider*) getFrameProvider
 {
     return nil;
 }

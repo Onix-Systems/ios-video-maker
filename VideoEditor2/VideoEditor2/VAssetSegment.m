@@ -9,7 +9,8 @@
 #import "VAssetSegment.h"
 #import "VCompositionInstruction.h"
 #import "VEAspectFit.h"
-#import "VEStillImage.h"
+#import "VStillImage.h"
+#import "VCoreVideoFrameProvider.h"
 
 @implementation VAssetSegment
 
@@ -34,43 +35,36 @@
     return CMTimeMakeWithSeconds(duration, 1000);
 }
 
--(void) insertTimeRange:(CMTimeRange)timeRange ofTrack:(AVAssetTrack *) sourceTrack atTime:(CMTime) atTime intoTrack: (AVMutableCompositionTrack*) destinationTrack
-{
-    NSError *error = nil;
-    
-    [destinationTrack insertTimeRange:timeRange ofTrack:sourceTrack atTime:atTime error:&error];
-    
-    if (error != nil) {
-        NSLog(@"Can not insert track timerange (%@) into track (%@) - %@", sourceTrack, destinationTrack, error);
-    }
-
-}
-
 -(void) putIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo
 {
-    CMTimeRange trackTimeRange = CMTimeRangeMake(kCMTimeZero, timeRange.duration);
-    
-    AVMutableCompositionTrack *destinationTrack = [videoComposition getVideoTrackNo:trackNo];
-    AVAssetTrack* videoTrack;
-    
-    if (self.asset.isVideo) {
-        videoTrack = [self.asset.downloadedAsset tracksWithMediaType:AVMediaTypeVideo][0];
-    } else {
-        videoTrack = [videoComposition getPlaceholderVideoTrack];
+    if (!self.asset.isVideo) {
+        AVAssetTrack* sourceTrack = [videoComposition getPlaceholderVideoTrack];
+        AVMutableCompositionTrack *destinationTrack = [videoComposition getVideoTrackNo:trackNo];
+        CMTimeRange trackTimeRange = CMTimeRangeMake(kCMTimeZero, timeRange.duration);
+        
+        NSError *error = nil;
+        [destinationTrack insertTimeRange:trackTimeRange ofTrack:sourceTrack atTime:timeRange.start error:&error];
+        if (error != nil) {
+            NSLog(@"Can not insert track timerange (%@) into track (%@) - %@", sourceTrack, destinationTrack, error);
+        }
     }
     
-    [self insertTimeRange:trackTimeRange ofTrack:videoTrack atTime:timeRange.start intoTrack:destinationTrack];
-
     VEAspectFit* aspectFitEffect = [VEAspectFit new];
+    aspectFitEffect.frameProvider = [self.asset getFrameProvider];
+    
     VCompositionInstruction *instruction = [[VCompositionInstruction alloc] initWithFrameProvider:aspectFitEffect];
     instruction.timeRange = timeRange;
-    instruction.containsTweening = self.asset.isVideo || !self.asset.isStatic;
-
-    VEffect* assetFrameProvider = [self.asset createFrameProviderForVideoComposition:videoComposition wihtInstruction:instruction activeTrackNo:trackNo];
-    if (assetFrameProvider != nil) {
-        [aspectFitEffect setInputFrameProvider:assetFrameProvider forInputFrameNum:0];
+//    instruction.containsTweening = self.asset.isVideo || !self.asset.isStatic;
+    instruction.containsTweening = YES;
+    
+    if (self.asset.isVideo) {
+        VCoreVideoFrameProvider* videoFrameProvider = (VCoreVideoFrameProvider*) aspectFitEffect.frameProvider;
+        
+        videoFrameProvider.activeTrackNo = trackNo;
     }
     
+    [aspectFitEffect reqisterIntoVideoComposition:videoComposition withInstruction:instruction withFinalSize:videoComposition.frameSize];
+
     [videoComposition appendVideoCompositionInstruction:instruction];
 
 //        AVAssetTrack* audioTrack = [self.asset.downloadedAsset tracksWithMediaType:AVMediaTypeAudio][0];

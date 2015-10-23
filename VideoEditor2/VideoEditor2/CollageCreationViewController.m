@@ -18,7 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *switchForKenBurns;
 @property (weak, nonatomic) IBOutlet UISwitch *switchForSlidingPanels;
-@property (weak, nonatomic) IBOutlet UISwitch *switchForShiftingTiles;
+@property (weak, nonatomic) IBOutlet UISwitch *switchForOrigami;
 
 @property (strong, nonatomic) VAssetCollage* assetCollage;
 @property (strong, nonatomic) AssetsCollection* assetsCollection;
@@ -33,6 +33,7 @@
 -(void) setupCollageWithAssets:(AssetsCollection *)assetsCollection andLayout: (CollageLayout*)collageLayout
 {
     VAssetCollage* assetCollage = [VAssetCollage new];
+    assetCollage.finalSize = CGSizeMake(1024, 1024);
     assetCollage.assetsCollection = assetsCollection;
     assetCollage.collageLayout = collageLayout;
     assetCollage.collageEffect = kCollageEffectNone;
@@ -70,10 +71,10 @@
         self.switchForSlidingPanels.on = NO;
     }
     
-    if ([collageEffect isEqualToString: kCollageEffectShiftingTiles]) {
-        self.switchForShiftingTiles.on = YES;
+    if ([collageEffect isEqualToString: kCollageEffectOrigami]) {
+        self.switchForOrigami.on = YES;
     } else {
-        self.switchForShiftingTiles.on = NO;
+        self.switchForOrigami.on = NO;
     }
 }
 
@@ -87,8 +88,8 @@
         if (sender == self.switchForSlidingPanels) {
             collageEffect = kCollageEffectSlidingPanels;
         }
-        if (sender == self.switchForShiftingTiles) {
-            collageEffect = kCollageEffectShiftingTiles;
+        if (sender == self.switchForOrigami) {
+            collageEffect = kCollageEffectOrigami;
         }
     }
     
@@ -122,8 +123,7 @@
         [self.collageLayoutViewConainer addSubview:self.playerView];
     }
 
-    VideoComposition* videoComposition = [self.segmentsCollection getVideoComposition];
-    [videoComposition setVideoFrameSize:CGSizeMake(600, 600)];
+    VideoComposition* videoComposition = [self.segmentsCollection makeVideoCompositionWithFrameSize:CGSizeMake(600, 600)];
     
     [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
 }

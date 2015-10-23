@@ -11,7 +11,7 @@
 
 #import <SDWebImage/SDWebImageManager.h>
 
-#import "VEStillImage.h"
+#import "VStillImage.h"
 
 
 @interface VAssetWebImage ()
@@ -22,6 +22,8 @@
 @property (strong) UIImage* temporaryImage;
 
 @property (strong) id <SDWebImageOperation> currentDownloadingOperation;
+
+@property (strong,nonatomic) VStillImage* frameProvider;
 
 @end
 
@@ -145,13 +147,15 @@
     }
 }
 
--(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo
+-(VFrameProvider*) getFrameProvider
 {
-    VEStillImage* imageFrame = [VEStillImage new];
-    imageFrame.image = [CIImage imageWithCGImage:[self.downloadedImage CGImage]];
-    imageFrame.originalSize = self.downloadedImage.size;
+    if (self.frameProvider == nil && self.downloadedImage != nil) {
+        self.frameProvider = [VStillImage new];
+        self.frameProvider.image = [CIImage imageWithCGImage:[self.downloadedImage CGImage]];
+        self.frameProvider.imageSize = self.downloadedImage.size;
+    }
     
-    return imageFrame;
+    return self.frameProvider;
 }
 
 @end

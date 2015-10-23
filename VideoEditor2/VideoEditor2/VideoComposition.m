@@ -50,18 +50,15 @@
         self.audioTracks = [NSMutableArray new];
         self.videoCompositionInstructions = [NSMutableArray new];
         self.audioMixInputParameters = [NSMutableArray new];
-        
-        //CGSize videoSize = CGSizeMake(1920, 1080);
-        CGSize videoSize = CGSizeMake(1280, 720);
-        [self setVideoFrameSize:videoSize];
     }
     return self;
 }
 
--(void)setVideoFrameSize: (CGSize) videoSize
+-(void)setFrameSize:(CGSize)frameSize
 {
-    self.mutableComposition.naturalSize = videoSize;
-    self.mutableVideoComposition.renderSize = videoSize;
+    _frameSize = frameSize;
+    self.mutableComposition.naturalSize = frameSize;
+    self.mutableVideoComposition.renderSize = frameSize;
 }
 
 -(AVAsset*)placeholder
@@ -89,6 +86,11 @@
 {
     [self.audioMixInputParameters addObject:parameters];
     self.mutableAudioMix.inputParameters = self.audioMixInputParameters;
+}
+
+-(AVMutableCompositionTrack*) getFreeVideoTrack
+{
+    return [self getVideoTrackNo: (self.videoTracks.count + 1)];
 }
 
 -(AVMutableCompositionTrack*) getVideoTrackNo: (NSInteger) trackNumber

@@ -195,16 +195,11 @@
     }
 }
 
--(VideoComposition*) getVideoComposition
-{
-    self.videoComposition = [self makeVideoComposition];
-    
-    return self.videoComposition;
-}
-
--(VideoComposition*) makeVideoComposition
+-(VideoComposition*) makeVideoCompositionWithFrameSize:(CGSize)frameSize
 {
     VideoComposition* videoComposition = [VideoComposition new];
+    
+    videoComposition.frameSize = frameSize;
     
     CMTime segmentStartTime = kCMTimeZero;
     for (int i = 0; i < self.segmentsCount; i++) {
@@ -217,7 +212,7 @@
         if ([segment class] == [VAssetSegment class]) {
             VAssetSegment* aSegment = (VAssetSegment*)segment;
             
-            [aSegment putIntoVideoComosition :videoComposition withinTimeRange:segmentTimeRange intoTrackNo: 1 + (i%2) ];
+            [aSegment putIntoVideoComosition:videoComposition withinTimeRange:segmentTimeRange intoTrackNo: 1 + (i%2) ];
         }
 
         segmentStartTime = segmentEndTime;

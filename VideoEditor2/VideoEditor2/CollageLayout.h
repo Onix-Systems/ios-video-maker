@@ -12,11 +12,13 @@
 @interface CollageLayout : NSObject
 
 //array fo CGRect
-@property (strong) NSArray<NSValue *>* frames;
-+(CollageLayout*)layoutWithFrames:(NSArray<NSValue *>*) frames;
+@property (nonatomic, strong) NSArray<NSValue *>* frames;
+-(void)setFrames:(NSArray<NSValue *> *)frames;
 
 -(CGFloat) getLayoutWidth;
 -(CGFloat) getLayoutHeight;
--(NSArray*) getLayoutFramesForSize: (CGSize) finalSize;
+
+-(NSArray*) getStillFramesForFinalSize:(CGSize)finalSize;
+-(NSArray*) getFramesForFinalSize:(CGSize)finalSize andTime:(double)time;
 
 @end

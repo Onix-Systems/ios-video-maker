@@ -1,5 +1,5 @@
 //
-//  VEffect.h
+//  VStillImage.h
 //  VideoEditor2
 //
 //  Created by Alexander on 9/30/15.
@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "VFrameProvider.h"
 
-@interface VEffect : VFrameProvider
+#define kVStillImageDuration 2.0
 
-@property (nonatomic,strong) VFrameProvider* frameProvider;
-@property (nonatomic) CGSize finalSize;
+@interface VStillImage : VFrameProvider
+
+@property (nonatomic) CGSize imageSize;
+@property (strong, nonatomic) CIImage* image;
 
 @end

@@ -15,10 +15,11 @@
 #define kCollageEffectNone @""
 #define kCollageEffectKenBurns @"KenBurns"
 #define kCollageEffectSlidingPanels @"SlidingPanels"
-#define kCollageEffectShiftingTiles @"ShiftingTiles"
+#define kCollageEffectOrigami @"Origami"
 
 @interface VAssetCollage : VAsset
 
+@property (nonatomic) CGSize finalSize;
 @property (strong, nonatomic) AssetsCollection* assetsCollection;
 @property (strong, nonatomic) CollageLayout* collageLayout;
 @property (strong, nonatomic) NSString* collageEffect;

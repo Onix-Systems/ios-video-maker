@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet APLCompositionDebugView *debugView;
 
 @property (strong, nonatomic) AVAsset* currentDebugViewAsset;
+
+@property (strong, nonatomic) VideoComposition* videoComposition;
+
 @end
 
 @implementation Step5
@@ -33,9 +36,9 @@
     
     self.playerView.delegate = self;
     
-    VideoComposition *videoComposition = [[VDocument getCurrentDocument].segmentsCollection getVideoComposition];
+    self.videoComposition = [[VDocument getCurrentDocument].segmentsCollection makeVideoCompositionWithFrameSize:CGSizeMake(1280, 720)];
     
-    [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:NO];
+    [self.playerView playVideoFromAsset:self.videoComposition.mutableComposition videoComposition:self.videoComposition.mutableVideoComposition audioMix:self.videoComposition.mutableAudioMix autoPlay:NO];
     
 }
 
@@ -58,12 +61,11 @@
 {
     if (self.playerView.isReadyToPlay) {
         
-        VideoComposition *videoComposition = [[VDocument getCurrentDocument].segmentsCollection getVideoComposition];
-        if (self.currentDebugViewAsset != videoComposition.mutableComposition) {
-            self.currentDebugViewAsset = videoComposition.mutableComposition;
+        if (self.currentDebugViewAsset != self.videoComposition.mutableComposition) {
+            self.currentDebugViewAsset = self.videoComposition.mutableComposition;
             
             self.debugView.player = self.playerView.player;
-            [self.debugView synchronizeToComposition:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix];
+            [self.debugView synchronizeToComposition:self.videoComposition.mutableComposition videoComposition:self.videoComposition.mutableVideoComposition audioMix:self.videoComposition.mutableAudioMix];
             [self.debugView setNeedsDisplay];
         }
 

@@ -8,6 +8,7 @@
 
 #import "VideoCompositor.h"
 #import "VCompositionInstruction.h"
+#import <CoreImage/CoreImage.h>
 
 @interface VideoCompositor ()
 

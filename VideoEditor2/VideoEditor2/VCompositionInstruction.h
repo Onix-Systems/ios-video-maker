@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
-#import "VEffect.h"
+
+@class VFrameProvider;
 
 @interface VCompositionInstruction : NSObject <AVVideoCompositionInstruction>
 
@@ -19,10 +20,10 @@
 @property (nonatomic) CMPersistentTrackID passthroughTrackID; // kCMPersistentTrackID_Invalid if not a passthrough instruction
 
 
-- (instancetype)initWithFrameProvider: (VEffect*) frameProvider;
+- (instancetype)initWithFrameProvider: (VFrameProvider*) frameProvider;
 
 -(void) processRequest: (AVAsynchronousVideoCompositionRequest*) request usingCIContext: (CIContext*) ciContext;
 
--(void) registerTrackID: (CMPersistentTrackID) trackID asInputFrameProvider: (NSInteger) inputFrameNumber;
+-(void) registerTrackIDAsInputFrameProvider: (CMPersistentTrackID) trackID;
 
 @end

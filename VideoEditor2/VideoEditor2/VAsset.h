@@ -1,5 +1,5 @@
 //
-//  PickerAsset.h
+//  VAsset.h
 //  VideoEditor2
 //
 //  Created by Alexander on 8/19/15.
@@ -38,6 +38,6 @@ typedef void(^VAssetDownloadCompletionBlock)(UIImage* resultImage, BOOL requestF
 -(BOOL) isDownloading;
 -(void) cancelDownloading;
 
--(VEffect*) createFrameProviderForVideoComposition:(VideoComposition *)videoComposition wihtInstruction:(VCompositionInstruction *)videoInstructoin activeTrackNo:(NSInteger)activeTrackNo;
+-(VFrameProvider*) getFrameProvider;
 
 @end

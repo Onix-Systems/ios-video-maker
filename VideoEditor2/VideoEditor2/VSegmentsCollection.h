@@ -26,6 +26,6 @@
 -(VCompositionSegment*) getSegment: (NSInteger) index;
 
 
--(VideoComposition*) getVideoComposition;
+-(VideoComposition*) makeVideoCompositionWithFrameSize: (CGSize) frameSize;
 
 @end

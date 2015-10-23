@@ -8,86 +8,36 @@
 
 #import "VEffect.h"
 
-@interface VEffect ()
-
-@property (nonatomic,strong) NSMutableArray* mutableInputFrameProviders;
-
-@property (nonatomic, strong) NSMutableDictionary* attributes;
-@property (nonatomic, strong) NSMutableDictionary* parametes;
-
-@end
-
 @implementation VEffect
 
 - (instancetype)init
 {
     self = [super init];
     if (self) {
-        self.attributes = [NSMutableDictionary new];
-        self.parametes = [NSMutableDictionary new];
-
-        self.mutableInputFrameProviders = [NSMutableArray new];
-
-        self.originalSize = CGSizeZero;
+        self.frameProvider = nil;
     }
     return self;
 }
 
--(NSDictionary*) getAttributes
+-(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
-    return self.attributes;
+    return [self.frameProvider getFrameForRequest:request];
 }
 
--(void) setupParameterAttributes:(NSString *)paramName defaultValue:(NSObject *)defaultValue
+-(CGSize) getOriginalSize
 {
-    self.attributes[paramName] = defaultValue;
+    return [self.frameProvider getOriginalSize];
 }
 
--(NSObject*) getParamValue:(NSString *)paramName
+-(double)duration
 {
-    NSObject* value = self.parametes[paramName];
-    if (value == nil) {
-        value = self.attributes[paramName];
-    }
-    
-    return value;
+    return [self.frameProvider getDuration];
 }
 
--(NSDictionary*) getParameters
+-(void)reqisterIntoVideoComposition:(VideoComposition *)videoComposition withInstruction:(VCompositionInstruction *)instruction withFinalSize:(CGSize)finalSize
 {
-    NSMutableDictionary* parameters = [NSMutableDictionary new];
-    
-    for (NSString* paramName in self.parametes) {
-        parameters[paramName] = self.parametes[paramName];
-    }
-    
-    for (NSString* paramName in self.attributes) {
-        if (parameters[paramName] == nil) {
-            parameters[paramName] = self.attributes[paramName];
-        }
-    }
-    
-    return parameters;
-}
-
--(NSInteger) getNumberOfInputFrames
-{
-    return 0;
-}
-
--(VEffect*) getInputFrameProvider: (NSInteger) inputFrameNumber
-{
-    return self.mutableInputFrameProviders[inputFrameNumber];
-}
-
--(void) setInputFrameProvider: (VEffect*) provider forInputFrameNum: (NSInteger) inputFrameNumber
-{
-    self.mutableInputFrameProviders[inputFrameNumber] = provider;
-}
-
--(CIImage*) getImageForFrameSize: (CGSize) frameSize atTime: (double) time
-{
-    return nil;
+    self.finalSize = finalSize;
+    [self.frameProvider reqisterIntoVideoComposition:videoComposition withInstruction:instruction withFinalSize:finalSize];
 }
 
 @end

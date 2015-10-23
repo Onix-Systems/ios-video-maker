@@ -1,5 +1,5 @@
 //
-//  VideoEditorAssetsCollection.m
+//  AssetsCollection.m
 //  VideoEditor2
 //
 //  Created by Alexander on 8/19/15.

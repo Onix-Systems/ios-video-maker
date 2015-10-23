@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VEImageTransform.h"
+#import "VEffect.h"
 
-@interface VEAspectFill : VEImageTransform
+@interface VEAspectFill : VEffect
 
 @end
