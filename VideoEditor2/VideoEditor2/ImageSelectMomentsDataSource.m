@@ -41,6 +41,9 @@
     self.momentsKeys = [NSMutableArray new];
     
     PHFetchOptions* options = [PHFetchOptions new];
+    options.sortDescriptors = @[
+                                [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO],
+                                ];
     //options.predicate = [NSPredicate predicateWithFormat:@"estimatedAssetCount > 0"];
     
     PHFetchResult *results = [PHAssetCollection fetchAssetCollectionsWithType: PHAssetCollectionTypeMoment subtype:PHAssetCollectionSubtypeAny options:options];
@@ -54,7 +57,12 @@
         
         [self.momentsKeys addObject:key];
         
-        PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:collection options:nil];
+        PHFetchOptions *fetchOptions = [PHFetchOptions new];
+        fetchOptions.sortDescriptors = @[
+                                         [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO],
+                                         ];
+        
+        PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:collection options:fetchOptions];
         NSMutableArray* assets = [NSMutableArray new];
         for (PHAsset *asset in results) {
             [assets addObject:[VAssetPHImage makeFromPHAsset:asset]];

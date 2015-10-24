@@ -39,8 +39,13 @@
 
 -(void)loadAssets {
     self.isLoading = YES;
-    
-    PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:self.collection options:nil];
+
+    PHFetchOptions *fetchOptions = [PHFetchOptions new];
+    fetchOptions.sortDescriptors = @[
+                                     [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO],
+                                     ];
+
+    PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:self.collection options:fetchOptions];
     NSMutableArray* assets = [NSMutableArray new];
     
     for (PHAsset *asset in results) {
