@@ -10,7 +10,7 @@
 
 #import "VFrameProvider.h"
 
-#define kVTransitionDuration 0.3
+#define kVTransitionDuration 0.9
 
 @interface VTransition : VFrameProvider
 

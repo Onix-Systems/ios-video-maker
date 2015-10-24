@@ -73,9 +73,8 @@
         [self.timing addObject:[NSNumber numberWithDouble:transitionStartTime]];
         
         double transitionDuration = [transition getDuration];
-        double transitionRearShift = [transition getContent2AppearanceDuration];
         
-        lastItemFinalTime = transitionStartTime + transitionDuration - transitionRearShift;
+        lastItemFinalTime = transitionStartTime + transitionDuration;
     }
     
     [self.contentItems addObject:frameProvider];
@@ -86,7 +85,7 @@
 {
     for (int i = 0; i < self.contentItems.count; i++) {
         double currentItemTimeStart = [self.timing[i] doubleValue];
-        double currentItemTimeEnd = currentItemTimeStart + [self.contentItems[i] getDuration];
+        double currentItemTimeEnd = currentItemTimeStart + [self.contentItems[i] getDurationWithoutTransitions];
         if ((time >= currentItemTimeStart) && (time <= currentItemTimeEnd)) {
             return i;
         }

@@ -52,7 +52,7 @@
                                    kSlidingPanelsDirectionToBottom
                                    ];
     CGSize totalSize = CGSizeMake([self getLayoutWidth], [self getLayoutHeight]);
-    
+
     
     NSMutableArray* slideInDirections = [NSMutableArray new];
     NSMutableArray* slideOutDirections = [NSMutableArray new];
