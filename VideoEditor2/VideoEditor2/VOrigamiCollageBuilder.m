@@ -9,12 +9,16 @@
 #import "VOrigamiCollageBuilder.h"
 
 #import "VBookPageOrigamiTransition.h"
+#import "VFoldingOrigamiTransition.h"
 
 @implementation VOrigamiCollageBuilder
 
 -(VTransition*) makeTransitionBetweenFrame:(VCollageFrame *)frame1 andFrame:(VCollageFrame *)frame2
 {
-    VBookPageOrigamiTransition* transition = [VBookPageOrigamiTransition new];
+    NSArray* transitionClasses = @[[VBookPageOrigamiTransition class], [VFoldingOrigamiTransition class]];
+    NSInteger classNumber = arc4random_uniform((int)transitionClasses.count);
+    
+    VTransition* transition = [transitionClasses[classNumber] new];
     transition.content1 = frame1;
     transition.content2 = frame2;
     
