@@ -65,6 +65,7 @@
 		11E571571BDA545D00ADDD1F /* VBookPageOrigamiTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E571561BDA545D00ADDD1F /* VBookPageOrigamiTransition.m */; };
 		11E5715A1BDC033600ADDD1F /* VFoldingOrigamiTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E571591BDC033600ADDD1F /* VFoldingOrigamiTransition.m */; };
 		11E5715D1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E5715C1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m */; };
+		11E571601BDD353600ADDD1F /* VTwistingOrigamiTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E5715F1BDD353600ADDD1F /* VTwistingOrigamiTransition.m */; };
 		11EFEDC51B81C27D00078735 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC41B81C27D00078735 /* main.m */; };
 		11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC71B81C27D00078735 /* AppDelegate.m */; };
 		11EFEDD11B81C27D00078735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EFEDCF1B81C27D00078735 /* Main.storyboard */; };
@@ -218,6 +219,8 @@
 		11E571591BDC033600ADDD1F /* VFoldingOrigamiTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VFoldingOrigamiTransition.m; sourceTree = "<group>"; };
 		11E5715B1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAccordionOrigamiTransition.h; sourceTree = "<group>"; };
 		11E5715C1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VAccordionOrigamiTransition.m; sourceTree = "<group>"; };
+		11E5715E1BDD353600ADDD1F /* VTwistingOrigamiTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTwistingOrigamiTransition.h; sourceTree = "<group>"; };
+		11E5715F1BDD353600ADDD1F /* VTwistingOrigamiTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTwistingOrigamiTransition.m; sourceTree = "<group>"; };
 		11EFEDBF1B81C27D00078735 /* VideoEditor2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EFEDC31B81C27D00078735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11EFEDC41B81C27D00078735 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -528,6 +531,8 @@
 				11E571591BDC033600ADDD1F /* VFoldingOrigamiTransition.m */,
 				11E5715B1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.h */,
 				11E5715C1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m */,
+				11E5715E1BDD353600ADDD1F /* VTwistingOrigamiTransition.h */,
+				11E5715F1BDD353600ADDD1F /* VTwistingOrigamiTransition.m */,
 			);
 			name = OrigamiTransitions;
 			sourceTree = "<group>";
@@ -840,6 +845,7 @@
 				119B87771BA02956000E5BD3 /* ImageSelectorCollectionViewController.m in Sources */,
 				11EFEDF11B81D31600078735 /* Step3.m in Sources */,
 				11EFEE1B1B820BF600078735 /* DZNPhotoServiceFactory.m in Sources */,
+				11E571601BDD353600ADDD1F /* VTwistingOrigamiTransition.m in Sources */,
 				11E571571BDA545D00ADDD1F /* VBookPageOrigamiTransition.m in Sources */,
 				11B041261BAC2964007DB2A4 /* VDocument.m in Sources */,
 				11E265CD1BD8D04000FDFAD6 /* VKenBurnsCollageBuilder.m in Sources */,
