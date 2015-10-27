@@ -113,14 +113,16 @@
     oldImage4 = filter4.outputImage;
     
     CIImage* resultImage = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
+
+    nextImage = [nextImage imageByApplyingTransform:CGAffineTransformMakeTranslation(-1*imageSize.width + newImageWidth, 0)];
+    
+    resultImage = [nextImage imageByCompositingOverImage:resultImage];
     
     resultImage = [oldImage1 imageByCompositingOverImage:resultImage];
     resultImage = [oldImage2 imageByCompositingOverImage:resultImage];
     resultImage = [oldImage3 imageByCompositingOverImage:resultImage];
     resultImage = [oldImage4 imageByCompositingOverImage:resultImage];
     
-    nextImage = [nextImage imageByApplyingTransform:CGAffineTransformMakeTranslation(-1*imageSize.width + newImageWidth, 0)];
-    resultImage = [nextImage imageByCompositingOverImage:resultImage];
     
     return resultImage;
 }
