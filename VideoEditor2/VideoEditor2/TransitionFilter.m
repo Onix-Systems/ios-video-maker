@@ -8,60 +8,73 @@
 
 #import "TransitionFilter.h"
 
+#define kDefaultTransitionFilterDuration 0.4
+
 @interface TransitionFilter ()
 
 @property (strong, nonatomic, readwrite) NSString* filterName;
+@property (strong, nonatomic) CIFilter* filter;
 
 @end
 
 @implementation TransitionFilter
+                               //@"",
+                               //@"",
+                               //@"",
+                               //@"",
 
-+ (NSString*) getRandomFilterName
+-(CGSize) getOriginalSize
 {
-    
-    NSArray* possibleNames = @[
-                               @"CIAccordionFoldTransition",
-                               @"CIBarsSwipeTransition",
-                               @"CICopyMachineTransition",
-                               //@"CIDisintegrateWithMaskTransition",
-                               @"CIDissolveTransition",
-                               @"CIFlashTransition",
-                               @"CIModTransition",
-                               //@"CIPageCurlTransition",
-                               //@"CIPageCurlWithShadowTransition",
-                               //@"CIRippleTransition",
-                               @"CISwipeTransition"
-                               ];
-    NSInteger randomNumber = arc4random_uniform((int)possibleNames.count);
-
-    return possibleNames[randomNumber];
+    return [self.content1 getOriginalSize];
 }
 
-+ (TransitionFilter*) transitionFilterWithFilterName: (NSString*) filterName
+-(double) getDuration
 {
-    return [[TransitionFilter alloc] initWithFilterName: filterName];
+    return kDefaultTransitionFilterDuration;
 }
 
-- (instancetype)initWithFilterName: (NSString*) filterName
+-(double) getContent1AppearanceDuration
+{
+    return kDefaultTransitionFilterDuration;
+}
+
+-(double) getContent2AppearanceDuration
+{
+    return kDefaultTransitionFilterDuration;
+}
+
+- (instancetype)initWithFilterName: (NSString*) filterName withInputParameters:(NSDictionary<NSString *,id> *)params
 {
     self = [super init];
     if (self) {
         self.filterName = filterName;
+        self.filter = [CIFilter filterWithName:self.filterName withInputParameters:params];
+        if (params == nil) {
+            [self.filter setDefaults];
+        }
     }
     return self;
 }
 
--(CIImage*) getTransitionFromImage: (CIImage*) fromImage toImage: (CIImage*) toImage inputTime: (double) inputTime
+-(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
-    CIFilter* filter = [CIFilter filterWithName: self.filterName];
-    [filter setDefaults];
+
+    double content1Time = [self.content1 getDuration] - [self getContent1AppearanceDuration] + request.time;
+    VFrameRequest* content1FrameRequest = [request cloneWithDifferentTimeValue:content1Time];
+    CIImage* fromImage = [self.content1 getFrameForRequest:content1FrameRequest];
     
-    [filter setValue:fromImage forKey:@"inputImage"];
-    [filter setValue:toImage forKey:@"inputTargetImage"];
+    CIImage* toImage = [self.content2 getFrameForRequest:request];
+
+    [self.filter setValue:fromImage forKey:@"inputImage"];
+    [self.filter setValue:toImage forKey:@"inputTargetImage"];
     
-    [filter setValue:[NSNumber numberWithDouble:inputTime] forKey:@"inputTime"];
+    double inputTime = request.time / [self getDuration];
     
-    return (CIImage*)[filter valueForKey:kCIOutputImageKey];
+    [self.filter setValue:[NSNumber numberWithDouble:inputTime] forKey:@"inputTime"];
+    
+    CIImage* result = self.filter.outputImage;
+    
+    return result;
 }
 
 @end

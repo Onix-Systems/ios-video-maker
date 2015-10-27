@@ -9,14 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <CoreImage/CoreImage.h>
 
-@interface TransitionFilter : NSObject
+#import "VTransition.h"
 
-@property (strong, nonatomic, readonly) NSString* filterName;
-+ (TransitionFilter*) transitionFilterWithFilterName: (NSString*) filterName;
+@interface TransitionFilter : VTransition
 
-+ (NSString*) getRandomFilterName;
-
-- (instancetype)initWithFilterName: (NSString*) filterName;
--(CIImage*) getTransitionFromImage: (CIImage*) fromImage toImage: (CIImage*) toImage inputTime: (double) inputTime;
+- (instancetype)initWithFilterName: (NSString*) filterName withInputParameters:(NSDictionary<NSString *,id> *)params;
 
 @end
