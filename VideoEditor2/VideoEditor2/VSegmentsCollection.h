@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "AssetsCollection.h"
-#import "VCompositionSegment.h"
+#import "VAssetSegment.h"
 #import "VideoComposition.h"
 
 #define kVSegmentsCollectionModifiedNotification @"kVSegmentsCollectionModifiedNotification";
@@ -23,7 +23,7 @@
 
 -(void) moveSegmentFromIndex: (NSInteger) fromIndex toIndex: (NSInteger) toIndex;
 -(void) deleteSegmentAtIndex: (NSInteger) index;
--(VCompositionSegment*) getSegment: (NSInteger) index;
+-(VAssetSegment*) getSegment: (NSInteger) index;
 
 
 -(VideoComposition*) makeVideoCompositionWithFrameSize: (CGSize) frameSize;

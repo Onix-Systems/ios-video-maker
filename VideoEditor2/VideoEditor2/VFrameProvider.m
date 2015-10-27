@@ -36,4 +36,9 @@
     
 }
 
+-(NSString*)getClassName
+{
+    return NSStringFromClass([self class]);
+}
+
 @end

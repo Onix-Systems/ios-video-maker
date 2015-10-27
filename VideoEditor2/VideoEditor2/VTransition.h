@@ -10,13 +10,11 @@
 
 #import "VFrameProvider.h"
 
-#define kVTransitionDuration 0.9
-
 @interface VTransition : VFrameProvider
 
-@property (nonatomic, weak) VFrameProvider* content1;
-@property (nonatomic, weak) VFrameProvider* content2;
-@property (nonatomic, weak) VFrameProvider* backgroundFrameProvider;
+@property (nonatomic, strong) VFrameProvider* content1;
+@property (nonatomic, strong) VFrameProvider* content2;
+@property (nonatomic, strong) VFrameProvider* backgroundFrameProvider;
 
 -(double) getContent1AppearanceDuration;
 -(double) getContent2AppearanceDuration;

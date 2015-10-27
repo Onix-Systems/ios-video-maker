@@ -8,23 +8,23 @@
 
 #import <Foundation/Foundation.h>
 
-#import "VCompositionSegment.h"
-#import "VTransitionSegment.h"
+#import "VAssetSegment.h"
 #import "VAsset.h"
+#import "VTransition.h"
 
-@interface VAssetSegment : VCompositionSegment
+@interface VAssetSegment : NSObject
 
 @property (weak, nonatomic) VAsset* asset;
 
-@property (weak, nonatomic) VTransitionSegment* frontTransition;
-@property (weak, nonatomic) VTransitionSegment* rearTransition;
-
 @property (nonatomic) CGFloat timeScale;
 @property (nonatomic) CMTimeRange cropTimeRange;
+@property (nonatomic, readonly) CMTime duration;
+
+-(BOOL)isStatic;
 
 -(BOOL) canCropToTimeRange: (CMTimeRange) timeRange;
 -(void) getFrameForTime: (CMTime) time withCompletionBlock: (void(^)(UIImage* image)) completionBlock;
 
--(void) putIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo;
+-(VFrameProvider*) putFramePrividerIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo;
 
 @end

@@ -27,4 +27,6 @@
 
 -(void)reqisterIntoVideoComposition:(VideoComposition*)videoComposition withInstruction:(VCompositionInstruction*)instruction withFinalSize:(CGSize)finalSize;
 
+-(NSString*)getClassName;
+
 @end

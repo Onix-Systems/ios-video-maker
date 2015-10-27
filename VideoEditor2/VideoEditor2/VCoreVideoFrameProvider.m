@@ -95,10 +95,10 @@
     self.registeredTrackID = destinationTrack.trackID;
 
     AVAssetTrack* sourceTrack = [self.asset tracksWithMediaType:AVMediaTypeVideo][0];
-    CMTimeRange trackTimeRange = CMTimeRangeMake(kCMTimeZero, instruction.timeRange.duration);
+    CMTimeRange trackTimeRange = CMTimeRangeMake(kCMTimeZero, instruction.segmentTimeRange.duration);
     
     NSError *error = nil;
-    [destinationTrack insertTimeRange:trackTimeRange ofTrack:sourceTrack atTime:instruction.timeRange.start error:&error];
+    [destinationTrack insertTimeRange:trackTimeRange ofTrack:sourceTrack atTime:instruction.segmentTimeRange.start error:&error];
     if (error != nil) {
         NSLog(@"Can not insert track timerange (%@) into track (%@) - %@", sourceTrack, destinationTrack, error);
     }

@@ -52,8 +52,6 @@
 		11B596EA1BB186D000CF7253 /* CollageCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B596E91BB186D000CF7253 /* CollageCreationViewController.m */; };
 		11D70F431BB27EC60091723A /* Step5.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F421BB27EC60091723A /* Step5.m */; };
 		11D70F471BB281BF0091723A /* TransitionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F461BB281BF0091723A /* TransitionFilter.m */; };
-		11D70F4A1BB287640091723A /* VCompositionSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F491BB287640091723A /* VCompositionSegment.m */; };
-		11D70F4D1BB28C0B0091723A /* VTransitionSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F4C1BB28C0B0091723A /* VTransitionSegment.m */; };
 		11D70F501BB28C7A0091723A /* VAssetSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F4F1BB28C7A0091723A /* VAssetSegment.m */; };
 		11D70F531BB28D2F0091723A /* VideoComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F521BB28D2F0091723A /* VideoComposition.m */; };
 		11D70F561BB29CA50091723A /* VideoCompositor.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F551BB29CA50091723A /* VideoCompositor.m */; };
@@ -66,6 +64,7 @@
 		11E5715A1BDC033600ADDD1F /* VFoldingOrigamiTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E571591BDC033600ADDD1F /* VFoldingOrigamiTransition.m */; };
 		11E5715D1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E5715C1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m */; };
 		11E571601BDD353600ADDD1F /* VTwistingOrigamiTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E5715F1BDD353600ADDD1F /* VTwistingOrigamiTransition.m */; };
+		11E571631BDE623F00ADDD1F /* VTransitionFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E571621BDE623F00ADDD1F /* VTransitionFactory.m */; };
 		11EFEDC51B81C27D00078735 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC41B81C27D00078735 /* main.m */; };
 		11EFEDC81B81C27D00078735 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEDC71B81C27D00078735 /* AppDelegate.m */; };
 		11EFEDD11B81C27D00078735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11EFEDCF1B81C27D00078735 /* Main.storyboard */; };
@@ -193,10 +192,6 @@
 		11D70F421BB27EC60091723A /* Step5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step5.m; sourceTree = "<group>"; };
 		11D70F451BB281BF0091723A /* TransitionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionFilter.h; sourceTree = "<group>"; };
 		11D70F461BB281BF0091723A /* TransitionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionFilter.m; sourceTree = "<group>"; };
-		11D70F481BB287640091723A /* VCompositionSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCompositionSegment.h; sourceTree = "<group>"; };
-		11D70F491BB287640091723A /* VCompositionSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCompositionSegment.m; sourceTree = "<group>"; };
-		11D70F4B1BB28C0B0091723A /* VTransitionSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTransitionSegment.h; sourceTree = "<group>"; };
-		11D70F4C1BB28C0B0091723A /* VTransitionSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTransitionSegment.m; sourceTree = "<group>"; };
 		11D70F4E1BB28C7A0091723A /* VAssetSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VAssetSegment.h; sourceTree = "<group>"; };
 		11D70F4F1BB28C7A0091723A /* VAssetSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VAssetSegment.m; sourceTree = "<group>"; };
 		11D70F511BB28D2F0091723A /* VideoComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoComposition.h; sourceTree = "<group>"; };
@@ -221,6 +216,8 @@
 		11E5715C1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VAccordionOrigamiTransition.m; sourceTree = "<group>"; };
 		11E5715E1BDD353600ADDD1F /* VTwistingOrigamiTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTwistingOrigamiTransition.h; sourceTree = "<group>"; };
 		11E5715F1BDD353600ADDD1F /* VTwistingOrigamiTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTwistingOrigamiTransition.m; sourceTree = "<group>"; };
+		11E571611BDE623F00ADDD1F /* VTransitionFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTransitionFactory.h; sourceTree = "<group>"; };
+		11E571621BDE623F00ADDD1F /* VTransitionFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTransitionFactory.m; sourceTree = "<group>"; };
 		11EFEDBF1B81C27D00078735 /* VideoEditor2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VideoEditor2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EFEDC31B81C27D00078735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		11EFEDC41B81C27D00078735 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -362,10 +359,6 @@
 			children = (
 				114421341BB3F1DC006722BD /* VSegmentsCollection.h */,
 				114421351BB3F1DC006722BD /* VSegmentsCollection.m */,
-				11D70F481BB287640091723A /* VCompositionSegment.h */,
-				11D70F491BB287640091723A /* VCompositionSegment.m */,
-				11D70F4B1BB28C0B0091723A /* VTransitionSegment.h */,
-				11D70F4C1BB28C0B0091723A /* VTransitionSegment.m */,
 				11D70F4E1BB28C7A0091723A /* VAssetSegment.h */,
 				11D70F4F1BB28C7A0091723A /* VAssetSegment.m */,
 			);
@@ -477,6 +470,8 @@
 		11CCBEA41BD8A24A0023A3FF /* VTransition */ = {
 			isa = PBXGroup;
 			children = (
+				11E571611BDE623F00ADDD1F /* VTransitionFactory.h */,
+				11E571621BDE623F00ADDD1F /* VTransitionFactory.m */,
 				111D84E91BD51B7300912E91 /* VTransition.h */,
 				111D84EA1BD51B7300912E91 /* VTransition.m */,
 				11E571511BDA0EAC00ADDD1F /* VTransition01Fading.h */,
@@ -847,6 +842,7 @@
 				11EFEE1B1B820BF600078735 /* DZNPhotoServiceFactory.m in Sources */,
 				11E571601BDD353600ADDD1F /* VTwistingOrigamiTransition.m in Sources */,
 				11E571571BDA545D00ADDD1F /* VBookPageOrigamiTransition.m in Sources */,
+				11E571631BDE623F00ADDD1F /* VTransitionFactory.m in Sources */,
 				11B041261BAC2964007DB2A4 /* VDocument.m in Sources */,
 				11E265CD1BD8D04000FDFAD6 /* VKenBurnsCollageBuilder.m in Sources */,
 				11E571531BDA0EAC00ADDD1F /* VTransition01Fading.m in Sources */,
@@ -872,8 +868,6 @@
 				111D84DC1BD21A7300912E91 /* VCoreVideoFrameProvider.m in Sources */,
 				11D70F531BB28D2F0091723A /* VideoComposition.m in Sources */,
 				11E265D01BD8D13F00FDFAD6 /* VSlidingPanelsCollageBuilder.m in Sources */,
-				11D70F4A1BB287640091723A /* VCompositionSegment.m in Sources */,
-				11D70F4D1BB28C0B0091723A /* VTransitionSegment.m in Sources */,
 				11EFEE181B820BF600078735 /* DZNPhotoMetadata.m in Sources */,
 				1157DDED1BA074DF00A8D4CB /* ImageSelectorCollectionViewFooter.m in Sources */,
 				11EFEDC51B81C27D00078735 /* main.m in Sources */,

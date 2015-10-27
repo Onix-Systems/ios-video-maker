@@ -7,8 +7,9 @@
 //
 
 #import "VTransition01Fading.h"
-
 #import "VEFadeInFadeOut.h"
+
+#define kVTransitionDuration 0.4
 
 @implementation VTransition01Fading
 
@@ -54,20 +55,28 @@
 
 -(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
-    if (request.time < [self getContent1AppearanceDuration]) {
+    CIImage* result = nil;
+    
+    double duration = [self getDuration];
+    double content1Duration = [self getContent1AppearanceDuration];
+    double content2Duration = [self getContent2AppearanceDuration];
+    
+    if (request.time < content1Duration) {
         double content1Time = [self.content1 getDuration] - [self getContent1AppearanceDuration] + request.time;
         VFrameRequest* content1FrameRequest = [request cloneWithDifferentTimeValue:content1Time];
         
-        return [self.content1 getFrameForRequest:content1FrameRequest];
+        result = [self.content1 getFrameForRequest:content1FrameRequest];
         
-    } else if (request.time > [self getContent1AppearanceDuration]) {
-        double content2Time = request.time - [self getContent1AppearanceDuration];
+    } else if (request.time > (duration - content2Duration)) {
+        double content2Time = request.time - (duration - content2Duration);
         VFrameRequest* content2FrameRequest = [request cloneWithDifferentTimeValue:content2Time];
         
-        return [self.content2 getFrameForRequest:content2FrameRequest];
+        result = [self.content2 getFrameForRequest:content2FrameRequest];
     } else {
-        return [self.backgroundFrameProvider getFrameForRequest:request];
+        result = [self.backgroundFrameProvider getFrameForRequest:request];
     }
+    
+    return result;
 }
 
 @end

@@ -13,7 +13,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "VAssetSegment.h"
-#import "VTransitionSegment.h"
 
 @interface VideoComposition ()
 
@@ -76,9 +75,9 @@
     return [self.placeholder tracksWithMediaType:AVMediaTypeVideo][0];
 }
 
--(void) appendVideoCompositionInstruction: (VCompositionInstruction*) vCompositionInstrcution
+-(void) appendVideoCompositionInstruction: (VCompositionInstruction*) vCompositionInstruction
 {
-    [self.videoCompositionInstructions addObject:vCompositionInstrcution];
+    [self.videoCompositionInstructions addObject:vCompositionInstruction];
     self.mutableVideoComposition.instructions = self.videoCompositionInstructions;
 }
 

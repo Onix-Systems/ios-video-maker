@@ -16,7 +16,7 @@
 
 @property (readwrite) double downloadPercent;
 
-@property () PHImageRequestID lastRequestID;
+@property (nonatomic) PHImageRequestID lastRequestID;
 
 @property (strong,nonatomic) VStillImage* imageFrameProvider;
 @property (strong,nonatomic) VCoreVideoFrameProvider* videoFrameProvider;

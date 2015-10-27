@@ -23,6 +23,11 @@
     return self;
 }
 
+-(void)setBackgroundFrameProvider:(VFrameProvider *)backgroundFrameProvider
+{
+    _backgroundFrameProvider = backgroundFrameProvider;
+}
+
 -(CGSize) getOriginalSize
 {
     return [self.content1 getOriginalSize];
@@ -30,7 +35,7 @@
 
 -(double) getDuration
 {
-    return 0.01;
+    return 0.1;
 }
 
 -(double) getContent1AppearanceDuration
@@ -45,7 +50,9 @@
 
 -(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
-    return [self.backgroundFrameProvider getFrameForRequest:request];
+    CIImage* result = [self.backgroundFrameProvider getFrameForRequest:request];
+    
+    return result;
 }
 
 @end

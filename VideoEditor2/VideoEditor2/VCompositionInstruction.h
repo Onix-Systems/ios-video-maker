@@ -19,6 +19,8 @@
 @property (nonatomic) NSArray<NSValue *> *requiredSourceTrackIDs;
 @property (nonatomic) CMPersistentTrackID passthroughTrackID; // kCMPersistentTrackID_Invalid if not a passthrough instruction
 
+@property (strong, nonatomic) VFrameProvider* frameProvider;
+@property (nonatomic) CMTimeRange segmentTimeRange;
 
 - (instancetype)initWithFrameProvider: (VFrameProvider*) frameProvider;
 

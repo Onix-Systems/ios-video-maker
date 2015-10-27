@@ -35,7 +35,7 @@
     return CMTimeMakeWithSeconds(duration, 1000);
 }
 
--(void) putIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo
+-(VFrameProvider*) putFramePrividerIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo
 {
     if (!self.asset.isVideo) {
         AVAssetTrack* sourceTrack = [videoComposition getPlaceholderVideoTrack];
@@ -51,25 +51,22 @@
     
     VEAspectFit* aspectFitEffect = [VEAspectFit new];
     aspectFitEffect.frameProvider = [self.asset getFrameProvider];
-    
-    VCompositionInstruction *instruction = [[VCompositionInstruction alloc] initWithFrameProvider:aspectFitEffect];
-    instruction.timeRange = timeRange;
-//    instruction.containsTweening = self.asset.isVideo || !self.asset.isStatic;
-    instruction.containsTweening = YES;
-    
+        
     if (self.asset.isVideo) {
         VCoreVideoFrameProvider* videoFrameProvider = (VCoreVideoFrameProvider*) aspectFitEffect.frameProvider;
         
         videoFrameProvider.activeTrackNo = trackNo;
     }
-    
-    [aspectFitEffect reqisterIntoVideoComposition:videoComposition withInstruction:instruction withFinalSize:videoComposition.frameSize];
-
-    [videoComposition appendVideoCompositionInstruction:instruction];
 
 //        AVAssetTrack* audioTrack = [self.asset.downloadedAsset tracksWithMediaType:AVMediaTypeAudio][0];
 //        AVMutableCompositionTrack *aTrack = [videoComposition getAudioTrackNo:trackNo];
 //        [self insertTimeRange:trackTimeRange ofTrack:audioTrack atTime:timeRange.start intoTrack:aTrack];
+    
+    return aspectFitEffect;
+}
+
+-(BOOL)isStatic {
+    return !self.asset.isVideo || self.asset.isStatic;
 }
 
 @end

@@ -29,7 +29,7 @@
     return [self.frameProvider getOriginalSize];
 }
 
--(double)duration
+-(double)getDuration
 {
     return [self.frameProvider getDuration];
 }

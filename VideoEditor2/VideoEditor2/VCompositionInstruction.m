@@ -12,7 +12,6 @@
 
 @interface VCompositionInstruction ()
 
-@property (strong, nonatomic) VFrameProvider* frameProvider;
 @property (strong, nonatomic) NSMutableArray* stillImages;
 @property (strong, nonatomic) NSMutableArray* registeredTrackIDs;
 
@@ -65,7 +64,7 @@
     
     VFrameRequest* frameRequest = [VFrameRequest new];
     frameRequest.videoCompositionRequest = request;
-    frameRequest.time = CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.timeRange.start);
+    frameRequest.time = CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.segmentTimeRange.start);
     frameRequest.frameSize = CGSizeMake(CVPixelBufferGetWidth(newFrameBuffer), CVPixelBufferGetHeight(newFrameBuffer));
     
     CIImage* frameContent = [self.frameProvider getFrameForRequest:frameRequest];
