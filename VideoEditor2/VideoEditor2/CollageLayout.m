@@ -62,5 +62,11 @@
 {
     return [self getStillFramesForFinalSize:finalSize];
 }
-    
+
+
+-(BOOL) isLayoutStatic
+{
+    return YES;
+}
+
 @end

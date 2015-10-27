@@ -18,6 +18,8 @@
 -(CGFloat) getLayoutWidth;
 -(CGFloat) getLayoutHeight;
 
+-(BOOL) isLayoutStatic;
+
 -(NSArray*) getStillFramesForFinalSize:(CGSize)finalSize;
 -(NSArray*) getFramesForFinalSize:(CGSize)finalSize andTime:(double)time;
 

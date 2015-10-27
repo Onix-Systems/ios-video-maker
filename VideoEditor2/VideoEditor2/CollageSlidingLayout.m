@@ -174,4 +174,9 @@
     return stillFrames;
 }
 
+-(BOOL)isLayoutStatic
+{
+    return NO;
+}
+
 @end

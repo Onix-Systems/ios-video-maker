@@ -9,6 +9,12 @@
 #import "VCollageFrame.h"
 #import "VStillImage.h"
 
+@interface VCollageFrame()
+
+@property (nonatomic,strong) VStillImage* cachedFrameImage;
+
+@end
+
 @implementation VCollageFrame
 
 - (instancetype)init
@@ -32,8 +38,18 @@
     return kCollageFrameDuration;
 }
 
+-(void)setFinalSize:(CGSize)finalSize
+{
+    _finalSize = finalSize;
+    self.cachedFrameImage = nil;
+}
+
 -(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
+    if (self.cachedFrameImage != nil) {
+        return [self.cachedFrameImage getFrameForRequest:request];
+    }
+    
     CIImage* result = [self.backgroundFrameProvider getFrameForRequest:request];
     
     NSArray* frames = [self.collageLayout getFramesForFinalSize:request.frameSize andTime:request.time];
@@ -48,6 +64,15 @@
         itemImage = [itemImage imageByApplyingTransform:transform];
         
         result = [itemImage imageByCompositingOverImage:result];
+    }
+    
+    if ([self.collageLayout isLayoutStatic]) {
+        CIContext* context = [CIContext contextWithOptions:nil];
+        CGRect frameRect = CGRectMake(0, 0, request.frameSize.width, request.frameSize.height);
+        
+        CGImageRef renderedImage =  [context createCGImage:result fromRect:frameRect];
+        self.cachedFrameImage = [VStillImage new];
+        self.cachedFrameImage.image = [CIImage imageWithCGImage:renderedImage];
     }
     
     return result;
