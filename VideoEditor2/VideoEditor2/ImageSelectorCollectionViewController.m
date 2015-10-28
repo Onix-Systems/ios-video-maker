@@ -68,6 +68,15 @@
         self.searchBar = [UISearchBar new];
         self.searchBar.delegate = self;
         self.searchBar.text = self.dataSource.getCurrentSearchTerm;
+        self.searchBar.barTintColor = [UIColor colorWithRed:0x2d/255.0 green:0x2c/255.0 blue:0x2a/255.0  alpha:0xff/255.0];
+        
+        if (self.searhBarFieldBackgroundImage == nil) {
+            CIImage* image = [CIImage imageWithColor:[CIColor colorWithRed:0x6f/255.0 green:0x6f/255.0 blue:0x6d/255.0]];
+            CIContext* context = [CIContext contextWithOptions:nil];
+            
+            self.searhBarFieldBackgroundImage = [UIImage imageWithCGImage:[context createCGImage:image fromRect:CGRectMake(0, 0, 100, 100)]];
+        }
+        //[self.searchBar setSearchFieldBackgroundImage:self.searhBarFieldBackgroundImage forState:UIControlStateNormal];
         
         NSArray* searchScopes = [self.dataSource getSeachScopes];
         if (searchScopes.count > 1) {
@@ -203,6 +212,7 @@
             header.label.text = @"";
             
             [header addSubview:self.searchBar];
+            
             [self.searchBar sizeToFit];
             
         }
@@ -236,19 +246,14 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    VAsset *asset = [self getAssetForIndexPath:indexPath];
 
-    self.lastActiveAsset = asset;
-    
-    [self displayAsset:asset autoPlay:YES];
+    [self selectionActionForIndexPath:indexPath];
 }
 
 
 -(void) selectionActionForIndexPath:(NSIndexPath *)indexPath
 {
     VAsset *asset = [self getAssetForIndexPath:indexPath];
-    
-    NSLog(@"got selection action for asset %ld", (long)indexPath.row);
     
     if ([asset isDownloading]) {
         [asset cancelDownloading];

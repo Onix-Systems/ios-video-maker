@@ -53,6 +53,12 @@
     self.splitController.delegate = self;
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+
 -(ImageSelectorCollageController*) getCollageControler
 {
     return (ImageSelectorCollageController*) self.splitController.rightViewController;

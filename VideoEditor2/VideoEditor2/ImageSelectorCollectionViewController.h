@@ -16,6 +16,8 @@
 @property (nonatomic, strong) AssetsCollection* selectionStorage;
 @property (strong, readonly) VAsset* lastActiveAsset;
 
+@property (strong,nonatomic) UIImage* searhBarFieldBackgroundImage;
+
 -(void) loadDataFromDataSource: (BaseImageSelectDataSource*) dataSource;
 
 @end

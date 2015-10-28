@@ -23,6 +23,11 @@
 
 @implementation ImageSelectorCollageController
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 -(void) viewDidLoad {
     
     self.originalBottomSpacing = self.bottomSpacingConstraint.constant;

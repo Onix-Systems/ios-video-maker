@@ -43,17 +43,17 @@
 -(void)setup {
     self.borderColor = [UIColor whiteColor];
     self.borderShadowColor = [UIColor darkGrayColor];
-    self.selectedBackgroundColor = [UIColor colorWithRed:0x14/0xFF green:0x76/0xFF blue:0xFF/0xFF alpha:0xFF/0xF];
+    self.selectedBackgroundColor = [UIColor whiteColor];
     self.downloadColor = [UIColor colorWithRed:0x29/0xFF green:0xFF/0xFF blue:0x37/0xFF alpha:0xFF/0xFF];
     
     self.selectionLabel = [[UILabel alloc] initWithFrame:self.bounds];
     self.selectionLabel.backgroundColor = [UIColor clearColor];
     self.selectionLabel.opaque = NO;
     self.selectionLabel.textAlignment = NSTextAlignmentCenter;
-    self.selectionLabel.font = [self.selectionLabel.font fontWithSize: 12];
+    self.selectionLabel.font = [self.selectionLabel.font fontWithSize: ceil(self.bounds.size.height/2.0)];
     
     [self addSubview:self.selectionLabel];
-    self.selectedTextColor = [UIColor whiteColor];
+    self.selectedTextColor = [UIColor darkTextColor];
     
     
     UITapGestureRecognizer *gestureRecogniger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchupAction:)];
@@ -137,6 +137,10 @@
 }
 
 - (void) drawRect:(CGRect)rect {
+    if (![self isSelected] && ![self isDownloading]) {
+        return;
+    }
+    
     [self updateSelectionLabel];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -144,7 +148,7 @@
     CGRect controlRect = self.bounds;
     
     CGFloat borderWidth = 1;
-    CGFloat borderRectOuterSpace = borderWidth + 4;
+    CGFloat borderRectOuterSpace = borderWidth;
     
     CGRect borderRect = CGRectMake(controlRect.origin.x + borderRectOuterSpace, controlRect.origin.y + borderRectOuterSpace, controlRect.size.width - borderRectOuterSpace, controlRect.size.height - borderRectOuterSpace);
     
