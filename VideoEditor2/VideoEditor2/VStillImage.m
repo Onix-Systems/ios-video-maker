@@ -8,6 +8,8 @@
 
 #import "VStillImage.h"
 
+#define kVStillImageDuration 2.0
+
 @implementation VStillImage
 
 -(CGSize) getOriginalSize

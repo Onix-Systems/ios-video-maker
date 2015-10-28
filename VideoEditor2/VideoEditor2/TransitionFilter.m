@@ -8,7 +8,7 @@
 
 #import "TransitionFilter.h"
 
-#define kDefaultTransitionFilterDuration 0.4
+#define kDefaultTransitionFilterDuration 0.5
 
 @interface TransitionFilter ()
 
@@ -18,10 +18,6 @@
 @end
 
 @implementation TransitionFilter
-                               //@"",
-                               //@"",
-                               //@"",
-                               //@"",
 
 -(CGSize) getOriginalSize
 {
@@ -48,9 +44,13 @@
     self = [super init];
     if (self) {
         self.filterName = filterName;
-        self.filter = [CIFilter filterWithName:self.filterName withInputParameters:params];
-        if (params == nil) {
-            [self.filter setDefaults];
+        self.filter = [CIFilter filterWithName:self.filterName];
+        [self.filter setDefaults];
+        
+        if (params != nil) {
+            for (NSString* key in params) {
+                [self.filter setValue:params[key] forKey:key];
+            }
         }
     }
     return self;
@@ -64,6 +64,7 @@
     CIImage* fromImage = [self.content1 getFrameForRequest:content1FrameRequest];
     
     CIImage* toImage = [self.content2 getFrameForRequest:request];
+    
 
     [self.filter setValue:fromImage forKey:@"inputImage"];
     [self.filter setValue:toImage forKey:@"inputTargetImage"];

@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "VFrameProvider.h"
 
-#define kVStillImageDuration 2.0
-
 @interface VStillImage : VFrameProvider
 
 @property (nonatomic) CGSize imageSize;

@@ -660,11 +660,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VideoEditor2/VSegmentsCollection.m"
-            timestampString = "467653027.275495"
+            timestampString = "467707898.661361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "-makeVideoCompositionWithFrameSize:"
             landmarkType = "5">
          </BreakpointContent>

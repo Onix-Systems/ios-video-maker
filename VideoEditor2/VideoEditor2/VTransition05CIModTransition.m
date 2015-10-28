@@ -1,5 +1,5 @@
 //
-//  VTransition06CIModTransition.m
+//  VTransition05CIModTransition.m
 //  VideoEditor2
 //
 //  Created by Alexander on 10/27/15.

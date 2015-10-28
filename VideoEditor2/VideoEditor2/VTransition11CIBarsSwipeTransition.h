@@ -1,14 +1,14 @@
 //
-//  VTransition05CIModTransition.h
+//  VTransition11CIBarsSwipeTransition.h
 //  VideoEditor2
 //
-//  Created by Alexander on 10/27/15.
+//  Created by Alexander on 10/28/15.
 //  Copyright © 2015 Onix-Systems. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "TransitionFilter.h"
 
-@interface VTransition05CIModTransition : TransitionFilter
+@interface VTransition11CIBarsSwipeTransition : TransitionFilter
 
 @end

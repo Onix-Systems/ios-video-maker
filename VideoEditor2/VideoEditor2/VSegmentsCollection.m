@@ -181,6 +181,17 @@
         VAssetSegment *segment = self.segments[i];
         
         CMTime segmentEndTime = CMTimeAdd(segmentStartTime, segment.duration);
+        
+        CMTime nextSegmentShift = kCMTimeZero;
+        VTransition* transition = nil;
+        if (i > 0) {
+            transition = self.transitions[i-1];
+            nextSegmentShift = CMTimeMakeWithSeconds([transition getContent2AppearanceDuration], 1000);
+            
+            segmentStartTime = CMTimeSubtract(segmentStartTime, nextSegmentShift);
+            segmentEndTime = CMTimeSubtract(segmentEndTime, nextSegmentShift);
+        }
+        
         CMTimeRange segmentTimeRange = CMTimeRangeFromTimeToTime(segmentStartTime, segmentEndTime);
 
         VFrameProvider* frameProvider =  [segment putFramePrividerIntoVideoComosition:videoComposition withinTimeRange:segmentTimeRange intoTrackNo: 1 + (i%2)];
@@ -189,8 +200,7 @@
         CMTime instructionEndTime = segmentEndTime;
         
         VCompositionInstruction *transitionInstruction = nil;
-        if (i > 0) {
-            VTransition* transition = self.transitions[i-1];
+        if (transition != nil) {
             transition.content1 = previousSegmentInstruction.frameProvider;
             transition.content2 = frameProvider;
             
@@ -220,7 +230,6 @@
                 NSNumber* trackIDNumber = trackIDs[i];
                 [transitionInstruction registerTrackIDAsInputFrameProvider:[trackIDNumber intValue]];
             }
-            
             
             instructionStartTime = CMTimeAdd(transitionStartTime, transitionDuration);
         }
