@@ -50,6 +50,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Step 2" id="9Kt-ZP-1I6">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="Moi-D1-qdF">
+                            <color key="tintColor" red="0.14509803921568626" green="0.58823529411764708" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="8fQ-CT-Yp4" kind="show" id="Phf-P1-GXR"/>
                             </connections>
@@ -220,13 +221,14 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="SELECT" id="fCt-Wu-dQC">
-                                        <barButtonItem key="leftBarButtonItem" image="back" id="TnC-43-HNi">
+                                        <barButtonItem key="leftBarButtonItem" title="❮ Back" id="TnC-43-HNi">
                                             <color key="tintColor" red="0.58823529411764708" green="0.58431372549019611" blue="0.58823529411764708" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="backButtonAction:" destination="7jk-5k-SJ7" id="PBg-5y-0vP"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="P4G-xd-E7G">
+                                            <color key="tintColor" red="0.1450980392" green="0.58823529409999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="okButtonAction:" destination="7jk-5k-SJ7" id="1ph-N5-rz9"/>
                                             </connections>
@@ -844,6 +846,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Step 4" id="eD9-ap-4GF">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="fBT-kS-omD">
+                            <color key="tintColor" red="0.1450980392" green="0.58823529409999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="IdM-zf-vnX" kind="show" id="Zvp-gf-in1"/>
                             </connections>
@@ -992,7 +995,7 @@
                                         <rect key="frame" x="92" y="32" width="70.5" height="24.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
@@ -1193,7 +1196,7 @@
                                         <rect key="frame" x="92" y="32" width="89" height="24.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                         <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
@@ -1316,6 +1319,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Step 3" id="UZ1-IU-e6E">
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="OGV-dY-5CX">
+                            <color key="tintColor" red="0.1450980392" green="0.58823529409999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="KdG-hQ-g2T" kind="show" id="dfe-OI-kth"/>
                             </connections>
@@ -1336,6 +1340,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.58823529409999997" green="0.58431372550000005" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1364,7 +1369,6 @@
         <image name="Step-3-Internet-Icon" width="39" height="34"/>
         <image name="Step-3-Moments-Bg" width="320" height="83"/>
         <image name="Step-3-Moments-Icon" width="39" height="41"/>
-        <image name="back" width="21" height="21"/>
         <image name="no-photo" width="120" height="120"/>
         <image name="picker-grip" width="36" height="8"/>
         <image name="picker-grip-vertical" width="8" height="36"/>
