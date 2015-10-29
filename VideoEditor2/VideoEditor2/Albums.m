@@ -9,8 +9,7 @@
 #import "Albums.h"
 #import "ImageSelectorController.h"
 #import "ImageSelectDataSource.h"
-
-#include <Photos/Photos.h>
+#import "AlbumsCell.h"
 
 @interface Albums () <UITableViewDelegate, UITableViewDataSource>
 
@@ -51,58 +50,22 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlbumsTableViewCell" forIndexPath:indexPath];
+    AlbumsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AlbumsTableViewCell" forIndexPath:indexPath];
     
     PHAssetCollection *album = self.albums[indexPath.row];
     
-    NSString *type;
+    cell.albumTitle.text = album.localizedTitle;
+    cell.albumThumbnail.image = [UIImage imageNamed:@"no-photo"];
     
-    switch (album.assetCollectionType) {
-        case PHAssetCollectionTypeAlbum: type = @"TypeAlbum"; break;
-        case PHAssetCollectionTypeSmartAlbum: type = @"TypeSmartAlbum"; break;
-        case PHAssetCollectionTypeMoment: type = @"TypeMoment"; break;
-        default: type = @"zzz"; break;
-    }
-    
-    NSString *subType;
-    
-    switch (album.assetCollectionSubtype) {
-        case PHAssetCollectionSubtypeAlbumRegular: subType = @"SubtypeAlbumRegular"; break;
-        case PHAssetCollectionSubtypeAlbumSyncedEvent: subType = @"SubtypeAlbumSyncedEvent"; break;
-        case PHAssetCollectionSubtypeAlbumSyncedFaces: subType = @"SubtypeAlbumSyncedFaces"; break;
-        case PHAssetCollectionSubtypeAlbumSyncedAlbum: subType = @"SubtypeAlbumSyncedAlbum"; break;
-        case PHAssetCollectionSubtypeAlbumImported: subType = @"SubtypeAlbumImported"; break;
-        case PHAssetCollectionSubtypeAlbumMyPhotoStream: subType = @"SubtypeAlbumMyPhotoStream"; break;
-        case PHAssetCollectionSubtypeAlbumCloudShared: subType = @"SubtypeAlbumCloudShared"; break;
-        case PHAssetCollectionSubtypeSmartAlbumGeneric: subType = @"SubtypeSmartAlbumGeneric"; break;
-        case PHAssetCollectionSubtypeSmartAlbumPanoramas: subType = @"SubtypeSmartAlbumPanoramas"; break;
-        case PHAssetCollectionSubtypeSmartAlbumVideos: subType = @"SubtypeSmartAlbumVideos"; break;
-        case PHAssetCollectionSubtypeSmartAlbumFavorites: subType = @"SubtypeSmartAlbumFavorites"; break;
-        case PHAssetCollectionSubtypeSmartAlbumTimelapses: subType = @"SubtypeSmartAlbumTimelapses"; break;
-        case PHAssetCollectionSubtypeSmartAlbumAllHidden: subType = @"SubtypeSmartAlbumAllHidden"; break;
-        case PHAssetCollectionSubtypeSmartAlbumRecentlyAdded: subType = @"SubtypeSmartAlbumRecentlyAdded"; break;
-        case PHAssetCollectionSubtypeSmartAlbumBursts: subType = @"SubtypeSmartAlbumBursts"; break;
-        case PHAssetCollectionSubtypeSmartAlbumSlomoVideos: subType = @"SubtypeSmartAlbumSlomoVideos"; break;
-        case PHAssetCollectionSubtypeSmartAlbumUserLibrary: subType = @"SubtypeSmartAlbumUserLibrary"; break;
-        case PHAssetCollectionSubtypeAny: subType = @"SubtypeAny"; break;
-
-        default:
-            break;
-    }
-    
-    NSString *name = album.localizedTitle;
-    
-    cell.textLabel.text = name;
     PHFetchResult *keyAssets = [PHAsset fetchKeyAssetsInAssetCollection:album options:nil];
     if (keyAssets.count > 0) {
         PHImageRequestOptions* options = [PHImageRequestOptions new];
-    
+        
         [[PHImageManager defaultManager] requestImageForAsset:keyAssets[0] targetSize:CGSizeMake(100.0, 100.0) contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
-            cell.imageView.image = result;
-            [cell setNeedsLayout];
+            cell.albumThumbnail.image = result;
         }];
     };
-
+    
     return cell;
 }
 

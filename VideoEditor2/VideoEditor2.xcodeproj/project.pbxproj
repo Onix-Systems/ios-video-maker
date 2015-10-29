@@ -18,6 +18,7 @@
 		111D84E51BD4DF4300912E91 /* CollageSlidingLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84E41BD4DF4300912E91 /* CollageSlidingLayout.m */; };
 		111D84E81BD4ED3900912E91 /* VCollageFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84E71BD4ED3900912E91 /* VCollageFrame.m */; };
 		111D84EB1BD51B7300912E91 /* VTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84EA1BD51B7300912E91 /* VTransition.m */; };
+		11250FC11BE250EF00E9E645 /* AlbumsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11250FC01BE250EF00E9E645 /* AlbumsCell.m */; };
 		114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421351BB3F1DC006722BD /* VSegmentsCollection.m */; };
 		114421391BB51409006722BD /* VCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421381BB51409006722BD /* VCompositionInstruction.m */; };
 		1157DDE71BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157DDE61BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m */; };
@@ -151,6 +152,8 @@
 		111D84E71BD4ED3900912E91 /* VCollageFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCollageFrame.m; sourceTree = "<group>"; };
 		111D84E91BD51B7300912E91 /* VTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTransition.h; sourceTree = "<group>"; };
 		111D84EA1BD51B7300912E91 /* VTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTransition.m; sourceTree = "<group>"; };
+		11250FBF1BE250EF00E9E645 /* AlbumsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumsCell.h; sourceTree = "<group>"; };
+		11250FC01BE250EF00E9E645 /* AlbumsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumsCell.m; sourceTree = "<group>"; };
 		114421341BB3F1DC006722BD /* VSegmentsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSegmentsCollection.h; sourceTree = "<group>"; };
 		114421351BB3F1DC006722BD /* VSegmentsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSegmentsCollection.m; sourceTree = "<group>"; };
 		114421371BB51409006722BD /* VCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCompositionInstruction.h; sourceTree = "<group>"; };
@@ -430,6 +433,17 @@
 				111D84E71BD4ED3900912E91 /* VCollageFrame.m */,
 			);
 			name = VCollage;
+			sourceTree = "<group>";
+		};
+		11250FBE1BE250DF00E9E645 /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				116A5D281B82274900466E99 /* Albums.h */,
+				116A5D291B82274900466E99 /* Albums.m */,
+				11250FBF1BE250EF00E9E645 /* AlbumsCell.h */,
+				11250FC01BE250EF00E9E645 /* AlbumsCell.m */,
+			);
+			name = Albums;
 			sourceTree = "<group>";
 		};
 		114421331BB30D7B006722BD /* Segments */ = {
@@ -732,12 +746,11 @@
 		11EFEDEB1B81D2D700078735 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				11250FBE1BE250DF00E9E645 /* Albums */,
 				11EFEDEC1B81D2EF00078735 /* Step2.h */,
 				11EFEDED1B81D2EF00078735 /* Step2.m */,
 				11EFEDEF1B81D31600078735 /* Step3.h */,
 				11EFEDF01B81D31600078735 /* Step3.m */,
-				116A5D281B82274900466E99 /* Albums.h */,
-				116A5D291B82274900466E99 /* Albums.m */,
 				11D70F411BB27EC60091723A /* Step5.h */,
 				11D70F421BB27EC60091723A /* Step5.m */,
 			);
@@ -1024,6 +1037,7 @@
 				11E5716F1BDFDBAD00ADDD1F /* VTransition04CIDissolveTransition.m in Sources */,
 				11194A681BD67F3F00B0721D /* VFrameRequest.m in Sources */,
 				11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */,
+				11250FC11BE250EF00E9E645 /* AlbumsCell.m in Sources */,
 				11E571931BE0B6FA00ADDD1F /* VTransition15CIModTransition.m in Sources */,
 				115C21151BA94F23002DD526 /* DMPagingScrollView.m in Sources */,
 				11E571811BE0AE5100ADDD1F /* VTransition09CIBarsSwipeTransition.m in Sources */,

@@ -95,17 +95,6 @@
     [self showImageSelectorForDZVServices:DZNPhotoPickerControllerServiceInstagram];
 }
 
-- (IBAction)instagram2ButtonAction {
-    [self showDZVPhotoPickerForServces: DZNPhotoPickerControllerServiceInstagram];
-}
-
-- (IBAction)internet2ButtonAction {
-    //DZNPhotoPickerController doesn't support more than 4 photo service providers
-    [self showDZVPhotoPickerForServces: DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
-     |DZNPhotoPickerControllerServiceGettyImages
-     ];
-}
-
 -(void) showImageSelectorForDZVServices:(DZNPhotoPickerControllerServices) services {
     ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
     
@@ -119,38 +108,9 @@
     [self presentController:imageSelector];
 }
 
-- (void) showDZVPhotoPickerForServces: (DZNPhotoPickerControllerServices) services {
-    DZNPhotoPickerController *picker = [DZNPhotoPickerController new];
-    picker.supportedServices = services;
-    picker.allowsEditing = NO;
-    picker.cropMode = DZNPhotoEditorViewControllerCropModeSquare;
-    picker.initialSearchTerm = @"California";
-    picker.enablePhotoDownload = YES;
-    picker.allowAutoCompletedSearch = YES;
-    
-    [picker setFinalizationBlock:^(DZNPhotoPickerController *picker, NSDictionary *info){
-        [self dismissController:picker];
-    }];
-    
-    [picker setFailureBlock:^(DZNPhotoPickerController *picker, NSError *error){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error", nil)
-                                                        message:error.localizedDescription
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK", nil)
-                                              otherButtonTitles:nil];
-        [alert show];
-    }];
-    
-    [picker setCancellationBlock:^(DZNPhotoPickerController *picker){
-        [self dismissController:picker];
-    }];
-    
-    [self presentController:picker];
-}
-
 - (void)presentController:(UIViewController *)controller
 {
-        [self presentViewController:controller animated:YES completion:NULL];
+        [self.navigationController presentViewController:controller animated:YES completion:NULL];
 }
 
 - (void)dismissController:(UIViewController *)controller

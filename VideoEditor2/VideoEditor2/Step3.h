@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface Step3 : UITableViewController
+@interface Step3 : UIViewController
 
 @end
