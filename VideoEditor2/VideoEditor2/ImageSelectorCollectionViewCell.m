@@ -41,7 +41,7 @@
     
     self.asset = asset;
     self.selectionStorage = selectionStorage;
-
+    
     self.imageView.image = nil;
     
     self.delegate = delegate;
@@ -72,6 +72,7 @@
 }
 
 -(void) updateState {
+    
     NSInteger currentTag = self.imageView.tag + 1;
     self.imageView.tag = currentTag;
     
@@ -85,24 +86,21 @@
     }];
     
     self.stateIndicator.delegate = self;
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.stateIndicator setClearState];
-        if ([self.selectionStorage hasAsset:self.asset]) {
-            [self.stateIndicator setSelected: [self.selectionStorage getIndexOfAsset:self.asset]];
-        }
+    
+    [self.stateIndicator setClearState];
+    if ([self.selectionStorage hasAsset:self.asset]) {
+        [self.stateIndicator setSelected: [self.selectionStorage getIndexOfAsset:self.asset]];
+    }
+    
+    if (self.asset.isVideo) {
+        double seconds = round(self.asset.duration);
+        double minutes = floor(seconds / 60);
+        seconds = seconds - minutes*60;
         
-        if (self.asset.isVideo) {
-            double seconds = round(self.asset.duration);
-            double minutes = floor(seconds / 60);
-            seconds = seconds - minutes*60;
-            
-            self.videoDurationLabel.text = [NSString stringWithFormat:@"%.0f:%02.0f", minutes, seconds];
-            self.videoDurationLabel.hidden = NO;
-        } else {
-            self.videoDurationLabel.hidden = YES;
-        }
-
-    });
+        self.videoDurationLabel.text = [NSString stringWithFormat:@"%.0f:%02.0f", minutes, seconds];
+        self.videoDurationLabel.hidden = NO;
+    } else {
+        self.videoDurationLabel.hidden = YES;
+    }
 }
 @end
