@@ -20,6 +20,9 @@
 @property (weak, nonatomic) AssetsCollection* selectionStorage;
 @property (weak, nonatomic) id<ImageSelectorCollectionViewCellDelegate> delegate;
 
+@property (nonatomic) NSInteger touchupCounter;
+@property (nonatomic) BOOL keepDownloadingState;
+
 @end
 
 @implementation ImageSelectorCollectionViewCell
@@ -61,13 +64,13 @@
 
 -(void) downloadProgressNotification
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.stateIndicator setDownloading: [self.asset isDownloading]];
-        [self.stateIndicator setDownloadingProgress: [self.asset getDownloadPercent]];
-    });
+    [self.stateIndicator setDownloading:([self.asset isDownloading] || self.keepDownloadingState) ];
+    [self.stateIndicator setDownloadingProgress: [self.asset getDownloadPercent]];
 }
 
 -(void)stateIndicatorTouchUpInsideAction {
+    self.keepDownloadingState = YES;
+    
     [self.delegate selectionActionForIndexPath: self.indexPath];
 }
 

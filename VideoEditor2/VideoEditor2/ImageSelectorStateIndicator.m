@@ -50,7 +50,7 @@
     self.selectionLabel.backgroundColor = [UIColor clearColor];
     self.selectionLabel.opaque = NO;
     self.selectionLabel.textAlignment = NSTextAlignmentCenter;
-    self.selectionLabel.font = [self.selectionLabel.font fontWithSize: ceil(self.bounds.size.height/2.0)];
+    self.selectionLabel.font = [self.selectionLabel.font fontWithSize: ceil(self.bounds.size.height/5.0)];
     
     [self addSubview:self.selectionLabel];
     self.selectedTextColor = [UIColor darkTextColor];
@@ -137,22 +137,31 @@
 }
 
 - (void) drawRect:(CGRect)rect {
-    if (![self isSelected] && ![self isDownloading]) {
-        return;
-    }
-    
     [self updateSelectionLabel];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGRect controlRect = self.bounds;
+    self.backgroundColor = [UIColor clearColor];
+    CGContextClearRect(context, self.frame);
+    
+    if (![self isSelected] && ![self isDownloading]) {
+        return;
+    }
+    
+    CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.55);
+    CGContextFillRect(context, self.bounds);
+    
+    double size = self.frame.size.width * 4.5 / 10.0;
+    double offset = (self.frame.size.width - size) / 2;
+    
+    CGRect controlRect = CGRectMake(offset, offset, size, size);
     
     CGFloat borderWidth = 1;
-    CGFloat borderRectOuterSpace = borderWidth;
+    CGFloat borderRectOuterSpace = 0;
     
     CGRect borderRect = CGRectMake(controlRect.origin.x + borderRectOuterSpace, controlRect.origin.y + borderRectOuterSpace, controlRect.size.width - borderRectOuterSpace, controlRect.size.height - borderRectOuterSpace);
     
-    CGFloat r = MIN(controlRect.size.width - controlRect.origin.x, controlRect.size.height - controlRect.origin.y)/ 2;
+    CGFloat r = MIN(controlRect.size.width, controlRect.size.height)/ 2;
     r = r - borderRectOuterSpace;
     
     CGPathRef borderPath = [self makeBorderPathInRect:borderRect context: context radius:r];
@@ -177,7 +186,7 @@
     
     if ([self isDownloading]) {
         CGFloat downlloadLineWidth = 3;
-        CGRect downloadRect = CGRectMake(borderRect.origin.x + downlloadLineWidth, borderRect.origin.y + downlloadLineWidth, borderRect.size.width - downlloadLineWidth, borderRect.size.height - downlloadLineWidth);
+        CGRect downloadRect = CGRectMake(borderRect.origin.x + downlloadLineWidth/2, borderRect.origin.y + downlloadLineWidth/2, borderRect.size.width - downlloadLineWidth, borderRect.size.height - downlloadLineWidth);
         CGPathRef downloadPath = [self makeBorderPathInRect:downloadRect context: context radius:r-downlloadLineWidth];
 
         CGContextSaveGState(context);
@@ -207,9 +216,9 @@
     CGMutablePathRef path = CGPathCreateMutable();
     
     CGFloat x1 = CGRectGetMinX(rect);
-    CGFloat x2 = CGRectGetWidth(rect);
+    CGFloat x2 = x1 + CGRectGetWidth(rect);
     CGFloat y1 = CGRectGetMinY(rect);
-    CGFloat y2 = CGRectGetHeight(rect);
+    CGFloat y2 = y1 + CGRectGetHeight(rect);
     
     CGPathMoveToPoint(path, nil, x2, y2 - radius);
     CGPathAddArc(path, nil, x2 - radius, y2 - radius, radius, radians(0), radians(90), 0);
