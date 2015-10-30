@@ -452,7 +452,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3q4-2K-oeQ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <animations/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="Ovb-Mg-fA2">
                                     <size key="itemSize" width="90" height="90"/>
                                     <size key="headerReferenceSize" width="50" height="44"/>
@@ -605,7 +605,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <animations/>
-                        <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="YWI-7I-Vzx" firstAttribute="width" secondItem="jW6-mw-G9C" secondAttribute="width" id="86Q-XS-5mn"/>
                             <constraint firstItem="Tg5-TR-TN7" firstAttribute="top" secondItem="Bb5-FL-gDt" secondAttribute="bottom" id="DA7-a0-jkw"/>
