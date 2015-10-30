@@ -318,6 +318,7 @@
 
 - (IBAction)backButtonAction:(UIBarButtonItem *)sender
 {
+    [self scrollTopViewToTop:NO];
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
