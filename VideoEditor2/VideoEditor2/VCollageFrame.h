@@ -21,4 +21,6 @@
 @property (strong, nonatomic) CollageLayout* collageLayout;
 @property (strong, nonatomic) NSArray<VEffect*>* collageItems;
 
+@property (nonatomic) BOOL isStatic;
+
 @end

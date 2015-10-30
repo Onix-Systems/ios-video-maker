@@ -25,6 +25,7 @@
     for (NSInteger i = 0; i < numberOfFrames; i++) {
         VCollageFrame* frame = [VCollageFrame new];
         frame.finalSize = finalSize;
+        frame.isStatic = [self isCollageStatic];
         
         NSMutableArray* frameItems = [NSMutableArray new];
         
@@ -82,6 +83,11 @@
     transition.content2 = frame2;
     
     return transition;
+}
+
+-(BOOL)isCollageStatic
+{
+    return NO;
 }
 
 @end

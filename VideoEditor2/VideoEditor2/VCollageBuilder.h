@@ -15,10 +15,13 @@
 
 @interface VCollageBuilder : NSObject
 
+
 -(VProvidersCollection*) makeCollageWithItems:(NSArray<VFrameProvider*>*)items layoutFrames:(NSArray*)layoutFrames finalSize:(CGSize)finalSize;
 
 -(CollageLayout*) makeLayoutWithFrames:(NSArray*)layoutFrames;
 -(VEffect*) makeCollageItemEffect: (VFrameProvider*)collageItem;
 -(VTransition*) makeTransitionBetweenFrame:(VCollageFrame*)frame1 andFrame:(VCollageFrame*)frame2;
+
+-(BOOL)isCollageStatic;
 
 @end

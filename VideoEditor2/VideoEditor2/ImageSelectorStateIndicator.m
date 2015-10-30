@@ -147,11 +147,12 @@
     self.backgroundColor = [UIColor clearColor];
     CGContextClearRect(context, self.frame);
     
-    
-    NSLog(@"Draw state indicator selectionNumber=%ld isDownloading=%@ downloadPercent=%f", (long)self.selectionNumber, (self.isDownloading? @"Y":@"N"), self.downloadProgress);
     if (![self isSelected] && ![self isDownloading]) {
         return;
     }
+    
+    NSLog(@"Draw state indicator selectionNumber=%ld isDownloading=%@ downloadPercent=%f", (long)self.selectionNumber, (self.isDownloading? @"Y":@"N"), self.downloadProgress);
+
     
     CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.55);
     CGContextFillRect(context, self.bounds);

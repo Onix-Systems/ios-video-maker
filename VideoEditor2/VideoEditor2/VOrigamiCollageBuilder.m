@@ -28,4 +28,9 @@
     return transition;
 }
 
+
+-(BOOL)isCollageStatic
+{
+    return YES;
+}
 @end

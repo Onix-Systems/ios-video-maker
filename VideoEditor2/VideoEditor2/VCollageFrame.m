@@ -24,6 +24,7 @@
         VStillImage* backgroundFrameProvider = [VStillImage new];
         backgroundFrameProvider.image = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
         self.backgroundFrameProvider = backgroundFrameProvider;
+        self.isStatic = NO;
     }
     return self;
 }
@@ -66,7 +67,7 @@
         result = [itemImage imageByCompositingOverImage:result];
     }
     
-    if ([self.collageLayout isLayoutStatic]) {
+    if (self.isStatic) {
         CIContext* context = [CIContext contextWithOptions:nil];
         CGRect frameRect = CGRectMake(0, 0, request.frameSize.width, request.frameSize.height);
         
