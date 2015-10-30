@@ -176,7 +176,9 @@
         NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
         asset = sectionData[indexPath.row];
     } else {
-        asset = self.dataSource.assets[indexPath.row];
+        if (indexPath.row < self.dataSource.assets.count) {
+            asset = self.dataSource.assets[indexPath.row];
+        }
     }
     
     return asset;
