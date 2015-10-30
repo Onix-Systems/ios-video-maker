@@ -16,9 +16,11 @@
 
 @property (weak, nonatomic) IBOutlet UIView* collageLayoutViewConainer;
 
-@property (weak, nonatomic) IBOutlet UISwitch *switchForKenBurns;
-@property (weak, nonatomic) IBOutlet UISwitch *switchForSlidingPanels;
-@property (weak, nonatomic) IBOutlet UISwitch *switchForOrigami;
+
+@property (weak, nonatomic) IBOutlet UIImageView *switchForKenBurns;
+@property (weak, nonatomic) IBOutlet UIImageView *switchForSlidingPanels;
+@property (weak, nonatomic) IBOutlet UIImageView *switchForOrigami;
+
 
 @property (strong, nonatomic) VAssetCollage* assetCollage;
 @property (strong, nonatomic) AssetsCollection* assetsCollection;
@@ -60,45 +62,46 @@
     }
     
     if ([collageEffect isEqualToString: kCollageEffectKenBurns]) {
-        self.switchForKenBurns.on = YES;
+        [self.switchForKenBurns setHighlighted: YES];
     } else {
-        self.switchForKenBurns.on = NO;
+        [self.switchForKenBurns setHighlighted: NO];
     }
     
     if ([collageEffect isEqualToString: kCollageEffectSlidingPanels]) {
-        self.switchForSlidingPanels.on = YES;
+        [self.switchForSlidingPanels setHighlighted: YES];
     } else {
-        self.switchForSlidingPanels.on = NO;
+        [self.switchForSlidingPanels setHighlighted: NO];
     }
     
     if ([collageEffect isEqualToString: kCollageEffectOrigami]) {
-        self.switchForOrigami.on = YES;
+        [self.switchForOrigami setHighlighted: YES];
     } else {
-        self.switchForOrigami.on = NO;
+        [self.switchForOrigami setHighlighted: NO];
     }
 }
 
-- (IBAction)switchValueChanged:(UISwitch *)sender {
-    NSString* collageEffect = kCollageEffectNone;
-    
-    if (sender.isOn) {
-        if (sender == self.switchForKenBurns) {
-            collageEffect = kCollageEffectKenBurns;
-        }
-        if (sender == self.switchForSlidingPanels) {
-            collageEffect = kCollageEffectSlidingPanels;
-        }
-        if (sender == self.switchForOrigami) {
-            collageEffect = kCollageEffectOrigami;
-        }
-    }
-    
+- (void)selectEffect:(NSString *)collageEffect
+{
     if (self.assetCollage != nil) {
-        self.assetCollage.collageEffect = collageEffect;
+        if (self.assetCollage.collageEffect == collageEffect) {
+            self.assetCollage.collageEffect = @"";
+        } else {
+            self.assetCollage.collageEffect = collageEffect;
+        }
     }
     [self showUpdatedCollagePreview];
     
     [self updateSwitches];
+}
+
+- (IBAction)switch1ThouchUp:(id)sender {
+    [self selectEffect:kCollageEffectKenBurns];
+}
+- (IBAction)switch2TouchUp:(id)sender {
+    [self selectEffect:kCollageEffectSlidingPanels];
+}
+- (IBAction)switch3TouchUp:(id)sender {
+    [self selectEffect:kCollageEffectOrigami];
 }
 
 -(void)viewDidLoad {
