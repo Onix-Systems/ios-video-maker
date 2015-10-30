@@ -488,7 +488,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <animations/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="Stc-gC-HK9" firstAttribute="height" secondItem="Jb7-hS-U6m" secondAttribute="height" id="8lQ-Jx-YTp"/>
                                             <constraint firstItem="gsH-M9-ZHZ" firstAttribute="leading" secondItem="Jb7-hS-U6m" secondAttribute="leadingMargin" constant="-8" id="JKO-xy-HJI"/>
@@ -566,7 +566,7 @@
                                     </label>
                                 </subviews>
                                 <animations/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.1450980392" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="centerY" secondItem="3Cb-JN-HLf" secondAttribute="centerY" id="Ob2-ap-A82"/>
                                     <constraint firstAttribute="centerX" secondItem="3Cb-JN-HLf" secondAttribute="centerX" id="hPV-dg-tW8"/>
