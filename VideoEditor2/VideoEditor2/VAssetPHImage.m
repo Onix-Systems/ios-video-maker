@@ -124,14 +124,23 @@
         return;
     }
     
+    if ((![self isVideo]) && (self.downloadedImage != nil)) {
+        downloadCompletionBlock(self.downloadedImage, YES);
+        return;
+    }
+    
     self.downloadPercent = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
     
     self.lastRequestID = [self createImageLoadRequest:size trackProgress:^(double progress) {
+        NSLog(@"Asset(%@) getPreviewImageForSize(%f, %f) trackProgress; self.downloadPercent=%f; progress=%f", self, size.width, size.height, self.downloadPercent, progress);
+        
         self.downloadPercent = progress;
         [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
         
     } withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
+        NSLog(@"Asset(%@) getPreviewImageForSize(%f, %f) withCompletion; self.downloadPercent=%f; requestFinished=%@, resultImage=%@", self, size.width, size.height, self.downloadPercent, (requestFinished ? @"Y" : @"N"), resultImage);
+        
         if (requestFinished) {
             self.lastRequestID = PHInvalidImageRequestID;
             
@@ -196,13 +205,16 @@
     options.networkAccessAllowed = YES;
     options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
     options.progressHandler = ^ (double progress, NSError *__nullable error, BOOL *stop, NSDictionary *__nullable info) {
-        if (self.downloadPercent < 1) {
+        NSLog(@"Asset(%@) Video download progressHandler; self.downloadPercent=%f; progress=%f", self, self.downloadPercent, progress);
+        if (self.downloadPercent <= 1) {
             self.downloadPercent = progress;
             [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
         }
     };
     
     self.lastRequestID = [[PHImageManager defaultManager] requestAVAssetForVideo:self.asset options:options resultHandler:^(AVAsset *asset, AVAudioMix *audioMix, NSDictionary *info) {
+        NSLog(@"Asset(%@) Video download resultHandler; self.downloadPercent=%f; asset=%@, audioMix=%@", self, self.downloadPercent, asset, audioMix);
+        
         if (self.downloadPercent < 1) {
             self.downloadPercent = 1;
             [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
@@ -214,7 +226,7 @@
         
     }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
 }
 
 -(BOOL) isDownloading

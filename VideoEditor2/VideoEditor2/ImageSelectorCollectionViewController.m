@@ -256,16 +256,25 @@
     VAsset *asset = [self getAssetForIndexPath:indexPath];
     
     if ([asset isDownloading]) {
+        NSLog(@"selectionActionForIndexPath (%@) - cancelDownloading", asset);
+        
         [asset cancelDownloading];
         
     } else if ([self.selectionStorage hasAsset:asset]) {
-        [self.selectionStorage removeAsset:asset];
-        [self.collectionView reloadData];
+        NSLog(@"selectionActionForIndexPath (%@) - removeAsset", asset);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.selectionStorage removeAsset:asset];
+            [self.collectionView reloadData];
+        });
         
     } else {
         self.lastActiveAsset = asset;
+        NSLog(@"selectionActionForIndexPath (%@) - downloadWithCompletion", asset);
         
         [asset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished) {
+            NSLog(@"selectionActionForIndexPath (%@) - downloadWithCompletion - completionBlock - requestFinished=%@", asset, (requestFinished ? @"Y":@"N"));
+            
             if (requestFinished) {
                 [self.selectionStorage addAsset:asset];
                 [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];

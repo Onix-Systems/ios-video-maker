@@ -135,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3d2-tU-bwm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="646" y="101"/>
+            <point key="canvasLocation" x="646" y="79"/>
         </scene>
         <!--Image Selector Split Controller-->
         <scene sceneID="bMz-Jd-eaQ">
@@ -239,7 +239,6 @@
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.20784313725490194" green="0.1803921568627451" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZNa-oZ-naW" firstAttribute="leading" secondItem="rbn-3o-IOK" secondAttribute="trailing" id="1xP-Rh-jQA"/>
                             <constraint firstItem="VFy-n7-iNv" firstAttribute="centerX" secondItem="4Hi-DA-GdB" secondAttribute="centerX" id="25I-k5-FvA"/>
@@ -306,7 +305,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1921" y="-1318"/>
+            <point key="canvasLocation" x="1944" y="-1358"/>
         </scene>
         <!--Image Selector Controller-->
         <scene sceneID="1tD-3i-goU">
@@ -325,7 +324,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tJz-z2-Ljz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="-1318"/>
+            <point key="canvasLocation" x="1294" y="-1358"/>
         </scene>
         <!--Image Selector Preview Controller-->
         <scene sceneID="8BV-ZJ-PRg">
@@ -436,7 +435,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zK0-ln-6fL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="-620"/>
+            <point key="canvasLocation" x="1294" y="-675"/>
         </scene>
         <!--Image Selector Collection View Controller-->
         <scene sceneID="qG4-vt-0H9">
@@ -635,7 +634,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suu-Gq-vUt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="101"/>
+            <point key="canvasLocation" x="1294" y="79"/>
         </scene>
         <!--Image Selector Collage Controller-->
         <scene sceneID="pBl-ac-VBf">
@@ -681,7 +680,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aFA-Yd-iGg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1944" y="-620"/>
+            <point key="canvasLocation" x="1944" y="-675"/>
         </scene>
         <!--Create Collage-->
         <scene sceneID="c86-Pw-m7x">
@@ -828,7 +827,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zt3-qM-Rgv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1944" y="101"/>
+            <point key="canvasLocation" x="1944" y="79"/>
         </scene>
         <!--Step 4-->
         <scene sceneID="5za-7r-tEc">
@@ -855,7 +854,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ihW-Zv-PUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2622" y="-620"/>
+            <point key="canvasLocation" x="2610" y="-675"/>
         </scene>
         <!--Step 5-->
         <scene sceneID="LUm-pH-PFJ">
@@ -963,7 +962,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MX7-SL-QJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2694" y="101"/>
+            <point key="canvasLocation" x="2610" y="79"/>
         </scene>
         <!--Step 3-->
         <scene sceneID="NCv-AG-7zg">
@@ -1353,7 +1352,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hy0-8e-A3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-848" y="-620"/>
+            <point key="canvasLocation" x="-810" y="-675"/>
         </scene>
     </scenes>
     <resources>

@@ -96,6 +96,9 @@
 -(void)setSelected: (NSInteger) selectionNumber
 {
     self.selectionNumber = selectionNumber;
+    self.downloading = NO;
+    self.downloadProgress = 0;
+    
     [self updateSelectionLabel];
     [self setNeedsDisplay];
 }
@@ -144,6 +147,8 @@
     self.backgroundColor = [UIColor clearColor];
     CGContextClearRect(context, self.frame);
     
+    
+    NSLog(@"Draw state indicator selectionNumber=%ld isDownloading=%@ downloadPercent=%f", (long)self.selectionNumber, (self.isDownloading? @"Y":@"N"), self.downloadProgress);
     if (![self isSelected] && ![self isDownloading]) {
         return;
     }

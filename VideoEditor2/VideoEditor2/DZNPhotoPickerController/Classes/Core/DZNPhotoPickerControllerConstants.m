@@ -26,7 +26,7 @@ NSString *NSStringFromService(DZNPhotoPickerControllerServices service)
         case DZNPhotoPickerControllerServiceInstagram:      return @"Instagram";
         case DZNPhotoPickerControllerServiceGoogleImages:   return @"Google";
         case DZNPhotoPickerControllerServiceBingImages:     return @"Bing";
-        case DZNPhotoPickerControllerServiceGettyImages:    return @"Getty Images";
+        case DZNPhotoPickerControllerServiceGettyImages:    return @"Getty";
         default:                                            return nil;
     }
 }

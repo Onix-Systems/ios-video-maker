@@ -32,5 +32,7 @@
 -(void)setDownloading: (BOOL) downloading;
 -(void)setDownloadingProgress: (CGFloat) downloadPercent;
 
+-(BOOL)isSelected;
+-(BOOL)isDownloading;
 
 @end

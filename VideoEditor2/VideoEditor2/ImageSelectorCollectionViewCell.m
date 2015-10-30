@@ -64,12 +64,21 @@
 
 -(void) downloadProgressNotification
 {
-    [self.stateIndicator setDownloading:([self.asset isDownloading] || self.keepDownloadingState) ];
-    [self.stateIndicator setDownloadingProgress: [self.asset getDownloadPercent]];
+    if (![self.stateIndicator isSelected]) {
+        [self.stateIndicator setDownloading:([self.asset isDownloading] || self.keepDownloadingState) ];
+        [self.stateIndicator setDownloadingProgress: [self.asset getDownloadPercent]];
+    }
 }
 
 -(void)stateIndicatorTouchUpInsideAction {
-    self.keepDownloadingState = YES;
+    
+    NSLog(@"stateIndicatorTouchUpInsideAction");
+    if (![self.stateIndicator isSelected] && ![self.stateIndicator isDownloading]) {
+        self.keepDownloadingState = YES;
+        [self.stateIndicator setDownloading:YES];
+        [self.stateIndicator setDownloadingProgress:0.0];
+        NSLog(@"stateIndicatorTouchUpInsideAction - set downloading state");
+    }
     
     [self.delegate selectionActionForIndexPath: self.indexPath];
 }
