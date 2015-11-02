@@ -9,7 +9,7 @@
 #import "ImageSelectDataSource.h"
 #import "VAssetPHImage.h"
 
-@interface ImageSelectDataSource()
+@interface ImageSelectDataSource() <PHPhotoLibraryChangeObserver>
 
 @property (strong,nonatomic) PHAssetCollection* collection;
 
@@ -32,9 +32,24 @@
         
         self.supportSearch = NO;
         self.isLoading = NO;
+        
+        [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver: self];
 
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
+
+- (void)photoLibraryDidChange:(PHChange *)changeInstance
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadAssets];
+    });
 }
 
 -(void)loadAssets {

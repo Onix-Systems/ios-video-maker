@@ -10,7 +10,7 @@
 #import "VAsset.h"
 #import "VAssetPHImage.h"
 
-@interface ImageSelectMomentsDataSource ()
+@interface ImageSelectMomentsDataSource () <PHPhotoLibraryChangeObserver>
 
 @property (strong, nonatomic) NSMutableDictionary *momentsTitles;
 @property (strong, nonatomic) NSMutableDictionary *momentsData;
@@ -29,8 +29,22 @@
         self.dateFormatter = [[NSDateFormatter alloc] init];
         [self.dateFormatter setDateStyle:NSDateFormatterMediumStyle];
         [self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        
+        [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver: self];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
+-(void)photoLibraryDidChange:(PHChange *)changeInstance
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadAssets];
+    });
 }
 
 -(void)loadAssets {

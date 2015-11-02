@@ -11,7 +11,7 @@
 #import "ImageSelectDataSource.h"
 #import "AlbumsCell.h"
 
-@interface Albums () <UITableViewDelegate, UITableViewDataSource>
+@interface Albums () <UITableViewDelegate, UITableViewDataSource, PHPhotoLibraryChangeObserver>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -21,16 +21,39 @@
 
 @implementation Albums
 
+
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    
+    [self loadAlbums];
+}
+
+- (void)dealloc
+{
+    [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
+}
+
+-(void) photoLibraryDidChange:(PHChange *)changeInstance
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self loadAlbums];
+    });
+}
+
+-(void)loadAlbums
+{
     self.albums = [NSMutableArray new];
     
     [self fetchAlbums:PHAssetCollectionTypeSmartAlbum subType:PHAssetCollectionSubtypeSmartAlbumVideos];
     [self fetchAlbums:PHAssetCollectionTypeAlbum subType:PHAssetCollectionSubtypeAny];
     [self fetchAlbums:PHAssetCollectionTypeSmartAlbum subType:PHAssetCollectionSubtypeSmartAlbumUserLibrary];
     
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
+    [self.tableView reloadData];
 }
 
 -(void)fetchAlbums:(PHAssetCollectionType)type subType: (PHAssetCollectionSubtype) subType {
