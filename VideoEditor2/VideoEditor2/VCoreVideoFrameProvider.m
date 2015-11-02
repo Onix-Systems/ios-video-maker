@@ -15,6 +15,7 @@
 @property (nonatomic,strong) CIImage* image;
 @property (nonatomic) CVPixelBufferRef pixelBuffer;
 @property (nonatomic) CGSize lastPixelBufferSize;
+@property (nonatomic) CGAffineTransform preferredTransform;
 
 @end
 
@@ -39,6 +40,8 @@
     
     self.videoTrack = [asset tracksWithMediaType:AVMediaTypeVideo][0];
     
+    self.preferredTransform = self.videoTrack.preferredTransform;
+    
     self.videoSize = self.videoTrack.naturalSize;
 }
 
@@ -60,6 +63,8 @@
     
     //_pixelBuffer = CVPixelBufferRetain(pixelBuffer);
     self.image = [CIImage imageWithCVPixelBuffer: pixelBuffer];
+    self.image = [self.image imageByApplyingTransform:self.preferredTransform];
+
 
 }
 

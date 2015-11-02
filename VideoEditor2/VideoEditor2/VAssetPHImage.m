@@ -255,7 +255,20 @@
     } else {
         self.imageFrameProvider = [VStillImage new];
         
-        self.imageFrameProvider.image = [CIImage imageWithCGImage:[self.downloadedImage CGImage]];
+        CIImage* image = [CIImage imageWithCGImage:self.downloadedImage.CGImage];
+        
+        int exifOrientation = 1;
+        if (self.downloadedImage.imageOrientation == UIImageOrientationRight) {
+            exifOrientation = 6;
+        } else if (self.downloadedImage.imageOrientation == UIImageOrientationLeft) {
+            exifOrientation = 8;
+        } else if (self.downloadedImage.imageOrientation == UIImageOrientationDown) {
+            exifOrientation = 3;
+        }
+        
+        image = [image imageByApplyingOrientation:exifOrientation];
+        
+        self.imageFrameProvider.image = image;
         self.imageFrameProvider.imageSize = self.downloadedImage.size;
         
         return self.imageFrameProvider;
