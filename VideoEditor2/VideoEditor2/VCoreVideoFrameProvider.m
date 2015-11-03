@@ -40,9 +40,17 @@
     
     self.videoTrack = [asset tracksWithMediaType:AVMediaTypeVideo][0];
     
+    self.videoSize = self.videoTrack.naturalSize;
+    
     self.preferredTransform = self.videoTrack.preferredTransform;
     
-    self.videoSize = self.videoTrack.naturalSize;
+    if (self.preferredTransform.a == 0 && self.preferredTransform.d == 0) {
+        
+        self.preferredTransform = CGAffineTransformMake(0, self.preferredTransform.b * -1, self.preferredTransform.c * -1, 0, self.videoSize.height - self.preferredTransform.tx, self.videoSize.width - self.preferredTransform.ty);
+        
+        self.videoSize = CGSizeMake(self.videoSize.height, self.videoSize.width);
+    }
+
 }
 
 -(CGSize) getOriginalSize
