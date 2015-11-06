@@ -18,12 +18,19 @@
 
 @property (nonatomic) CGFloat timeScale;
 @property (nonatomic) CMTimeRange cropTimeRange;
-@property (nonatomic, readonly) CMTime duration;
+
+@property (nonatomic, readonly) CMTime totalDuration;
+@property (nonatomic, readonly) CMTime transitionFreeDuration;
+
+@property (nonatomic, weak) VTransition* frontTransition;
+@property (nonatomic, weak) VTransition* rearTransition;
 
 -(BOOL)isStatic;
 
 -(BOOL) canCropToTimeRange: (CMTimeRange) timeRange;
 -(void) getFrameForTime: (CMTime) time withCompletionBlock: (void(^)(UIImage* image)) completionBlock;
+
+-(void) calculateTiming;
 
 -(VFrameProvider*) putFramePrividerIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo;
 

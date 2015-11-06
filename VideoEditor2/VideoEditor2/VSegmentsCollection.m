@@ -33,18 +33,18 @@
     return self;
 }
 
--(CMTime)duration
-{
-    CMTime duration = CMTimeMake(0, 1000);
-    
-    for (int i = 0; i < self.segments.count; i++) {
-        VAssetSegment* segment = self.segments[i];
-        
-        duration = CMTimeAdd(duration, segment.duration);
-    }
-    
-    return duration;
-}
+//-(CMTime)duration
+//{
+//    CMTime duration = CMTimeMake(0, 1000);
+//    
+//    for (int i = 0; i < self.segments.count; i++) {
+//        VAssetSegment* segment = self.segments[i];
+//        
+//        duration = CMTimeAdd(duration, segment.duration);
+//    }
+//    
+//    return duration;
+//}
 
 -(NSInteger)segmentsCount
 {
@@ -64,6 +64,13 @@
     
     while ((self.segments.count) && (self.transitions.count < (self.segments.count - 1))) {
         [self.transitions addObject:[VTransitionFactory makeRandomTransition]];
+    }
+    
+    for (NSInteger i = 0; i < self.segments.count; i++) {
+        self.segments[i].frontTransition = (i > 0) ? self.transitions[i - 1] : nil;
+        self.segments[i].rearTransition = (i < self.transitions.count) ? self.transitions[i] : nil;
+        
+        [self.segments[i] calculateTiming];
     }
 }
 
@@ -180,7 +187,7 @@
     for (int i = 0; i < self.segmentsCount; i++) {
         VAssetSegment *segment = self.segments[i];
         
-        CMTime segmentEndTime = CMTimeAdd(segmentStartTime, segment.duration);
+        CMTime segmentEndTime = CMTimeAdd(segmentStartTime, segment.totalDuration);
         
         CMTime nextSegmentShift = kCMTimeZero;
         VTransition* transition = nil;

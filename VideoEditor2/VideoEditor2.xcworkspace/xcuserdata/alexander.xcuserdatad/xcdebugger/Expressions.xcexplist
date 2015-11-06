@@ -3,7 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[VESlidingPanelsCollageSlot slideInImage:toDirection:slideTimePercent:]:VESlidingPanelsCollageSlot.m">
+         contextName = "-[TimeLine getStateForTime:]:TimeLine.m">
       </ContextState>
       <ContextState
          contextName = "-[VECollage getImageOfTime:]:VECollage.m">
@@ -35,9 +35,6 @@
          contextName = "-[VESlidingPanelsCollage createSlotWithFrameProvider:forFrame:roundNumber:totalNumberOfRounds:]:VESlidingPanelsCollage.m">
       </ContextState>
       <ContextState
-         contextName = "-[VEKenBurnsCollageSlot getTranstaledImageFromFrameProvider:atTime:]:VEKenBurnsCollageSlot.m">
-      </ContextState>
-      <ContextState
          contextName = "-[VECollageSlot getTranstaledImageFromFrameProvider:atTime:]:VECollageSlot.m">
          <PersistentStrings>
             <PersistentString
@@ -46,10 +43,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "-[CollageCreationViewController saveButtonAction:]:CollageCreationViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[VEKenBurnsCollageSlot setupForFinalSize:andOriginalSize:]:VEKenBurnsCollageSlot.m">
       </ContextState>
       <ContextState
-         contextName = "-[CollageCreationViewController saveButtonAction:]:CollageCreationViewController.m">
+         contextName = "-[VEKenBurnsCollageSlot getTranstaledImageFromFrameProvider:atTime:]:VEKenBurnsCollageSlot.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[VAssetPHImage getFrameProvider]:VAssetPHImage.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.imageFrameProvider.image">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[TimeLine setState:forTime:additionalInfo:]:TimeLine.m">
@@ -69,10 +77,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[VESlidingPanelsCollageSlot getTranstaledImageFromFrameProvider:atTime:]:VESlidingPanelsCollageSlot.m">
+         contextName = "-[VESlidingPanelsCollageSlot slideInImage:toDirection:slideTimePercent:]:VESlidingPanelsCollageSlot.m">
       </ContextState>
       <ContextState
-         contextName = "-[TimeLine getStateForTime:]:TimeLine.m">
+         contextName = "-[VESlidingPanelsCollageSlot getTranstaledImageFromFrameProvider:atTime:]:VESlidingPanelsCollageSlot.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

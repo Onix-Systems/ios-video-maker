@@ -96,7 +96,7 @@
                                                     <rect key="frame" x="69" y="17" width="39.5" height="18"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -888,7 +888,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rqq-26-jpG" customClass="PlayerView">
-                                <rect key="frame" x="157" y="8" width="286" height="161"/>
+                                <rect key="frame" x="157" y="0.0" width="286" height="161"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -896,7 +896,7 @@
                                 </constraints>
                             </view>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9dV-Xn-1pP">
-                                <rect key="frame" x="0.0" y="169" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="161" width="600" height="44"/>
                                 <animations/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="L2W-cL-Whi"/>
@@ -913,16 +913,6 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Spw-LN-NFe"/>
                                 </items>
                             </toolbar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k0N-vS-1p0">
-                                <rect key="frame" x="0.0" y="213" width="600" height="85.5"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </scrollView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ouh-jQ-SMq">
-                                <rect key="frame" x="0.0" y="406" width="600" height="86"/>
-                                <animations/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            </scrollView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3L-Le-Ccr">
                                 <rect key="frame" x="0.0" y="492" width="600" height="44"/>
                                 <animations/>
@@ -930,13 +920,8 @@
                                     <barButtonItem title="Item" id="AZt-Tp-9Tx"/>
                                 </items>
                             </toolbar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2dP-cW-qlN">
-                                <rect key="frame" x="0.0" y="298" width="600" height="107.5"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.125" green="0.78266344570000002" blue="0.1259765625" alpha="1" colorSpace="calibratedRGB"/>
-                            </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V5P-Bd-KIE" customClass="APLCompositionDebugView">
-                                <rect key="frame" x="20" y="213" width="560" height="279"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cho-kk-whY" customClass="SegmentsCollectionView">
+                                <rect key="frame" x="0.0" y="205" width="600" height="287"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -944,39 +929,27 @@
                         <animations/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="V5P-Bd-KIE" secondAttribute="trailing" id="2AO-vQ-AMC"/>
                             <constraint firstItem="a3L-Le-Ccr" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerX" id="2TI-gy-1bs"/>
-                            <constraint firstItem="k0N-vS-1p0" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="3X8-qE-tkU"/>
-                            <constraint firstItem="V5P-Bd-KIE" firstAttribute="bottom" secondItem="a3L-Le-Ccr" secondAttribute="top" id="Ag1-7t-fHf"/>
-                            <constraint firstItem="k0N-vS-1p0" firstAttribute="height" secondItem="2dP-cW-qlN" secondAttribute="height" multiplier="8:10" id="JEU-ds-hS6"/>
-                            <constraint firstItem="Ouh-jQ-SMq" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="M89-NM-lTg"/>
-                            <constraint firstItem="2dP-cW-qlN" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="NQB-lv-FfA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Cho-kk-whY" secondAttribute="trailing" constant="-20" id="Jf5-v3-DQK"/>
+                            <constraint firstItem="a3L-Le-Ccr" firstAttribute="top" secondItem="Cho-kk-whY" secondAttribute="bottom" id="LgH-Rc-baz"/>
                             <constraint firstItem="P5j-Hn-gAI" firstAttribute="top" secondItem="a3L-Le-Ccr" secondAttribute="bottom" id="OfR-cZ-ahK"/>
-                            <constraint firstItem="Rqq-26-jpG" firstAttribute="top" secondItem="Y58-X0-b8g" secondAttribute="bottom" constant="8" id="PCV-wk-WcW"/>
+                            <constraint firstItem="Rqq-26-jpG" firstAttribute="top" secondItem="Y58-X0-b8g" secondAttribute="bottom" id="PCV-wk-WcW"/>
                             <constraint firstItem="a3L-Le-Ccr" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="Roa-dV-nnV"/>
-                            <constraint firstItem="2dP-cW-qlN" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerX" id="VXk-iK-CE4"/>
                             <constraint firstItem="9dV-Xn-1pP" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerX" id="Vc7-3C-rZD"/>
-                            <constraint firstItem="V5P-Bd-KIE" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leadingMargin" id="WZf-zl-M9U"/>
-                            <constraint firstItem="Ouh-jQ-SMq" firstAttribute="height" secondItem="2dP-cW-qlN" secondAttribute="height" multiplier="8:10" id="Zsd-ee-5lz"/>
+                            <constraint firstItem="Cho-kk-whY" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="agf-QR-Ntz"/>
                             <constraint firstItem="9dV-Xn-1pP" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="ams-TI-Eha"/>
-                            <constraint firstItem="Ouh-jQ-SMq" firstAttribute="top" secondItem="2dP-cW-qlN" secondAttribute="bottom" id="dwr-3k-D0Q"/>
-                            <constraint firstItem="a3L-Le-Ccr" firstAttribute="top" secondItem="Ouh-jQ-SMq" secondAttribute="bottom" id="hDF-Ce-gi1"/>
                             <constraint firstAttribute="centerX" secondItem="Rqq-26-jpG" secondAttribute="centerX" id="lla-IP-ut2"/>
-                            <constraint firstItem="k0N-vS-1p0" firstAttribute="bottom" secondItem="2dP-cW-qlN" secondAttribute="top" id="m8z-j9-Igc"/>
-                            <constraint firstItem="V5P-Bd-KIE" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="pQB-EX-VNP"/>
+                            <constraint firstItem="Cho-kk-whY" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leadingMargin" constant="-20" id="nYD-md-HZd"/>
                             <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="3/10" id="pUT-ws-YPx"/>
-                            <constraint firstItem="Ouh-jQ-SMq" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerX" id="qgs-KY-faf"/>
-                            <constraint firstItem="k0N-vS-1p0" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="tEl-lx-5OG"/>
-                            <constraint firstItem="k0N-vS-1p0" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerX" id="tgt-HY-CZd"/>
                             <constraint firstItem="9dV-Xn-1pP" firstAttribute="top" secondItem="Rqq-26-jpG" secondAttribute="bottom" id="y2l-jp-cfm"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Step 5" id="EO8-zS-DT4"/>
                     <connections>
-                        <outlet property="debugView" destination="V5P-Bd-KIE" id="lhU-g8-hfI"/>
                         <outlet property="pauseButton" destination="gzg-da-QuW" id="TM1-qc-pEU"/>
                         <outlet property="playButton" destination="ym3-xy-zZq" id="Tik-ZS-g2V"/>
                         <outlet property="playerView" destination="Rqq-26-jpG" id="Kwk-ZP-PTi"/>
+                        <outlet property="segmentsCollectionView" destination="Cho-kk-whY" id="sY5-Sr-Naf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MX7-SL-QJm" userLabel="First Responder" sceneMemberID="firstResponder"/>

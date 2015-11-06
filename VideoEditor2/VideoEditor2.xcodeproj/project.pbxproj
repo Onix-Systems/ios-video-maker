@@ -19,6 +19,10 @@
 		111D84E81BD4ED3900912E91 /* VCollageFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84E71BD4ED3900912E91 /* VCollageFrame.m */; };
 		111D84EB1BD51B7300912E91 /* VTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 111D84EA1BD51B7300912E91 /* VTransition.m */; };
 		11250FC11BE250EF00E9E645 /* AlbumsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 11250FC01BE250EF00E9E645 /* AlbumsCell.m */; };
+		1139D6D21BEA06DF00532BAE /* SegmentsCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139D6D11BEA06DF00532BAE /* SegmentsCollectionView.m */; };
+		1139D6D51BEA085000532BAE /* SegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139D6D41BEA085000532BAE /* SegmentView.m */; };
+		1139D6D81BEA4C8200532BAE /* TransitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139D6D71BEA4C8200532BAE /* TransitionView.m */; };
+		1139D6DB1BEBB14D00532BAE /* TimePionter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139D6DA1BEBB14D00532BAE /* TimePionter.m */; };
 		114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421351BB3F1DC006722BD /* VSegmentsCollection.m */; };
 		114421391BB51409006722BD /* VCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421381BB51409006722BD /* VCompositionInstruction.m */; };
 		1157DDE71BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157DDE61BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m */; };
@@ -154,6 +158,14 @@
 		111D84EA1BD51B7300912E91 /* VTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTransition.m; sourceTree = "<group>"; };
 		11250FBF1BE250EF00E9E645 /* AlbumsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumsCell.h; sourceTree = "<group>"; };
 		11250FC01BE250EF00E9E645 /* AlbumsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumsCell.m; sourceTree = "<group>"; };
+		1139D6D01BEA06DF00532BAE /* SegmentsCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentsCollectionView.h; sourceTree = "<group>"; };
+		1139D6D11BEA06DF00532BAE /* SegmentsCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentsCollectionView.m; sourceTree = "<group>"; };
+		1139D6D31BEA085000532BAE /* SegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentView.h; sourceTree = "<group>"; };
+		1139D6D41BEA085000532BAE /* SegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentView.m; sourceTree = "<group>"; };
+		1139D6D61BEA4C8200532BAE /* TransitionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionView.h; sourceTree = "<group>"; };
+		1139D6D71BEA4C8200532BAE /* TransitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionView.m; sourceTree = "<group>"; };
+		1139D6D91BEBB14D00532BAE /* TimePionter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePionter.h; sourceTree = "<group>"; };
+		1139D6DA1BEBB14D00532BAE /* TimePionter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimePionter.m; sourceTree = "<group>"; };
 		114421341BB3F1DC006722BD /* VSegmentsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSegmentsCollection.h; sourceTree = "<group>"; };
 		114421351BB3F1DC006722BD /* VSegmentsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSegmentsCollection.m; sourceTree = "<group>"; };
 		114421371BB51409006722BD /* VCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCompositionInstruction.h; sourceTree = "<group>"; };
@@ -446,6 +458,21 @@
 			name = Albums;
 			sourceTree = "<group>";
 		};
+		1139D6CF1BEA068F00532BAE /* SegmentsCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				1139D6D01BEA06DF00532BAE /* SegmentsCollectionView.h */,
+				1139D6D11BEA06DF00532BAE /* SegmentsCollectionView.m */,
+				1139D6D31BEA085000532BAE /* SegmentView.h */,
+				1139D6D41BEA085000532BAE /* SegmentView.m */,
+				1139D6D61BEA4C8200532BAE /* TransitionView.h */,
+				1139D6D71BEA4C8200532BAE /* TransitionView.m */,
+				1139D6D91BEBB14D00532BAE /* TimePionter.h */,
+				1139D6DA1BEBB14D00532BAE /* TimePionter.m */,
+			);
+			name = SegmentsCollectionView;
+			sourceTree = "<group>";
+		};
 		114421331BB30D7B006722BD /* Segments */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +732,7 @@
 				11669CD31BA2CB9E00C0BFF0 /* Collage */,
 				11A27B331BB92C3E00F06685 /* PlayerView */,
 				119B87711BA02571000E5BD3 /* ImageSelector */,
+				1139D6CF1BEA068F00532BAE /* SegmentsCollectionView */,
 				11EFEDEB1B81D2D700078735 /* Controllers */,
 				11EFEDC61B81C27D00078735 /* AppDelegate.h */,
 				11EFEDC71B81C27D00078735 /* AppDelegate.m */,
@@ -968,6 +996,7 @@
 				111D84E51BD4DF4300912E91 /* CollageSlidingLayout.m in Sources */,
 				116BBDCA1BBBA9FF00376A5B /* VEffect.m in Sources */,
 				11EFEDFD1B820B6300078735 /* DZNPhotoDisplayViewCell.m in Sources */,
+				1139D6D81BEA4C8200532BAE /* TransitionView.m in Sources */,
 				11B4AE081B9493BB00DB43AD /* ImageSelectDataSource.m in Sources */,
 				11B4AE141B95B76600DB43AD /* ImageSelectMomentsDataSource.m in Sources */,
 				11E5715D1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m in Sources */,
@@ -977,6 +1006,7 @@
 				11E5717B1BDFE25400ADDD1F /* VTransition07CIPageCurlWithShadowTransition.m in Sources */,
 				11A27B3A1BB9644800F06685 /* APLCompositionDebugView.m in Sources */,
 				11194A651BD6799500B0721D /* VFrameProvider.m in Sources */,
+				1139D6DB1BEBB14D00532BAE /* TimePionter.m in Sources */,
 				11E5717E1BE0A3C200ADDD1F /* VTransition08CIBarsSwipeTransition.m in Sources */,
 				11EFEE1F1B820C0300078735 /* UIImagePickerController+Block.m in Sources */,
 				11EFEE1C1B820BF600078735 /* DZNPhotoTag.m in Sources */,
@@ -984,6 +1014,7 @@
 				11E571A51BE0BF2200ADDD1F /* VTransition20CISwipeTransition.m in Sources */,
 				116A5D2A1B82274900466E99 /* Albums.m in Sources */,
 				11EFEE001B820B6300078735 /* DZNPhotoPickerControllerConstants.m in Sources */,
+				1139D6D51BEA085000532BAE /* SegmentView.m in Sources */,
 				11E571B71BE0C5FD00ADDD1F /* VTransition26CIPageCurlWithShadowTransition.m in Sources */,
 				11B4AE1E1B95E14200DB43AD /* ImageSelectDZNDataSource.m in Sources */,
 				119B87771BA02956000E5BD3 /* ImageSelectorCollectionViewController.m in Sources */,
@@ -1043,6 +1074,7 @@
 				11E571811BE0AE5100ADDD1F /* VTransition09CIBarsSwipeTransition.m in Sources */,
 				11E5719C1BE0BB8C00ADDD1F /* VTransition18CISwipeTransition.m in Sources */,
 				11D70F431BB27EC60091723A /* Step5.m in Sources */,
+				1139D6D21BEA06DF00532BAE /* SegmentsCollectionView.m in Sources */,
 				11E571661BDFD68A00ADDD1F /* VTransition02CIAccordionFoldTransition.m in Sources */,
 				11A27B321BB5A22B00F06685 /* PlayerView.m in Sources */,
 				11EFEDFE1B820B6300078735 /* DZNPhotoDisplayViewController.m in Sources */,
@@ -1195,8 +1227,8 @@
 			baseConfigurationReference = C56F4BA644EAFB399D32217B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1205,7 +1237,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "26b3b897-5fd5-4098-a3dc-fe940f1bbf66";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1214,7 +1246,7 @@
 			baseConfigurationReference = 69B654D231D53CB9E236F108 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1223,7 +1255,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "26b3b897-5fd5-4098-a3dc-fe940f1bbf66";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

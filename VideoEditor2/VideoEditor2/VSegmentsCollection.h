@@ -17,7 +17,7 @@
 @interface VSegmentsCollection : NSObject
 
 @property (nonatomic, readonly) NSInteger segmentsCount;
-@property (nonatomic, readonly) CMTime duration;
+@property (nonatomic, readonly) CMTime zzzDuration;
 
 @property (weak, nonatomic) AssetsCollection* assetsCollection;
 

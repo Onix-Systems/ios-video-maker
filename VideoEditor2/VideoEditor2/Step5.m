@@ -11,6 +11,7 @@
 #import "PlayerView.h"
 #import "VDocument.h"
 #import "APLCompositionDebugView.h"
+#import "SegmentsCollectionView.h"
 
 @interface Step5 () <PlayerViewDelegate>
 
@@ -19,7 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *pauseButton;
 
-@property (weak, nonatomic) IBOutlet APLCompositionDebugView *debugView;
+@property (weak, nonatomic) VSegmentsCollection* segmentsCollection;
+@property (weak, nonatomic) IBOutlet SegmentsCollectionView *segmentsCollectionView;
 
 @property (strong, nonatomic) AVAsset* currentDebugViewAsset;
 
@@ -29,8 +31,10 @@
 
 @implementation Step5
 
--(void) viewDidLoad
+-(void) viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     self.playButton.enabled = NO;
     self.pauseButton.enabled = YES;
     
@@ -39,6 +43,9 @@
     self.videoComposition = [[VDocument getCurrentDocument].segmentsCollection makeVideoCompositionWithFrameSize:CGSizeMake(1280, 720)];
     
     [self.playerView playVideoFromAsset:self.videoComposition.mutableComposition videoComposition:self.videoComposition.mutableVideoComposition audioMix:self.videoComposition.mutableAudioMix autoPlay:NO];
+    
+    self.segmentsCollection = [VDocument getCurrentDocument].segmentsCollection;
+    self.segmentsCollectionView.segmentsCollection = self.segmentsCollection;
     
 }
 
@@ -63,10 +70,6 @@
         
         if (self.currentDebugViewAsset != self.videoComposition.mutableComposition) {
             self.currentDebugViewAsset = self.videoComposition.mutableComposition;
-            
-            self.debugView.player = self.playerView.player;
-            [self.debugView synchronizeToComposition:self.videoComposition.mutableComposition videoComposition:self.videoComposition.mutableVideoComposition audioMix:self.videoComposition.mutableAudioMix];
-            [self.debugView setNeedsDisplay];
         }
 
         if (self.playerView.isPlayingNow) {

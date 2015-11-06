@@ -149,6 +149,6 @@
     if (self.delegate != nil) {
         [self.collageLayoutSelectorDelegate collageLayoutSelectorGotSelectedLayout:collageLayoutView];
     }
-};
+}
 
 @end

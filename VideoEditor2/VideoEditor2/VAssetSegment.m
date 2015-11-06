@@ -12,7 +12,26 @@
 #import "VStillImage.h"
 #import "VCoreVideoFrameProvider.h"
 
+
+@interface VAssetSegment()
+
+@property (nonatomic, readwrite) CMTime totalDuration;
+@property (nonatomic, readwrite) CMTime transitionFreeDuration;
+
+@end
+
 @implementation VAssetSegment
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.totalDuration = CMTimeMakeWithSeconds(0, 1000);
+        self.transitionFreeDuration = self.totalDuration;
+        self.cropTimeRange = CMTimeRangeMake(CMTimeMakeWithSeconds(0, 1000), self.transitionFreeDuration);
+    }
+    return self;
+}
 
 -(BOOL) canCropToTimeRange: (CMTimeRange) timeRange
 {
@@ -24,15 +43,27 @@
     
 }
 
--(CMTime) duration
+-(void) calculateTiming
 {
-    double duration = self.asset.duration;
+    double totalDuration = self.asset.duration;
     
-    if (duration == 0 && !self.asset.isVideo) {
-        duration = 2.0;
+    if (totalDuration == 0 && !self.asset.isVideo) {
+        totalDuration = 2.0;
     }
     
-    return CMTimeMakeWithSeconds(duration, 1000);
+    self.totalDuration = CMTimeMakeWithSeconds(totalDuration, 1000);
+    
+    self.transitionFreeDuration = self.totalDuration;
+    
+    if (self.frontTransition != nil) {
+        self.transitionFreeDuration = CMTimeSubtract(self.transitionFreeDuration, CMTimeMakeWithSeconds([self.frontTransition getContent2AppearanceDuration], 1000));
+    }
+    
+    if (self.rearTransition != nil) {
+        self.transitionFreeDuration = CMTimeSubtract(self.transitionFreeDuration, CMTimeMakeWithSeconds([self.rearTransition getContent1AppearanceDuration], 1000));
+    }
+    
+    self.cropTimeRange = CMTimeRangeMake(CMTimeMakeWithSeconds(0, 1000), self.transitionFreeDuration);
 }
 
 -(VFrameProvider*) putFramePrividerIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo
