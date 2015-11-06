@@ -17,6 +17,9 @@
 
 -(void) playerStateDidChanged: (PlayerView*) playerView;
 
+@optional
+-(void) playerTimeDidChanged: (PlayerView*) playerView;
+
 @end
 
 @interface PlayerView : UIView
@@ -25,6 +28,7 @@
 @property (nonatomic,readonly) BOOL isPlayingNow;
 
 @property (weak,nonatomic) AVPlayer *player;
+@property (nonatomic) CMTime playerTime;
 
 @property (weak, nonatomic) id<PlayerViewDelegate> delegate;
 

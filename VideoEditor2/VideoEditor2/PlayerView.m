@@ -18,6 +18,7 @@
 
 @property (nonatomic) BOOL autoPlay;
 
+@property (nonatomic, weak) id timeObserverObj;
 
 @end
 
@@ -51,6 +52,13 @@
 }
 
 - (void)setPlayer:(AVPlayer *)player {
+    AVPlayer* prevPlayer = ((AVPlayerLayer*)self.layer).player;
+    
+    if ((prevPlayer != nil) && (self.timeObserverObj != nil)) {
+        [prevPlayer removeTimeObserver:self.timeObserverObj];
+        self.timeObserverObj = nil;
+    }
+
     ((AVPlayerLayer*)self.layer).player = player;
 }
 
@@ -105,8 +113,11 @@
 - (void)cleanPlayer
 {
     [self pauseAndUpdateControls:NO];
+    
     self.player = nil;
     self.playerItem = nil;
+    self.playerTime = CMTimeMake(0, 1000);
+    
     [self updateControls];
 }
 
@@ -141,9 +152,15 @@
                 
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didPlayToEnd) name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
                 
+                
                 self.playerItemObserversSetUp = YES;
                 
                 self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
+                
+                self.timeObserverObj = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:nil usingBlock:^(CMTime time) {
+                    self.playerTime = time;
+                    [self.delegate playerTimeDidChanged:self];
+                }];
             };
         });
     }];
@@ -168,7 +185,5 @@
     [self.player seekToTime: kCMTimeZero];
     [self updateControls];
 }
-
-
 
 @end

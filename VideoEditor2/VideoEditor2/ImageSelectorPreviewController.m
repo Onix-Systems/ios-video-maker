@@ -53,6 +53,11 @@
     }
 }
 
+-(void)playerTimeDidChanged:(PlayerView *)playerView
+{
+    
+}
+
 - (IBAction)playButtonAction:(id)sender {
     if (self.playerView.isPlayingNow) {
         [self.playerView pause];

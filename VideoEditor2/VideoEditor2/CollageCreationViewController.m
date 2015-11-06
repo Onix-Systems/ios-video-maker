@@ -136,6 +136,11 @@
     [playerView play];
 }
 
+-(void) playerTimeDidChanged:(PlayerView *)playerView
+{
+    
+}
+
 - (IBAction)saveButtonAction:(UIBarButtonItem *)sender {
     [[VDocument getCurrentDocument].assetsCollection addAsset:self.assetCollage];
     

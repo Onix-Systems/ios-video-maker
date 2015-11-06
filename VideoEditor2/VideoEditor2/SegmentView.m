@@ -26,6 +26,11 @@
     
     CGContextSetRGBFillColor(context, 1.0, 0.5, 0.5, 1.0);
     CGContextFillRect(context, self.bounds);
+    
+    CGRect frameRect = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+    
+    UIImage* segmentImage = [self.drawer renderThumbnail:[self.segment getFrameForTime:self.segment.cropTimeRange.start frameSize: frameRect.size] frameRect:frameRect];
+    [segmentImage drawInRect:frameRect];
 }
 
 @end

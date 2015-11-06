@@ -10,11 +10,19 @@
 #import <UIKit/UIKit.h>
 #import "VAssetSegment.h"
 
+@protocol SegmentsThumbnailDrawer
+
+-(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect;
+
+@end
+
 @interface SegmentView : UIView
 
 @property (nonatomic, weak) VAssetSegment* segment;
 @property (nonatomic) CMTime startTime;
 @property (nonatomic) CMTime calculatedDuration;
+
+@property (nonatomic, weak) id<SegmentsThumbnailDrawer> drawer;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 

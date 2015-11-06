@@ -85,4 +85,9 @@
     }
 }
 
+-(void) playerTimeDidChanged:(PlayerView *)playerView
+{
+    [self.segmentsCollectionView synchronizeToPlayerTime:CMTimeGetSeconds(playerView.playerTime)];
+}
+
 @end

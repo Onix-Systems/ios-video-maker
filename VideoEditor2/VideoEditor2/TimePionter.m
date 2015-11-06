@@ -36,6 +36,7 @@
 
 -(void) setup
 {
+    self.opaque = NO;
     self.timePointer = [UIImage imageNamed:@"timePointer"];
 }
 

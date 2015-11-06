@@ -17,6 +17,8 @@
 @property (nonatomic) CGSize lastPixelBufferSize;
 @property (nonatomic) CGAffineTransform preferredTransform;
 
+@property (nonatomic, strong) AVAssetImageGenerator* imageGenerator;
+
 @end
 
 @implementation VCoreVideoFrameProvider
@@ -50,6 +52,8 @@
         
         self.videoSize = CGSizeMake(self.videoSize.height, self.videoSize.width);
     }
+    
+    self.imageGenerator = [[AVAssetImageGenerator alloc] initWithAsset:self.asset];
 
 }
 
@@ -86,13 +90,22 @@
 
 -(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
-    [self setPixelBuffer:[request.videoCompositionRequest sourceFrameByTrackID:self.registeredTrackID]];
-    
-    [request addCompletionBlock:^{
-        [self releasePixelBuffer];
-    }];
-    
-    return self.image;
+    if (request.videoCompositionRequest != nil) {
+        [self setPixelBuffer:[request.videoCompositionRequest sourceFrameByTrackID:self.registeredTrackID]];
+        
+        [request addCompletionBlock:^{
+            [self releasePixelBuffer];
+        }];
+        
+        return self.image;
+    } else {
+        CMTime actualTime;
+        NSError *error;
+        
+        CGImageRef image = [self.imageGenerator copyCGImageAtTime:CMTimeMake(request.time, 1000) actualTime:&actualTime error:&error];
+        
+        return [CIImage imageWithCGImage:image];
+    }
 }
 
 -(void)reqisterIntoVideoComposition:(VideoComposition *)videoComposition withInstruction:(VCompositionInstruction *)instruction withFinalSize:(CGSize)finalSize

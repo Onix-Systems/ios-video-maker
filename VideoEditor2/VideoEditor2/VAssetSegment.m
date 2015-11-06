@@ -18,6 +18,8 @@
 @property (nonatomic, readwrite) CMTime totalDuration;
 @property (nonatomic, readwrite) CMTime transitionFreeDuration;
 
+@property (nonatomic, strong) VFrameProvider* assetFrameProvider;
+
 @end
 
 @implementation VAssetSegment
@@ -33,14 +35,32 @@
     return self;
 }
 
+-(void)setAsset:(VAsset *)asset
+{
+    _asset = asset;
+    
+    VEAspectFit* aspectFitFrameProvider = [VEAspectFit new];
+    aspectFitFrameProvider.frameProvider = [self.asset getFrameProvider];
+    
+    self.assetFrameProvider = aspectFitFrameProvider;
+    
+}
+
 -(BOOL) canCropToTimeRange: (CMTimeRange) timeRange
 {
     return false;
 }
 
--(void) getFrameForTime: (CMTime) time withCompletionBlock: (void(^)(UIImage* image)) completionBlock
+
+-(CIImage*) getFrameForTime: (CMTime) time frameSize: (CGSize) frameSize;
 {
+    VFrameRequest* frameRequest = [VFrameRequest new];
     
+    frameRequest.time = CMTimeGetSeconds(time);
+    frameRequest.frameSize = frameSize;
+    frameRequest.videoCompositionRequest = nil;
+    
+    return [self.assetFrameProvider getFrameForRequest:frameRequest];
 }
 
 -(void) calculateTiming
@@ -79,12 +99,9 @@
             NSLog(@"Can not insert track timerange (%@) into track (%@) - %@", sourceTrack, destinationTrack, error);
         }
     }
-    
-    VEAspectFit* aspectFitEffect = [VEAspectFit new];
-    aspectFitEffect.frameProvider = [self.asset getFrameProvider];
         
     if (self.asset.isVideo) {
-        VCoreVideoFrameProvider* videoFrameProvider = (VCoreVideoFrameProvider*) aspectFitEffect.frameProvider;
+        VCoreVideoFrameProvider* videoFrameProvider = (VCoreVideoFrameProvider*) [self.asset getFrameProvider];
         
         videoFrameProvider.activeTrackNo = trackNo;
     }
@@ -93,7 +110,7 @@
 //        AVMutableCompositionTrack *aTrack = [videoComposition getAudioTrackNo:trackNo];
 //        [self insertTimeRange:trackTimeRange ofTrack:audioTrack atTime:timeRange.start intoTrack:aTrack];
     
-    return aspectFitEffect;
+    return self.assetFrameProvider;
 }
 
 -(BOOL)isStatic {

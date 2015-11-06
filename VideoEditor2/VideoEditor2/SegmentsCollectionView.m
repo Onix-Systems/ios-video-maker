@@ -15,7 +15,7 @@
 #define maxPxPerSecond 300.0
 #define minPxPerSecond 40.0
 
-@interface SegmentsCollectionView()
+@interface SegmentsCollectionView() <SegmentsThumbnailDrawer>
 
 @property (nonatomic) double currentZoomScale;
 @property (nonatomic) double currentScrollingTime;
@@ -36,6 +36,8 @@
 @property (nonatomic) double zoomingStartCurrentScale;
 
 @property (nonatomic, strong) TimePionter* timePointer;
+
+@property (nonatomic, strong) CIContext *thumbanilDrawingContext;
 
 @end
 
@@ -59,8 +61,16 @@
     [self addGestureRecognizer:self.panGestureRecognizer];
     
     self.timePointer = [[TimePionter alloc] initWithFrame:self.bounds];
-    self.timePointer.opaque = NO;
     [self addSubview:self.timePointer];
+    
+    self.thumbanilDrawingContext = [CIContext contextWithOptions:nil];
+}
+
+-(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect
+{
+    CGImageRef renderedImage = [self.thumbanilDrawingContext createCGImage:thumbailImage fromRect:frameRect];
+    
+    return [UIImage imageWithCGImage:renderedImage];
 }
 
 - (void)pinchGestureAction:(UIPinchGestureRecognizer *)sender
@@ -103,6 +113,7 @@
 {
     CGFloat scrollingScreenShift = 0;
     BOOL finishScrolling = NO;
+    double finalVelocity = 0.0;
     
     switch (sender.state) {
         case UIGestureRecognizerStateBegan:
@@ -127,6 +138,8 @@
             scrollingScreenShift = (self.scrollingStartCoordinate - translation.x);
             finishScrolling = YES;
             
+            finalVelocity = [sender velocityInView:self].x;
+            
             break;
         }
             
@@ -140,20 +153,23 @@
     }
     
     
-    double newScrollingTime = self.currentScrollingTime + (scrollingScreenShift / pxPerSecond) / self.currentZoomScale;
+    double newScrollingTime = self.scrollingStartTime + (scrollingScreenShift / pxPerSecond) / self.currentZoomScale;
     newScrollingTime = MAX(0, newScrollingTime);
     newScrollingTime = MIN(CMTimeGetSeconds(self.totalDuration), newScrollingTime);
-
-    if (finishScrolling) {
-        self.currentScrollingTime = newScrollingTime;
-    }
     
     [self scrollContentToTime:newScrollingTime];
+
 }
 
 
+-(void) synchronizeToPlayerTime: (double) time{
+    [self scrollContentToTime:time];
+}
+
 -(void) scrollContentToTime: (double) time
 {
+    self.currentScrollingTime = time;
+    
     double timePx = (self.bounds.size.width/2.0) - [self getPxForTime:CMTimeMakeWithSeconds(time, 1000)];
     
     NSLog(@"scrollContentToTime=%f timePx=%f", time, timePx);
@@ -234,6 +250,8 @@
         segmentView.segment = segment;
         segmentView.startTime = totalDuration;
         segmentView.calculatedDuration = segmentDuration;
+        
+        segmentView.drawer = self;
         
         [self.segmentViews addObject:segmentView];
         

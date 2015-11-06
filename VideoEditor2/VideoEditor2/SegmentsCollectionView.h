@@ -15,4 +15,6 @@
 
 @property (weak, nonatomic) VSegmentsCollection* segmentsCollection;
 
+-(void) synchronizeToPlayerTime: (double) time;
+
 @end

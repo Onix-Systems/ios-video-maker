@@ -28,7 +28,7 @@
 -(BOOL)isStatic;
 
 -(BOOL) canCropToTimeRange: (CMTimeRange) timeRange;
--(void) getFrameForTime: (CMTime) time withCompletionBlock: (void(^)(UIImage* image)) completionBlock;
+-(CIImage*) getFrameForTime: (CMTime) time frameSize: (CGSize) frameSize;
 
 -(void) calculateTiming;
 
