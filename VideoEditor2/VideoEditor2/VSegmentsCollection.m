@@ -270,4 +270,13 @@
     return videoComposition;
 }
 
+
+-(void) resetSegmentsState
+{
+    for(VAssetSegment* segment in self.segments) {
+        [segment resetSegmentState];
+    }
+}
+
+
 @end

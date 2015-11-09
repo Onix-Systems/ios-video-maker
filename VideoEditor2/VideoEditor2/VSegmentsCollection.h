@@ -28,4 +28,6 @@
 
 -(VideoComposition*) makeVideoCompositionWithFrameSize: (CGSize) frameSize;
 
+-(void) resetSegmentsState;
+
 @end

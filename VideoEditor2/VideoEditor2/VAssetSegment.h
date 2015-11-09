@@ -34,4 +34,5 @@
 
 -(VFrameProvider*) putFramePrividerIntoVideoComosition: (VideoComposition*)videoComposition withinTimeRange: (CMTimeRange) timeRange intoTrackNo: (NSInteger) trackNo;
 
+-(void) resetSegmentState;
 @end

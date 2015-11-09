@@ -117,4 +117,10 @@
     return !self.asset.isVideo || self.asset.isStatic;
 }
 
+-(void)resetSegmentState
+{
+    VAsset* assetCopy = self.asset;
+    self.asset = assetCopy;
+}
+
 @end

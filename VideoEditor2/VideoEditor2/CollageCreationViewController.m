@@ -89,6 +89,7 @@
             self.assetCollage.collageEffect = collageEffect;
         }
     }
+    [self.segmentsCollection resetSegmentsState];
     [self showUpdatedCollagePreview];
     
     [self updateSwitches];
