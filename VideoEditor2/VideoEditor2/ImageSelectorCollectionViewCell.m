@@ -42,8 +42,9 @@
     
     self.indexPath = indexPath;
     
-    self.asset = asset;
+    [self unsubscribeSelectionStorageNotifications];
     self.selectionStorage = selectionStorage;
+    [self subscribeSelectionStorageNotifications];
     
     self.imageView.image = nil;
     
@@ -67,6 +68,33 @@
     if (![self.stateIndicator isSelected]) {
         [self.stateIndicator setDownloading:([self.asset isDownloading] || self.keepDownloadingState) ];
         [self.stateIndicator setDownloadingProgress: [self.asset getDownloadPercent]];
+    }
+}
+
+-(void) subscribeSelectionStorageNotifications
+{
+    if (self.selectionStorage != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionStrageSelectionChange) name:kAssetsCollectionAssetAddedNitification object:self.selectionStorage];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionStrageSelectionChange) name:kAssetsCollectionAssetRemovedNitification object:self.selectionStorage];
+    }
+}
+
+-(void) unsubscribeSelectionStorageNotifications
+{
+    if (self.selectionStorage != nil) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetAddedNitification object:self.selectionStorage];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetRemovedNitification object:self.selectionStorage];
+    }
+}
+
+-(void) selectionStrageSelectionChange
+{
+    if ([self.selectionStorage hasAsset:self.asset]) {
+        [self.stateIndicator setSelected: [self.selectionStorage getIndexOfAsset:self.asset]];
+    } else {
+        if ([self.stateIndicator isSelected]) {
+            [self.stateIndicator setSelected:-1];
+        }
     }
 }
 

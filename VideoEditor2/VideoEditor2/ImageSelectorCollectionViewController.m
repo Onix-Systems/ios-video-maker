@@ -265,10 +265,7 @@
     } else if ([self.selectionStorage hasAsset:asset]) {
         NSLog(@"selectionActionForIndexPath (%@) - removeAsset", asset);
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.selectionStorage removeAsset:asset];
-            [self.collectionView reloadData];
-        });
+        [self.selectionStorage removeAsset:asset];
         
     } else {
         self.lastActiveAsset = asset;
@@ -279,7 +276,6 @@
             
             if (requestFinished) {
                 [self.selectionStorage addAsset:asset];
-                [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
                 [self displayAsset:asset autoPlay:YES];
             } else if (![asset isVideo]){
                 [self displayAsset:asset autoPlay:NO];
@@ -515,16 +511,11 @@
     if (visible) {
         self.activityIndicator.hidden = NO;
         [self.activityIndicator startAnimating];
-        //self.loadButton.hidden = YES;
     }
     else {
         [self.activityIndicator stopAnimating];
         self.activityIndicator.hidden = YES;
-        //self.loadButton.hidden = NO;
-        //self.loadButton.enabled = YES;
     }
-    
-    //_loading = visible;
 }
 
 
