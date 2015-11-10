@@ -45,7 +45,6 @@
         self.autoPlay = NO;
         self.autoRewind = NO;
         self.shouldStartPlayingWhenAppActive = NO;
-        [self subscribeToAppNotifications];
         
     }
     return self;
@@ -54,7 +53,6 @@
 - (void)dealloc
 {
     [self cleanPlayer];
-    [self unsubscribeToAppNotifications];
 }
 
 
@@ -72,8 +70,6 @@
 
 -(void) applicationWillResignActive: (NSNotification*) notification
 {
-    NSLog(@"Player view - applicationWillResignActive isPlayingNow=%@", self.isPlayingNow ? @"Y" : @"N");
-    
     if (self.isPlayingNow) {
         self.shouldStartPlayingWhenAppActive = YES;
         [self pause];
@@ -84,8 +80,6 @@
 
 -(void) applicationDidBecomeActive: (NSNotification*) notification
 {
-    NSLog(@"Player view - applicationDidBecomeActive shouldStartPlayingWhenAppActive=%@", self.shouldStartPlayingWhenAppActive ? @"Y" : @"N");
-    
     if (self.shouldStartPlayingWhenAppActive) {
         [self play];
     }
@@ -162,6 +156,8 @@
 {
     [self pauseAndUpdateControls:NO];
     
+    [self unsubscribeToAppNotifications];
+    
     self.player = nil;
     self.playerItem = nil;
     self.playerTime = CMTimeMake(0, 1000);
@@ -182,7 +178,6 @@
 
 - (void)playVideoFromAsset: (AVAsset*) asset videoComposition: (AVVideoComposition*) videoComposition audioMix: (AVAudioMix*) audioMix autoPlay: (BOOL) autoPlay
 {
-    [self unsubscribeToAppNotifications];
     [self cleanPlayer];
     [self subscribeToAppNotifications];
     

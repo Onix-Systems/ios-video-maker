@@ -113,6 +113,13 @@
     [self showUpdatedCollagePreview];
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.playerView cleanPlayer];
+}
+
 - (void) showUpdatedCollagePreview
 {
     if (self.collageLayoutViewConainer == nil || self.segmentsCollection == nil) {

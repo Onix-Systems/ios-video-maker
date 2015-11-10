@@ -31,6 +31,13 @@
     self.playerView.delegate = self;
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self.playerView cleanPlayer];
+}
+
 - (void) hidePlayerview:(BOOL)hidden {
     self.playerView.hidden = hidden;
     self.playerControlPanel.hidden = hidden;

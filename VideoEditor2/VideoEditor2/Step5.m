@@ -49,6 +49,13 @@
     
 }
 
+-(void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [self.playerView cleanPlayer];
+}
+
 - (IBAction)playButtonAction:(id)sender
 {
     if (self.playerView.isReadyToPlay) {
