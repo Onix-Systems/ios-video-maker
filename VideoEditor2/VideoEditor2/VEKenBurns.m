@@ -93,7 +93,15 @@
 {
     [super reqisterIntoVideoComposition:videoComposition withInstruction:instruction withFinalSize:finalSize];
     
-    [self setupMovement];
+    for (int i = 0; i < 5; i++) {
+        [self setupMovement];
+        if ((ABS(self.startX - self.endX) > 25) || (ABS(self.startY - self.endY) > 25) || (ABS(self.startScale - self.endScale) > 0.05)) {
+            return;
+        } else {
+            NSLog(@"VEKenBurns movement is too small startX=%f startY=%f endX=%f endY=%f startScale=%f endScale=%f",self.startX, self.startY, self.endX, self.endY, self.startScale, self.endScale);
+        }
+    }
+    
 }
 
 @end
