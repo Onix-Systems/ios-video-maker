@@ -694,8 +694,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmK-8B-rWa">
-                                <rect key="frame" x="103.5" y="72" width="392" height="392"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kmK-8B-rWa">
+                                <rect key="frame" x="103" y="72" width="392" height="392"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -732,31 +732,19 @@
                                 <rect key="frame" x="20" y="472" width="560" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KenBurns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euz-vG-hST">
-                                        <rect key="frame" x="122" y="93" width="74" height="20.5"/>
+                                        <rect key="frame" x="73.5" y="93" width="74" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Origami" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNj-GQ-Kma">
-                                        <rect key="frame" x="370" y="93" width="60" height="20.5"/>
+                                        <rect key="frame" x="420.5" y="93" width="60" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KenBurns-normal" highlightedImage="KenBurns-active" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-Yy-rre">
-                                        <rect key="frame" x="117" y="0.0" width="85" height="85"/>
-                                        <animations/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="jSH-Yy-rre" secondAttribute="height" multiplier="1:1" id="TQN-f7-6Eb"/>
-                                            <constraint firstAttribute="height" constant="85" id="a4x-LX-2sK"/>
-                                        </constraints>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="42d-y5-9y8" appends="YES" id="816-T2-kAM"/>
-                                        </connections>
-                                    </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SlidingPanels-normal" highlightedImage="SlidingPanels-active" translatesAutoresizingMaskIntoConstraints="NO" id="gff-k0-2Vp">
                                         <rect key="frame" x="237" y="0.0" width="85" height="85"/>
                                         <animations/>
@@ -770,7 +758,7 @@
                                         </connections>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Origami-normal" highlightedImage="Origami-active" translatesAutoresizingMaskIntoConstraints="NO" id="gi6-jC-P1w">
-                                        <rect key="frame" x="357" y="0.0" width="85" height="85"/>
+                                        <rect key="frame" x="407.5" y="0.0" width="85" height="85"/>
                                         <animations/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -788,6 +776,18 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KenBurns-normal" highlightedImage="KenBurns-active" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-Yy-rre">
+                                        <rect key="frame" x="67.5" y="0.0" width="85" height="85"/>
+                                        <animations/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="jSH-Yy-rre" secondAttribute="height" multiplier="1:1" id="TQN-f7-6Eb"/>
+                                            <constraint firstAttribute="height" constant="85" id="a4x-LX-2sK"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="42d-y5-9y8" appends="YES" id="816-T2-kAM"/>
+                                        </connections>
+                                    </imageView>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -799,8 +799,8 @@
                                     <constraint firstItem="euz-vG-hST" firstAttribute="centerX" secondItem="jSH-Yy-rre" secondAttribute="centerX" id="6WF-Li-dSg"/>
                                     <constraint firstItem="euz-vG-hST" firstAttribute="top" secondItem="jSH-Yy-rre" secondAttribute="bottom" constant="8" symbolic="YES" id="8Vj-jh-pbz"/>
                                     <constraint firstAttribute="height" constant="120" id="Bie-qu-tSO"/>
-                                    <constraint firstItem="gi6-jC-P1w" firstAttribute="leading" secondItem="gff-k0-2Vp" secondAttribute="trailing" constant="35" id="E4w-g5-cTq"/>
-                                    <constraint firstItem="gff-k0-2Vp" firstAttribute="leading" secondItem="jSH-Yy-rre" secondAttribute="trailing" constant="35" id="Nta-n7-fD3"/>
+                                    <constraint firstItem="jSH-Yy-rre" firstAttribute="centerX" secondItem="Qc0-Co-cR5" secondAttribute="centerX" multiplier="1:2" constant="-30" id="LK6-XW-oTq"/>
+                                    <constraint firstItem="gi6-jC-P1w" firstAttribute="centerX" secondItem="Qc0-Co-cR5" secondAttribute="centerX" multiplier="3:2" constant="30" id="UJo-xf-vwL"/>
                                     <constraint firstItem="gff-k0-2Vp" firstAttribute="top" secondItem="Qc0-Co-cR5" secondAttribute="top" id="gAB-CQ-730"/>
                                     <constraint firstItem="jSH-Yy-rre" firstAttribute="top" secondItem="Qc0-Co-cR5" secondAttribute="top" id="gbb-8h-bRY"/>
                                     <constraint firstItem="gi6-jC-P1w" firstAttribute="top" secondItem="Qc0-Co-cR5" secondAttribute="top" id="mha-oz-0yr"/>
