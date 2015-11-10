@@ -74,9 +74,9 @@
 {
     [self createImageLoadRequest:size trackProgress:^(double progress) {
         //do nothing
-    } withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
+    } withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
         if (requestFinished || ![self isVideo]) {
-            downloadCompletionBlock(resultImage, requestFinished);
+            downloadCompletionBlock(resultImage, requestFinished, requestError);
         }
     }];
 }
@@ -89,26 +89,26 @@
     
     if ([self isVideo]) {
         if (self.downloadedAsset != nil) {
-            downloadCompletionBlock(nil, true);
+            downloadCompletionBlock(nil, YES, NO);
             return;
         }
         [self downloadVideoAsset:^(AVAsset *asset, AVAudioMix* audioMix) {
             self.downloadedAsset = asset;
             self.downloadedAudioMix = audioMix;
-            downloadCompletionBlock(nil, true);
+            downloadCompletionBlock(nil, YES, NO);
         }];
 
     } else {
         if (self.downloadedImage != nil) {
-            downloadCompletionBlock(self.downloadedImage, true);
+            downloadCompletionBlock(self.downloadedImage, YES, NO);
             return;
         }
         
-        [self getPreviewImageForSize:PHImageManagerMaximumSize withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
+        [self getPreviewImageForSize:PHImageManagerMaximumSize withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
             if (requestFinished) {
                 self.downloadedImage = resultImage;
             }
-            downloadCompletionBlock(resultImage, requestFinished);
+            downloadCompletionBlock(resultImage, requestFinished, requestError);
         }];
     }
 }
@@ -125,7 +125,7 @@
     }
     
     if ((![self isVideo]) && (self.downloadedImage != nil)) {
-        downloadCompletionBlock(self.downloadedImage, YES);
+        downloadCompletionBlock(self.downloadedImage, YES, NO);
         return;
     }
     
@@ -138,7 +138,7 @@
         self.downloadPercent = progress;
         [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
         
-    } withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
+    } withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
         NSLog(@"Asset(%@) getPreviewImageForSize(%f, %f) withCompletion; self.downloadPercent=%f; requestFinished=%@, resultImage=%@", self, size.width, size.height, self.downloadPercent, (requestFinished ? @"Y" : @"N"), resultImage);
         
         if (requestFinished) {
@@ -149,7 +149,7 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
             }
         }
-        downloadCompletionBlock(resultImage, requestFinished);
+        downloadCompletionBlock(resultImage, requestFinished, requestError);
     }];
 }
 
@@ -185,7 +185,7 @@
         }
  
         dispatch_async(dispatch_get_main_queue(), ^{
-            downloadCompletionBlock(result, requestFinished);
+            downloadCompletionBlock(result, requestFinished, NO);
         });
         
     }];

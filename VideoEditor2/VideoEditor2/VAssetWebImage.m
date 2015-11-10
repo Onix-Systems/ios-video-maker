@@ -82,10 +82,13 @@
 
 -(void) getThumbnailImageImageForSize: (CGSize) size withCompletion: (VAssetDownloadCompletionBlock) downloadCompletionBlock
 {
-    [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.thumbURL options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+    [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.thumbURL options:(SDWebImageProgressiveDownload | SDWebImageRetryFailed) progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             //do nothing
     } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-        downloadCompletionBlock(image, finished);
+        if (error) {
+            NSLog(@"WebImage (%@) ThumbnailDownloading error=%@", self.dznMetaData.thumbURL, error);
+        }
+        downloadCompletionBlock(image, finished, (error != nil));
     }];
 }
 
@@ -93,26 +96,29 @@
 {
     if ([self isDownloading]) {
         if (self.temporaryImage != nil) {
-            downloadCompletionBlock(self.temporaryImage, NO);
+            downloadCompletionBlock(self.temporaryImage, NO, NO);
         }
         return;
     }
 
     if (self.downloadedImage != nil) {
-        downloadCompletionBlock(self.downloadedImage, true);
+        downloadCompletionBlock(self.downloadedImage, YES, NO);
     } else {
         self.downloadPercent = 0;
         
-        self.currentDownloadingOperation = [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.sourceURL options:SDWebImageProgressiveDownload progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+        self.currentDownloadingOperation = [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.sourceURL options:(SDWebImageProgressiveDownload | SDWebImageRetryFailed) progress:^(NSInteger receivedSize, NSInteger expectedSize) {
             if (self.downloadPercent < 1) {
                 self.downloadPercent = (double)receivedSize/expectedSize;
-                NSLog(@"Set download percent= %.f for %@", self.downloadPercent, self);
+//                NSLog(@"Set download percent= %f for %@", self.downloadPercent, self);
                 [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
             }
             
         } completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
             NSLog(@"got Download result image, finished=%@", finished? @"YES" : @"N");
             
+            if (error != nil) {
+                NSLog(@"WebImage (%@) downloading error=%@", self.dznMetaData.sourceURL, error);
+            }
             if (finished) {
                 self.downloadedImage = image;
                 self.currentDownloadingOperation = nil;
@@ -124,7 +130,7 @@
             } else {
                 self.temporaryImage = image;
             }
-            downloadCompletionBlock(image, finished);
+            downloadCompletionBlock(image, finished, (error != nil));
         }];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
@@ -140,7 +146,6 @@
 {
     self.downloadPercent = 0;
     if (self.currentDownloadingOperation != nil) {
-        NSLog(@"Cancel downloading!");
         [self.currentDownloadingOperation cancel];
         self.currentDownloadingOperation = nil;
         [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];

@@ -87,8 +87,8 @@
         
         NSInteger requestTag = ++self.scrollView.tag;
         
-        [asset getPreviewImageForSize:self.gridImageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
-            if (requestTag == self.scrollView.tag) {
+        [asset getPreviewImageForSize:self.gridImageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+            if (!requestError && requestTag == self.scrollView.tag) {
                 [self.scrollView displayImage: resultImage];
             }
         }];

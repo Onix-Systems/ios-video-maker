@@ -12,7 +12,7 @@
 
 #import "VideoComposition.h"
 
-typedef void(^VAssetDownloadCompletionBlock)(UIImage* resultImage, BOOL requestFinished);
+typedef void(^VAssetDownloadCompletionBlock)(UIImage* resultImage, BOOL requestFinished, BOOL requestError);
 #define kVAssetDownloadProgressNotification @"kVAssetDownloadProgressNotification"
 
 @interface VAsset : NSObject

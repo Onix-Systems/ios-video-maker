@@ -95,8 +95,10 @@
             NSInteger j = i % assets.count;
             VAsset* asset = assets[j];
             
-            [asset getPreviewImageForSize:imageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
-                imageView.image = resultImage;
+            [asset getPreviewImageForSize:imageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+                if (!requestError) {
+                    imageView.image = resultImage;
+                }
             }];
             
         } else {

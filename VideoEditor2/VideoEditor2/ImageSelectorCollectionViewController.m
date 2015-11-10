@@ -258,22 +258,18 @@
     VAsset *asset = [self getAssetForIndexPath:indexPath];
     
     if ([asset isDownloading]) {
-        NSLog(@"selectionActionForIndexPath (%@) - cancelDownloading", asset);
-        
         [asset cancelDownloading];
         
     } else if ([self.selectionStorage hasAsset:asset]) {
-        NSLog(@"selectionActionForIndexPath (%@) - removeAsset", asset);
-        
         [self.selectionStorage removeAsset:asset];
         
     } else {
         self.lastActiveAsset = asset;
-        NSLog(@"selectionActionForIndexPath (%@) - downloadWithCompletion", asset);
         
-        [asset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished) {
-            NSLog(@"selectionActionForIndexPath (%@) - downloadWithCompletion - completionBlock - requestFinished=%@", asset, (requestFinished ? @"Y":@"N"));
-            
+        [asset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+            if (requestError) {
+                return;
+            }
             if (requestFinished) {
                 [self.selectionStorage addAsset:asset];
                 [self displayAsset:asset autoPlay:YES];

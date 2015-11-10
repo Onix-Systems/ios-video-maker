@@ -20,8 +20,7 @@
 @property (weak, nonatomic) AssetsCollection* selectionStorage;
 @property (weak, nonatomic) id<ImageSelectorCollectionViewCellDelegate> delegate;
 
-@property (nonatomic) NSInteger touchupCounter;
-@property (nonatomic) BOOL keepDownloadingState;
+@property (strong, nonatomic) NSTimer* reloadImageTimer;
 
 @end
 
@@ -30,6 +29,10 @@
 - (void)dealloc
 {
     [self unsubscribeFromDownloadProgressNotifications:_asset];
+    if (self.reloadImageTimer != nil) {
+        [self.reloadImageTimer invalidate];
+        self.reloadImageTimer = nil;
+    }
 }
 
 -(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage cellDelegate: (id<ImageSelectorCollectionViewCellDelegate>) delegate
@@ -66,7 +69,7 @@
 -(void) downloadProgressNotification
 {
     if (![self.stateIndicator isSelected]) {
-        [self.stateIndicator setDownloading:([self.asset isDownloading] || self.keepDownloadingState) ];
+        [self.stateIndicator setDownloading:[self.asset isDownloading]];
         [self.stateIndicator setDownloadingProgress: [self.asset getDownloadPercent]];
     }
 }
@@ -99,15 +102,6 @@
 }
 
 -(void)stateIndicatorTouchUpInsideAction {
-    
-    NSLog(@"stateIndicatorTouchUpInsideAction");
-    if (![self.stateIndicator isSelected] && ![self.stateIndicator isDownloading]) {
-        self.keepDownloadingState = YES;
-        [self.stateIndicator setDownloading:YES];
-        [self.stateIndicator setDownloadingProgress:0.0];
-        NSLog(@"stateIndicatorTouchUpInsideAction - set downloading state");
-    }
-    
     [self.delegate selectionActionForIndexPath: self.indexPath];
 }
 
@@ -118,16 +112,30 @@
     
     __weak ImageSelectorCollectionViewCell* weakSelf = self;
     
-    [self.asset getThumbnailImageImageForSize:self.imageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished) {
-        if (resultImage != nil && weakSelf.imageView.tag == currentTag) {
-            weakSelf.imageView.image = resultImage;
-            [weakSelf setNeedsDisplay];
+    [self.asset getThumbnailImageImageForSize:self.imageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+        if (weakSelf.imageView.tag == currentTag) {
+            weakSelf.reloadImageTimer = nil;
+            
+            if (requestError) {
+                weakSelf.reloadImageTimer = [NSTimer timerWithTimeInterval:2.00 target:self selector:@selector(updateState) userInfo:nil repeats:NO];
+                [[NSRunLoop currentRunLoop] addTimer:weakSelf.reloadImageTimer forMode:NSDefaultRunLoopMode];
+            
+            } else if (resultImage != nil) {
+                weakSelf.imageView.image = resultImage;
+                [weakSelf setNeedsDisplay];
+            }
         }
     }];
     
     self.stateIndicator.delegate = self;
     
     [self.stateIndicator setClearState];
+    
+    if (self.asset.isDownloading) {
+        [self.stateIndicator setDownloading:YES];
+        [self.stateIndicator setDownloadingProgress:[self.asset getDownloadPercent]];
+    }
+    
     if ([self.selectionStorage hasAsset:self.asset]) {
         [self.stateIndicator setSelected: [self.selectionStorage getIndexOfAsset:self.asset]];
     }
