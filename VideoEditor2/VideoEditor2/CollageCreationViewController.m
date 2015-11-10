@@ -121,6 +121,7 @@
     
     if (self.playerView == nil) {
         self.playerView = [PlayerView new];
+        self.playerView.autoRewind = YES;
         self.playerView.delegate = self;
         
         self.playerView.frame = self.collageLayoutViewConainer.bounds;
@@ -134,7 +135,6 @@
 
 -(void) playerStateDidChanged:(PlayerView *)playerView
 {
-    [playerView play];
 }
 
 -(void) playerTimeDidChanged:(PlayerView *)playerView

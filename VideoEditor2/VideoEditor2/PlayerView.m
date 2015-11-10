@@ -20,7 +20,13 @@
 
 @property (nonatomic, weak) id timeObserverObj;
 
+@property (nonatomic) BOOL shouldStartPlayingWhenAppActive;
+@property (nonatomic) BOOL isSuspended;
+
 @end
+
+#define kPlayerViewApplicationWillResignActive @"kPlayerViewApplicationWillResignActive"
+#define kPlayerViewApplicationDidBecomeActive @"kPlayerViewApplicationDidBecomeActive"
 
 @implementation PlayerView
 
@@ -37,6 +43,10 @@
         self.playerItemObserversSetUp = NO;
         self.context = @"zzz";
         self.autoPlay = NO;
+        self.autoRewind = NO;
+        self.shouldStartPlayingWhenAppActive = NO;
+        [self subscribeToAppNotifications];
+        
     }
     return self;
 }
@@ -44,6 +54,41 @@
 - (void)dealloc
 {
     [self cleanPlayer];
+    [self unsubscribeToAppNotifications];
+}
+
+
+-(void) subscribeToAppNotifications
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+-(void) unsubscribeToAppNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+-(void) applicationWillResignActive: (NSNotification*) notification
+{
+    NSLog(@"Player view - applicationWillResignActive isPlayingNow=%@", self.isPlayingNow ? @"Y" : @"N");
+    
+    if (self.isPlayingNow) {
+        self.shouldStartPlayingWhenAppActive = YES;
+        [self pause];
+    } else {
+        self.shouldStartPlayingWhenAppActive = NO;
+    }
+}
+
+-(void) applicationDidBecomeActive: (NSNotification*) notification
+{
+    NSLog(@"Player view - applicationDidBecomeActive shouldStartPlayingWhenAppActive=%@", self.shouldStartPlayingWhenAppActive ? @"Y" : @"N");
+    
+    if (self.shouldStartPlayingWhenAppActive) {
+        [self play];
+    }
 }
 
 - (AVPlayer*)player
@@ -78,6 +123,7 @@
 {
     if (self.isReadyToPlay && !self.isPlayingNow) {
         self.isPlayingNow = YES;
+        self.isSuspended = NO;
         [self.player play];
         [self updateControls];
     }
@@ -85,6 +131,7 @@
 
 - (void)pause
 {
+    self.isSuspended = YES;
     [self pauseAndUpdateControls:YES];
 }
 
@@ -92,6 +139,7 @@
 {
     if (self.isPlayingNow) {
         self.isPlayingNow = NO;
+        
         [self.player pause];
         if (updateControls) {
             [self updateControls];
@@ -134,7 +182,9 @@
 
 - (void)playVideoFromAsset: (AVAsset*) asset videoComposition: (AVVideoComposition*) videoComposition audioMix: (AVAudioMix*) audioMix autoPlay: (BOOL) autoPlay
 {
+    [self unsubscribeToAppNotifications];
     [self cleanPlayer];
+    [self subscribeToAppNotifications];
     
     self.autoPlay = autoPlay;
     
@@ -171,6 +221,7 @@
     if (object == self.playerItem) {
         if ([keyPath isEqualToString:@"status"] && self.playerItem.status == AVPlayerItemStatusReadyToPlay) {
             if (self.autoPlay) {
+                self.autoPlay = NO;
                 [self play];
             } else {
                 [self updateControls];
@@ -183,7 +234,11 @@
 {
     self.isPlayingNow = NO;
     [self.player seekToTime: kCMTimeZero];
-    [self updateControls];
+    if (self.autoRewind && !self.isSuspended) {
+        [self play];
+    } else {
+        [self updateControls];
+    }
 }
 
 @end

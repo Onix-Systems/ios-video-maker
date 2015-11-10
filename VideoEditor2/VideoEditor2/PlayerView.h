@@ -30,6 +30,8 @@
 @property (weak,nonatomic) AVPlayer *player;
 @property (nonatomic) CMTime playerTime;
 
+@property (nonatomic) BOOL autoRewind;
+
 @property (weak, nonatomic) id<PlayerViewDelegate> delegate;
 
 -(void) playVideoFromURL: (NSURL*) url autoPlay: (BOOL) autoPlay;
