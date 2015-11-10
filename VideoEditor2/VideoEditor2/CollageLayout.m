@@ -50,7 +50,7 @@
     
     for (int i = 0; i < self.frames.count; i++) {
         CGRect src = [self.frames[i] CGRectValue];
-        CGRect frame = CGRectMake(src.origin.x * xScale, src.origin.y * yScale, src.size.width * xScale, src.size.height * yScale);
+        CGRect frame = CGRectMake(src.origin.x * xScale, finalSize.height - (src.origin.y * yScale + src.size.height * yScale), src.size.width * xScale, src.size.height * yScale);
         
         [frames addObject:[NSValue valueWithCGRect:frame]];
     }

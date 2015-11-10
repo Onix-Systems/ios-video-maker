@@ -56,8 +56,12 @@
     
     NSMutableArray* slideInDirections = [NSMutableArray new];
     NSMutableArray* slideOutDirections = [NSMutableArray new];
-    for (int i = 0; i < frames.count; i++) {
-        NSArray* framePossibleSlidingDirections = [self getSlidingDirectoinsForFrame:[frames[i] CGRectValue] totalSize:totalSize];
+    
+    
+    NSArray* stillFrames = [self getStillFramesForFinalSize:totalSize];
+    
+    for (int i = 0; i < stillFrames.count; i++) {
+        NSArray* framePossibleSlidingDirections = [self getSlidingDirectoinsForFrame:[stillFrames[i] CGRectValue] totalSize:totalSize];
         if (framePossibleSlidingDirections.count > 0) {
             NSString* slideInDirection = framePossibleSlidingDirections[arc4random_uniform((int)framePossibleSlidingDirections.count)];
             [slideInDirections addObject:slideInDirection];
