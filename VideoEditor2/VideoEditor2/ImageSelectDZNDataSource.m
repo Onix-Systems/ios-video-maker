@@ -38,7 +38,7 @@
     return self;
 }
 
--(NSArray*) assets {
+-(NSArray*) getAssets {
     return self.mutableAssetsList;
 }
 

@@ -16,6 +16,11 @@
     
 }
 
+-(NSArray *) getAssets
+{
+    return nil;
+}
+
 -(NSInteger)getAssetsCount
 {
     return 0;
@@ -78,6 +83,21 @@
 -(void) switchSearhcScope: (NSInteger) searchScope
 {
     
+}
+
+-(NSArray<NSIndexPath *>*)getBatchChangeRemovedIndexes
+{
+    return nil;
+}
+
+-(NSArray<NSIndexPath *>*)getBatchChangeInsertedIndexes
+{
+    return nil;
+}
+
+-(NSArray<NSIndexPath *>*)getBatchChangedChangedIndexes
+{
+    return nil;
 }
 
 @end

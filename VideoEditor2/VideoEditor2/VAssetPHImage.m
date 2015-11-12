@@ -47,6 +47,11 @@
     return self;
 }
 
+-(void)updateAsset:(PHAsset *)asset
+{
+    self.asset = asset;
+}
+
 - (BOOL) isVideo
 {
     if (self.asset.mediaType == PHAssetMediaTypeVideo) {
@@ -67,6 +72,7 @@
 
 - (NSString*) getIdentifier
 {
+//    NSLog(@"PHAssetLocalIdentifier = %@", self.asset.localIdentifier);
     return self.asset.localIdentifier;
 }
 
@@ -130,27 +136,38 @@
     }
     
     self.downloadPercent = 0;
-    [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
     
     self.lastRequestID = [self createImageLoadRequest:size trackProgress:^(double progress) {
-        NSLog(@"Asset(%@) getPreviewImageForSize(%f, %f) trackProgress; self.downloadPercent=%f; progress=%f", self, size.width, size.height, self.downloadPercent, progress);
+        
+        if (self.lastRequestID == PHInvalidImageRequestID) {
+            return;
+        }
         
         self.downloadPercent = progress;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+        if (self.downloadPercent < 1.0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+        }
         
     } withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
-        NSLog(@"Asset(%@) getPreviewImageForSize(%f, %f) withCompletion; self.downloadPercent=%f; requestFinished=%@, resultImage=%@", self, size.width, size.height, self.downloadPercent, (requestFinished ? @"Y" : @"N"), resultImage);
-        
+        if (self.lastRequestID == PHInvalidImageRequestID) {
+            return;
+        }
+
         if (requestFinished) {
             self.lastRequestID = PHInvalidImageRequestID;
             
             if (self.downloadPercent < 1) {
                 self.downloadPercent = 1;
-                [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
             }
         }
+
         downloadCompletionBlock(resultImage, requestFinished, requestError);
+        
+        if (requestFinished) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+        }
     }];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
 }
 
 -(PHImageRequestID)createImageLoadRequest: (CGSize) size trackProgress: (void(^)(double progress)) trackProgress withCompletion: (VAssetDownloadCompletionBlock) downloadCompletionBlock
@@ -167,16 +184,15 @@
     
     PHImageRequestID requestID = [[PHImageManager defaultManager] requestImageForAsset:self.asset targetSize:size contentMode:PHImageContentModeAspectFill options:options resultHandler:^(UIImage *result, NSDictionary *info) {
         
-        BOOL requestFinished = YES;
         if (result == nil) {
-            requestFinished = NO;
-            
             if (info[PHImageErrorKey] != nil) {
                 //there is some error
                 [self cancelDownloading];
             }
+            return;
         }
         
+        BOOL requestFinished = YES;
         if(info[PHImageResultIsDegradedKey] != nil) {
             NSNumber* isDegraded = info[PHImageResultIsDegradedKey];
             if (isDegraded.boolValue) {
@@ -205,33 +221,41 @@
     options.networkAccessAllowed = YES;
     options.deliveryMode = PHVideoRequestOptionsDeliveryModeHighQualityFormat;
     options.progressHandler = ^ (double progress, NSError *__nullable error, BOOL *stop, NSDictionary *__nullable info) {
-        NSLog(@"Asset(%@) Video download progressHandler; self.downloadPercent=%f; progress=%f", self, self.downloadPercent, progress);
-        if (self.downloadPercent <= 1) {
-            self.downloadPercent = progress;
+        NSLog(@"Asset(%@) Video download progressHandler; self.downloadPercent=%f; progress=%f isDownloading=%@", self, self.downloadPercent, progress,[self isDownloading] ? @"Y" : @"N");
+        
+        if (self.lastRequestID == PHInvalidImageRequestID) {
+            return;
+        }
+        
+        self.downloadPercent = progress;
+        if (self.downloadPercent < 1.0) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
         }
     };
     
     self.lastRequestID = [[PHImageManager defaultManager] requestAVAssetForVideo:self.asset options:options resultHandler:^(AVAsset *asset, AVAudioMix *audioMix, NSDictionary *info) {
-        NSLog(@"Asset(%@) Video download resultHandler; self.downloadPercent=%f; asset=%@, audioMix=%@", self, self.downloadPercent, asset, audioMix);
         
-        if (self.downloadPercent < 1) {
-            self.downloadPercent = 1;
-            [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+        if (self.lastRequestID == PHInvalidImageRequestID) {
+            return;
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            completionBlock(asset, audioMix);
-        });
+        NSLog(@"Asset(%@) Video download resultHandler; self.downloadPercent=%f; asset=%@, audioMix=%@", self, self.downloadPercent, asset, audioMix);
         
+        if (asset != nil) {
+            self.downloadPercent = 1;
+            completionBlock(asset, audioMix);
+        }
+        
+        self.lastRequestID = PHInvalidImageRequestID;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
     }];
-    
-    //[[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
 }
 
 -(BOOL) isDownloading
 {
-    return (self.downloadedImage == nil) && (self.downloadedAsset == nil) && (self.downloadPercent < 1 && self.lastRequestID != PHInvalidImageRequestID);
+    return (self.downloadedImage == nil) && (self.downloadedAsset == nil) && ((self.downloadPercent < 1) && (self.lastRequestID != PHInvalidImageRequestID));
 }
 
 -(void) cancelDownloading

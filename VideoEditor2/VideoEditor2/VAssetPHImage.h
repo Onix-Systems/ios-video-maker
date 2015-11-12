@@ -13,5 +13,6 @@
 @interface VAssetPHImage : VAsset
 
 +(VAsset*) makeFromPHAsset: (PHAsset *) asset;
+-(void)updateAsset: (PHAsset *) asset;
 
 @end

@@ -13,14 +13,8 @@
 #import "ImageSelectorStateIndicator.h"
 #import "AssetsCollection.h"
 
-@protocol ImageSelectorCollectionViewCellDelegate
-
--(void) selectionActionForIndexPath:(NSIndexPath *)indexPath;
-
-@end
-
 @interface ImageSelectorCollectionViewCell : UICollectionViewCell
 
--(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage cellDelegate: (id<ImageSelectorCollectionViewCellDelegate>) delegate;
+-(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage;
 
 @end

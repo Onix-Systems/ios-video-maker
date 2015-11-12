@@ -107,8 +107,8 @@
         self.downloadPercent = 0;
         
         self.currentDownloadingOperation = [[SDWebImageManager sharedManager] downloadImageWithURL:self.dznMetaData.sourceURL options:(SDWebImageProgressiveDownload | SDWebImageRetryFailed) progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+            self.downloadPercent = (double)receivedSize/expectedSize;
             if (self.downloadPercent < 1) {
-                self.downloadPercent = (double)receivedSize/expectedSize;
 //                NSLog(@"Set download percent= %f for %@", self.downloadPercent, self);
                 [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
             }
@@ -124,13 +124,15 @@
                 self.currentDownloadingOperation = nil;
                 if (self.downloadPercent < 1) {
                     self.downloadPercent = 1;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
                 };
                 self.temporaryImage = nil;
             } else {
                 self.temporaryImage = image;
             }
             downloadCompletionBlock(image, finished, (error != nil));
+            if (finished) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];
+            }
         }];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kVAssetDownloadProgressNotification object:self];

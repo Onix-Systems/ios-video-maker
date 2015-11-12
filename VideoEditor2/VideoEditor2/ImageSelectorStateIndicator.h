@@ -11,12 +11,6 @@
 
 #import "VAsset.h"
 
-@protocol ImageSelectorStateIndicatorDelegate
-
--(void)stateIndicatorTouchUpInsideAction;
-
-@end
-
 @interface ImageSelectorStateIndicator : UIView
 
 @property (nonatomic, strong) UIColor *borderColor;
@@ -24,8 +18,6 @@
 @property (nonatomic, strong) UIColor *selectedBackgroundColor;
 @property (nonatomic, strong) UIColor *selectedTextColor;
 @property (nonatomic, strong) UIColor *downloadColor;
-@property (nonatomic, weak) id<ImageSelectorStateIndicatorDelegate> delegate;
-
 
 -(void)setClearState;
 -(void)setSelected: (NSInteger) selectionNumber;

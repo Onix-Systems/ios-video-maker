@@ -16,7 +16,7 @@
 #import "DZNPhotoServiceFactory.h"
 #import "DZNPhotoTag.h"
 
-@interface ImageSelectorCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate, ImageSelectorCollectionViewCellDelegate>
+@interface ImageSelectorCollectionViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UIView *noSearchResultsView;
@@ -38,6 +38,23 @@
 
 @implementation ImageSelectorCollectionViewController
 
+-(void)subscribeToDataSourceNotifictions
+{
+    if (self.dataSource != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batchUpdateFromDataSource:) name:kImageSelectDataSourceHasBatchChanges object:self.dataSource];
+    }
+}
+
+-(void)unsubscribeToDataSourceNotifications
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kImageSelectDataSourceHasBatchChanges object:self.dataSource];
+}
+
+- (void)dealloc
+{
+    [self unsubscribeToDataSourceNotifications];
+}
+
 -(ImageSelectorSplitController*) getSplitController
 {
     if (self.parentViewController != nil && [self.parentViewController isKindOfClass:[ImageSelectorSplitController class]]) {
@@ -54,14 +71,44 @@
     }
 }
 
+
+-(void) batchUpdateFromDataSource:(NSNotification*)notification
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView performBatchUpdates:^{
+            NSArray<NSIndexPath *>* removedIndexes = [self.dataSource getBatchChangeRemovedIndexes];
+            if ((removedIndexes != nil) && ([removedIndexes count] > 0)) {
+                [self.collectionView deleteItemsAtIndexPaths:removedIndexes];
+            }
+            
+            NSArray<NSIndexPath *>* insertedIndexes = [self.dataSource getBatchChangeInsertedIndexes];
+            if ((insertedIndexes != nil) && ([insertedIndexes count] > 0)) {
+                [self.collectionView insertItemsAtIndexPaths:insertedIndexes];
+            }
+            
+            NSArray<NSIndexPath *>* changedIndexes = [self.dataSource getBatchChangedChangedIndexes];
+            if ((changedIndexes != nil) && ([changedIndexes count] > 0)) {
+                [self.collectionView reloadItemsAtIndexPaths:changedIndexes];
+            }
+        } completion:^(BOOL finished) {
+            
+        }];
+    });
+}
+
 -(void) loadDataFromDataSource: (BaseImageSelectDataSource*) dataSource {
+    [self unsubscribeToDataSourceNotifications];
     self.dataSource = dataSource;
+    [self subscribeToDataSourceNotifictions];
+    
     self.firstAssetDisplayed = NO;
     
     __weak ImageSelectorCollectionViewController *weakSelf = self;
     
     self.dataSource.didFinishLoading = ^(NSError* error){
-        [weakSelf reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf reloadData];
+        });
     };
     
     if (self.dataSource.supportSearch) {
@@ -96,10 +143,12 @@
     if (self.dataSource != nil && self.collectionView != nil) {
         [self.collectionView reloadData];
         
+        NSArray* assets = [self.dataSource getAssets];
+        
         if (!self.firstAssetDisplayed) {
             VAsset* firstAsset = nil;
-            if (self.dataSource.assets.count > 0) {
-                firstAsset = self.dataSource.assets[0];
+            if (assets.count > 0) {
+                firstAsset = assets[0];
             } else if ([self.dataSource getNumberofSectionsInData] > 0) {
                 id sectionKey = [self.dataSource getSectionsKeys][0];
                 NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
@@ -114,7 +163,7 @@
             }
         }
         
-        if (self.dataSource.assets.count > 0 || [self.dataSource getNumberofSectionsInData] > 0) {
+        if (assets.count > 0 || [self.dataSource getNumberofSectionsInData] > 0) {
             self.noSearchResultsView.hidden = YES;
             [self setActivityIndicatorsVisible:NO];
             
@@ -176,8 +225,10 @@
         NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
         asset = sectionData[indexPath.row];
     } else {
-        if (indexPath.row < self.dataSource.assets.count) {
-            asset = self.dataSource.assets[indexPath.row];
+        NSArray* assets = [self.dataSource getAssets];
+        
+        if (indexPath.row < assets.count) {
+            asset = assets[indexPath.row];
         }
     }
     
@@ -190,7 +241,7 @@
         NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
         return sectionData.count;
     }
-    NSInteger count = self.dataSource.assets.count;
+    NSInteger count = [self.dataSource getAssets].count;
     return count;
 }
 
@@ -198,7 +249,7 @@
     ImageSelectorCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageSelectorCollectionViewCell" forIndexPath:indexPath];
     VAsset *asset = [self getAssetForIndexPath:indexPath];
     
-    [cell setAsset:asset forIndexPath:indexPath withSelectionStorage: self.selectionStorage cellDelegate:self];
+    [cell setAsset:asset forIndexPath:indexPath withSelectionStorage: self.selectionStorage];
     
     return cell;
 }
@@ -227,7 +278,7 @@
         [footer hideButton];
         
         if (self.dataSource.supportSearch) {
-            if (self.dataSource.assets.count > 0) {
+            if ([self.dataSource getAssets].count > 0) {
                 [footer showLoadMore];
             }
         }
@@ -248,13 +299,6 @@
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
-    [self selectionActionForIndexPath:indexPath];
-}
-
-
--(void) selectionActionForIndexPath:(NSIndexPath *)indexPath
-{
     VAsset *asset = [self getAssetForIndexPath:indexPath];
     
     if ([asset isDownloading]) {
@@ -267,14 +311,19 @@
         self.lastActiveAsset = asset;
         
         [asset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+//            NSLog(@"selectionActionForIndexPath.downloadWithCompletion requestFinished=%@ requestError=%@" ,requestFinished ? @"Y" : @"N", requestError ? @"Y" : @"N");
             if (requestError) {
                 return;
             }
             if (requestFinished) {
-                [self.selectionStorage addAsset:asset];
-                [self displayAsset:asset autoPlay:YES];
-            } else if (![asset isVideo]){
-                [self displayAsset:asset autoPlay:NO];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.selectionStorage addAsset:asset];
+                    [self displayAsset:asset autoPlay:YES];
+                });
+            } else if (![asset isVideo]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self displayAsset:asset autoPlay:NO];
+                });
             }
             
         }];

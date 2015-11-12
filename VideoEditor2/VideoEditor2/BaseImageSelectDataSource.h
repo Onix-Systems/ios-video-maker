@@ -10,11 +10,13 @@
 #import <Photos/Photos.h>
 #import "VAsset.h"
 
+#define kImageSelectDataSourceHasBatchChanges @"kImageSelectDataSourceHasBatchChanges"
+
 typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 
 @interface BaseImageSelectDataSource : NSObject;
 
-@property (strong, nonatomic) NSArray *assets;
+-(NSArray *) getAssets;
 @property (nonatomic) BOOL isLoading;
 @property (nonatomic) BOOL supportSearch;
 @property (strong, nonatomic) PickerAssetLoadCompletionBlock didFinishLoading;
@@ -32,5 +34,9 @@ typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 -(NSArray*) getSeachScopes;
 -(NSInteger) selectedSearchScope;
 -(void) switchSearhcScope: (NSInteger) searchScope;
+
+-(NSArray<NSIndexPath *>*)getBatchChangeRemovedIndexes;
+-(NSArray<NSIndexPath *>*)getBatchChangeInsertedIndexes;
+-(NSArray<NSIndexPath *>*)getBatchChangedChangedIndexes;
 
 @end

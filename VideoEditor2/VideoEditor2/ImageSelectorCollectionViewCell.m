@@ -8,7 +8,7 @@
 
 #import "ImageSelectorCollectionViewCell.h"
 
-@interface ImageSelectorCollectionViewCell () <ImageSelectorStateIndicatorDelegate>
+@interface ImageSelectorCollectionViewCell ()
 
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
@@ -18,7 +18,6 @@
 @property (weak, nonatomic) VAsset* asset;
 @property (strong, nonatomic)  NSIndexPath* indexPath;
 @property (weak, nonatomic) AssetsCollection* selectionStorage;
-@property (weak, nonatomic) id<ImageSelectorCollectionViewCellDelegate> delegate;
 
 @property (strong, nonatomic) NSTimer* reloadImageTimer;
 
@@ -35,7 +34,7 @@
     }
 }
 
--(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage cellDelegate: (id<ImageSelectorCollectionViewCellDelegate>) delegate
+-(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage
 {
     if (_asset != nil) {
         [self unsubscribeFromDownloadProgressNotifications:_asset];
@@ -50,8 +49,6 @@
     [self subscribeSelectionStorageNotifications];
     
     self.imageView.image = nil;
-    
-    self.delegate = delegate;
     
     [self updateState];
 }
@@ -68,9 +65,15 @@
 
 -(void) downloadProgressNotification
 {
-    if (![self.stateIndicator isSelected]) {
-        [self.stateIndicator setDownloading:[self.asset isDownloading]];
-        [self.stateIndicator setDownloadingProgress: [self.asset getDownloadPercent]];
+    BOOL downloading = [self.asset isDownloading];
+    double progress = [self.asset getDownloadPercent];
+    BOOL isSelected = [self.stateIndicator isSelected];
+    
+    NSLog(@"Got downloadProgress notification downloading=%@ progress=%f isSelected=%@", downloading ? @"Y" : @"N", progress, isSelected ? @"Y" : @"N");
+    
+    if (!isSelected) {
+        [self.stateIndicator setDownloading:downloading];
+        [self.stateIndicator setDownloadingProgress: progress];
     }
 }
 
@@ -101,10 +104,6 @@
     }
 }
 
--(void)stateIndicatorTouchUpInsideAction {
-    [self.delegate selectionActionForIndexPath: self.indexPath];
-}
-
 -(void) updateState {
     
     NSInteger currentTag = self.imageView.tag + 1;
@@ -121,13 +120,13 @@
                 [[NSRunLoop currentRunLoop] addTimer:weakSelf.reloadImageTimer forMode:NSDefaultRunLoopMode];
             
             } else if (resultImage != nil) {
-                weakSelf.imageView.image = resultImage;
-                [weakSelf setNeedsDisplay];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    weakSelf.imageView.image = resultImage;
+                    [weakSelf setNeedsDisplay];
+                });
             }
         }
     }];
-    
-    self.stateIndicator.delegate = self;
     
     [self.stateIndicator setClearState];
     

@@ -55,22 +55,8 @@
     [self addSubview:self.selectionLabel];
     self.selectedTextColor = [UIColor darkTextColor];
     
-    
-    UITapGestureRecognizer *gestureRecogniger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchupAction:)];
-    gestureRecogniger.numberOfTouchesRequired = 1;
-    [self addGestureRecognizer:gestureRecogniger];
-    
     [self setClearState];
     
-}
-
--(void) touchupAction: (UITapGestureRecognizer*) sender
-{
-    if (sender.state == UIGestureRecognizerStateEnded) {
-        if (self.delegate != nil) {
-            [self.delegate stateIndicatorTouchUpInsideAction];
-        }
-    }
 }
 
 -(void) setSelectedTextColor:(UIColor *)selectedTextColor
@@ -115,14 +101,18 @@
 -(void) setDownloading:(BOOL)downloading {
     if (self.downloading != downloading) {
         _downloading = downloading;
-        [self setNeedsDisplay];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplay];
+        });
     }
 }
 
 -(void)setDownloadingProgress: (CGFloat) downloadPercent
 {
-    self.downloadProgress = downloadPercent > 0 ? downloadPercent : 0;
-    [self setNeedsDisplay];
+    self.downloadProgress = (downloadPercent > 0 ? downloadPercent : 0);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self setNeedsDisplay];
+    });
 }
 
 -(BOOL) isSelected
