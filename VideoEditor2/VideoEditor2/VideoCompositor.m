@@ -29,10 +29,13 @@
     if (self) {
         self.myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES2];
         
-        self.ciContext = [CIContext contextWithEAGLContext:self.myEAGLContext options: nil];
+        NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null] };
+        
+        self.ciContext = [CIContext contextWithEAGLContext:self.myEAGLContext options: options];
         
         NSMutableArray* renderingQueue = [NSMutableArray new];
         [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue1", DISPATCH_QUEUE_SERIAL)];
+        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue2", DISPATCH_QUEUE_SERIAL)];
         
         self.renderingQueue = renderingQueue;
     }
@@ -63,7 +66,7 @@
 -(void) startVideoCompositionRequest:(AVAsynchronousVideoCompositionRequest *)asyncVideoCompositionRequest
 {
     self.requestNumber++;
-    dispatch_async(self.renderingQueue[0], ^{
+    dispatch_async(self.renderingQueue[self.requestNumber % self.renderingQueue.count], ^{
         [self processRequest: asyncVideoCompositionRequest];
     });
 }
