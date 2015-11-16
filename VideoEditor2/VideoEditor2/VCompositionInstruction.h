@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+@protocol VFPSTracker
+
+-(void)trackFrameRenderingDuration: (double)duration;
+
+@end
+
 @class VFrameProvider;
 
 @interface VCompositionInstruction : NSObject <AVVideoCompositionInstruction>
@@ -21,6 +27,8 @@
 
 @property (strong, nonatomic) VFrameProvider* frameProvider;
 @property (nonatomic) CMTimeRange segmentTimeRange;
+
+@property (weak, nonatomic) id<VFPSTracker> fpsTracker;
 
 - (instancetype)initWithFrameProvider: (VFrameProvider*) frameProvider;
 

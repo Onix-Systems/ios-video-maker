@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
+#import "VRenderingStats.h"
+
 @class PlayerView;
 
 @protocol PlayerViewDelegate
@@ -33,6 +35,8 @@
 @property (nonatomic) BOOL autoRewind;
 
 @property (weak, nonatomic) id<PlayerViewDelegate> delegate;
+
+@property (strong, nonatomic) id<VRenderingStats> renderingStats;
 
 -(void) playVideoFromURL: (NSURL*) url autoPlay: (BOOL) autoPlay;
 -(void) playVideoFromAsset: (AVAsset*) asset autoPlay: (BOOL) autoPlay;

@@ -11,7 +11,9 @@
 
 #import "VCompositionInstruction.h"
 
-@interface VideoComposition : NSObject
+#import "VRenderingStats.h"
+
+@interface VideoComposition : NSObject <VRenderingStats>
 
 @property (strong, nonatomic, readonly) AVAsset* placeholder;
 
@@ -27,7 +29,7 @@
 -(AVMutableCompositionTrack*) getVideoTrackNo: (NSInteger) trackNumber;
 -(AVMutableCompositionTrack*) getAudioTrackNo: (NSInteger) trackNumber;
 
--(void) appendVideoCompositionInstruction: (VCompositionInstruction*) vCompositionInstrcution;
+-(void) appendVideoCompositionInstruction: (VCompositionInstruction*) vCompositionInstruction;
 -(void) appendAudioMixInputParameters: (AVMutableAudioMixInputParameters*) parameters;
 
 @end

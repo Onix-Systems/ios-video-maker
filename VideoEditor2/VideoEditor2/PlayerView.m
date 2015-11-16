@@ -23,6 +23,8 @@
 @property (nonatomic) BOOL shouldStartPlayingWhenAppActive;
 @property (nonatomic) BOOL isSuspended;
 
+@property (nonatomic, strong) UILabel* renderingStatsLabel;
+
 @end
 
 #define kPlayerViewApplicationWillResignActive @"kPlayerViewApplicationWillResignActive"
@@ -45,7 +47,8 @@
         self.autoPlay = NO;
         self.autoRewind = NO;
         self.shouldStartPlayingWhenAppActive = NO;
-        
+        _renderingStats = nil;
+        self.renderingStatsLabel = nil;
     }
     return self;
 }
@@ -141,6 +144,33 @@
     }
 }
 
+-(void)setRenderingStats:(id<VRenderingStats>)renderingStats
+{
+    _renderingStats = renderingStats;
+    
+    if (self.renderingStats != nil) {
+        if (self.renderingStatsLabel == nil) {
+            self.renderingStatsLabel = [[UILabel alloc] initWithFrame:CGRectMake(40, 20, 300, 20)];
+            self.renderingStatsLabel.font = [UIFont systemFontOfSize:10.0];
+            self.renderingStatsLabel.textAlignment = NSTextAlignmentLeft;
+            self.renderingStatsLabel.textColor = [UIColor whiteColor];
+            [self addSubview:self.renderingStatsLabel];
+        }
+    } else {
+        if (self.renderingStatsLabel != nil) {
+            [self.renderingStatsLabel removeFromSuperview];
+            self.renderingStatsLabel = nil;
+        }
+    }
+}
+
+-(void)updateRenderingStats
+{
+    if (self.renderingStatsLabel != nil && self.renderingStats != nil) {
+        self.renderingStatsLabel.text = [NSString stringWithFormat:@"min=%.2f av=%.2f max=%.2f", [self.renderingStats getMinDuration], [self.renderingStats getAverageDuration], [self.renderingStats getMaxDuration]];
+    }
+}
+
 - (void)setPlayerItem:(AVPlayerItem *)playerItem
 {
     if (_playerItem != nil && self.playerItemObserversSetUp ) {
@@ -161,6 +191,8 @@
     self.player = nil;
     self.playerItem = nil;
     self.playerTime = CMTimeMake(0, 1000);
+    
+    self.renderingStats = nil;
     
     [self updateControls];
 }
@@ -204,6 +236,7 @@
                 
                 self.timeObserverObj = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:nil usingBlock:^(CMTime time) {
                     self.playerTime = time;
+                    [self updateRenderingStats];
                     [self.delegate playerTimeDidChanged:self];
                 }];
             };

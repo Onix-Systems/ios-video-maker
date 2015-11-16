@@ -60,6 +60,8 @@
 
 -(void) processRequest:(AVAsynchronousVideoCompositionRequest *)request usingCIContext:(CIContext *)ciContext
 {
+    CFAbsoluteTime startTime = CFAbsoluteTimeGetCurrent();
+    
     CVPixelBufferRef newFrameBuffer = [[request renderContext] newPixelBuffer];
     
     VFrameRequest* frameRequest = [VFrameRequest new];
@@ -70,7 +72,7 @@
     CIImage* frameContent = [self.frameProvider getFrameForRequest:frameRequest];
 
     CIImage* frameBackground = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
-    CIImage* newFrameImage = [frameContent imageByCompositingOverImage:frameBackground];
+    CIImage* newFrameImage = [frameContent vComposeOverBackground:frameBackground];
     
     [ciContext render:newFrameImage toCVPixelBuffer:newFrameBuffer];
     [request finishWithComposedVideoFrame: newFrameBuffer];
@@ -78,6 +80,13 @@
     [frameRequest markRequestAsFinished];
     
     CVPixelBufferRelease(newFrameBuffer);
+    
+    CFAbsoluteTime endTime = CFAbsoluteTimeGetCurrent();
+    double duration = (endTime - startTime)*1000;
+    
+    if (self.fpsTracker != nil) {
+        [self.fpsTracker trackFrameRenderingDuration:duration];
+    }
 }
 
 

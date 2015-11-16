@@ -14,7 +14,7 @@
 
 #import "VAssetSegment.h"
 
-@interface VideoComposition ()
+@interface VideoComposition () <VFPSTracker>
 
 @property (strong, nonatomic, readwrite) AVAsset* placeholder;
 
@@ -28,6 +28,11 @@
 @property (strong, nonatomic) NSMutableArray<VCompositionInstruction*>* videoCompositionInstructions;
 @property (strong, nonatomic) NSMutableArray<AVMutableAudioMixInputParameters*>* audioMixInputParameters;
 
+@property () double totalFrameRequests;
+@property () double totalRequestsDuration;
+@property () double minRequestsDuration;
+@property () double maxRequestsDuration;
+
 @end
 
 @implementation VideoComposition
@@ -39,7 +44,7 @@
         self.mutableComposition = [AVMutableComposition new];
         
         self.mutableVideoComposition = [AVMutableVideoComposition new];
-        self.mutableVideoComposition.frameDuration = CMTimeMake(1, 30);
+        self.mutableVideoComposition.frameDuration = CMTimeMake(1, 60);
         
         self.mutableVideoComposition.customVideoCompositorClass = [VideoCompositor class];
         
@@ -49,8 +54,44 @@
         self.audioTracks = [NSMutableArray new];
         self.videoCompositionInstructions = [NSMutableArray new];
         self.audioMixInputParameters = [NSMutableArray new];
+        
+        self.totalFrameRequests = 0;
+        self.totalRequestsDuration = 0;
+        self.minRequestsDuration = 0;
+        self.maxRequestsDuration = 0;
     }
     return self;
+}
+
+-(void) trackFrameRenderingDuration:(double)duration
+{
+    if (self.totalFrameRequests < 300) {
+        self.minRequestsDuration = self.minRequestsDuration == 0 ? duration : MIN(duration, self.minRequestsDuration);
+        self.maxRequestsDuration = MAX(duration, self.maxRequestsDuration);
+    
+        self.totalFrameRequests++;
+        self.totalRequestsDuration += duration;
+    } else {
+        self.minRequestsDuration = duration;
+        self.maxRequestsDuration = duration;
+        self.totalFrameRequests = 1;
+        self.totalRequestsDuration = duration;
+    }
+}
+
+-(double) getMinDuration
+{
+    return self.minRequestsDuration;
+}
+
+-(double) getMaxDuration
+{
+    return self.maxRequestsDuration;
+}
+
+-(double) getAverageDuration
+{
+    return self.totalRequestsDuration / self.totalFrameRequests;
 }
 
 -(void)setFrameSize:(CGSize)frameSize
@@ -79,6 +120,8 @@
 {
     [self.videoCompositionInstructions addObject:vCompositionInstruction];
     self.mutableVideoComposition.instructions = self.videoCompositionInstructions;
+    
+    vCompositionInstruction.fpsTracker = self;
 }
 
 -(void) appendAudioMixInputParameters: (AVMutableAudioMixInputParameters*) parameters

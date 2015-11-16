@@ -35,7 +35,7 @@
 -(void) setupCollageWithAssets:(AssetsCollection *)assetsCollection andLayout: (CollageLayout*)collageLayout
 {
     VAssetCollage* assetCollage = [VAssetCollage new];
-    assetCollage.finalSize = CGSizeMake(1024, 1024);
+    assetCollage.finalSize = CGSizeMake(600, 600);
     assetCollage.assetsCollection = assetsCollection;
     assetCollage.collageLayout = collageLayout;
     assetCollage.collageEffect = kCollageEffectNone;
@@ -132,12 +132,15 @@
         self.playerView.delegate = self;
         
         self.playerView.frame = self.collageLayoutViewConainer.bounds;
+        
         [self.collageLayoutViewConainer addSubview:self.playerView];
     }
 
     VideoComposition* videoComposition = [self.segmentsCollection makeVideoCompositionWithFrameSize:CGSizeMake(600, 600)];
     
     [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
+    
+    self.playerView.renderingStats = videoComposition;
 }
 
 -(void) playerStateDidChanged:(PlayerView *)playerView
