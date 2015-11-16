@@ -23,6 +23,12 @@
 		1139D6D51BEA085000532BAE /* SegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139D6D41BEA085000532BAE /* SegmentView.m */; };
 		1139D6D81BEA4C8200532BAE /* TransitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139D6D71BEA4C8200532BAE /* TransitionView.m */; };
 		1139D6DB1BEBB14D00532BAE /* TimePionter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1139D6DA1BEBB14D00532BAE /* TimePionter.m */; };
+		1139D6E11BF62C2300532BAE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1139D6E01BF62C2300532BAE /* AVFoundation.framework */; };
+		1139D6E31BF62C3100532BAE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1139D6E21BF62C3100532BAE /* Photos.framework */; };
+		1139D6E51BF62C3D00532BAE /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1139D6E41BF62C3D00532BAE /* CoreImage.framework */; };
+		1139D6E71BF62C5800532BAE /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1139D6E61BF62C5800532BAE /* OpenGLES.framework */; };
+		1139D6E91BF62FD100532BAE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1139D6E81BF62FD100532BAE /* UIKit.framework */; };
+		1139D6EB1BF62FFD00532BAE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1139D6EA1BF62FFD00532BAE /* QuartzCore.framework */; };
 		114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421351BB3F1DC006722BD /* VSegmentsCollection.m */; };
 		114421391BB51409006722BD /* VCompositionInstruction.m in Sources */ = {isa = PBXBuildFile; fileRef = 114421381BB51409006722BD /* VCompositionInstruction.m */; };
 		1157DDE71BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1157DDE61BA073EC00A8D4CB /* ImageSelectorCollectionViewCell.m */; };
@@ -55,6 +61,7 @@
 		11B4AE171B95B86100DB43AD /* BaseImageSelectDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE161B95B86100DB43AD /* BaseImageSelectDataSource.m */; };
 		11B4AE1E1B95E14200DB43AD /* ImageSelectDZNDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */; };
 		11B596EA1BB186D000CF7253 /* CollageCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B596E91BB186D000CF7253 /* CollageCreationViewController.m */; };
+		11BB65C91BFA0D0B0048B3B7 /* CIImage+Convenience.m in Sources */ = {isa = PBXBuildFile; fileRef = 11BB65C81BFA0D0B0048B3B7 /* CIImage+Convenience.m */; };
 		11D70F431BB27EC60091723A /* Step5.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F421BB27EC60091723A /* Step5.m */; };
 		11D70F471BB281BF0091723A /* TransitionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F461BB281BF0091723A /* TransitionFilter.m */; };
 		11D70F501BB28C7A0091723A /* VAssetSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F4F1BB28C7A0091723A /* VAssetSegment.m */; };
@@ -166,6 +173,12 @@
 		1139D6D71BEA4C8200532BAE /* TransitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionView.m; sourceTree = "<group>"; };
 		1139D6D91BEBB14D00532BAE /* TimePionter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimePionter.h; sourceTree = "<group>"; };
 		1139D6DA1BEBB14D00532BAE /* TimePionter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimePionter.m; sourceTree = "<group>"; };
+		1139D6E01BF62C2300532BAE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1139D6E21BF62C3100532BAE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		1139D6E41BF62C3D00532BAE /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		1139D6E61BF62C5800532BAE /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		1139D6E81BF62FD100532BAE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1139D6EA1BF62FFD00532BAE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		114421341BB3F1DC006722BD /* VSegmentsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VSegmentsCollection.h; sourceTree = "<group>"; };
 		114421351BB3F1DC006722BD /* VSegmentsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VSegmentsCollection.m; sourceTree = "<group>"; };
 		114421371BB51409006722BD /* VCompositionInstruction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCompositionInstruction.h; sourceTree = "<group>"; };
@@ -229,6 +242,9 @@
 		11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageSelectDZNDataSource.m; sourceTree = "<group>"; };
 		11B596E81BB186D000CF7253 /* CollageCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollageCreationViewController.h; sourceTree = "<group>"; };
 		11B596E91BB186D000CF7253 /* CollageCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollageCreationViewController.m; sourceTree = "<group>"; };
+		11BB65BF1BF9C5350048B3B7 /* VRenderingStats.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VRenderingStats.h; sourceTree = "<group>"; };
+		11BB65C71BFA0D0B0048B3B7 /* CIImage+Convenience.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CIImage+Convenience.h"; sourceTree = "<group>"; };
+		11BB65C81BFA0D0B0048B3B7 /* CIImage+Convenience.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CIImage+Convenience.m"; sourceTree = "<group>"; };
 		11D70F411BB27EC60091723A /* Step5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Step5.h; sourceTree = "<group>"; };
 		11D70F421BB27EC60091723A /* Step5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Step5.m; sourceTree = "<group>"; };
 		11D70F451BB281BF0091723A /* TransitionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionFilter.h; sourceTree = "<group>"; };
@@ -367,6 +383,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1139D6E11BF62C2300532BAE /* AVFoundation.framework in Frameworks */,
+				1139D6E51BF62C3D00532BAE /* CoreImage.framework in Frameworks */,
+				1139D6E71BF62C5800532BAE /* OpenGLES.framework in Frameworks */,
+				1139D6E31BF62C3100532BAE /* Photos.framework in Frameworks */,
+				1139D6E91BF62FD100532BAE /* UIKit.framework in Frameworks */,
+				1139D6EB1BF62FFD00532BAE /* QuartzCore.framework in Frameworks */,
 				FB3ACDA7BE4B896EFFA0C234 /* libPods.a in Frameworks */,
 				AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */,
 				AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */,
@@ -386,6 +408,12 @@
 		001EE5003AB58BC390DCC64B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1139D6EA1BF62FFD00532BAE /* QuartzCore.framework */,
+				1139D6E81BF62FD100532BAE /* UIKit.framework */,
+				1139D6E01BF62C2300532BAE /* AVFoundation.framework */,
+				1139D6E61BF62C5800532BAE /* OpenGLES.framework */,
+				1139D6E41BF62C3D00532BAE /* CoreImage.framework */,
+				1139D6E21BF62C3100532BAE /* Photos.framework */,
 				AAB4B1801B98896C00403713 /* Fabric.framework */,
 				AAB4B1811B98896C00403713 /* Crashlytics.framework */,
 				CC6148C19E5C1D05E669F93A /* libPods.a */,
@@ -586,6 +614,15 @@
 			name = ImageSelectDataSources;
 			sourceTree = "<group>";
 		};
+		11BB65C01BFA08F60048B3B7 /* CIImage+Convenience */ = {
+			isa = PBXGroup;
+			children = (
+				11BB65C71BFA0D0B0048B3B7 /* CIImage+Convenience.h */,
+				11BB65C81BFA0D0B0048B3B7 /* CIImage+Convenience.m */,
+			);
+			name = "CIImage+Convenience";
+			sourceTree = "<group>";
+		};
 		11CCBEA41BD8A24A0023A3FF /* VTransition */ = {
 			isa = PBXGroup;
 			children = (
@@ -656,11 +693,13 @@
 		11D70F441BB281AE0091723A /* VideoComposition */ = {
 			isa = PBXGroup;
 			children = (
+				11BB65C01BFA08F60048B3B7 /* CIImage+Convenience */,
 				11194A691BD6808C00B0721D /* VFrameProvider */,
 				111D84D31BD20EBC00912E91 /* VCollage */,
 				11194A6A1BD680A500B0721D /* VEffect */,
 				11CCBEA41BD8A24A0023A3FF /* VTransition */,
 				11A27B3B1BB9644D00F06685 /* DebugView */,
+				11BB65BF1BF9C5350048B3B7 /* VRenderingStats.h */,
 				11D70F511BB28D2F0091723A /* VideoComposition.h */,
 				11D70F521BB28D2F0091723A /* VideoComposition.m */,
 				11D70F541BB29CA50091723A /* VideoCompositor.h */,
@@ -1091,6 +1130,7 @@
 				11F43D5F1B84674E00011C2D /* VAsset.m in Sources */,
 				11E571AE1BE0C52D00ADDD1F /* VTransition23CIPageCurlWithShadowTransition.m in Sources */,
 				11EFEE0B1B820BEB00078735 /* DZNPhotoEditorViewController.m in Sources */,
+				11BB65C91BFA0D0B0048B3B7 /* CIImage+Convenience.m in Sources */,
 				11E571841BE0AF0700ADDD1F /* VTransition10CIBarsSwipeTransition.m in Sources */,
 				116BBDD01BBBBA8E00376A5B /* VEAspectFit.m in Sources */,
 				114421361BB3F1DC006722BD /* VSegmentsCollection.m in Sources */,

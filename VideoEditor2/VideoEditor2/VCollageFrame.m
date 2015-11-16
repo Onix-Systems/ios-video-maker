@@ -61,20 +61,22 @@
         collageItem.finalSize = frame.size;
         CIImage* itemImage = [collageItem getFrameForRequest:request];
         
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(frame.origin.x, frame.origin.y);
-        itemImage = [itemImage imageByApplyingTransform:transform];
+        itemImage = [itemImage vShiftX:frame.origin.x shiftY:frame.origin.y];
         
-        result = [itemImage imageByCompositingOverImage:result];
+        result = [itemImage vComposeOverBackground:result];
     }
     
-    if (self.isStatic) {
-        CIContext* context = [CIContext contextWithOptions:nil];
-        CGRect frameRect = CGRectMake(0, 0, request.frameSize.width, request.frameSize.height);
-        
-        CGImageRef renderedImage =  [context createCGImage:result fromRect:frameRect];
-        self.cachedFrameImage = [VStillImage new];
-        self.cachedFrameImage.image = [CIImage imageWithCGImage:renderedImage];
-    }
+//    if (self.isStatic) {
+////        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
+////        CIContext* context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
+//        CIContext* context = [CIContext contextWithOptions:nil];
+//        
+//        CGRect frameRect = CGRectMake(0, 0, request.frameSize.width, request.frameSize.height);
+//        
+//        CGImageRef renderedImage =  [context createCGImage:result fromRect:frameRect];
+//        self.cachedFrameImage = [VStillImage new];
+//        self.cachedFrameImage.image = [CIImage imageWithCGImage:renderedImage];
+//    }
     
     return result;
 }

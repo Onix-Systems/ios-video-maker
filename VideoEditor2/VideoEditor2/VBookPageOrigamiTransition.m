@@ -62,20 +62,20 @@
     }
     
     CIImage* backgroundImage = [self.content2 getFrameForRequest:request];
-    CIImage* backgroundImage1 = [backgroundImage imageByCroppingToRect:imageFrame1];
-    CIImage* backgroundImage2 = [backgroundImage imageByCroppingToRect:imageFrame2];
+    CIImage* backgroundImage1 = [backgroundImage vCrop:imageFrame1];
+    CIImage* backgroundImage2 = [backgroundImage vCrop:imageFrame2];
     
     double content1Time = [self.content1 getDuration] - [self getContent1AppearanceDuration] + request.time;
     VFrameRequest* content1FrameRequest = [request cloneWithDifferentTimeValue:content1Time];
     
     CIImage* frontImage = [self.content1 getFrameForRequest:content1FrameRequest];
-    CIImage* frontImage1 = [frontImage imageByCroppingToRect:imageFrame1];
-    CIImage* frontImage2 = [frontImage imageByCroppingToRect:imageFrame2];
+    CIImage* frontImage1 = [frontImage vCrop:imageFrame1];
+    CIImage* frontImage2 = [frontImage vCrop:imageFrame2];
     
     CIImage* resultImage = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
     
-    resultImage = [frontImage1 imageByCompositingOverImage:resultImage];
-    resultImage = [backgroundImage2 imageByCompositingOverImage:resultImage];
+    resultImage = [frontImage1 vComposeOverBackground:resultImage];
+    resultImage = [backgroundImage2 vComposeOverBackground:resultImage];
 
     double rotationPercent = request.time / [self getDuration];
     
@@ -93,7 +93,7 @@
         [fadeOutFilter setValue:[NSNumber numberWithDouble:fadeoutPercent*kFadeOutPercent] forKey:@"inputTime"];
         
         frontImage2 = fadeOutFilter.outputImage;
-        frontImage2 = [frontImage2 imageByCroppingToRect:imageFrame2];
+        frontImage2 = [frontImage2 vCrop:imageFrame2];
 
         [filter setValue:frontImage2 forKey:@"inputImage"];
         
@@ -119,7 +119,7 @@
         
         CIImage* rotatedImage = filter.outputImage;
         
-        resultImage = [rotatedImage imageByCompositingOverImage:resultImage];
+        resultImage = [rotatedImage vComposeOverBackground:resultImage];
         
     } else {
         double fadeoutPercent = (1 - rotationPercent) * 2;
@@ -132,7 +132,7 @@
         [fadeOutFilter setValue:[NSNumber numberWithDouble:fadeoutPercent*kFadeOutPercent] forKey:@"inputTime"];
         
         backgroundImage1 = fadeOutFilter.outputImage;
-        backgroundImage1 = [backgroundImage1 imageByCroppingToRect:imageFrame1];
+        backgroundImage1 = [backgroundImage1 vCrop:imageFrame1];
 
         [filter setValue:backgroundImage1 forKey:@"inputImage"];
         
@@ -158,7 +158,7 @@
         
         CIImage* rotatedImage = filter.outputImage;
         
-        resultImage = [rotatedImage imageByCompositingOverImage:resultImage];
+        resultImage = [rotatedImage vComposeOverBackground:resultImage];
 
     }
     

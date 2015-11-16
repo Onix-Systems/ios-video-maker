@@ -57,13 +57,13 @@
     [fadeOutFilter setValue:[NSNumber numberWithDouble:foldingPercent*kFadeOutPercent] forKey:@"inputTime"];
     oldImage = fadeOutFilter.outputImage;
     
-    CIImage* oldImage1 = [oldImage imageByCroppingToRect:imageFrame1];
-    CIImage* oldImage2 = [oldImage imageByCroppingToRect:imageFrame2];
-    CIImage* oldImage3 = [oldImage imageByCroppingToRect:imageFrame3];
-    CIImage* oldImage4 = [oldImage imageByCroppingToRect:imageFrame4];
+    CIImage* oldImage1 = [oldImage vCrop:imageFrame1];
+    CIImage* oldImage2 = [oldImage vCrop:imageFrame2];
+    CIImage* oldImage3 = [oldImage vCrop:imageFrame3];
+    CIImage* oldImage4 = [oldImage vCrop:imageFrame4];
     
     CIImage* nextImage = [self.content2 getFrameForRequest:request];
-    nextImage = [nextImage imageByCroppingToRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+    nextImage = [nextImage vCrop:CGRectMake(0, 0, imageSize.width, imageSize.height)];
     
     CIFilter* filter1 = [CIFilter filterWithName:@"CIPerspectiveTransform"];
     [filter1 setDefaults];
@@ -114,14 +114,14 @@
     
     CIImage* resultImage = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
 
-    nextImage = [nextImage imageByApplyingTransform:CGAffineTransformMakeTranslation(-1*imageSize.width + newImageWidth, 0)];
+    nextImage = [nextImage vShiftX:-1*imageSize.width + newImageWidth shiftY:0];
     
-    resultImage = [nextImage imageByCompositingOverImage:resultImage];
+    resultImage = [nextImage vComposeOverBackground:resultImage];
     
-    resultImage = [oldImage1 imageByCompositingOverImage:resultImage];
-    resultImage = [oldImage2 imageByCompositingOverImage:resultImage];
-    resultImage = [oldImage3 imageByCompositingOverImage:resultImage];
-    resultImage = [oldImage4 imageByCompositingOverImage:resultImage];
+    resultImage = [oldImage1 vComposeOverBackground:resultImage];
+    resultImage = [oldImage2 vComposeOverBackground:resultImage];
+    resultImage = [oldImage3 vComposeOverBackground:resultImage];
+    resultImage = [oldImage4 vComposeOverBackground:resultImage];
     
     
     return resultImage;

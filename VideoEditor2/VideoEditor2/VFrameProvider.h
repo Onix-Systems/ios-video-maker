@@ -14,6 +14,8 @@
 #import "VideoComposition.h"
 #import "VCompositionInstruction.h"
 
+#import "CIImage+Convenience.h"
+
 @interface VFrameProvider : NSObject
 
 @property double transitionDurationFront;

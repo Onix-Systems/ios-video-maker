@@ -66,7 +66,7 @@
     CIImage* oldImage = [self.content1 getFrameForRequest:content1FrameRequest];
 
     CIImage* nextImage = [self.content2 getFrameForRequest:request];
-    CIImage* resultImage = [nextImage imageByCroppingToRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+    CIImage* resultImage = [nextImage vCrop:CGRectMake(0, 0, imageSize.width, imageSize.height)];
     
     double movingPercent = request.time / [self getDuration];
 
@@ -95,10 +95,10 @@
     
     if(self.movingDirection == kMovingUp) {
         
-        partOfOldImage = [oldImage imageByCroppingToRect:CGRectMake(0, (imageSize.height/self.numberOfRotations)*roundNumber, imageSize.width, imageSize.height)];
+        partOfOldImage = [oldImage vCrop:CGRectMake(0, (imageSize.height/self.numberOfRotations)*roundNumber, imageSize.width, imageSize.height)];
         
         CGRect rotatingPartRect = CGRectMake(0, (rotatingPartNumber - 1)*rotatingPartHeight, imageSize.width, rotatingPartHeight);
-        rotatingPart = [rotatingPart imageByCroppingToRect:rotatingPartRect];
+        rotatingPart = [rotatingPart vCrop:rotatingPartRect];
         
         CIFilter* filter = [CIFilter filterWithName:@"CIPerspectiveTransform"];
         [filter setDefaults];
@@ -116,7 +116,7 @@
                 [filter setValue:[CIVector vectorWithX:imageSize.width+sizeIncrease Y:topY - (1-rotationPhasePercent)*rotatingPartHeight] forKey:@"inputBottomRight"];
                 rotatingPart = filter.outputImage;
                 
-                rotatingPart = [rotatingPart imageByCroppingToRect:CGRectMake(0, 0, imageSize.width, topY)];
+                rotatingPart = [rotatingPart vCrop:CGRectMake(0, 0, imageSize.width, topY)];
                 
             } else {
                 [filter setValue:[CIVector vectorWithX:0-sizeIncrease Y:topY - (1-rotationPhasePercent)*rotatingPartHeight] forKey:@"inputTopLeft"];
@@ -126,7 +126,7 @@
                 [filter setValue:[CIVector vectorWithX:imageSize.width Y:topY] forKey:@"inputBottomRight"];
                 rotatingPart = filter.outputImage;
                 
-                rotatingPart = [rotatingPart imageByCroppingToRect:CGRectMake(0, 0, imageSize.width, topY)];
+                rotatingPart = [rotatingPart vCrop:CGRectMake(0, 0, imageSize.width, topY)];
                 
             }
         } else {
@@ -143,23 +143,11 @@
             
         }
         
-
-        
-//    } else if(self.movingDirection == kMovingDown) {
-//        partOfOldImage = [oldImage imageByCroppingToRect:CGRectMake(0, 0, imageSize.width, imageSize.height - ((imageSize.height / self.numberOfRotations) * roundNumber))];
-//        
-//        rotatingPart = [oldImage imageByCroppingToRect:CGRectMake(0, imageSize.height - (rotatingPartNumber*rotatingPartHeight), imageSize.width, rotatingPartHeight)];
-//        
-//    } else if (self.movingDirection == kMovingLeft) {
-//        partOfOldImage = [oldImage imageByCroppingToRect:CGRectMake((imageSize.width/self.numberOfRotations)*roundNumber, 0, imageSize.width, imageSize.height)];
-//
-//        rotatingPart = [oldImage imageByCroppingToRect:CGRectMake((rotatingPartNumber - 1)*rotatingPartWidth, 0, rotatingPartWidth, imageSize.height)];
-//
     } else if (self.movingDirection == kMovingRight) {
-        partOfOldImage = [oldImage imageByCroppingToRect:CGRectMake(0, 0, imageSize.width - (imageSize.width/self.numberOfRotations)*roundNumber, imageSize.height)];
+        partOfOldImage = [oldImage vCrop:CGRectMake(0, 0, imageSize.width - (imageSize.width/self.numberOfRotations)*roundNumber, imageSize.height)];
         
         CGRect rotatingPartRect = CGRectMake(imageSize.width - (rotatingPartNumber)*rotatingPartWidth, 0, rotatingPartWidth, imageSize.height);
-        rotatingPart = [rotatingPart imageByCroppingToRect:rotatingPartRect];
+        rotatingPart = [rotatingPart vCrop:rotatingPartRect];
         
         CIFilter* filter = [CIFilter filterWithName:@"CIPerspectiveTransform"];
         [filter setDefaults];
@@ -198,10 +186,9 @@
         rotatingPart = filter.outputImage;
     }
     
-    resultImage = [partOfOldImage imageByCompositingOverImage:resultImage];
+    resultImage = [partOfOldImage vComposeOverBackground:resultImage];
     
-    
-    resultImage = [rotatingPart imageByCompositingOverImage:resultImage];
+    resultImage = [rotatingPart vComposeOverBackground:resultImage];
     
     return resultImage;
 }

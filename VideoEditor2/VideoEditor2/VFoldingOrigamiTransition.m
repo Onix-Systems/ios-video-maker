@@ -74,11 +74,11 @@
     [fadeOutFilter setValue:[NSNumber numberWithDouble:foldingPercent*kFadeOutPercent] forKey:@"inputTime"];
     oldImage = fadeOutFilter.outputImage;
     
-    CIImage* oldImage1 = [oldImage imageByCroppingToRect:imageFrame1];
-    CIImage* oldImage2 = [oldImage imageByCroppingToRect:imageFrame2];
+    CIImage* oldImage1 = [oldImage vCrop:imageFrame1];
+    CIImage* oldImage2 = [oldImage vCrop:imageFrame2];
 
     CIImage* nextImage = [self.content2 getFrameForRequest:request];
-    nextImage = [nextImage imageByCroppingToRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];
+    nextImage = [nextImage vCrop:CGRectMake(0, 0, imageSize.width, imageSize.height)];
     
     CIFilter* filter1 = [CIFilter filterWithName:@"CIPerspectiveTransform"];
     [filter1 setDefaults];
@@ -107,7 +107,7 @@
         [filter1 setValue:[CIVector vectorWithX:imageSize.width Y:(imageSize.height - oldImageFoldedHight)] forKey:@"inputBottomRight"];
         
         nextImage2 = nil;
-        nextImage1 = [nextImage imageByApplyingTransform:CGAffineTransformMakeTranslation(0, (-1 * imageSize.height) + (imageSize.height - oldImageFoldedHight))];
+        nextImage1 = [nextImage vShiftX:0 shiftY:(-1 * imageSize.height) + (imageSize.height - oldImageFoldedHight)];
         
     } else if (self.foldingMovementDirection == kFoldingMovementDirectionNone) {
         [filter2 setValue:[CIVector vectorWithX:0 Y:(imageSize.height/2 + oldImageFoldedHight/2)] forKey:@"inputTopLeft"];
@@ -120,11 +120,11 @@
         [filter1 setValue:[CIVector vectorWithX:0 Y:(imageSize.height/2 - oldImageFoldedHight/2)] forKey:@"inputBottomLeft"];
         [filter1 setValue:[CIVector vectorWithX:imageSize.width Y:(imageSize.height/2 - oldImageFoldedHight/2)] forKey:@"inputBottomRight"];
 
-        nextImage2 = [nextImage imageByCroppingToRect:imageFrame2];
-        nextImage1 = [nextImage imageByCroppingToRect:imageFrame1];
+        nextImage2 = [nextImage vCrop:imageFrame2];
+        nextImage1 = [nextImage vCrop:imageFrame1];
 
-        nextImage2 = [nextImage2 imageByApplyingTransform:CGAffineTransformMakeTranslation(0, (+1 * imageSize.height/2) - (imageSize.height - oldImageFoldedHight)/2)];
-        nextImage1 = [nextImage1 imageByApplyingTransform:CGAffineTransformMakeTranslation(0, (-1 * imageSize.height/2) + (imageSize.height - oldImageFoldedHight)/2)];
+        nextImage2 = [nextImage2 vShiftX:0 shiftY:(+1 * imageSize.height/2) - (imageSize.height - oldImageFoldedHight)/2];
+        nextImage1 = [nextImage1 vShiftX:0 shiftY:(-1 * imageSize.height/2) + (imageSize.height - oldImageFoldedHight)/2];
 
     } else {
         // kFoldingMovementDirectionBottom
@@ -139,7 +139,7 @@
         [filter1 setValue:[CIVector vectorWithX:0 Y:0] forKey:@"inputBottomLeft"];
         [filter1 setValue:[CIVector vectorWithX:imageSize.width Y:0] forKey:@"inputBottomRight"];
         
-        nextImage2 = [nextImage imageByApplyingTransform:CGAffineTransformMakeTranslation(0, (+1 * imageSize.height) - (imageSize.height - oldImageFoldedHight))];
+        nextImage2 = [nextImage vShiftX:0 shiftY:(+1 * imageSize.height) - (imageSize.height - oldImageFoldedHight)];
         nextImage1 = nil;
     }
     
@@ -148,13 +148,13 @@
     
     CIImage* resultImage = [CIImage imageWithColor:[CIColor colorWithRed:0x00 green:0x00 blue:0x00]];
     
-    resultImage = [oldImage1 imageByCompositingOverImage:resultImage];
-    resultImage = [oldImage2 imageByCompositingOverImage:resultImage];
+    resultImage = [oldImage1 vComposeOverBackground:resultImage];
+    resultImage = [oldImage2 vComposeOverBackground:resultImage];
     if (nextImage1 != nil) {
-        resultImage = [nextImage1 imageByCompositingOverImage:resultImage];
+        resultImage = [nextImage1 vComposeOverBackground:resultImage];
     }
     if (nextImage2 != nil) {
-        resultImage = [nextImage2 imageByCompositingOverImage:resultImage];
+        resultImage = [nextImage2 vComposeOverBackground:resultImage];
     }
 
     
