@@ -110,7 +110,8 @@
             return;
         }
         
-        [self getPreviewImageForSize:PHImageManagerMaximumSize withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+//        [self getPreviewImageForSize:PHImageManagerMaximumSize withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+        [self getPreviewImageForSize:CGSizeMake(1024, 768) withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
             if (requestFinished) {
                 self.downloadedImage = resultImage;
             }
