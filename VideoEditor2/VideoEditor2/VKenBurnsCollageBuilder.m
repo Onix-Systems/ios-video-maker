@@ -22,4 +22,10 @@
     return itemEffect;
 }
 
+
+-(BOOL)isCollageStatic
+{
+    return NO;
+}
+
 @end

@@ -12,7 +12,7 @@
 @interface CIImage (Convenience)
 
 -(CIImage*) vCrop: (CGRect)rect;
--(CIImage*) vScaleX: (CGFloat)x scaleY: (CGFloat)y;
+-(CIImage*) vScale: (CGFloat)scale;
 -(CIImage*) vShiftX: (CGFloat)x shiftY: (CGFloat)y;
 -(CIImage*) vComposeOverBackground: (CIImage*) background;
 

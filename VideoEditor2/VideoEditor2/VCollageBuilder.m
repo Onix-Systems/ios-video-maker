@@ -91,7 +91,7 @@
 
 -(BOOL)isCollageStatic
 {
-    return NO;
+    return YES;
 }
 
 @end

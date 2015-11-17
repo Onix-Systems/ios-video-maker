@@ -694,14 +694,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmK-8B-rWa">
-                                <rect key="frame" x="104" y="72" width="392" height="392"/>
-                                <animations/>
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="kmK-8B-rWa" secondAttribute="height" multiplier="1:1" id="1nG-rW-RQD"/>
-                                </constraints>
-                            </view>
                             <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ngp-Ka-CBu">
                                 <rect key="frame" x="0.0" y="20" width="600" height="44"/>
                                 <animations/>
@@ -807,17 +799,28 @@
                                     <constraint firstItem="tNj-GQ-Kma" firstAttribute="centerX" secondItem="gi6-jC-P1w" secondAttribute="centerX" id="wmH-QA-RpG"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmK-8B-rWa">
+                                <rect key="frame" x="116" y="84" width="368" height="368"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="kmK-8B-rWa" secondAttribute="height" multiplier="1:1" id="1nG-rW-RQD"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Qc0-Co-cR5" firstAttribute="leading" secondItem="7Vc-NI-vSa" secondAttribute="leadingMargin" id="0Vy-ug-Fyc"/>
-                            <constraint firstItem="kmK-8B-rWa" firstAttribute="top" secondItem="ngp-Ka-CBu" secondAttribute="bottom" constant="8" id="Ap7-28-C3p"/>
+                            <constraint firstItem="kmK-8B-rWa" firstAttribute="top" secondItem="ngp-Ka-CBu" secondAttribute="bottom" constant="20" id="Ap7-28-C3p"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="kmK-8B-rWa" secondAttribute="trailing" constant="8" id="D79-5a-4rZ"/>
                             <constraint firstItem="Qc0-Co-cR5" firstAttribute="trailing" secondItem="7Vc-NI-vSa" secondAttribute="trailingMargin" id="DRi-lA-Ifr"/>
                             <constraint firstItem="ngp-Ka-CBu" firstAttribute="width" secondItem="7Vc-NI-vSa" secondAttribute="width" id="Zpf-vb-WkA"/>
-                            <constraint firstItem="p1z-i3-AQm" firstAttribute="top" secondItem="Qc0-Co-cR5" secondAttribute="bottom" constant="8" id="aUQ-Pg-XL5"/>
-                            <constraint firstItem="Qc0-Co-cR5" firstAttribute="top" secondItem="kmK-8B-rWa" secondAttribute="bottom" constant="8" id="lQu-63-Gzd"/>
+                            <constraint firstItem="p1z-i3-AQm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Qc0-Co-cR5" secondAttribute="bottom" constant="8" id="aUQ-Pg-XL5"/>
+                            <constraint firstItem="Qc0-Co-cR5" firstAttribute="top" secondItem="kmK-8B-rWa" secondAttribute="bottom" constant="20" id="lQu-63-Gzd"/>
+                            <constraint firstItem="kmK-8B-rWa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7Vc-NI-vSa" secondAttribute="leadingMargin" constant="8" id="ocD-XG-pBB"/>
                             <constraint firstItem="ngp-Ka-CBu" firstAttribute="top" secondItem="5az-gr-Uc0" secondAttribute="bottom" id="qWn-GJ-65I"/>
+                            <constraint firstItem="kmK-8B-rWa" firstAttribute="height" secondItem="7Vc-NI-vSa" secondAttribute="height" priority="999" id="t18-Mj-roD"/>
                             <constraint firstItem="kmK-8B-rWa" firstAttribute="centerX" secondItem="7Vc-NI-vSa" secondAttribute="centerX" id="vfh-hy-OuU"/>
                             <constraint firstItem="ngp-Ka-CBu" firstAttribute="centerX" secondItem="7Vc-NI-vSa" secondAttribute="centerX" id="wW4-Mu-N74"/>
                         </constraints>

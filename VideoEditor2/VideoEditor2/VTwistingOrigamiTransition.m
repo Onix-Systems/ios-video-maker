@@ -8,7 +8,7 @@
 
 #import "VTwistingOrigamiTransition.h"
 
-#define kTotalTransitionDutation 0.9
+#define kTotalTransitionDutation 0.7
 #define kSizeIncrease 0.20
 #define kFadeOutPercent 1.05
 

@@ -57,8 +57,10 @@
 
 -(void)setFinalSize:(CGSize)finalSize
 {
-    _finalSize = finalSize;
-    [self clearCache];
+    if ((_finalSize.width != finalSize.width) && (_finalSize.height != finalSize.height)) {
+        _finalSize = finalSize;
+        [self clearCache];
+    }
 }
 
 -(VFrameProvider*)cachedFrameProvider

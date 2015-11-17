@@ -19,4 +19,9 @@
     return layout;
 }
 
+-(BOOL)isCollageStatic
+{
+    return NO;
+}
+
 @end

@@ -78,7 +78,7 @@
     
     CIImage* image = [self.frameProvider getFrameForRequest:request];
     
-    image = [image vScaleX:self.currentScale scaleY:self.currentScale];
+    image = [image vScale:self.currentScale];
     image = [image vShiftX:self.currentX shiftY:self.currentY];
     image = [image vCrop:CGRectMake(0, 0, self.finalSize.width, self.finalSize.height)];
     

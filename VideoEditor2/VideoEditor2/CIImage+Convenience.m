@@ -26,19 +26,18 @@
     }
 }
 
--(CIImage*) vScaleX: (CGFloat)x scaleY: (CGFloat)y
+-(CIImage*) vScale: (CGFloat)scale
 {
-    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(x, y);
-    
+    CGAffineTransform scaleTransform = CGAffineTransformMakeScale(scale, scale);
     if (useFilters) {
         CIFilter* filter = [CIFilter filterWithName:@"CIAffineTransform"];
         [filter setDefaults];
         [filter setValue:self forKey:@"inputImage"];
         [filter setValue:[NSValue valueWithBytes:&scaleTransform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
         return filter.outputImage;
-        
 
     } else {
+        
         return [self imageByApplyingTransform:scaleTransform];
     }
 }
@@ -77,9 +76,9 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-//        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
-//        context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
-        context = [CIContext contextWithOptions:nil];
+        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
+        context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
+//        context = [CIContext contextWithOptions:nil];
     });
     
     return context;
