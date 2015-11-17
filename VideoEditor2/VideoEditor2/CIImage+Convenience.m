@@ -7,6 +7,7 @@
 //
 
 #import "CIImage+Convenience.h"
+#import <UIKit/UIKit.h>
 
 #define useFilters YES
 
@@ -68,6 +69,32 @@
     } else {
         return [self imageByCompositingOverImage:background];
     }
+}
+
++(CIContext*) getCacheRenderingContext
+{
+    static CIContext *context = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+//        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
+//        context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
+        context = [CIContext contextWithOptions:nil];
+    });
+    
+    return context;
+    
+}
+
+-(CIImage*) renderRectForChaching:(CGRect)rect
+{
+    CIContext *context = [CIImage getCacheRenderingContext];
+    
+    CGImageRef renderedCGImage =  [context createCGImage:self fromRect:rect];
+    UIImage* renderedUIImage = [UIImage imageWithCGImage:renderedCGImage];
+    CIImage* renderedCIImage = [CIImage imageWithData: UIImageJPEGRepresentation(renderedUIImage, 0.7)];
+
+    return renderedCIImage;
 }
 
 @end

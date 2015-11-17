@@ -12,6 +12,15 @@
 
 @implementation VStillImage
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.isStatic = YES;
+    }
+    return self;
+}
+
 -(CGSize) getOriginalSize
 {
     return self.imageSize;

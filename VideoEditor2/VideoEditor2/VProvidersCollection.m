@@ -27,6 +27,7 @@
     if (self) {
         self.contentItems = [NSMutableArray new];
         self.timing = [NSMutableArray new];
+        self.isStatic = NO;
     }
     return self;
 }

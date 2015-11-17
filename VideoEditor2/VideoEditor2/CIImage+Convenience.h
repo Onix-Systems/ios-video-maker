@@ -16,4 +16,7 @@
 -(CIImage*) vShiftX: (CGFloat)x shiftY: (CGFloat)y;
 -(CIImage*) vComposeOverBackground: (CIImage*) background;
 
+
+-(CIImage*) renderRectForChaching:(CGRect)rect;
+
 @end

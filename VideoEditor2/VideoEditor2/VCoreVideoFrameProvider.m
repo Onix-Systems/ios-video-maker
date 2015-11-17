@@ -30,6 +30,7 @@
         self.image = nil;
         self.pixelBuffer = nil;
         self.activeTrackNo = -1;
+        self.isStatic = NO;
     }
     return self;
 }

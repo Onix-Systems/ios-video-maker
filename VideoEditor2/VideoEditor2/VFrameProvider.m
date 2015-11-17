@@ -10,6 +10,15 @@
 
 @implementation VFrameProvider
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.isStatic = NO;
+    }
+    return self;
+}
+
 -(CGSize)getOriginalSize
 {
     return CGSizeZero;
@@ -30,15 +39,9 @@
     return nil;
 }
 
-
 -(void)reqisterIntoVideoComposition:(VideoComposition *)videoComposition withInstruction:(VCompositionInstruction *)instruction withFinalSize:(CGSize)finalSize
 {
     
-}
-
--(NSString*)getClassName
-{
-    return NSStringFromClass([self class]);
 }
 
 @end

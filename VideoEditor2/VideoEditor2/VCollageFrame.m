@@ -66,17 +66,10 @@
         result = [itemImage vComposeOverBackground:result];
     }
     
-//    if (self.isStatic) {
-////        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
-////        CIContext* context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
-//        CIContext* context = [CIContext contextWithOptions:nil];
-//        
-//        CGRect frameRect = CGRectMake(0, 0, request.frameSize.width, request.frameSize.height);
-//        
-//        CGImageRef renderedImage =  [context createCGImage:result fromRect:frameRect];
-//        self.cachedFrameImage = [VStillImage new];
-//        self.cachedFrameImage.image = [CIImage imageWithCGImage:renderedImage];
-//    }
+    if ([self isStatic]) {
+        self.cachedFrameImage = [VStillImage new];
+        self.cachedFrameImage.image = [result renderRectForChaching: CGRectMake(0, 0, request.frameSize.width, request.frameSize.height)];
+    }
     
     return result;
 }

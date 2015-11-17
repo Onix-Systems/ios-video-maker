@@ -18,8 +18,9 @@
 
 @interface VFrameProvider : NSObject
 
-@property double transitionDurationFront;
-@property double transitionDurationRear;
+@property (nonatomic) double transitionDurationFront;
+@property (nonatomic) double transitionDurationRear;
+@property (nonatomic) BOOL isStatic;
 
 -(CGSize) getOriginalSize;
 -(double) getDuration;
@@ -28,7 +29,5 @@
 -(CIImage*) getFrameForRequest: (VFrameRequest*) request;
 
 -(void)reqisterIntoVideoComposition:(VideoComposition*)videoComposition withInstruction:(VCompositionInstruction*)instruction withFinalSize:(CGSize)finalSize;
-
--(NSString*)getClassName;
 
 @end

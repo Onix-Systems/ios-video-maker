@@ -42,6 +42,10 @@
             collageItem.finalSize = itemStillFrame.size;
             
             [frameItems addObject:collageItem];
+            
+            if (![collageItem isStatic]) {
+                frame.isStatic = NO;
+            }
         }
         frame.collageItems = frameItems;
         
