@@ -40,10 +40,17 @@
     if (self.cachedResult != nil) {
         return self.cachedResult;
     }
-        
-    CIImage* originalFrame = [self.frameProvider getFrameForRequest:request];
     
     CGSize originalSize = [self.frameProvider getOriginalSize];
+    CIImage* originalFrame = [self.frameProvider getFrameForRequest:request];
+    
+    if ((originalSize.width == self.finalSize.width) && (originalSize.height <= self.finalSize.height)) {
+        return originalFrame;
+    }
+    if ((originalSize.width <= self.finalSize.width) && (originalSize.height == self.finalSize.height)) {
+        return originalFrame;
+    }
+
     
     CGFloat yScale = originalSize.height / self.finalSize.height;
     CGFloat xScale = originalSize.width / self.finalSize.width;
