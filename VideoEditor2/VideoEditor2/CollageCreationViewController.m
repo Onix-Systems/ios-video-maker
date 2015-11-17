@@ -21,7 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *switchForSlidingPanels;
 @property (weak, nonatomic) IBOutlet UIImageView *switchForOrigami;
 
-
 @property (strong, nonatomic) VAssetCollage* assetCollage;
 @property (strong, nonatomic) AssetsCollection* assetsCollection;
 @property (strong, nonatomic) VSegmentsCollection* segmentsCollection;
@@ -34,24 +33,26 @@
 
 -(void) setupCollageWithAssets:(AssetsCollection *)assetsCollection andLayout: (CollageLayout*)collageLayout
 {
-    VAssetCollage* assetCollage = [VAssetCollage new];
-    assetCollage.finalSize = CGSizeMake(600, 600);
-    assetCollage.assetsCollection = assetsCollection;
-    assetCollage.collageLayout = collageLayout;
-    assetCollage.collageEffect = kCollageEffectNone;
-    
-    if (self.assetCollage != nil) {
-        assetCollage.collageEffect = self.assetCollage.collageEffect;
-    }
-    self.assetCollage = assetCollage;
-    
-    self.assetsCollection = [AssetsCollection new];
-    [self.assetsCollection addAsset:self.assetCollage];
-    
-    self.segmentsCollection = [VSegmentsCollection new];
-    self.segmentsCollection.assetsCollection = self.assetsCollection;
-    
-    [self showUpdatedCollagePreview];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        VAssetCollage* assetCollage = [VAssetCollage new];
+        assetCollage.finalSize = CGSizeMake(600, 600);
+        assetCollage.assetsCollection = assetsCollection;
+        assetCollage.collageLayout = collageLayout;
+        assetCollage.collageEffect = kCollageEffectNone;
+        
+        if (self.assetCollage != nil) {
+            assetCollage.collageEffect = self.assetCollage.collageEffect;
+        }
+        self.assetCollage = assetCollage;
+        
+        self.assetsCollection = [AssetsCollection new];
+        [self.assetsCollection addAsset:self.assetCollage];
+        
+        self.segmentsCollection = [VSegmentsCollection new];
+        self.segmentsCollection.assetsCollection = self.assetsCollection;
+
+        [self showUpdatedCollagePreview];
+    });
 }
 
 -(void) updateSwitches
@@ -82,6 +83,10 @@
 
 - (void)selectEffect:(NSString *)collageEffect
 {
+    if (self.playerView != nil) {
+        [self.playerView pause];
+    }
+    
     if (self.assetCollage != nil) {
         if (self.assetCollage.collageEffect == collageEffect) {
             self.assetCollage.collageEffect = @"";
@@ -89,10 +94,13 @@
             self.assetCollage.collageEffect = collageEffect;
         }
     }
-    [self.segmentsCollection resetSegmentsState];
-    [self showUpdatedCollagePreview];
-    
     [self updateSwitches];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.segmentsCollection resetSegmentsState];
+        [self showUpdatedCollagePreview];
+    });
+
 }
 
 - (IBAction)switch1ThouchUp:(id)sender {
@@ -110,7 +118,10 @@
     
     [self updateSwitches];
     
-    [self showUpdatedCollagePreview];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self showUpdatedCollagePreview];
+    });
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -125,22 +136,24 @@
     if (self.collageLayoutViewConainer == nil || self.segmentsCollection == nil) {
         return;
     }
-    
-    if (self.playerView == nil) {
-        self.playerView = [PlayerView new];
-        self.playerView.autoRewind = YES;
-        self.playerView.delegate = self;
-        
-        self.playerView.frame = self.collageLayoutViewConainer.bounds;
-        
-        [self.collageLayoutViewConainer addSubview:self.playerView];
-    }
 
-    VideoComposition* videoComposition = [self.segmentsCollection makeVideoCompositionWithFrameSize:CGSizeMake(600, 600)];
+    VideoComposition* videoComposition = [self.segmentsCollection makeVideoCompositionWithFrameSize:self.collageLayoutViewConainer.bounds.size];
     
-    [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
-    
-    self.playerView.renderingStats = videoComposition;
+    if (self.segmentsCollection != nil) {
+        if (self.playerView == nil) {
+            self.playerView = [PlayerView new];
+            self.playerView.autoRewind = YES;
+            self.playerView.delegate = self;
+            
+            self.playerView.frame = self.collageLayoutViewConainer.bounds;
+            
+            [self.collageLayoutViewConainer addSubview:self.playerView];
+        }
+        
+        [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
+        
+        self.playerView.renderingStats = videoComposition;
+    }
 }
 
 -(void) playerStateDidChanged:(PlayerView *)playerView

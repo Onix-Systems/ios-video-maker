@@ -34,6 +34,12 @@
         [filter setDefaults];
         [filter setValue:self forKey:@"inputImage"];
         [filter setValue:[NSValue valueWithBytes:&scaleTransform objCType:@encode(CGAffineTransform)] forKey:@"inputTransform"];
+        
+//        CIFilter* filter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
+//        [filter setDefaults];
+//        [filter setValue:self forKey:@"inputImage"];
+//        [filter setValue:[NSNumber numberWithDouble:scale] forKey:@"inputScale"];
+        
         return filter.outputImage;
 
     } else {
@@ -76,9 +82,9 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
-        context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
-//        context = [CIContext contextWithOptions:nil];
+//        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
+//        context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
+        context = [CIContext contextWithOptions:nil];
     });
     
     return context;
