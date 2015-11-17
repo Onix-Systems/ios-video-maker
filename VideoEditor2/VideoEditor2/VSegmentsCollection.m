@@ -276,6 +276,7 @@
     for(VAssetSegment* segment in self.segments) {
         [segment resetSegmentState];
     }
+    [self synchronizeTransitions];
 }
 
 
