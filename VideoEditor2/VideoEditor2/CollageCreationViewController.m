@@ -136,8 +136,11 @@
     if (self.collageLayoutViewConainer == nil || self.segmentsCollection == nil) {
         return;
     }
+    
+    
+    CGSize videoCompositionSize = CGSizeMake(600, 600);
 
-    VideoComposition* videoComposition = [self.segmentsCollection makeVideoCompositionWithFrameSize:self.collageLayoutViewConainer.bounds.size];
+    VideoComposition* videoComposition = [self.segmentsCollection makeVideoCompositionWithFrameSize:videoCompositionSize];
     
     if (self.segmentsCollection != nil) {
         if (self.playerView == nil) {
