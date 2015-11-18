@@ -81,7 +81,7 @@
 
 -(VTransition*)makeTransitionBetweenFrame:(VCollageFrame *)frame1 andFrame:(VCollageFrame *)frame2
 {
-    VTransition* transition = [VTransition01Disolve new];
+    VTransition* transition = [VTransition01Dissolve new];
     
     transition.content1 = frame1;
     transition.content2 = frame2;

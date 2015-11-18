@@ -8,6 +8,7 @@
 
 #import "VSlidingPanelsCollageBuilder.h"
 #import "CollageSlidingLayout.h"
+#import "VTransition01Fading.h"
 
 @implementation VSlidingPanelsCollageBuilder
 
@@ -18,6 +19,17 @@
     
     return layout;
 }
+
+-(VTransition*)makeTransitionBetweenFrame:(VCollageFrame *)frame1 andFrame:(VCollageFrame *)frame2
+{
+    VTransition* transition = [VTransition01Fading new];
+    
+    transition.content1 = frame1;
+    transition.content2 = frame2;
+    
+    return transition;
+}
+
 
 -(BOOL)isCollageStatic
 {
