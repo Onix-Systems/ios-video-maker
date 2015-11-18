@@ -55,7 +55,7 @@
     
     CIImage* result = [self.backgroundFrameProvider getFrameForRequest:request];
     
-    NSArray* frames = [self.collageLayout getFramesForFinalSize:request.frameSize andTime:request.time];
+    NSArray* frames = [self.collageLayout getFramesForFinalSize:self.finalSize andTime:request.time];
     
     for (int i = 0; i < frames.count; i++) {
         CGRect frame = [frames[i] CGRectValue];
@@ -70,7 +70,7 @@
     
     if ([self isStatic]) {
         self.cachedFrameImage = [VStillImage new];
-        self.cachedFrameImage.image = [result renderRectForChaching: CGRectMake(0, 0, request.frameSize.width, request.frameSize.height)];
+        self.cachedFrameImage.image = [result renderRectForChaching: CGRectMake(0, 0, self.finalSize.width, self.finalSize.height)];
     }
     
     return result;

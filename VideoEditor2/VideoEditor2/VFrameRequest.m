@@ -44,7 +44,6 @@
     VFrameRequest* newRequestObj = [VFrameRequest new];
     
     newRequestObj.videoCompositionRequest = self.videoCompositionRequest;
-    newRequestObj.frameSize = self.frameSize;
     newRequestObj.time = newTime;
     
     newRequestObj.completionBlocks = self.completionBlocks;

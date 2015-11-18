@@ -15,7 +15,6 @@ typedef void (^VFrameRequestCompletionBlock)(void);
 
 @property (nonatomic) AVAsynchronousVideoCompositionRequest* videoCompositionRequest;
 
-@property (nonatomic) CGSize frameSize;
 @property (nonatomic) double time;
 
 -(void) addCompletionBlock: (VFrameRequestCompletionBlock) completionBlock;

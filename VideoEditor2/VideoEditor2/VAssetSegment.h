@@ -28,7 +28,7 @@
 -(BOOL)isStatic;
 
 -(BOOL) canCropToTimeRange: (CMTimeRange) timeRange;
--(CIImage*) getFrameForTime: (CMTime) time frameSize: (CGSize) frameSize;
+//-(CIImage*) getFrameForTime: (CMTime) time frameSize: (CGSize) frameSize;
 
 -(void) calculateTiming;
 

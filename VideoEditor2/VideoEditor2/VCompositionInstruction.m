@@ -67,7 +67,6 @@
     VFrameRequest* frameRequest = [VFrameRequest new];
     frameRequest.videoCompositionRequest = request;
     frameRequest.time = CMTimeGetSeconds(request.compositionTime) - CMTimeGetSeconds(self.segmentTimeRange.start);
-    frameRequest.frameSize = CGSizeMake(CVPixelBufferGetWidth(newFrameBuffer), CVPixelBufferGetHeight(newFrameBuffer));
     
     CIImage* frameContent = [self.frameProvider getFrameForRequest:frameRequest];
 

@@ -52,16 +52,16 @@
 }
 
 
--(CIImage*) getFrameForTime: (CMTime) time frameSize: (CGSize) frameSize;
-{
-    VFrameRequest* frameRequest = [VFrameRequest new];
-    
-    frameRequest.time = CMTimeGetSeconds(time);
-    frameRequest.frameSize = frameSize;
-    frameRequest.videoCompositionRequest = nil;
-    
-    return [self.assetFrameProvider getFrameForRequest:frameRequest];
-}
+//-(CIImage*) getFrameForTime: (CMTime) time frameSize: (CGSize) frameSize;
+//{
+//    VFrameRequest* frameRequest = [VFrameRequest new];
+//    
+//    frameRequest.time = CMTimeGetSeconds(time);
+//    frameRequest.frameSize = frameSize;
+//    frameRequest.videoCompositionRequest = nil;
+//    
+//    return [self.assetFrameProvider getFrameForRequest:frameRequest];
+//}
 
 -(void) calculateTiming
 {
