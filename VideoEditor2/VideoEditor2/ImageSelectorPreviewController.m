@@ -27,6 +27,8 @@
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
+    
     [self hidePlayerview:YES];
     self.playerView.delegate = self;
 }

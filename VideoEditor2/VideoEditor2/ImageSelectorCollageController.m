@@ -24,6 +24,7 @@
 @implementation ImageSelectorCollageController
 
 -(void) viewDidLoad {
+    [super viewDidLoad];
     
     self.originalBottomSpacing = self.bottomSpacingConstraint.constant;
     
