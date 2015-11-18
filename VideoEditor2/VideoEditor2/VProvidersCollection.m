@@ -112,7 +112,7 @@
 
 -(void)reqisterIntoVideoComposition:(VideoComposition *)videoComposition withInstruction:(VCompositionInstruction *)instruction withFinalSize:(CGSize)finalSize
 {
-    self.finalSize = videoComposition.frameSize;
+    self.finalSize = finalSize;
     
     for (int i = 0; i < self.contentItems.count; i++) {
         [self.contentItems[i] reqisterIntoVideoComposition:videoComposition withInstruction:instruction withFinalSize:finalSize];

@@ -49,7 +49,13 @@
         
         NSMutableArray* renderingQueue = [NSMutableArray new];
         [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue1", DISPATCH_QUEUE_SERIAL)];
-        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue2", DISPATCH_QUEUE_SERIAL)];
+//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue2", DISPATCH_QUEUE_SERIAL)];
+//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue3", DISPATCH_QUEUE_SERIAL)];
+//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue4", DISPATCH_QUEUE_SERIAL)];
+//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue5", DISPATCH_QUEUE_SERIAL)];
+//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue6", DISPATCH_QUEUE_SERIAL)];
+//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue7", DISPATCH_QUEUE_SERIAL)];
+//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue8", DISPATCH_QUEUE_SERIAL)];
         
         self.renderingQueue = renderingQueue;
     }

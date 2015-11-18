@@ -155,7 +155,7 @@
         
         [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
         
-        self.playerView.renderingStats = videoComposition;
+        //self.playerView.renderingStats = videoComposition;
     }
 }
 
