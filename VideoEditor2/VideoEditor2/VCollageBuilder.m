@@ -9,7 +9,7 @@
 #import "VCollageBuilder.h"
 
 #import "VEAspectFill.h"
-#import "VTransition01Fading.h"
+#import "VTransition01Dissolve.h"
 
 @implementation VCollageBuilder
 
@@ -81,7 +81,7 @@
 
 -(VTransition*)makeTransitionBetweenFrame:(VCollageFrame *)frame1 andFrame:(VCollageFrame *)frame2
 {
-    VTransition* transition = [VTransition01Fading new];
+    VTransition* transition = [VTransition01Disolve new];
     
     transition.content1 = frame1;
     transition.content2 = frame2;

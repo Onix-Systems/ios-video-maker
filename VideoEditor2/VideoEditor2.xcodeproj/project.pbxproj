@@ -67,6 +67,7 @@
 		11D70F501BB28C7A0091723A /* VAssetSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F4F1BB28C7A0091723A /* VAssetSegment.m */; };
 		11D70F531BB28D2F0091723A /* VideoComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F521BB28D2F0091723A /* VideoComposition.m */; };
 		11D70F561BB29CA50091723A /* VideoCompositor.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D70F551BB29CA50091723A /* VideoCompositor.m */; };
+		11D915871BFCB90500EF9299 /* VTransition01Dissolve.m in Sources */ = {isa = PBXBuildFile; fileRef = 11D915861BFCB90500EF9299 /* VTransition01Dissolve.m */; };
 		11E265C91BD8C59800FDFAD6 /* VCollageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E265C81BD8C59800FDFAD6 /* VCollageBuilder.m */; };
 		11E265CD1BD8D04000FDFAD6 /* VKenBurnsCollageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E265CC1BD8D04000FDFAD6 /* VKenBurnsCollageBuilder.m */; };
 		11E265D01BD8D13F00FDFAD6 /* VSlidingPanelsCollageBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 11E265CF1BD8D13F00FDFAD6 /* VSlidingPanelsCollageBuilder.m */; };
@@ -255,6 +256,8 @@
 		11D70F521BB28D2F0091723A /* VideoComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoComposition.m; sourceTree = "<group>"; };
 		11D70F541BB29CA50091723A /* VideoCompositor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCompositor.h; sourceTree = "<group>"; };
 		11D70F551BB29CA50091723A /* VideoCompositor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoCompositor.m; sourceTree = "<group>"; };
+		11D915851BFCB90500EF9299 /* VTransition01Dissolve.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VTransition01Dissolve.h; sourceTree = "<group>"; };
+		11D915861BFCB90500EF9299 /* VTransition01Dissolve.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VTransition01Dissolve.m; sourceTree = "<group>"; };
 		11E265C71BD8C59800FDFAD6 /* VCollageBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCollageBuilder.h; sourceTree = "<group>"; };
 		11E265C81BD8C59800FDFAD6 /* VCollageBuilder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCollageBuilder.m; sourceTree = "<group>"; };
 		11E265CB1BD8D04000FDFAD6 /* VKenBurnsCollageBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VKenBurnsCollageBuilder.h; sourceTree = "<group>"; };
@@ -634,6 +637,8 @@
 				11D70F461BB281BF0091723A /* TransitionFilter.m */,
 				11E571511BDA0EAC00ADDD1F /* VTransition01Fading.h */,
 				11E571521BDA0EAC00ADDD1F /* VTransition01Fading.m */,
+				11D915851BFCB90500EF9299 /* VTransition01Dissolve.h */,
+				11D915861BFCB90500EF9299 /* VTransition01Dissolve.m */,
 				11E571641BDFD68A00ADDD1F /* VTransition02CIAccordionFoldTransition.h */,
 				11E571651BDFD68A00ADDD1F /* VTransition02CIAccordionFoldTransition.m */,
 				11E571671BDFDA9D00ADDD1F /* VTransition03CIBarsSwipeTransition.h */,
@@ -1094,6 +1099,7 @@
 				11D70F531BB28D2F0091723A /* VideoComposition.m in Sources */,
 				11E265D01BD8D13F00FDFAD6 /* VSlidingPanelsCollageBuilder.m in Sources */,
 				11E571781BDFDD1D00ADDD1F /* VTransition06CISwipeTransition.m in Sources */,
+				11D915871BFCB90500EF9299 /* VTransition01Dissolve.m in Sources */,
 				11E571A81BE0C06E00ADDD1F /* VTransition21CISwipeTransition.m in Sources */,
 				11E571B11BE0C5E100ADDD1F /* VTransition24CIPageCurlWithShadowTransition.m in Sources */,
 				11EFEE181B820BF600078735 /* DZNPhotoMetadata.m in Sources */,
