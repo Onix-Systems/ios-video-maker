@@ -805,7 +805,7 @@
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kmK-8B-rWa" secondAttribute="height" multiplier="1:1" id="1nG-rW-RQD"/>
-                                    <constraint firstAttribute="width" constant="300" id="ddM-KX-fpa"/>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="ddM-KX-fpa"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -815,6 +815,7 @@
                             <constraint firstItem="Qc0-Co-cR5" firstAttribute="leading" secondItem="7Vc-NI-vSa" secondAttribute="leadingMargin" id="0Vy-ug-Fyc"/>
                             <constraint firstItem="kmK-8B-rWa" firstAttribute="top" secondItem="ngp-Ka-CBu" secondAttribute="bottom" constant="20" id="Ap7-28-C3p"/>
                             <constraint firstItem="Qc0-Co-cR5" firstAttribute="trailing" secondItem="7Vc-NI-vSa" secondAttribute="trailingMargin" id="DRi-lA-Ifr"/>
+                            <constraint firstItem="kmK-8B-rWa" firstAttribute="height" secondItem="7Vc-NI-vSa" secondAttribute="height" priority="999" id="WYB-aA-fvH"/>
                             <constraint firstItem="ngp-Ka-CBu" firstAttribute="width" secondItem="7Vc-NI-vSa" secondAttribute="width" id="Zpf-vb-WkA"/>
                             <constraint firstItem="p1z-i3-AQm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Qc0-Co-cR5" secondAttribute="bottom" constant="8" id="aUQ-Pg-XL5"/>
                             <constraint firstItem="Qc0-Co-cR5" firstAttribute="top" secondItem="kmK-8B-rWa" secondAttribute="bottom" constant="20" id="lQu-63-Gzd"/>
