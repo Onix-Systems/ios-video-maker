@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreImage/CoreImage.h>
 
+#define useGPUrendering NO
+
 @interface CIImage (Convenience)
 
 -(CIImage*) vCrop: (CGRect)rect;

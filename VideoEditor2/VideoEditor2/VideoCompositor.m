@@ -27,11 +27,25 @@
 {
     self = [super init];
     if (self) {
-        self.myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES2];
         
-        NSDictionary *options = @{ kCIContextWorkingColorSpace : [NSNull null] };
-        
-        self.ciContext = [CIContext contextWithEAGLContext:self.myEAGLContext options: options];
+        if (useGPUrendering) {
+            self.myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES2];
+            
+            NSDictionary *options = @{
+                                      kCIContextOutputColorSpace : [NSNull null],
+                                      kCIContextWorkingColorSpace : [NSNull null],
+                                      };
+            
+            self.ciContext = [CIContext contextWithEAGLContext:self.myEAGLContext options: options];
+            
+        } else {
+            NSDictionary *options = @{
+                                      kCIContextOutputColorSpace : [NSNull null],
+                                      kCIContextWorkingColorSpace : [NSNull null],
+                                      };
+            
+            self.ciContext = [CIContext contextWithOptions:options];
+        }
         
         NSMutableArray* renderingQueue = [NSMutableArray new];
         [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue1", DISPATCH_QUEUE_SERIAL)];
@@ -46,7 +60,7 @@
 {
     return @{
              (id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInteger:kCVPixelFormatType_32BGRA],
-            (id)kCVPixelBufferOpenGLESCompatibilityKey : [NSNumber numberWithBool: YES]
+            (id)kCVPixelBufferOpenGLESCompatibilityKey : [NSNumber numberWithBool: useGPUrendering]
             };
 }
 
@@ -54,7 +68,7 @@
 {
     return @{
             (id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInteger:kCVPixelFormatType_32BGRA],
-            (id) kCVPixelBufferOpenGLESCompatibilityKey : [NSNumber numberWithBool: YES]
+            (id) kCVPixelBufferOpenGLESCompatibilityKey : [NSNumber numberWithBool: useGPUrendering]
             };
 }
 

@@ -84,7 +84,7 @@
 - (void)selectEffect:(NSString *)collageEffect
 {
     if (self.playerView != nil) {
-        [self.playerView pause];
+        [self.playerView cleanPlayer];
     }
     
     if (self.assetCollage != nil) {

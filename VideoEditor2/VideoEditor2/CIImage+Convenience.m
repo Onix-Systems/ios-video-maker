@@ -82,9 +82,23 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-//        EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES3];
-//        context = [CIContext contextWithEAGLContext:myEAGLContext options: nil];
-        context = [CIContext contextWithOptions:nil];
+        if (useGPUrendering) {
+            EAGLContext* myEAGLContext = [[EAGLContext alloc] initWithAPI: kEAGLRenderingAPIOpenGLES2];
+            NSDictionary* options = @{
+                                      kCIContextOutputColorSpace : [NSNull null],
+                                      kCIContextWorkingColorSpace : [NSNull null],
+                                      };
+            context = [CIContext contextWithEAGLContext:myEAGLContext options: options];
+        } else {
+            NSDictionary* options = @{
+                                      kCIContextOutputColorSpace : [NSNull null],
+                                      kCIContextWorkingColorSpace : [NSNull null],
+                                      };
+            context = [CIContext contextWithOptions:options];
+        }
+
+        
+
     });
     
     return context;
@@ -93,13 +107,17 @@
 
 -(CIImage*) renderRectForChaching:(CGRect)rect
 {
+    NSLog(@"Render for caching");
+    
     CIContext *context = [CIImage getCacheRenderingContext];
     
     CGImageRef renderedCGImage =  [context createCGImage:self fromRect:rect];
-    UIImage* renderedUIImage = [UIImage imageWithCGImage:renderedCGImage];
-    CIImage* renderedCIImage = [CIImage imageWithData: UIImageJPEGRepresentation(renderedUIImage, 0.7)];
-
-    return renderedCIImage;
+    return [CIImage imageWithCGImage:renderedCGImage];
+    
+//    UIImage* renderedUIImage = [UIImage imageWithCGImage:renderedCGImage];
+//    CIImage* renderedCIImage = [CIImage imageWithData: UIImageJPEGRepresentation(renderedUIImage, 0.9)];
+//    
+//    return renderedCIImage;
 }
 
 @end
