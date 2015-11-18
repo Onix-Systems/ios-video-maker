@@ -34,7 +34,10 @@
         NSArray* itemsStillFrames = [layout getStillFramesForFinalSize:finalSize];
         
         for (NSInteger j = 0; j < countOfItemsInFrame; j++) {
-            NSInteger itemNo = (i * countOfItemsInFrame + j) % items.count;
+            NSInteger itemNo = (i * countOfItemsInFrame + j);
+            while (itemNo >= items.count) {
+                itemNo -= countOfItemsInFrame;
+            }
             
             VEffect* collageItem = [self makeCollageItemEffect:items[itemNo]];
             
