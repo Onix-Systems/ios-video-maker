@@ -35,8 +35,12 @@
         
         for (NSInteger j = 0; j < countOfItemsInFrame; j++) {
             NSInteger itemNo = (i * countOfItemsInFrame + j);
-            while (itemNo >= items.count) {
-                itemNo -= countOfItemsInFrame;
+            if (itemNo > countOfItemsInFrame) {
+                while (itemNo >= items.count) {
+                    itemNo -= countOfItemsInFrame;
+                }
+            } else {
+                itemNo = itemNo % items.count;
             }
             
             VEffect* collageItem = [self makeCollageItemEffect:items[itemNo]];
