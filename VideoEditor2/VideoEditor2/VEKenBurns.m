@@ -25,31 +25,34 @@
     CGSize destinationSize = self.finalSize;
     CGSize originalSize = [self.frameProvider getOriginalSize];
     
-    double yScale = destinationSize.height / originalSize.height;
     double xScale = destinationSize.width / originalSize.width;
+    double yScale = destinationSize.height / originalSize.height;
     
-    double minScale = MAX(xScale, yScale);
-    double maxScale = 1.1 * minScale;
+    double aspectFillScale = MAX(xScale, yScale);
     
-    if (yScale < 1 && xScale < 1) {
-        minScale = MAX(xScale, yScale);
-        maxScale = 1;
+    double aspectFillX = -1 * ((originalSize.width * aspectFillScale) - destinationSize.width) / 2;
+    double aspectFillY = -1 * ((originalSize.height * aspectFillScale) - destinationSize.height) / 2;
+
+    if ([self randomNumber] >= 0.5) {
+        //zoom in
+        self.startScale = aspectFillScale;
+        self.startX = aspectFillX;
+        self.startY = aspectFillY;
+        
+        self.endScale = aspectFillScale * 1.05;
+        self.endX = aspectFillX - ((destinationSize.width*1.05 - destinationSize.width) * [self randomNumber]);
+        self.endY = aspectFillY - ((destinationSize.height*1.05 - destinationSize.height) * [self randomNumber]);
+        
+    } else {
+        //zoom out
+        self.startScale = aspectFillScale * 1.05;
+        self.startX = aspectFillX - ((destinationSize.width*1.05 - destinationSize.width) * [self randomNumber]);
+        self.startY = aspectFillY - ((destinationSize.height*1.05 - destinationSize.height) * [self randomNumber]);
+        
+        self.endScale = aspectFillScale;
+        self.endX = aspectFillX;
+        self.endY = aspectFillY;
     }
-    
-    self.startScale = minScale + ((maxScale - minScale) * [self randomNumber]);
-    self.endScale = minScale + ((maxScale - minScale) * [self randomNumber]);
-    
-    double startMaxX = originalSize.width * self.startScale - destinationSize.width;
-    double startMaxY = originalSize.height * self.startScale - destinationSize.height;
-    
-    self.startX = -1  * (startMaxX * [self randomNumber]);
-    self.startY = -1 * (startMaxY * [self randomNumber]);
-    
-    double endMaxX = originalSize.width * self.endScale - destinationSize.width;
-    double endMaxY = originalSize.height * self.endScale - destinationSize.height;
-    
-    self.endX = -1 * (endMaxX * [self randomNumber]);
-    self.endY = -1 * (endMaxY * [self randomNumber]);
     
     [self setupMovementForMovementPercent:0];
 }
@@ -89,14 +92,16 @@
 {
     [super reqisterIntoVideoComposition:videoComposition withInstruction:instruction withFinalSize:finalSize];
     
-    for (int i = 0; i < 5; i++) {
-        [self setupMovement];
-        if ((ABS(self.startX - self.endX) > 25) || (ABS(self.startY - self.endY) > 25) || (ABS(self.startScale - self.endScale) > 0.05)) {
-            return;
-        } else {
-            NSLog(@"VEKenBurns movement is too small startX=%f startY=%f endX=%f endY=%f startScale=%f endScale=%f",self.startX, self.startY, self.endX, self.endY, self.startScale, self.endScale);
-        }
-    }
+    [self setupMovement];
+    
+//    for (int i = 0; i < 5; i++) {
+//        
+//        if ((ABS(self.startX - self.endX) > 25) || (ABS(self.startY - self.endY) > 25) || (ABS(self.startScale - self.endScale) > 0.05)) {
+//            return;
+//        } else {
+//            NSLog(@"VEKenBurns movement is too small startX=%f startY=%f endX=%f endY=%f startScale=%f endScale=%f",self.startX, self.startY, self.endX, self.endY, self.startScale, self.endScale);
+//        }
+//    }
     
 }
 
