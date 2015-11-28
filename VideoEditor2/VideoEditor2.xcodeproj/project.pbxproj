@@ -1283,7 +1283,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8eada7c2-ae9f-4801-b089-9e4a1c6710f3";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1301,7 +1301,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.onix.variousvideoeditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8eada7c2-ae9f-4801-b089-9e4a1c6710f3";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
