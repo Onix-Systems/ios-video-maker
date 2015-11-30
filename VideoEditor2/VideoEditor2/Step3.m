@@ -105,17 +105,7 @@
     
     imageSelector.dataSource = dataSource;
     
-    [self presentController:imageSelector];
-}
-
-- (void)presentController:(UIViewController *)controller
-{
-        [self.navigationController presentViewController:controller animated:YES completion:NULL];
-}
-
-- (void)dismissController:(UIViewController *)controller
-{
-        [controller dismissViewControllerAnimated:YES completion:NULL];
+    [self presentViewController:imageSelector animated:YES completion:NULL];
 }
 
 @end

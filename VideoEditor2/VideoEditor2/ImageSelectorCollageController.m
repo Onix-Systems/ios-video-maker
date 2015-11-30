@@ -171,11 +171,11 @@
     
     CollageCreationViewController* collageCreationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"CollageCreationViewController"];
     
-    [self presentViewController:collageCreationViewController animated:YES completion:^{
-        [collageCreationViewController setupCollageWithAssets:collageLayoutView.assetsCollection andLayout:collageLayoutView.collageLayout];
-    }];
+    [collageCreationViewController setupCollageWithAssets:collageLayoutView.assetsCollection andLayout:collageLayoutView.collageLayout];
+    
+    [collageCreationViewController setupTransitionForView:collageLayoutView];
 
-
+    [self presentViewController:collageCreationViewController animated:YES completion:nil];
 }
 
 @end

@@ -92,6 +92,8 @@
         UIImageView* imageView = self.imageViews[i];
         
         if (assets.count > 0) {
+            imageView.layer.borderWidth = 0;
+            
             NSInteger j = i % assets.count;
             VAsset* asset = assets[j];
             
@@ -102,6 +104,7 @@
             }];
             
         } else {
+            imageView.layer.borderWidth = 1;
             imageView.image = nil;
         }
     }

@@ -12,7 +12,9 @@
 #import "VSegmentsCollection.h"
 #import "PlayerView.h"
 
-@interface CollageCreationViewController () <PlayerViewDelegate>
+#import "ZOZolaZoomTransition.h"
+
+@interface CollageCreationViewController () <PlayerViewDelegate, UIViewControllerTransitioningDelegate, ZOZolaZoomTransitionDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView* collageLayoutViewConainer;
 
@@ -26,6 +28,8 @@
 @property (strong, nonatomic) VSegmentsCollection* segmentsCollection;
 
 @property (strong, nonatomic) PlayerView* playerView;
+
+@property (nonatomic, strong) UIView* transitionView;
 
 @end
 
@@ -185,5 +189,88 @@
         self.playerView.frame = self.collageLayoutViewConainer.bounds;
     }
 }
+
+-(void) setupTransitionForView:(UIView *)transitionView
+{
+    self.transitionView = transitionView;
+    
+    self.view.frame = [[UIScreen mainScreen] bounds];
+    [self.view layoutSubviews];
+
+    self.transitioningDelegate = self;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    if (self.transitionView != nil) {
+        ZOZolaZoomTransition *zoomTransition = [ZOZolaZoomTransition transitionFromView:self.transitionView type:ZOTransitionTypePresenting duration:0.5 delegate:self];
+        
+        zoomTransition.fadeColor = [UIColor clearColor];
+        
+        return zoomTransition;
+    }
+    return nil;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>) animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    if (self.transitionView != nil) {
+        ZOZolaZoomTransition *zoomTransition = [ZOZolaZoomTransition transitionFromView:self.transitionView type:ZOTransitionTypeDismissing duration:0.5 delegate:self];
+        
+        zoomTransition.fadeColor = [UIColor clearColor];
+        
+        return zoomTransition;
+    }
+    return nil;
+}
+
+- (CGRect)zolaZoomTransition:(ZOZolaZoomTransition *)zoomTransition
+        startingFrameForView:(UIView *)targetView
+              relativeToView:(UIView *)relativeView
+          fromViewController:(UIViewController *)fromViewController
+            toViewController:(UIViewController *)toViewController {
+    
+//    NSLog(@"starting Frame for view= %@", targetView);
+//    NSLog(@"starting Frame relativeView= %@", relativeView);
+//    NSLog(@"starting Frame transitionView= %@", self.transitionView);
+//    NSLog(@"starting Frame collageLayoutViewConainer= %@", self.collageLayoutViewConainer);
+    
+    if (toViewController == self) {
+        CGRect startFrame = [self.transitionView convertRect:targetView.bounds toView:relativeView];
+//        NSLog(@"startFrame x= %f, y=%f, w=%f, h=%f", startFrame.origin.x, startFrame.origin.y, startFrame.size.width, startFrame.size.height);
+        return startFrame;
+    } else {
+        CGRect startFrame = [self.collageLayoutViewConainer convertRect:self.collageLayoutViewConainer.bounds toView:relativeView];
+//        NSLog(@"startFrame X= %f, y=%f, w=%f, h=%f", startFrame.origin.x, startFrame.origin.y, startFrame.size.width, startFrame.size.height);
+        return startFrame;
+    }
+    
+    return CGRectZero;
+}
+
+- (CGRect)zolaZoomTransition:(ZOZolaZoomTransition *)zoomTransition
+       finishingFrameForView:(UIView *)targetView
+              relativeToView:(UIView *)relativeView
+          fromViewController:(UIViewController *)fromViewComtroller
+            toViewController:(UIViewController *)toViewController {
+    
+//    NSLog(@"finishing Frame for view= %@", targetView);
+//    NSLog(@"finishing Frame relativeView= %@", relativeView);
+//    NSLog(@"finishing Frame transitionView= %@", self.transitionView);
+//    NSLog(@"finishing Frame collageLayoutViewConainer= %@", self.collageLayoutViewConainer);
+    
+    if (toViewController == self) {
+        CGRect finalFrame = [self.collageLayoutViewConainer convertRect:self.collageLayoutViewConainer.bounds toView:relativeView];
+//        NSLog(@"finalFrame X= %f, y=%f, w=%f, h=%f", finalFrame.origin.x, finalFrame.origin.y, finalFrame.size.width, finalFrame.size.height);
+        return finalFrame;
+    } else {
+        CGRect finalFrame = [self.transitionView convertRect:self.transitionView.bounds toView:relativeView];
+//        NSLog(@"finalFrame x= %f, y=%f, w=%f, h=%f", finalFrame.origin.x, finalFrame.origin.y, finalFrame.size.width, finalFrame.size.height);
+        return finalFrame;
+    }
+    
+    return CGRectZero;
+}
+
 
 @end
