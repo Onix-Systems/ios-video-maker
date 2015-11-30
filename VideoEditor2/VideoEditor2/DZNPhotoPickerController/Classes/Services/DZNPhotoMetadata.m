@@ -108,7 +108,8 @@
             id urls = [object valueForKeyPath:@"display_sizes.uri"];
             
             NSString *sourceUrl = [urls firstObject];
-            _sourceURL = [NSURL URLWithString:[sourceUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+//            _sourceURL = [NSURL URLWithString:[sourceUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            _sourceURL = [NSURL URLWithString:sourceUrl];
 
             NSString *thumbUrl = [urls lastObject];
             _thumbURL = [NSURL URLWithString:[thumbUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
