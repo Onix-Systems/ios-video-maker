@@ -194,9 +194,6 @@
 {
     self.transitionView = transitionView;
     
-    self.view.frame = [[UIScreen mainScreen] bounds];
-    [self.view layoutSubviews];
-
     self.transitioningDelegate = self;
 }
 
@@ -240,6 +237,8 @@
 //        NSLog(@"startFrame x= %f, y=%f, w=%f, h=%f", startFrame.origin.x, startFrame.origin.y, startFrame.size.width, startFrame.size.height);
         return startFrame;
     } else {
+        [self.view layoutIfNeeded];
+        
         CGRect startFrame = [self.collageLayoutViewConainer convertRect:self.collageLayoutViewConainer.bounds toView:relativeView];
 //        NSLog(@"startFrame X= %f, y=%f, w=%f, h=%f", startFrame.origin.x, startFrame.origin.y, startFrame.size.width, startFrame.size.height);
         return startFrame;
@@ -260,6 +259,8 @@
 //    NSLog(@"finishing Frame collageLayoutViewConainer= %@", self.collageLayoutViewConainer);
     
     if (toViewController == self) {
+        [self.view layoutIfNeeded];
+        
         CGRect finalFrame = [self.collageLayoutViewConainer convertRect:self.collageLayoutViewConainer.bounds toView:relativeView];
 //        NSLog(@"finalFrame X= %f, y=%f, w=%f, h=%f", finalFrame.origin.x, finalFrame.origin.y, finalFrame.size.width, finalFrame.size.height);
         return finalFrame;

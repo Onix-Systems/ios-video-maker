@@ -14,6 +14,6 @@
 
 -(void) setupCollageWithAssets:(AssetsCollection *)assetsCollection andLayout: (CollageLayout*)collageLayout;
 
--(void) setupTransitionForView:(UIView*) transitionView;
+-(void) setupTransitionForView:(UIView *)transitionView;
 
 @end
