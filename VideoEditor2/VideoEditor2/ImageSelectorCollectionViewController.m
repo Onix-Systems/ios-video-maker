@@ -34,6 +34,10 @@
 
 @property (strong,readwrite) VAsset* lastActiveAsset;
 
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *searchResultsTopConstraint;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *noSearchResultsTopConstraint;
+
 @end
 
 @implementation ImageSelectorCollectionViewController
@@ -111,31 +115,6 @@
         });
     };
     
-    if (self.dataSource.supportSearch) {
-        self.searchBar = [UISearchBar new];
-        self.searchBar.delegate = self;
-        self.searchBar.text = self.dataSource.getCurrentSearchTerm;
-        self.searchBar.barTintColor = [UIColor colorWithRed:0x2d/255.0 green:0x2c/255.0 blue:0x2a/255.0  alpha:0xff/255.0];
-        
-        if (self.searhBarFieldBackgroundImage == nil) {
-            CIImage* image = [CIImage imageWithColor:[CIColor colorWithRed:0x6f/255.0 green:0x6f/255.0 blue:0x6d/255.0]];
-            CIContext* context = [CIContext contextWithOptions:nil];
-            
-            self.searhBarFieldBackgroundImage = [UIImage imageWithCGImage:[context createCGImage:image fromRect:CGRectMake(0, 0, 100, 100)]];
-        }
-        //[self.searchBar setSearchFieldBackgroundImage:self.searhBarFieldBackgroundImage forState:UIControlStateNormal];
-        
-        NSArray* searchScopes = [self.dataSource getSeachScopes];
-        if (searchScopes.count > 1) {
-            self.searchBar.scopeButtonTitles = searchScopes;
-        }
-        
-        self.searchBar.showsScopeBar = NO;
-        [self.searchBar sizeToFit];
-        [self.collectionView.collectionViewLayout invalidateLayout];
-        
-        self.searchTagsList = [NSMutableArray new];
-    }
     [self.dataSource loadAssets];
 }
 
@@ -181,6 +160,40 @@
 
 -(void) viewDidLoad {
     [super viewDidLoad];
+    
+    if (self.dataSource.supportSearch) {
+        self.searchBar = [UISearchBar new];
+        self.searchBar.delegate = self;
+        self.searchBar.text = self.dataSource.getCurrentSearchTerm;
+        self.searchBar.barTintColor = [UIColor colorWithRed:0x2d/255.0 green:0x2c/255.0 blue:0x2a/255.0  alpha:0xff/255.0];
+        
+        if (self.searhBarFieldBackgroundImage == nil) {
+            CIImage* image = [CIImage imageWithColor:[CIColor colorWithRed:0x6f/255.0 green:0x6f/255.0 blue:0x6d/255.0]];
+            CIContext* context = [CIContext contextWithOptions:nil];
+            
+            self.searhBarFieldBackgroundImage = [UIImage imageWithCGImage:[context createCGImage:image fromRect:CGRectMake(0, 0, 100, 100)]];
+        }
+        //[self.searchBar setSearchFieldBackgroundImage:self.searhBarFieldBackgroundImage forState:UIControlStateNormal];
+        
+        NSArray* searchScopes = [self.dataSource getSeachScopes];
+        if (searchScopes.count > 1) {
+            self.searchBar.scopeButtonTitles = searchScopes;
+            
+            self.searchResultsTopConstraint.constant = 88;
+            self.noSearchResultsTopConstraint.constant = 88;
+        } else {
+            self.searchResultsTopConstraint.constant = 44;
+            self.noSearchResultsTopConstraint.constant = 44;
+        }
+        
+        self.searchBar.showsScopeBar = NO;
+        [self.searchBar sizeToFit];
+        [self.collectionView.collectionViewLayout invalidateLayout];
+        
+        self.searchTagsList = [NSMutableArray new];
+        
+        [self.view setNeedsLayout];
+    }
     
     self.noSearchResultsView.hidden = YES;
     

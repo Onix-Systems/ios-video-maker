@@ -618,18 +618,22 @@
                             <constraint firstItem="LCf-4d-7eZ" firstAttribute="width" secondItem="jW6-mw-G9C" secondAttribute="width" id="cx1-TA-VI0"/>
                             <constraint firstItem="3q4-2K-oeQ" firstAttribute="centerY" secondItem="jW6-mw-G9C" secondAttribute="centerY" id="eNn-gw-P5r"/>
                             <constraint firstItem="Bb5-FL-gDt" firstAttribute="centerX" secondItem="jW6-mw-G9C" secondAttribute="centerX" id="j0l-yh-uZ9"/>
-                            <constraint firstItem="Bb5-FL-gDt" firstAttribute="top" secondItem="jW6-mw-G9C" secondAttribute="topMargin" constant="44" id="o6a-cn-dan"/>
+                            <constraint firstItem="Bb5-FL-gDt" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jW6-mw-G9C" secondAttribute="topMargin" constant="44" id="o6a-cn-dan"/>
+                            <constraint firstItem="Bb5-FL-gDt" firstAttribute="height" secondItem="jW6-mw-G9C" secondAttribute="height" priority="999" id="rbe-5Q-MAD"/>
                             <constraint firstItem="3q4-2K-oeQ" firstAttribute="height" secondItem="jW6-mw-G9C" secondAttribute="height" id="rfG-r2-YX2"/>
+                            <constraint firstItem="YWI-7I-Vzx" firstAttribute="height" secondItem="jW6-mw-G9C" secondAttribute="height" priority="999" id="sgO-e9-wAc"/>
                             <constraint firstItem="LCf-4d-7eZ" firstAttribute="centerX" secondItem="jW6-mw-G9C" secondAttribute="centerX" id="t6Q-Od-MR7"/>
-                            <constraint firstItem="YWI-7I-Vzx" firstAttribute="top" secondItem="jW6-mw-G9C" secondAttribute="topMargin" constant="44" id="vr1-vG-Uis"/>
+                            <constraint firstItem="YWI-7I-Vzx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="jW6-mw-G9C" secondAttribute="topMargin" constant="44" id="vr1-vG-Uis"/>
                             <constraint firstItem="YWI-7I-Vzx" firstAttribute="centerX" secondItem="jW6-mw-G9C" secondAttribute="centerX" id="zPz-Ae-dBo"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="LCf-4d-7eZ" id="9UO-dT-NXW"/>
                         <outlet property="collectionView" destination="3q4-2K-oeQ" id="7g7-Tx-eCE"/>
+                        <outlet property="noSearchResultsTopConstraint" destination="vr1-vG-Uis" id="xQH-MT-dB3"/>
                         <outlet property="noSearchResultsView" destination="YWI-7I-Vzx" id="OqD-3i-l50"/>
                         <outlet property="searchResultsTableView" destination="Bb5-FL-gDt" id="pju-pm-WDt"/>
+                        <outlet property="searchResultsTopConstraint" destination="o6a-cn-dan" id="hAh-69-V8h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="suu-Gq-vUt" userLabel="First Responder" sceneMemberID="firstResponder"/>
