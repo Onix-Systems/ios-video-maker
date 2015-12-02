@@ -262,7 +262,7 @@
     ImageSelectorCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageSelectorCollectionViewCell" forIndexPath:indexPath];
     VAsset *asset = [self getAssetForIndexPath:indexPath];
     
-    [cell setAsset:asset forIndexPath:indexPath withSelectionStorage: self.selectionStorage];
+    [cell setAsset:asset withSelectionStorage: self.selectionStorage];
     
     return cell;
 }
@@ -313,6 +313,10 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     VAsset *asset = [self getAssetForIndexPath:indexPath];
+    
+    if (asset.isVideo && !self.selectionStorage.isNumerable) {
+        return;
+    }
     
     if ([asset isDownloading]) {
         [asset cancelDownloading];

@@ -15,6 +15,6 @@
 
 @interface ImageSelectorCollectionViewCell : UICollectionViewCell
 
--(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage;
+-(void) setAsset: (VAsset*) asset withSelectionStorage: (AssetsCollection*) selectionStorage;
 
 @end

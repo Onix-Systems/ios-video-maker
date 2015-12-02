@@ -133,12 +133,16 @@
     self.backgroundColor = [UIColor clearColor];
     CGContextClearRect(context, self.frame);
     
-    if (![self isSelected] && ![self isDownloading]) {
+    if (![self isSelected] && ![self isDownloading] && !self.isDisabled) {
         return;
     }
     
     CGContextSetRGBFillColor(context, 0.0, 0.0, 0.0, 0.55);
     CGContextFillRect(context, self.bounds);
+    
+    if (self.isDisabled) {
+        return;
+    }
     
     double size = self.frame.size.width * 4.5 / 10.0;
     double offset = (self.frame.size.width - size) / 2;

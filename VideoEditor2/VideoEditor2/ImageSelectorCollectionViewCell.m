@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet ImageSelectorStateIndicator *stateIndicator;
 
 @property (weak, nonatomic) VAsset* asset;
-@property (strong, nonatomic)  NSIndexPath* indexPath;
 @property (weak, nonatomic) AssetsCollection* selectionStorage;
 
 @property (strong, nonatomic) NSTimer* reloadImageTimer;
@@ -34,7 +33,7 @@
     }
 }
 
--(void) setAsset: (VAsset*) asset forIndexPath:(NSIndexPath *)indexPath withSelectionStorage: (AssetsCollection*) selectionStorage
+-(void) setAsset: (VAsset*) asset withSelectionStorage: (AssetsCollection*) selectionStorage
 {
     if (_asset != nil) {
         [self unsubscribeFromDownloadProgressNotifications:_asset];
@@ -42,7 +41,11 @@
     _asset = asset;
     [self subscribeToDownloadProgressNotifications:_asset];
     
-    self.indexPath = indexPath;
+    if (asset.isVideo && !selectionStorage.isNumerable) {
+        self.stateIndicator.isDisabled = YES;
+    } else {
+        self.stateIndicator.isDisabled = NO;
+    }
     
     [self unsubscribeSelectionStorageNotifications];
     self.selectionStorage = selectionStorage;

@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIColor *selectedTextColor;
 @property (nonatomic, strong) UIColor *downloadColor;
 
+@property (nonatomic) BOOL isDisabled;
+
 -(void)setClearState;
 -(void)setSelected: (NSInteger) selectionNumber;
 -(void)setDownloading: (BOOL) downloading;
