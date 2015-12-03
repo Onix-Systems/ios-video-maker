@@ -85,17 +85,32 @@
     
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangeRemovedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateRemovedIndexes
 {
     return nil;
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangeInsertedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateInsertedIndexes
 {
     return nil;
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangedChangedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateChangedIndexes
+{
+    return nil;
+}
+
+-(NSIndexSet*)getBatchUpdateRemovedSections
+{
+    return nil;
+}
+
+-(NSIndexSet*)getBatchUpdateInsertedSections
+{
+    return nil;
+}
+
+-(NSIndexSet*)getBatchUpdateChangedSections
 {
     return nil;
 }

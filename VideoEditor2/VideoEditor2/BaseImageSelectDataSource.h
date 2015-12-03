@@ -24,9 +24,8 @@ typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 -(void)loadAssets;
 
 -(NSInteger)getNumberofSectionsInData;
--(NSDictionary*) getAssetsBySections;
--(NSArray*) getSectionsKeys;
--(NSString*) getSectionTitle: (id) sectionKey;
+-(NSArray*) getAssetsBySections;
+-(NSString*) getSectionTitle: (NSInteger) sectionNo;
 
 -(void)searchFor: (NSString*) searchTerm withCompletion: (PickerAssetLoadCompletionBlock) onLoad;
 -(void)loadMore: (PickerAssetLoadCompletionBlock) onLoad;
@@ -35,8 +34,12 @@ typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 -(NSInteger) selectedSearchScope;
 -(void) switchSearhcScope: (NSInteger) searchScope;
 
--(NSArray<NSIndexPath *>*)getBatchChangeRemovedIndexes;
--(NSArray<NSIndexPath *>*)getBatchChangeInsertedIndexes;
--(NSArray<NSIndexPath *>*)getBatchChangedChangedIndexes;
+-(NSArray<NSIndexPath *>*)getBatchUpdateRemovedIndexes;
+-(NSArray<NSIndexPath *>*)getBatchUpdateInsertedIndexes;
+-(NSArray<NSIndexPath *>*)getBatchUpdateChangedIndexes;
+
+-(NSIndexSet*)getBatchUpdateRemovedSections;
+-(NSIndexSet*)getBatchUpdateInsertedSections;
+-(NSIndexSet*)getBatchUpdateChangedSections;
 
 @end

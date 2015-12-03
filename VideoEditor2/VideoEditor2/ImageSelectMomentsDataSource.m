@@ -12,17 +12,20 @@
 
 @interface ImageSelectMomentsDataSource () <PHPhotoLibraryChangeObserver>
 
-@property (strong, nonatomic) NSMutableDictionary *momentsTitles;
-@property (strong, nonatomic) NSMutableDictionary *momentsData;
-@property (strong, nonatomic) NSMutableArray *momentsKeys;
+@property (strong, nonatomic) NSMutableArray *momentsData;
+
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 @property (strong, nonatomic) PHFetchResult* collectionsFetchResult;
-@property (strong, nonatomic) NSMutableDictionary* momentsFetchResults;
+@property (strong, nonatomic) NSMutableArray* momentsFetchResults;
 
-@property (strong,nonatomic) NSArray<NSIndexPath *>* removedIndexes;
-@property (strong,nonatomic) NSArray<NSIndexPath *>* insertedIndexes;
-@property (strong,nonatomic) NSArray<NSIndexPath *>* changedIndexes;
+@property (strong,nonatomic) NSMutableArray<NSIndexPath *>* removedIndexes;
+@property (strong,nonatomic) NSMutableArray<NSIndexPath *>* insertedIndexes;
+@property (strong,nonatomic) NSMutableArray<NSIndexPath *>* changedIndexes;
+
+@property (strong,nonatomic) NSIndexSet* removedSections;
+@property (strong,nonatomic) NSIndexSet* inseretedSections;
+@property (strong,nonatomic) NSIndexSet* changedSections;
 
 @end
 
@@ -50,94 +53,82 @@
 {
     NSLog(@"dataSource Moments photoLibraryDidChange - %@", changeInstance);
     
-    PHFetchResultChangeDetails *collectionChanges = [changeInstance changeDetailsForFetchResult:self.collectionsFetchResult];
-    if (collectionChanges == nil) {
-        NSLog(@"There are no changes for the collection");
-        return;
+    BOOL hasChanges = NO;
+    BOOL needCompleteReload = NO;
+    
+    PHFetchResult* newCollectionsFetchResult = nil;
+    
+    self.removedSections = nil;
+    self.inseretedSections = nil;
+    self.changedSections = nil;
+    
+    self.removedIndexes = [NSMutableArray new];
+    self.insertedIndexes = [NSMutableArray new];
+    self.changedIndexes = [NSMutableArray new];
+    
+    PHFetchResultChangeDetails *collectionsChanges = [changeInstance changeDetailsForFetchResult:self.collectionsFetchResult];
+    if (collectionsChanges != nil) {
+        hasChanges = YES;
+        newCollectionsFetchResult = [collectionsChanges fetchResultAfterChanges];
+        
+        if (![collectionsChanges hasIncrementalChanges] || [collectionsChanges hasMoves]) {
+            needCompleteReload = YES;
+        } else {
+            self.removedSections = collectionsChanges.removedIndexes;
+            self.inseretedSections = collectionsChanges.insertedIndexes;
+            self.changedSections = collectionsChanges.changedIndexes;
+        }
     }
     
-    [self loadAssets];
+    for (NSInteger i = 0; i < self.collectionsFetchResult.count; i++) {
+        PHFetchResultChangeDetails *sectionChanges = [changeInstance changeDetailsForFetchResult:self.momentsFetchResults[i]];
+        
+        if (sectionChanges != nil) {
+            hasChanges = YES;
+        
+            if (![collectionsChanges hasIncrementalChanges] || [collectionsChanges hasMoves]) {
+                needCompleteReload = YES;
+                break;
+            } else {
+                [sectionChanges.removedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                    [self.removedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
+                }];
+                [sectionChanges.insertedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                    [self.insertedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
+                }];
+                [sectionChanges.changedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ((sectionChanges.removedIndexes != nil) && ![sectionChanges.removedIndexes containsIndex:idx]) {
+                        [self.changedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
+                    }
+                }];
+            }
+        }
+    }
     
-//    if (![collectionChanges hasIncrementalChanges] || [collectionChanges hasMoves]) {
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self getAssetsFromFetchResults: [collectionChanges fetchResultAfterChanges]];
-//            self.didFinishLoading(nil);
-//        });
-//    } else {
-//        PHFetchResult* newFetchResults = [collectionChanges fetchResultAfterChanges];
-//        
-//        self.removedIndexes = nil;
-//        NSIndexSet* removedIndexesSet = collectionChanges.removedIndexes;
-//        if ([removedIndexesSet count] > 0) {
-//            NSMutableArray* removedIndexes = [NSMutableArray new];
-//            
-//            [removedIndexesSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-//                [removedIndexes addObject:[NSIndexPath indexPathForItem:idx inSection:0]];
-//                [self.assets removeObjectAtIndex:idx];
-//            }];
-//            
-//            self.removedIndexes = removedIndexes;
-//        }
-//        
-//        self.insertedIndexes = nil;
-//        NSIndexSet* insertedIndexesSet = collectionChanges.insertedIndexes;
-//        if ([insertedIndexesSet count] > 0) {
-//            NSMutableArray* insertedIndexes = [NSMutableArray new];
-//            
-//            [insertedIndexesSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-//                [insertedIndexes addObject:[NSIndexPath indexPathForItem:idx inSection:0]];
-//                [self.assets insertObject:[VAssetPHImage makeFromPHAsset:newFetchResults[idx]] atIndex:idx];
-//                
-//            }];
-//            
-//            self.insertedIndexes = insertedIndexes;
-//        }
-//        
-//        self.changedIndexes = nil;
-//        NSIndexSet* changedIndexesSet = collectionChanges.changedIndexes;
-//        if ([changedIndexesSet count] > 0) {
-//            NSMutableArray* changedIndexes = [NSMutableArray new];
-//            [changedIndexesSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-//                [changedIndexes addObject:[NSIndexPath indexPathForItem:idx inSection:0]];
-//                VAssetPHImage* asset = self.assets[idx];
-//                if (![asset isDownloading]) {
-//                    [asset updateAsset: newFetchResults[idx]];
-//                }
-//            }];
-//            self.changedIndexes = changedIndexes;
-//        }
-//        
-//        NSLog(@"ImageSelectDataSouce batchUpdate removedIndexes=%lu insertedIndexes=%lu changedIndexes=%lu", (unsigned long)self.removedIndexes.count, (unsigned long)self.insertedIndexes.count, (unsigned long)self.changedIndexes.count);
-//        
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kImageSelectDataSourceHasBatchChanges object:self];
-//    };
+
+    if (hasChanges) {
+        [self getAssetsFromCollectionsFetchResults:newCollectionsFetchResult];
+        
+        if (needCompleteReload) {
+            self.didFinishLoading(nil);
+        } else {
+            NSLog(@"ImageSelectMomentsDataSource batchUpdate removedSections=%lu insertedSections=%lu changedSections=%lu; removedIndexes=%lu insertedIndexes=%lu changedIndexes=%lu", (unsigned long)self.removedSections.count, (unsigned long)self.inseretedSections.count, (unsigned long)self.changedSections.count, (unsigned long)self.removedIndexes.count, (unsigned long)self.changedIndexes.count, (unsigned long)self.changedIndexes.count);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kImageSelectDataSourceHasBatchChanges object:self];
+        }
+    }
     
 }
 
--(void)loadAssets {
-    self.isLoading = YES;
+-(void)getAssetsFromCollectionsFetchResults: (PHFetchResult*) collectionsFetchResult
+{
+    self.collectionsFetchResult = collectionsFetchResult;
     
-    self.momentsTitles = [NSMutableDictionary new];
-    self.momentsData = [NSMutableDictionary new];
-    self.momentsKeys = [NSMutableArray new];
+    self.momentsFetchResults = [NSMutableArray new];
+    self.momentsData = [NSMutableArray new];
     
-    PHFetchOptions* options = [PHFetchOptions new];
-    options.sortDescriptors = @[
-                                [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO],
-                                ];
-    //options.predicate = [NSPredicate predicateWithFormat:@"estimatedAssetCount > 0"];
-    
-    self.collectionsFetchResult = [PHAssetCollection fetchAssetCollectionsWithType: PHAssetCollectionTypeMoment subtype:PHAssetCollectionSubtypeAny options:options];
-    self.momentsFetchResults = [NSMutableDictionary new];
-    
-    for(PHAssetCollection *collection in self.collectionsFetchResult) {
-        NSString *key = collection.localIdentifier;
-
-        NSString *title = collection.localizedTitle != nil ? collection.localizedTitle : [self.dateFormatter stringFromDate:collection.startDate];
-        
-        self.momentsTitles[key] = title;
-        
-        [self.momentsKeys addObject:key];
+    for(NSInteger i = 0; i < self.collectionsFetchResult.count; i++) {
+        PHAssetCollection *collection = self.collectionsFetchResult[i];
         
         PHFetchOptions *fetchOptions = [PHFetchOptions new];
         fetchOptions.sortDescriptors = @[
@@ -145,49 +136,72 @@
                                          ];
         
         PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:collection options:fetchOptions];
-        self.momentsFetchResults[key] = results;
+        self.momentsFetchResults[i] = results;
         
         NSMutableArray* assets = [NSMutableArray new];
         for (PHAsset *asset in results) {
             [assets addObject:[VAssetPHImage makeFromPHAsset:asset]];
         }
-        self.momentsData[key] = assets;
+        self.momentsData[i] = assets;
     }
 
+}
+
+-(void)loadAssets {
+    self.isLoading = YES;
+    
+    PHFetchOptions* options = [PHFetchOptions new];
+    options.sortDescriptors = @[
+                                [NSSortDescriptor sortDescriptorWithKey:@"startDate" ascending:NO],
+                                ];
+    
+    [self getAssetsFromCollectionsFetchResults: [PHAssetCollection fetchAssetCollectionsWithType: PHAssetCollectionTypeMoment subtype:PHAssetCollectionSubtypeAny options:options]];
+    
     self.isLoading = NO;
     self.didFinishLoading(nil);
 }
 
 -(NSInteger)getNumberofSectionsInData {
-    return self.momentsKeys.count;
+    return self.collectionsFetchResult.count;
 }
 
--(NSDictionary*) getAssetsBySections {
+-(NSArray*) getAssetsBySections {
     return self.momentsData;
 }
 
--(NSArray*) getSectionsKeys {
-    return self.momentsKeys;
+-(NSString*) getSectionTitle: (NSInteger) sectionNo {
+    PHAssetCollection *collection = self.collectionsFetchResult[sectionNo];
+    return collection.localizedTitle != nil ? collection.localizedTitle : [self.dateFormatter stringFromDate:collection.startDate];
 }
 
--(NSString*) getSectionTitle: (id) sectionKey {
-    return self.momentsTitles[sectionKey];
-}
-
-
--(NSArray<NSIndexPath *>*)getBatchChangeRemovedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateRemovedIndexes
 {
     return self.removedIndexes;
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangeInsertedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateInsertedIndexes
 {
     return self.insertedIndexes;
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangedChangedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateChangedIndexes
 {
     return self.changedIndexes;
+}
+
+-(NSIndexSet*)getBatchUpdateRemovedSections
+{
+    return self.removedSections;
+}
+
+-(NSIndexSet*)getBatchUpdateInsertedSections
+{
+    return self.inseretedSections;
+}
+
+-(NSIndexSet*)getBatchUpdateChangedSections
+{
+    return self.changedSections;
 }
 
 @end

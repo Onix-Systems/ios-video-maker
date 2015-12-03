@@ -105,10 +105,12 @@
         if ([changedIndexesSet count] > 0) {
             NSMutableArray* changedIndexes = [NSMutableArray new];
             [changedIndexesSet enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                [changedIndexes addObject:[NSIndexPath indexPathForItem:idx inSection:0]];
-                VAssetPHImage* asset = self.assets[idx];
-                if (![asset isDownloading]) {
-                    [asset updateAsset: newFetchResults[idx]];
+                if ((removedIndexesSet != nil) && ![removedIndexesSet containsIndex:idx]) {
+                    [changedIndexes addObject:[NSIndexPath indexPathForItem:idx inSection:0]];
+                    VAssetPHImage* asset = self.assets[idx];
+                    if (![asset isDownloading]) {
+                        [asset updateAsset: newFetchResults[idx]];
+                    }
                 }
             }];
             self.changedIndexes = changedIndexes;

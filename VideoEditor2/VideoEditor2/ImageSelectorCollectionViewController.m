@@ -80,19 +80,35 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.collectionView performBatchUpdates:^{
-            NSArray<NSIndexPath *>* removedIndexes = [self.dataSource getBatchChangeRemovedIndexes];
+            
+            NSArray<NSIndexPath *>* removedIndexes = [self.dataSource getBatchUpdateRemovedIndexes];
             if ((removedIndexes != nil) && ([removedIndexes count] > 0)) {
                 [self.collectionView deleteItemsAtIndexPaths:removedIndexes];
             }
             
-            NSArray<NSIndexPath *>* insertedIndexes = [self.dataSource getBatchChangeInsertedIndexes];
+            NSIndexSet* removedSections = [self.dataSource getBatchUpdateRemovedSections];
+            if ((removedSections != nil) && (removedSections.count > 0)) {
+                [self.collectionView deleteSections:removedSections];
+            }
+            
+            NSIndexSet* insertedSections = [self.dataSource getBatchUpdateInsertedSections];
+            if ((insertedSections != nil) && (insertedSections.count > 0)) {
+                [self.collectionView insertSections:insertedSections];
+            }
+            
+            NSArray<NSIndexPath *>* insertedIndexes = [self.dataSource getBatchUpdateInsertedIndexes];
             if ((insertedIndexes != nil) && ([insertedIndexes count] > 0)) {
                 [self.collectionView insertItemsAtIndexPaths:insertedIndexes];
             }
             
-            NSArray<NSIndexPath *>* changedIndexes = [self.dataSource getBatchChangedChangedIndexes];
+            NSArray<NSIndexPath *>* changedIndexes = [self.dataSource getBatchUpdateChangedIndexes];
             if ((changedIndexes != nil) && ([changedIndexes count] > 0)) {
                 [self.collectionView reloadItemsAtIndexPaths:changedIndexes];
+            }
+            
+            NSIndexSet* changedSections = [self.dataSource getBatchUpdateInsertedSections];
+            if ((changedSections != nil) && (changedSections.count > 0)) {
+                [self.collectionView reloadSections:changedSections];
             }
             
         } completion:^(BOOL finished) {
