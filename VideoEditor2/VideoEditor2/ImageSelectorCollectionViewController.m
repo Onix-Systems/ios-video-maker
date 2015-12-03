@@ -139,43 +139,45 @@
 }
 
 -(void) reloadData {
-    if (self.dataSource != nil && self.collectionView != nil) {
-        [self.collectionView reloadData];
-        
-        NSArray* assets = [self.dataSource getAssets];
-        
-        if (!self.firstAssetDisplayed) {
-            VAsset* firstAsset = nil;
-            if (assets.count > 0) {
-                firstAsset = assets[0];
-            } else if ([self.dataSource getNumberofSectionsInData] > 0) {
-                NSArray *sectionData = [self.dataSource getAssetsBySections][0];
-                if (sectionData.count > 0) {
-                    firstAsset = sectionData[0];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.dataSource != nil && self.collectionView != nil) {
+            [self.collectionView reloadData];
+            
+            NSArray* assets = [self.dataSource getAssets];
+            
+            if (!self.firstAssetDisplayed) {
+                VAsset* firstAsset = nil;
+                if (assets.count > 0) {
+                    firstAsset = assets[0];
+                } else if ([self.dataSource getNumberofSectionsInData] > 0) {
+                    NSArray *sectionData = [self.dataSource getAssetsBySections][0];
+                    if (sectionData.count > 0) {
+                        firstAsset = sectionData[0];
+                    }
+                }
+                if (firstAsset != nil) {
+                    self.firstAssetDisplayed = YES;
+                    self.lastActiveAsset = firstAsset;
+                    NSLog(@"Set lastActiveAsset=firstAsset(%@)", [firstAsset getIdentifier]);
+                    [self displayAsset:firstAsset autoPlay:NO];
                 }
             }
-            if (firstAsset != nil) {
-                self.firstAssetDisplayed = YES;
-                self.lastActiveAsset = firstAsset;
-                NSLog(@"Set lastActiveAsset=firstAsset(%@)", [firstAsset getIdentifier]);
-                [self displayAsset:firstAsset autoPlay:NO];
-            }
-        }
-        
-        if (assets.count > 0 || [self.dataSource getNumberofSectionsInData] > 0) {
-            self.noSearchResultsView.hidden = YES;
-            [self setActivityIndicatorsVisible:NO];
             
-        } else {
-            if (self.dataSource.isLoading) {
+            if (assets.count > 0 || [self.dataSource getNumberofSectionsInData] > 0) {
                 self.noSearchResultsView.hidden = YES;
-                [self setActivityIndicatorsVisible:YES];
-            } else {
-                self.noSearchResultsView.hidden = NO;
                 [self setActivityIndicatorsVisible:NO];
+                
+            } else {
+                if (self.dataSource.isLoading) {
+                    self.noSearchResultsView.hidden = YES;
+                    [self setActivityIndicatorsVisible:YES];
+                } else {
+                    self.noSearchResultsView.hidden = NO;
+                    [self setActivityIndicatorsVisible:NO];
+                }
             }
         }
-    }
+    });
 }
 
 -(void) viewDidLoad {
