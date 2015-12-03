@@ -94,6 +94,7 @@
             if ((changedIndexes != nil) && ([changedIndexes count] > 0)) {
                 [self.collectionView reloadItemsAtIndexPaths:changedIndexes];
             }
+            
         } completion:^(BOOL finished) {
             
         }];
@@ -129,8 +130,7 @@
             if (assets.count > 0) {
                 firstAsset = assets[0];
             } else if ([self.dataSource getNumberofSectionsInData] > 0) {
-                id sectionKey = [self.dataSource getSectionsKeys][0];
-                NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
+                NSArray *sectionData = [self.dataSource getAssetsBySections][0];
                 if (sectionData.count > 0) {
                     firstAsset = sectionData[0];
                 }
@@ -234,8 +234,7 @@
     VAsset *asset = nil;
     
     if ([self hasSections]) {
-        id sectionKey = [self.dataSource getSectionsKeys][indexPath.section];
-        NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
+        NSArray *sectionData = [self.dataSource getAssetsBySections][indexPath.section];
         asset = sectionData[indexPath.row];
     } else {
         NSArray* assets = [self.dataSource getAssets];
@@ -250,8 +249,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     if ([self hasSections]) {
-        id sectionKey = [self.dataSource getSectionsKeys][section];
-        NSMutableArray *sectionData = [self.dataSource getAssetsBySections][sectionKey];
+        NSArray *sectionData = [self.dataSource getAssetsBySections][section];
         return sectionData.count;
     }
     NSInteger count = [self.dataSource getAssets].count;
@@ -273,7 +271,7 @@
         ImageSelectorCollectionViewHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"ImageSelectorCollectionViewHeader" forIndexPath:indexPath];
 
         if ([self hasSections]) {
-            header.label.text = [self.dataSource getSectionTitle:([self.dataSource getSectionsKeys][indexPath.section])];
+            header.label.text = [self.dataSource getSectionTitle:indexPath.section];
         } else if (self.dataSource.supportSearch) {
             header.label.text = @"";
             
