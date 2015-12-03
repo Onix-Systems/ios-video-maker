@@ -301,6 +301,7 @@
     if (self.service == DZNPhotoPickerControllerServiceInstagram) {
         NSString *keyword = [params objectForKey:keyForSearchTerm(self.service)];
         NSString *encodedKeyword = [keyword stringByReplacingOccurrencesOfString:@" " withString:@""];
+        encodedKeyword = [encodedKeyword stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         path = [path stringByReplacingOccurrencesOfString:@"%@" withString:encodedKeyword];
     }
     else if (self.service == DZNPhotoPickerControllerServiceFlickr) {
