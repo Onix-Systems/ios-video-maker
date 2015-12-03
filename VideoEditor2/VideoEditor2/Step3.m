@@ -61,9 +61,9 @@
                                    consumerSecret:kGoogleImagesSearchEngineID];
     
     //Bing does not require a secret. Rather just an "Account Key"
-    [DZNPhotoPickerController registerFreeService:DZNPhotoPickerControllerServiceBingImages
-                                      consumerKey:kBingImagesAccountKey
-                                   consumerSecret:nil];
+//    [DZNPhotoPickerController registerFreeService:DZNPhotoPickerControllerServiceBingImages
+//                                      consumerKey:kBingImagesAccountKey
+//                                   consumerSecret:nil];
     
     [DZNPhotoPickerController registerFreeService:DZNPhotoPickerControllerServiceGettyImages
                                       consumerKey:kGettyImagesConsumerKey
@@ -84,7 +84,7 @@
 }
 
 - (IBAction)internetButtonAction {
-    [self showImageSelectorForDZVServices:DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages | DZNPhotoPickerControllerServiceBingImages
+    [self showImageSelectorForDZVServices:DZNPhotoPickerControllerService500px | DZNPhotoPickerControllerServiceFlickr | DZNPhotoPickerControllerServiceGoogleImages
      |DZNPhotoPickerControllerServiceGettyImages];
 }
 
