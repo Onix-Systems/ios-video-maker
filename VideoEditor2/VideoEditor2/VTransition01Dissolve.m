@@ -8,7 +8,7 @@
 
 #import "VTransition01Dissolve.h"
 
-#define kVTransitionDuration 0.4
+#define kVTransitionDuration 0.6
 
 @implementation VTransition01Dissolve
 
