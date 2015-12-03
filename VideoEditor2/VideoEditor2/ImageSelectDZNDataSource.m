@@ -108,4 +108,15 @@
 }
 
 
+-(VAsset*) getAssetWithID:(NSString*)assetID
+{
+    for (NSInteger i = 0; i < self.mutableAssetsList.count; i++) {
+        VAsset* asset = self.mutableAssetsList[i];
+        if ([[asset getIdentifier] isEqualToString:assetID]) {
+            return asset;
+        }
+    }
+    return nil;
+}
+
 @end

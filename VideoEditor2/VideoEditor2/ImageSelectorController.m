@@ -53,6 +53,11 @@
     self.splitController.delegate = self;
 }
 
+-(void) viewWillAppear:(BOOL)animated
+{
+    [self.splitController scrollLeftViewToLeft:NO withAnimation:NO];
+}
+
 -(ImageSelectorCollageController*) getCollageControler
 {
     return (ImageSelectorCollageController*) self.splitController.rightViewController;
@@ -97,7 +102,13 @@
    
     VAsset* lastActiveAsset = collectionViewConrtroller.lastActiveAsset;
     if (lastActiveAsset != nil) {
-        [newCollection addAsset:lastActiveAsset];
+        VAsset* asset = [self.dataSource getAssetWithID:[lastActiveAsset getIdentifier]];
+        
+        [asset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+            [newCollection addAsset:asset];
+        }];
+        
+        NSLog(@"[newCollection addAsset:lastActiveAsset]=%@", [lastActiveAsset getIdentifier]);
     }
     
     collectionViewConrtroller.selectionStorage = newCollection;

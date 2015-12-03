@@ -24,8 +24,10 @@
 
 @property (weak, nonatomic) id<CollageLayoutSelectorViewDelegate> collageLayoutSelectorDelegate;
 
+@property (weak, nonatomic) AssetsCollection* assetsCollection;
+
 -(void) cleanExisitngCoollageLayoutViews;
--(void) addCoollageLayoutViewForCollageLaout: (CollageLayout*)collageLayout withAssetsCollection: (AssetsCollection*) assetsCollection;
+-(void) addCoollageLayoutViewForCollageLayout: (CollageLayout*)collageLayout;
 -(NSArray*)getCollageLayoutViews;
 
 -(NSInteger) getCurrentPageNo;

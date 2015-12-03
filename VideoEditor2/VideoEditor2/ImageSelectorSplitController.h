@@ -33,6 +33,7 @@
 
 - (void) scrollTopViewToTop: (BOOL) toTop;
 - (void) scrollLeftViewToLeft: (BOOL) toLeft;
+- (void) scrollLeftViewToLeft: (BOOL) toLeft withAnimation:(BOOL)withAnimation;
 
 - (void) displayAssetPreview: (VAsset*) asset autoPlay: (BOOL) autoPlay;
 

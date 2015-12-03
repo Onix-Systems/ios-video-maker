@@ -40,12 +40,49 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [self unsubscribeFromAssetsCollectionNotifications];
+}
+
 - (void) setup
 {
     self.collageLayoutViews = [NSMutableArray new];
     //self.pagingEnabled = YES;
     self.subViewOffset = 20;
     self.resizingInprogress = NO;
+}
+
+-(void) subscribeToAssetsCollectionNotifications
+{
+    if (self.assetsCollection != nil) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsCollectionUpdated) name:kAssetsCollectionAssetAddedNitification object:self.assetsCollection];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(assetsCollectionUpdated) name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollection];
+    }
+}
+
+-(void) unsubscribeFromAssetsCollectionNotifications
+{
+    if (self.assetsCollection != nil) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetAddedNitification object:self.assetsCollection];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollection];
+    }
+}
+
+-(void) assetsCollectionUpdated
+{
+    for (NSInteger i = 0; i < self.collageLayoutViews.count; i++) {
+        CollageLayoutView* view = self.collageLayoutViews[i];
+        [view updateImagesUsingAssetsCollection:self.assetsCollection];
+    }
+}
+
+-(void)setAssetsCollection:(AssetsCollection *)assetsCollection
+{
+    [self unsubscribeFromAssetsCollectionNotifications];
+    _assetsCollection = assetsCollection;
+    [self subscribeToAssetsCollectionNotifications];
+    [self assetsCollectionUpdated];
 }
 
 -(CGRect) getFrameForSubview: (NSInteger) i
@@ -68,7 +105,7 @@
     [self.collageLayoutViews removeAllObjects];
 }
 
--(void) addCoollageLayoutViewForCollageLaout: (CollageLayout*)collageLayout withAssetsCollection: (AssetsCollection*) assetsCollection;
+-(void) addCoollageLayoutViewForCollageLayout: (CollageLayout*)collageLayout;
 {
     CGRect collageViewFrame = [self getFrameForSubview: self.collageLayoutViews.count];
     
@@ -76,11 +113,10 @@
     collageLayoutView.delegate = self;
     
     collageLayoutView.collageLayout = collageLayout;
-    collageLayoutView.assetsCollection = assetsCollection;
+    [collageLayoutView updateImagesUsingAssetsCollection: self.assetsCollection];
     
     [self.collageLayoutViews addObject:collageLayoutView];
 
-    
     [self addSubview:collageLayoutView];
     
     [self setNeedsLayout];
@@ -106,7 +142,6 @@
         
         collageLayoutView.frame = lastFrame;
         [collageLayoutView setNeedsLayout];
-        [collageLayoutView setNeedsDisplay];
     }
     
     self.contentSize = CGSizeMake(lastFrame.origin.x + lastFrame.size.width + self.subViewOffset, lastFrame.size.height);

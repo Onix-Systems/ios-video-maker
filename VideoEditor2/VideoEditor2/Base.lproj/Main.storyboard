@@ -727,13 +727,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qc0-Co-cR5">
                                 <rect key="frame" x="20" y="404" width="560" height="120"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KenBurns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euz-vG-hST">
-                                        <rect key="frame" x="73" y="93" width="74" height="20.5"/>
-                                        <animations/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Origami" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNj-GQ-Kma">
                                         <rect key="frame" x="420" y="93" width="60" height="20.5"/>
                                         <animations/>
@@ -742,7 +735,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SlidingPanels-normal" highlightedImage="SlidingPanels-active" translatesAutoresizingMaskIntoConstraints="NO" id="gff-k0-2Vp">
-                                        <rect key="frame" x="237" y="0.0" width="85" height="85"/>
+                                        <rect key="frame" x="238" y="0.0" width="85" height="85"/>
                                         <animations/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -773,7 +766,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="KenBurns-normal" highlightedImage="KenBurns-active" translatesAutoresizingMaskIntoConstraints="NO" id="jSH-Yy-rre">
-                                        <rect key="frame" x="67" y="0.0" width="85" height="85"/>
+                                        <rect key="frame" x="68" y="0.0" width="85" height="85"/>
                                         <animations/>
                                         <gestureRecognizers/>
                                         <constraints>
@@ -784,6 +777,13 @@
                                             <outletCollection property="gestureRecognizers" destination="42d-y5-9y8" appends="YES" id="816-T2-kAM"/>
                                         </connections>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KenBurns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euz-vG-hST">
+                                        <rect key="frame" x="73" y="93" width="74" height="20.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -830,6 +830,7 @@
                     </view>
                     <connections>
                         <outlet property="collageLayoutViewConainer" destination="kmK-8B-rWa" id="j3m-CZ-bWq"/>
+                        <outlet property="kenBurnsLabel" destination="euz-vG-hST" id="pCP-Cf-sWo"/>
                         <outlet property="switchForKenBurns" destination="jSH-Yy-rre" id="frg-0O-Q1M"/>
                         <outlet property="switchForOrigami" destination="gi6-jC-P1w" id="7Os-Mo-Ecz"/>
                         <outlet property="switchForSlidingPanels" destination="gff-k0-2Vp" id="IQs-6l-4Fk"/>

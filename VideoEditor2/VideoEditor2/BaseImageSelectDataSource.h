@@ -42,4 +42,6 @@ typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 -(NSIndexSet*)getBatchUpdateInsertedSections;
 -(NSIndexSet*)getBatchUpdateChangedSections;
 
+-(VAsset*) getAssetWithID:(NSString*)assetID;
+
 @end

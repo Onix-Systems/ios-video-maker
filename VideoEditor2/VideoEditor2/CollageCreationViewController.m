@@ -27,9 +27,13 @@
 @property (strong, nonatomic) AssetsCollection* assetsCollection;
 @property (strong, nonatomic) VSegmentsCollection* segmentsCollection;
 
+@property (weak, nonatomic) IBOutlet UILabel *kenBurnsLabel;
+
 @property (strong, nonatomic) PlayerView* playerView;
 
 @property (nonatomic, strong) UIView* transitionView;
+
+@property (nonatomic) BOOL kbEnabled;
 
 @end
 
@@ -43,6 +47,12 @@
         assetCollage.assetsCollection = assetsCollection;
         assetCollage.collageLayout = collageLayout;
         assetCollage.collageEffect = kCollageEffectNone;
+        
+        self.kbEnabled = NO;
+        if (collageLayout.frames.count == 1) {
+            self.kbEnabled = YES;
+        }
+        self.kenBurnsLabel.enabled = self.kbEnabled;
         
         if (self.assetCollage != nil) {
             assetCollage.collageEffect = self.assetCollage.collageEffect;
@@ -108,6 +118,9 @@
 }
 
 - (IBAction)switch1ThouchUp:(id)sender {
+    if (!self.kbEnabled) {
+        return;
+    }
     [self selectEffect:kCollageEffectKenBurns];
 }
 - (IBAction)switch2TouchUp:(id)sender {

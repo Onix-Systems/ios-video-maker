@@ -165,4 +165,15 @@
     return self.changedIndexes;
 }
 
+-(VAsset*) getAssetWithID:(NSString*)assetID
+{
+    for (NSInteger i = 0; i < self.assets.count; i++) {
+        VAsset* asset = self.assets[i];
+        if ([[asset getIdentifier] isEqualToString:assetID]) {
+            return asset;
+        }
+    }
+    return nil;
+}
+
 @end

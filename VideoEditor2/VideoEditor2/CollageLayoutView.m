@@ -22,11 +22,6 @@
 
 @implementation CollageLayoutView
 
-- (void)dealloc
-{
-    [self unsubscribeFromAssetsCollectionNotifications];
-}
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -55,38 +50,9 @@
     }
 }
 
--(void) setAssetsCollection:(AssetsCollection *)assetsCollection
+-(void)updateImagesUsingAssetsCollection:(AssetsCollection*) assetsCollection
 {
-    [self unsubscribeFromAssetsCollectionNotifications];
-    
-    _assetsCollection = assetsCollection;
-    
-    [self subscribeToAssetsCollectionNotifications];
-    
-    [self updateAssetsView];
-}
-
--(void) subscribeToAssetsCollectionNotifications
-{
-    if (self.assetsCollection != nil) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetAddedNitification object:self.assetsCollection];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAssetsView) name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollection];
-    }
-}
-
--(void) unsubscribeFromAssetsCollectionNotifications
-{
-    if (self.assetsCollection != nil) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetAddedNitification object:self.assetsCollection];
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:kAssetsCollectionAssetRemovedNitification object:self.assetsCollection];
-    }
-}
-
--(void) updateAssetsView
-{
-    [self clearImagesRefreshTimer];
-    
-    NSArray* assets = [self.assetsCollection getAssets];
+    NSArray* assets = assetsCollection != nil ? [assetsCollection getAssets] : [NSArray new];
     
     for (NSInteger i = 0; i < self.imageViews.count; i++) {
         UIImageView* imageView = self.imageViews[i];
@@ -97,7 +63,7 @@
             NSInteger j = i % assets.count;
             VAsset* asset = assets[j];
             
-            [asset getPreviewImageForSize:imageView.bounds.size withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+            [asset getPreviewImageForSize:CGSizeMake(600.0, 600.0) withCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
                 if (!requestError) {
                     imageView.image = resultImage;
                 }
@@ -112,9 +78,7 @@
     self.plusBadge.frame = [self getFrameForPlusBagde];
     self.plusBadge.hidden = (assets.count > self.imageViews.count) ? NO : YES;
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsDisplay];
-    });
+    [self setNeedsDisplay];
 }
 
 -(void) setCollageLayout:(CollageLayout *)collageLayout
@@ -141,10 +105,6 @@
     
     self.plusBadge.frame = [self getFrameForPlusBagde];
     [self addSubview:self.plusBadge];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self setNeedsLayout];
-    });
 }
 
 -(CGRect) getFrameForPlusBagde
@@ -152,14 +112,6 @@
     CGFloat size  = 30;
     
     return CGRectMake(self.bounds.size.width - (size * 2), size, size, size);
-}
-
--(void) clearImagesRefreshTimer
-{
-    if (self.imageRefreshTimer != nil) {
-        [self.imageRefreshTimer invalidate];
-        self.imageRefreshTimer = nil;
-    }
 }
 
 -(void)layoutSubviews {
@@ -174,13 +126,8 @@
         imageView.frame = frame;
     }
     
-    
-    [self clearImagesRefreshTimer];
-    self.imageRefreshTimer = [NSTimer timerWithTimeInterval:0.25 target:self selector:@selector(updateAssetsView) userInfo:nil repeats:NO];
-    [[NSRunLoop currentRunLoop] addTimer:self.imageRefreshTimer forMode:NSDefaultRunLoopMode];
+    self.plusBadge.frame = [self getFrameForPlusBagde];
 
-    
-    [self updateAssetsView];
 }
 
 @end

@@ -118,6 +118,9 @@
 }
 
 -(void) loadDataFromDataSource: (BaseImageSelectDataSource*) dataSource {
+    self.lastActiveAsset = nil;
+    NSLog(@"Set lastActiveAsset=nil");
+    
     [self unsubscribeToDataSourceNotifications];
     self.dataSource = dataSource;
     [self subscribeToDataSourceNotifictions];
@@ -154,6 +157,7 @@
             if (firstAsset != nil) {
                 self.firstAssetDisplayed = YES;
                 self.lastActiveAsset = firstAsset;
+                NSLog(@"Set lastActiveAsset=firstAsset(%@)", [firstAsset getIdentifier]);
                 [self displayAsset:firstAsset autoPlay:NO];
             }
         }
@@ -222,8 +226,6 @@
     self.searchResultsTableView.dataSource = self;
     self.searchResultsTableView.delegate = self;
     self.searchResultsTableView.hidden = YES;
-    
-    self.lastActiveAsset = nil;
 }
 
 -(void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator

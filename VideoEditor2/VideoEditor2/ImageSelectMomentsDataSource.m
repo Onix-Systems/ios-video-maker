@@ -204,4 +204,18 @@
     return self.changedSections;
 }
 
+-(VAsset*) getAssetWithID:(NSString*)assetID
+{
+    for (NSInteger i = 0; i < self.momentsData.count; i++) {
+        NSArray* momentAssets = self.momentsData[i];
+        for (NSInteger j = 0; j < momentAssets.count; j++) {
+            VAsset* asset = momentAssets[j];
+            if ([[asset getIdentifier] isEqualToString:assetID]) {
+                return asset;
+            }
+        }
+    }
+    return nil;
+}
+
 @end

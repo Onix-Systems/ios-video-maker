@@ -280,6 +280,11 @@
 
 - (void) scrollLeftViewToLeft: (BOOL) toLeft
 {
+    [self scrollLeftViewToLeft: toLeft withAnimation:YES];
+}
+
+- (void) scrollLeftViewToLeft: (BOOL) toLeft withAnimation:(BOOL)withAnimation
+{
     CGFloat newHorizontalPosition;
     
     if (toLeft) {
@@ -299,9 +304,14 @@
     self.leftPositionConstraint.constant = newHorizontalPosition;
     [self.view setNeedsLayout];
     
-    [UIView animateWithDuration:.3f animations:^{
+    if (withAnimation) {
+        [UIView animateWithDuration:.3f animations:^{
+            [self.view layoutIfNeeded];
+        }];
+
+    } else {
         [self.view layoutIfNeeded];
-    }];
+    }
 }
 
 - (IBAction)verticalGripTapGestureAction:(UITapGestureRecognizer *)sender

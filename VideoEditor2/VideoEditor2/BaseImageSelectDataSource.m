@@ -50,7 +50,7 @@
     return nil;
 }
 
--(NSString*) getSectionTitle: (id) sectionKey
+-(NSString*) getSectionTitle: (NSInteger) sectionKey
 {
     return nil;
 }
@@ -111,6 +111,11 @@
 }
 
 -(NSIndexSet*)getBatchUpdateChangedSections
+{
+    return nil;
+}
+
+-(VAsset*) getAssetWithID:(NSString*)assetID
 {
     return nil;
 }
