@@ -150,17 +150,17 @@
     self.didFinishLoading(nil);
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangeRemovedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateRemovedIndexes
 {
     return self.removedIndexes;
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangeInsertedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateInsertedIndexes
 {
     return self.insertedIndexes;
 }
 
--(NSArray<NSIndexPath *>*)getBatchChangedChangedIndexes
+-(NSArray<NSIndexPath *>*)getBatchUpdateChangedIndexes
 {
     return self.changedIndexes;
 }
