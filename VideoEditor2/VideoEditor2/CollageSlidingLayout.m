@@ -8,6 +8,12 @@
 
 #import "CollageSlidingLayout.h"
 
+@interface CollageSlidingLayout()
+
+@property (nonatomic, strong) NSMutableArray* repeatingFrameNumbers;
+
+@end
+
 @implementation CollageSlidingLayout
 
 - (instancetype)init
@@ -17,6 +23,8 @@
         self.totalDuration = kSlidingPanelsTotalDuration;
         self.slideInDuration = kSlidingPanelsSlidingDuration;
         self.slideOutDuration = kSlidingPanelsSlidingDuration;
+        
+        self.repeatingFrameNumbers = [NSMutableArray new];
     }
     return self;
 }
@@ -78,7 +86,7 @@
     self.slideOutDirections = slideOutDirections;
 }
 
--(NSArray*) calculateSlideInForFrames:(NSArray*)stillFrames slideInPercent:(double)slideInPercent
+-(NSMutableArray*) calculateSlideInForFrames:(NSArray*)stillFrames slideInPercent:(double)slideInPercent
 {
     NSMutableArray* frames = [NSMutableArray new];
     
@@ -117,7 +125,7 @@
     return frames;
 }
 
--(NSArray*) calculateSlideOutForFrames:(NSArray*)stillFrames slideOutPercent:(double)slideOutPercent
+-(NSMutableArray*) calculateSlideOutForFrames:(NSArray*)stillFrames slideOutPercent:(double)slideOutPercent
 {
     NSMutableArray* frames = [NSMutableArray new];
     
@@ -161,18 +169,49 @@
     return [super getStillFramesForFinalSize:finalSize];
 }
 
+-(NSArray*) restoreSlideInFramesPositions: (NSMutableArray*)shiftedFrames stillFrames:(NSArray*)stillFrames
+{
+    if (self.addedItemsIndexes == nil) {
+        return nil;
+    }
+    for (NSInteger i = 0; i < shiftedFrames.count; i++) {
+        if (![self.addedItemsIndexes containsIndex:i]) {
+            shiftedFrames[i] = stillFrames[i];
+        }
+    }
+    
+    return shiftedFrames;
+}
+
+-(NSArray*) restoreSlideOutFramesPositions: (NSMutableArray*)shiftedFrames stillFrames:(NSArray*)stillFrames
+{
+    if (self.removableItemsIndexes == nil) {
+        return nil;
+    }
+    for (NSInteger i = 0; i < shiftedFrames.count; i++) {
+        if (![self.removableItemsIndexes containsIndex:i]) {
+            shiftedFrames[i] = stillFrames[i];
+        }
+    }
+    
+    return shiftedFrames;
+}
+
 -(NSArray*) getFramesForFinalSize:(CGSize)finalSize andTime:(double)time
 {
     NSArray* stillFrames = [self getStillFramesForFinalSize:finalSize];
+    NSMutableArray* finalFrames = nil;
     
     if ((self.slideInDuration > 0) && (time < self.slideInDuration)) {
         double slideInPercent = time/self.slideInDuration;
-        return [self calculateSlideInForFrames:stillFrames slideInPercent:slideInPercent];
+        finalFrames = [self calculateSlideInForFrames:stillFrames slideInPercent:slideInPercent];
+        return [self restoreSlideInFramesPositions:finalFrames stillFrames:stillFrames];
     }
     
     if ((self.slideOutDuration > 0) && (time > (self.totalDuration - self.slideOutDuration))) {
         double slideOutPercent = (time - (self.totalDuration - self.slideOutDuration)) / self.slideOutDuration;
-        return [self calculateSlideOutForFrames:stillFrames slideOutPercent:slideOutPercent];
+        finalFrames = [self calculateSlideOutForFrames:stillFrames slideOutPercent:slideOutPercent];
+        return [self restoreSlideOutFramesPositions:finalFrames stillFrames:stillFrames];
     }
     
     return stillFrames;
@@ -181,6 +220,11 @@
 -(BOOL)isLayoutStatic
 {
     return NO;
+}
+
+-(void)markFrameAsRepeating:(NSInteger)frameNo
+{
+    [self.repeatingFrameNumbers addObject:[NSNumber numberWithInteger:frameNo]];
 }
 
 @end

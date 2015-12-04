@@ -11,6 +11,9 @@
 
 @interface CollageLayout : NSObject
 
+@property (nonatomic, strong) NSIndexSet* addedItemsIndexes;
+@property (nonatomic, strong) NSIndexSet* removableItemsIndexes;
+
 //array fo CGRect
 @property (nonatomic, strong) NSArray<NSValue *>* frames;
 -(void)setFrames:(NSArray<NSValue *> *)frames;

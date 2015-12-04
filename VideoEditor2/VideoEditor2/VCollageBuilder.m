@@ -22,6 +22,8 @@
     NSInteger numberOfFrames = (items.count / countOfItemsInFrame) + ((items.count % countOfItemsInFrame > 0) ? 1 : 0);
     VCollageFrame* previousFrame = nil;
     
+    NSInteger numberOfFixedFramesAtFinish = (numberOfFrames * countOfItemsInFrame) - items.count;
+    
     for (NSInteger i = 0; i < numberOfFrames; i++) {
         VCollageFrame* frame = [VCollageFrame new];
         frame.finalSize = finalSize;
@@ -33,12 +35,30 @@
         frame.collageLayout = layout;
         NSArray* itemsStillFrames = [layout getStillFramesForFinalSize:finalSize];
         
+        NSIndexSet* addedItemsIndexes = [NSMutableIndexSet new];
+        NSIndexSet* removableItemsIndexes = [NSMutableIndexSet new];
+        
         for (NSInteger j = 0; j < countOfItemsInFrame; j++) {
             NSInteger itemNo = (i * countOfItemsInFrame + j);
-            if (itemNo > countOfItemsInFrame) {
+            
+            if ((i == (numberOfFrames -1)) && (numberOfFixedFramesAtFinish > 0)) {
+                addedItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame - numberOfFixedFramesAtFinish)];
+                removableItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame)];
+                
+            } else if ((i == (numberOfFrames -2)) && (numberOfFixedFramesAtFinish > 0)) {
+                addedItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame)];
+                removableItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame - numberOfFixedFramesAtFinish)];
+
+            } else {
+                addedItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame)];
+                removableItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame)];
+            }
+            
+            if (itemNo >= countOfItemsInFrame) {
                 while (itemNo >= items.count) {
                     itemNo -= countOfItemsInFrame;
                 }
+
             } else {
                 itemNo = itemNo % items.count;
             }
@@ -54,6 +74,10 @@
                 frame.isStatic = NO;
             }
         }
+        
+        frame.collageLayout.addedItemsIndexes = addedItemsIndexes;
+        frame.collageLayout.removableItemsIndexes = removableItemsIndexes;
+        
         frame.collageItems = frameItems;
         
         VTransition* transition = nil;
