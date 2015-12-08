@@ -65,7 +65,7 @@
         return;
     }
     
-    if (![collectionChanges hasIncrementalChanges] || [collectionChanges hasMoves]) {
+    if (![collectionChanges hasIncrementalChanges] || [collectionChanges hasMoves] || !self.allowVideoAssets) {
         [self getAssetsFromFetchResults: [collectionChanges fetchResultAfterChanges]];
         self.didFinishLoading(nil);
 
@@ -130,7 +130,10 @@
     self.fetchResults = fetchResult;
     
     for (PHAsset *asset in self.fetchResults) {
-        [assets addObject:[VAssetPHImage makeFromPHAsset:asset]];
+        VAsset* phAsset = [VAssetPHImage makeFromPHAsset:asset];
+        if (self.allowVideoAssets || !phAsset.isVideo) {
+            [assets addObject:phAsset];
+        }
     }
     
     self.assets = assets;
@@ -148,6 +151,17 @@
     
     self.isLoading = NO;
     self.didFinishLoading(nil);
+}
+
+-(void)setAllowVideoAssets:(BOOL)allowVideoAssets
+{
+    if (self.allowVideoAssets != allowVideoAssets) {
+        [super setAllowVideoAssets:allowVideoAssets];
+        
+        if (self.fetchResults != nil) {
+            [self getAssetsFromFetchResults:self.fetchResults];
+        }
+    }
 }
 
 -(NSArray<NSIndexPath *>*)getBatchUpdateRemovedIndexes

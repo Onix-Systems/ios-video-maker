@@ -21,6 +21,8 @@ typedef void (^PickerAssetLoadCompletionBlock)(NSError *error);
 @property (nonatomic) BOOL supportSearch;
 @property (strong, nonatomic) PickerAssetLoadCompletionBlock didFinishLoading;
 
+@property (nonatomic) BOOL allowVideoAssets;
+
 -(void)loadAssets;
 
 -(NSInteger)getNumberofSectionsInData;

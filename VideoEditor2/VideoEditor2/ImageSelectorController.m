@@ -100,6 +100,9 @@
     
     ImageSelectorCollectionViewController* collectionViewConrtroller =  [self getCollectionViewConrtroller];
     ImageSelectorCollageController* collageConrtroller =  [self getCollageControler];
+    
+    collectionViewConrtroller.selectionStorage = newCollection;
+    collageConrtroller.assetsCollection = newCollection;
    
     VAsset* lastActiveAsset = collectionViewConrtroller.lastActiveAsset;
     if (lastActiveAsset != nil) {
@@ -111,9 +114,6 @@
         
         NSLog(@"[newCollection addAsset:lastActiveAsset]=%@", [lastActiveAsset getIdentifier]);
     }
-    
-    collectionViewConrtroller.selectionStorage = newCollection;
-    collageConrtroller.assetsCollection = newCollection;
     
     self.splitController.navigationItem.title = @"Select collage layout";
     [self.splitController hideOkButton];

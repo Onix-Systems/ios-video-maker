@@ -67,44 +67,49 @@
     self.changedIndexes = [NSMutableArray new];
     
     PHFetchResultChangeDetails *collectionsChanges = [changeInstance changeDetailsForFetchResult:self.collectionsFetchResult];
-    if (collectionsChanges != nil) {
-        hasChanges = YES;
-        newCollectionsFetchResult = [collectionsChanges fetchResultAfterChanges];
-        
-        if (![collectionsChanges hasIncrementalChanges] || [collectionsChanges hasMoves]) {
-            needCompleteReload = YES;
-        } else {
-            self.removedSections = collectionsChanges.removedIndexes;
-            self.inseretedSections = collectionsChanges.insertedIndexes;
-            self.changedSections = collectionsChanges.changedIndexes;
-        }
-    }
     
-    for (NSInteger i = 0; i < self.collectionsFetchResult.count; i++) {
-        PHFetchResultChangeDetails *sectionChanges = [changeInstance changeDetailsForFetchResult:self.momentsFetchResults[i]];
-        
-        if (sectionChanges != nil) {
+    if (self.allowVideoAssets) {
+        if (collectionsChanges != nil) {
             hasChanges = YES;
-        
+            newCollectionsFetchResult = [collectionsChanges fetchResultAfterChanges];
+            
             if (![collectionsChanges hasIncrementalChanges] || [collectionsChanges hasMoves]) {
                 needCompleteReload = YES;
-                break;
             } else {
-                [sectionChanges.removedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                    [self.removedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
-                }];
-                [sectionChanges.insertedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                    [self.insertedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
-                }];
-                [sectionChanges.changedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ((sectionChanges.removedIndexes != nil) && ![sectionChanges.removedIndexes containsIndex:idx]) {
-                        [self.changedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
-                    }
-                }];
+                self.removedSections = collectionsChanges.removedIndexes;
+                self.inseretedSections = collectionsChanges.insertedIndexes;
+                self.changedSections = collectionsChanges.changedIndexes;
             }
         }
+        
+        for (NSInteger i = 0; i < self.collectionsFetchResult.count; i++) {
+            PHFetchResultChangeDetails *sectionChanges = [changeInstance changeDetailsForFetchResult:self.momentsFetchResults[i]];
+            
+            if (sectionChanges != nil) {
+                hasChanges = YES;
+                
+                if (![collectionsChanges hasIncrementalChanges] || [collectionsChanges hasMoves]) {
+                    needCompleteReload = YES;
+                    break;
+                } else {
+                    [sectionChanges.removedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                        [self.removedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
+                    }];
+                    [sectionChanges.insertedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                        [self.insertedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
+                    }];
+                    [sectionChanges.changedIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ((sectionChanges.removedIndexes != nil) && ![sectionChanges.removedIndexes containsIndex:idx]) {
+                            [self.changedIndexes addObject: [NSIndexPath indexPathForItem:idx inSection:i]];
+                        }
+                    }];
+                }
+            }
+        }
+    } else {
+        hasChanges = YES;
+        needCompleteReload = YES;
     }
-    
 
     if (hasChanges) {
         [self getAssetsFromCollectionsFetchResults:newCollectionsFetchResult];
@@ -136,13 +141,19 @@
                                          ];
         
         PHFetchResult *results = [PHAsset fetchAssetsInAssetCollection:collection options:fetchOptions];
-        self.momentsFetchResults[i] = results;
         
         NSMutableArray* assets = [NSMutableArray new];
         for (PHAsset *asset in results) {
-            [assets addObject:[VAssetPHImage makeFromPHAsset:asset]];
+            VAsset* phAsset = [VAssetPHImage makeFromPHAsset:asset];
+            if (self.allowVideoAssets || !phAsset.isVideo) {
+                [assets addObject:phAsset];
+            }
         }
-        self.momentsData[i] = assets;
+        if (assets.count > 0) {
+            [self.momentsFetchResults addObject: results];
+            [self.momentsData addObject: assets];
+        }
+        
     }
 
 }
@@ -161,8 +172,19 @@
     self.didFinishLoading(nil);
 }
 
+-(void)setAllowVideoAssets:(BOOL)allowVideoAssets
+{
+    if (self.allowVideoAssets != allowVideoAssets) {
+        [super setAllowVideoAssets:allowVideoAssets];
+        
+        if (self.collectionsFetchResult != nil) {
+            [self getAssetsFromCollectionsFetchResults:self.collectionsFetchResult];
+        }
+    }
+}
+
 -(NSInteger)getNumberofSectionsInData {
-    return self.collectionsFetchResult.count;
+    return self.momentsData.count;
 }
 
 -(NSArray*) getAssetsBySections {

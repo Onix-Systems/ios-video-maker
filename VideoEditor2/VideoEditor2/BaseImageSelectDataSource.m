@@ -11,6 +11,15 @@
 
 @implementation BaseImageSelectDataSource
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.allowVideoAssets = YES;
+    }
+    return self;
+}
+
 -(void)loadAssets
 {
     

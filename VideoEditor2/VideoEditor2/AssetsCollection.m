@@ -69,6 +69,11 @@
     if (asset.isVideo && !self.isNumerable) {
         //return;
     }
+    
+    if ([self findIndexOfAsset:asset] >= 0) {
+        [self removeAsset:asset];
+    }
+    
     [self.assets addObject:asset];
     [[NSNotificationCenter defaultCenter] postNotificationName:kAssetsCollectionAssetAddedNitification object:self];
 }

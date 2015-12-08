@@ -125,6 +125,14 @@
     self.dataSource = dataSource;
     [self subscribeToDataSourceNotifictions];
     
+    if (self.selectionStorage != nil) {
+        if (self.selectionStorage.isNumerable) {
+            self.dataSource.allowVideoAssets = YES;
+        } else {
+            self.dataSource.allowVideoAssets = NO;
+        }
+    }
+    
     self.firstAssetDisplayed = NO;
     
     __weak ImageSelectorCollectionViewController *weakSelf = self;
@@ -370,6 +378,17 @@
 -(void) setSelectionStorage:(AssetsCollection *)selectionStorage
 {
     _selectionStorage = selectionStorage;
+    if (self.dataSource != nil) {
+        if (self.selectionStorage.isNumerable) {
+            self.dataSource.allowVideoAssets = YES;
+        } else {
+            self.dataSource.allowVideoAssets = NO;
+        }
+    }
+    
+    if (self.lastActiveAsset != nil && self.lastActiveAsset.isVideo && !self.dataSource.allowVideoAssets) {
+        self.lastActiveAsset = nil;
+    }
     [self reloadData];
 }
 
