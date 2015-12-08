@@ -41,11 +41,11 @@
         for (NSInteger j = 0; j < countOfItemsInFrame; j++) {
             NSInteger itemNo = (i * countOfItemsInFrame + j);
             
-            if ((i == (numberOfFrames -1)) && (numberOfFixedFramesAtFinish > 0)) {
+            if ((numberOfFrames > 1) && (i == (numberOfFrames -1)) && (numberOfFixedFramesAtFinish > 0)) {
                 addedItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame - numberOfFixedFramesAtFinish)];
                 removableItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame)];
                 
-            } else if ((i == (numberOfFrames -2)) && (numberOfFixedFramesAtFinish > 0)) {
+            } else if ((numberOfFrames > 1) && (i == (numberOfFrames -2)) && (numberOfFixedFramesAtFinish > 0)) {
                 addedItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame)];
                 removableItemsIndexes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, countOfItemsInFrame - numberOfFixedFramesAtFinish)];
 
