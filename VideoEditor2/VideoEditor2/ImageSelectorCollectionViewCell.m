@@ -42,7 +42,7 @@
     [self subscribeToDownloadProgressNotifications:_asset];
     
     if (asset.isVideo && !selectionStorage.isNumerable) {
-        self.stateIndicator.isDisabled = YES;
+        //self.stateIndicator.isDisabled = YES;
     } else {
         self.stateIndicator.isDisabled = NO;
     }

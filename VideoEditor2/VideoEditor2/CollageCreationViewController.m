@@ -98,7 +98,7 @@
 - (void)selectEffect:(NSString *)collageEffect
 {
     if (self.playerView != nil) {
-        [self.playerView cleanPlayer];
+        //[self.playerView cleanPlayer];
     }
     
     if (self.assetCollage != nil) {
@@ -136,7 +136,7 @@
     [self updateSwitches];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self showUpdatedCollagePreview];
+        //[self showUpdatedCollagePreview];
     });
 
 }

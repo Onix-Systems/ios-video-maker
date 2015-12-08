@@ -67,7 +67,7 @@
 
 -(void) addAsset: (VAsset*) asset {
     if (asset.isVideo && !self.isNumerable) {
-        return;
+        //return;
     }
     [self.assets addObject:asset];
     [[NSNotificationCenter defaultCenter] postNotificationName:kAssetsCollectionAssetAddedNitification object:self];

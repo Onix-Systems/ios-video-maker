@@ -333,7 +333,7 @@
     VAsset *asset = [self getAssetForIndexPath:indexPath];
     
     if (asset.isVideo && !self.selectionStorage.isNumerable) {
-        return;
+        //return;
     }
     
     if ([asset isDownloading]) {
