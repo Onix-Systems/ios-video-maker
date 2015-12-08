@@ -39,6 +39,8 @@
 
 @property (nonatomic, strong) CIContext *thumbanilDrawingContext;
 
+@property (nonatomic) BOOL hasPanActiveGesure;
+
 @end
 
 @implementation SegmentsCollectionView
@@ -64,6 +66,8 @@
     [self addSubview:self.timePointer];
     
     self.thumbanilDrawingContext = [CIContext contextWithOptions:nil];
+    
+    self.hasPanActiveGesure = NO;
 }
 
 -(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect
@@ -112,7 +116,6 @@
 - (void)panGestureAction:(UIPanGestureRecognizer *)sender
 {
     CGFloat scrollingScreenShift = 0;
-    BOOL finishScrolling = NO;
     double finalVelocity = 0.0;
     
     switch (sender.state) {
@@ -122,6 +125,11 @@
             
             self.scrollingStartCoordinate = translation.x;
             self.scrollingStartTime = self.currentScrollingTime;
+            
+            if (self.delegate != nil) {
+                [self.delegate willStartScrolling];
+            }
+            self.hasPanActiveGesure = YES;
             
             break;
         }
@@ -136,9 +144,13 @@
         {
             CGPoint translation = [sender translationInView:self];
             scrollingScreenShift = (self.scrollingStartCoordinate - translation.x);
-            finishScrolling = YES;
             
             finalVelocity = [sender velocityInView:self].x;
+            
+            self.hasPanActiveGesure = NO;
+            if (self.delegate != nil) {
+                [self.delegate didFinishScrolling];
+            }
             
             break;
         }
@@ -146,7 +158,10 @@
         case UIGestureRecognizerStateCancelled:
         case UIGestureRecognizerStateFailed:
             
-            finishScrolling = YES;
+            self.hasPanActiveGesure = NO;
+            if (self.delegate != nil) {
+                [self.delegate didFinishScrolling];
+            }
             
         default:
             break;
@@ -157,13 +172,19 @@
     newScrollingTime = MAX(0, newScrollingTime);
     newScrollingTime = MIN(CMTimeGetSeconds(self.totalDuration), newScrollingTime);
     
+    if (self.delegate) {
+        [self.delegate didScrollToTime:newScrollingTime];
+    }
+    
     [self scrollContentToTime:newScrollingTime];
 
 }
 
 
 -(void) synchronizeToPlayerTime: (double) time{
-    [self scrollContentToTime:time];
+    if (!self.hasPanActiveGesure) {
+        [self scrollContentToTime:time];
+    };
 }
 
 -(void) scrollContentToTime: (double) time
@@ -172,7 +193,7 @@
     
     double timePx = (self.bounds.size.width/2.0) - [self getPxForTime:CMTimeMakeWithSeconds(time, 1000)];
     
-    NSLog(@"scrollContentToTime=%f timePx=%f", time, timePx);
+//    NSLog(@"scrollContentToTime=%f timePx=%f", time, timePx);
     
     self.contentContainer.frame = CGRectMake(timePx, [self getSegmentsVerticalPosition], self.contentContainer.frame.size.width, self.contentContainer.frame.size.height);
 }

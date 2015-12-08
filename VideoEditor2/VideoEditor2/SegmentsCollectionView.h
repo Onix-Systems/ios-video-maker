@@ -11,9 +11,18 @@
 
 #import "VSegmentsCollection.h"
 
+@protocol SegmentsCollectionViewDelegate
+
+-(void) willStartScrolling;
+-(void) didScrollToTime: (double)time;
+-(void) didFinishScrolling;
+
+@end
+
 @interface SegmentsCollectionView : UIView
 
 @property (weak, nonatomic) VSegmentsCollection* segmentsCollection;
+@property (weak, nonatomic) id<SegmentsCollectionViewDelegate> delegate;
 
 -(void) synchronizeToPlayerTime: (double) time;
 

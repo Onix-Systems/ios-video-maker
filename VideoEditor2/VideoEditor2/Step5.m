@@ -13,7 +13,7 @@
 #import "APLCompositionDebugView.h"
 #import "SegmentsCollectionView.h"
 
-@interface Step5 () <PlayerViewDelegate>
+@interface Step5 () <PlayerViewDelegate, SegmentsCollectionViewDelegate>
 
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
 
@@ -26,6 +26,8 @@
 @property (strong, nonatomic) AVAsset* currentDebugViewAsset;
 
 @property (strong, nonatomic) VideoComposition* videoComposition;
+
+@property (nonatomic) BOOL isVideoSuspended;
 
 @end
 
@@ -46,7 +48,9 @@
     
     self.segmentsCollection = [VDocument getCurrentDocument].segmentsCollection;
     self.segmentsCollectionView.segmentsCollection = self.segmentsCollection;
+    self.segmentsCollectionView.delegate = self;
     
+    self.isVideoSuspended = NO;
 }
 
 -(void) viewDidDisappear:(BOOL)animated
@@ -95,6 +99,28 @@
 -(void) playerTimeDidChanged:(PlayerView *)playerView
 {
     [self.segmentsCollectionView synchronizeToPlayerTime:CMTimeGetSeconds(playerView.playerTime)];
+}
+
+-(void) willStartScrolling
+{
+    if (self.playerView.isPlayingNow) {
+        self.isVideoSuspended = YES;
+        [self.playerView pause];
+    }
+}
+
+-(void) didScrollToTime:(double)time
+{
+    [self.playerView.player seekToTime:CMTimeMakeWithSeconds(time, 1000) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
+}
+
+-(void)didFinishScrolling
+{
+
+    if (self.isVideoSuspended) {
+        self.isVideoSuspended = NO;
+        [self.playerView play];
+    }
 }
 
 @end
