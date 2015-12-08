@@ -11,7 +11,10 @@
 #import "CollageLayoutView.h"
 #import "CollageCreationViewController.h"
 
-@interface ImageSelectorCollageController () <UIScrollViewDelegate, CollageLayoutSelectorViewDelegate>
+#import "VDocument.h"
+#import "ImageSelectorSplitController.h"
+
+@interface ImageSelectorCollageController () <UIScrollViewDelegate, CollageLayoutSelectorViewDelegate ,CollageCreationViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet CollageLayoutSelectorView *layoutsView;
 @property (nonatomic, weak, nonatomic) IBOutlet UIPageControl *pageControl;
@@ -176,8 +179,22 @@
     [collageCreationViewController setupCollageWithAssets:self.assetsCollection andLayout:collageLayoutView.collageLayout];
     
     [collageCreationViewController setupTransitionForView:collageLayoutView];
+    
+    collageCreationViewController.delegate = self;
 
     [self presentViewController:collageCreationViewController animated:YES completion:nil];
+}
+
+-(void)saveCollage:(VAsset *)collage
+{
+    [[VDocument getCurrentDocument].assetsCollection addAsset:collage];
+    
+    [self.parentSplitController scrollLeftViewToLeft:NO withAnimation:NO];
+}
+
+-(void)cancelCollage
+{
+    
 }
 
 @end

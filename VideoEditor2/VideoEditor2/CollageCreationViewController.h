@@ -10,7 +10,17 @@
 #import <UIKit/UIKit.h>
 #import "CollageLayoutView.h"
 
+
+@protocol CollageCreationViewControllerDelegate
+
+-(void)cancelCollage;
+-(void)saveCollage: (VAsset*) collage;
+
+@end
+
 @interface CollageCreationViewController : UIViewController
+
+@property (nonatomic) id<CollageCreationViewControllerDelegate>delegate;
 
 -(void) setupCollageWithAssets:(AssetsCollection *)assetsCollection andLayout: (CollageLayout*)collageLayout;
 

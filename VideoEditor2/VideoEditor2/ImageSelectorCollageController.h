@@ -10,9 +10,13 @@
 #import <UIKit/UIKit.h>
 #import "AssetsCollection.h"
 
+@class ImageSelectorSplitController;
+
 @interface ImageSelectorCollageController : UIViewController
 
 @property (nonatomic, weak) AssetsCollection* assetsCollection;
+
+@property (nonatomic, weak) ImageSelectorSplitController* parentSplitController;
 
 -(void)willStartResizing;
 -(void)didFinishedResizing;

@@ -40,6 +40,7 @@
     collectionController.selectionStorage = currentDoccument.assetsCollection;
    
     ImageSelectorCollageController *collageController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorCollageController"];
+    collageController.parentSplitController = self.splitController;
     
     self.splitController.leftViewController = previewController;
     self.splitController.bottomViewController = collectionController;
@@ -51,12 +52,6 @@
     [self.splitController didMoveToParentViewController:self];
     
     self.splitController.delegate = self;
-}
-
--(void) viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.splitController scrollLeftViewToLeft:NO withAnimation:NO];
 }
 
 -(ImageSelectorCollageController*) getCollageControler

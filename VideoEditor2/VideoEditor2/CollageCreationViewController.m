@@ -186,15 +186,21 @@
 }
 
 - (IBAction)saveButtonAction:(UIBarButtonItem *)sender {
-    [[VDocument getCurrentDocument].assetsCollection addAsset:self.assetCollage];
-    
     [self dismissViewControllerAnimated:YES completion:^{
     }];
+    
+    if (self.delegate != nil) {
+        [self.delegate saveCollage:self.assetCollage];
+    }
 }
 
 - (IBAction)cancelButtonAction:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:^{
     }];
+    
+    if (self.delegate != nil) {
+        [self.delegate cancelCollage];
+    }
 }
 
 - (void) viewDidLayoutSubviews {
