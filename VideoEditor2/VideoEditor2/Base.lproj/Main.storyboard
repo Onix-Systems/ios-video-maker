@@ -725,7 +725,7 @@
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qc0-Co-cR5">
-                                <rect key="frame" x="20" y="404" width="560" height="120"/>
+                                <rect key="frame" x="20" y="472" width="560" height="120"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Origami" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tNj-GQ-Kma">
                                         <rect key="frame" x="420" y="93" width="60" height="20.5"/>
@@ -804,12 +804,11 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kmK-8B-rWa">
-                                <rect key="frame" x="150" y="84" width="300" height="300"/>
+                                <rect key="frame" x="106" y="64" width="388" height="388"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="kmK-8B-rWa" secondAttribute="height" multiplier="1:1" id="1nG-rW-RQD"/>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="300" id="ddM-KX-fpa"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -817,7 +816,7 @@
                         <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Qc0-Co-cR5" firstAttribute="leading" secondItem="7Vc-NI-vSa" secondAttribute="leadingMargin" id="0Vy-ug-Fyc"/>
-                            <constraint firstItem="kmK-8B-rWa" firstAttribute="top" secondItem="ngp-Ka-CBu" secondAttribute="bottom" constant="20" id="Ap7-28-C3p"/>
+                            <constraint firstItem="kmK-8B-rWa" firstAttribute="top" secondItem="ngp-Ka-CBu" secondAttribute="bottom" id="Ap7-28-C3p"/>
                             <constraint firstItem="Qc0-Co-cR5" firstAttribute="trailing" secondItem="7Vc-NI-vSa" secondAttribute="trailingMargin" id="DRi-lA-Ifr"/>
                             <constraint firstItem="kmK-8B-rWa" firstAttribute="height" secondItem="7Vc-NI-vSa" secondAttribute="height" priority="999" id="WYB-aA-fvH"/>
                             <constraint firstItem="ngp-Ka-CBu" firstAttribute="width" secondItem="7Vc-NI-vSa" secondAttribute="width" id="Zpf-vb-WkA"/>

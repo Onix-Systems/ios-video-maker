@@ -126,6 +126,7 @@
 		11EFEE1F1B820C0300078735 /* UIImagePickerController+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EFEE1E1B820C0300078735 /* UIImagePickerController+Block.m */; };
 		11F43D5F1B84674E00011C2D /* VAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D5E1B84674E00011C2D /* VAsset.m */; };
 		11F43D6E1B84CCB500011C2D /* AssetsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D6D1B84CCB500011C2D /* AssetsCollection.m */; };
+		11F5A9241C17088F00FD2611 /* ZOZolaZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */; };
 		AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1801B98896C00403713 /* Fabric.framework */; };
 		AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1811B98896C00403713 /* Crashlytics.framework */; };
 		FB3ACDA7BE4B896EFFA0C234 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6148C19E5C1D05E669F93A /* libPods.a */; };
@@ -374,6 +375,8 @@
 		11F43D5E1B84674E00011C2D /* VAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VAsset.m; sourceTree = "<group>"; };
 		11F43D6C1B84CCB500011C2D /* AssetsCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetsCollection.h; sourceTree = "<group>"; };
 		11F43D6D1B84CCB500011C2D /* AssetsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetsCollection.m; sourceTree = "<group>"; };
+		11F5A9221C17088F00FD2611 /* ZOZolaZoomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZOZolaZoomTransition.h; path = ZOZolaZoomTransition/ZOZolaZoomTransition.h; sourceTree = "<group>"; };
+		11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZOZolaZoomTransition.m; path = ZOZolaZoomTransition/ZOZolaZoomTransition.m; sourceTree = "<group>"; };
 		69B654D231D53CB9E236F108 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AAB4B1801B98896C00403713 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		AAB4B1811B98896C00403713 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -770,6 +773,7 @@
 		11EFEDC11B81C27D00078735 /* VideoEditor2 */ = {
 			isa = PBXGroup;
 			children = (
+				11F5A9251C17089300FD2611 /* ZOZolaZoomTransition */,
 				115C21121BA94F16002DD526 /* DMPagingScrollView */,
 				11EFEDF41B820B4F00078735 /* DZNPhotoPickerController */,
 				11F43D591B8462CC00011C2D /* Models */,
@@ -872,6 +876,15 @@
 				11B041251BAC2964007DB2A4 /* VDocument.m */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		11F5A9251C17089300FD2611 /* ZOZolaZoomTransition */ = {
+			isa = PBXGroup;
+			children = (
+				11F5A9221C17088F00FD2611 /* ZOZolaZoomTransition.h */,
+				11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */,
+			);
+			name = ZOZolaZoomTransition;
 			sourceTree = "<group>";
 		};
 		FFAE5A8FD0109141F8181AEF /* Pods */ = {
@@ -1045,6 +1058,7 @@
 				11B4AE141B95B76600DB43AD /* ImageSelectMomentsDataSource.m in Sources */,
 				11E5715D1BDCF14E00ADDD1F /* VAccordionOrigamiTransition.m in Sources */,
 				11E571691BDFDA9D00ADDD1F /* VTransition03CIBarsSwipeTransition.m in Sources */,
+				11F5A9241C17088F00FD2611 /* ZOZolaZoomTransition.m in Sources */,
 				11E571BA1BE0C60800ADDD1F /* VTransition27CIPageCurlWithShadowTransition.m in Sources */,
 				11E265D31BD8D1D400FDFAD6 /* VOrigamiCollageBuilder.m in Sources */,
 				11E5717B1BDFE25400ADDD1F /* VTransition07CIPageCurlWithShadowTransition.m in Sources */,

@@ -199,8 +199,8 @@
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
                              // Transform and move the "from" snapshot
-                             fromControllerSnapshot.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
-                             fromControllerSnapshot.frame = CGRectMake(endPoint.x, endPoint.y, fromControllerSnapshot.frame.size.width, fromControllerSnapshot.frame.size.height);
+//                             fromControllerSnapshot.transform = CGAffineTransformMakeScale(scaleFactor, scaleFactor);
+//                             fromControllerSnapshot.frame = CGRectMake(endPoint.x, endPoint.y, fromControllerSnapshot.frame.size.width, fromControllerSnapshot.frame.size.height);
                              
                              // Transform and move the supplementary container with the "from" snapshot
                              supplementaryContainer.transform = fromControllerSnapshot.transform;

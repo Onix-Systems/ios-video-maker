@@ -27,7 +27,6 @@ PODS:
   - SDWebImage (3.7.0):
     - SDWebImage/Core (= 3.7.0)
   - SDWebImage/Core (3.7.0)
-  - ZOZolaZoomTransition (1.0.0)
 
 DEPENDENCIES:
   - AFNetworking (= 2.4.1)
@@ -35,7 +34,6 @@ DEPENDENCIES:
   - GROAuth2SessionManager (= 0.2.3)
   - MBProgressHUD (= 0.9)
   - SDWebImage (= 3.7)
-  - ZOZolaZoomTransition (~> 1.0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: 41d45d2c14219af0fa5addf3cfd433a002c13c9f
@@ -43,6 +41,5 @@ SPEC CHECKSUMS:
   GROAuth2SessionManager: c265ea7e6d33512e7b079ccc9bb509dba2d43131
   MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
   SDWebImage: b42db92951f9d565c55f1d7f1d5efe47e33a7515
-  ZOZolaZoomTransition: 650b873204e4fe601334a99b49628d19c8e54cdd
 
 COCOAPODS: 0.38.2
