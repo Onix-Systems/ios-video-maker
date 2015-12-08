@@ -32,7 +32,7 @@
 @property (weak,nonatomic) AVPlayer *player;
 @property (nonatomic) CMTime playerTime;
 
-@property (nonatomic) BOOL autoRewind;
+@property (nonatomic) NSInteger autoRewind;
 
 @property (weak, nonatomic) id<PlayerViewDelegate> delegate;
 

@@ -45,7 +45,7 @@
         self.playerItemObserversSetUp = NO;
         self.context = @"zzz";
         self.autoPlay = NO;
-        self.autoRewind = NO;
+        self.autoRewind = 0;
         self.shouldStartPlayingWhenAppActive = NO;
         _renderingStats = nil;
         self.renderingStatsLabel = nil;
@@ -262,7 +262,8 @@
 {
     self.isPlayingNow = NO;
     [self.player seekToTime: kCMTimeZero];
-    if (self.autoRewind && !self.isSuspended) {
+    if ((self.autoRewind > 0) && !self.isSuspended) {
+        self.autoRewind--;
         [self play];
     } else {
         [self updateControls];

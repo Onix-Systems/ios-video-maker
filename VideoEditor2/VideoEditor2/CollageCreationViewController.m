@@ -162,7 +162,6 @@
     if (self.segmentsCollection != nil) {
         if (self.playerView == nil) {
             self.playerView = [PlayerView new];
-            self.playerView.autoRewind = YES;
             self.playerView.delegate = self;
             
             self.playerView.frame = self.collageLayoutViewConainer.bounds;
@@ -170,6 +169,7 @@
             [self.collageLayoutViewConainer addSubview:self.playerView];
         }
         
+        self.playerView.autoRewind = 1;
         [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
         
         //self.playerView.renderingStats = videoComposition;
