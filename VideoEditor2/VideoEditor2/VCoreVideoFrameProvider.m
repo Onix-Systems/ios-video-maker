@@ -84,7 +84,7 @@
 -(void) releasePixelBuffer
 {
     if (self.pixelBuffer != nil) {
-        //CVPixelBufferRelease(self.pixelBuffer);
+        CVPixelBufferRelease(self.pixelBuffer);
         _pixelBuffer = nil;
     }
 }

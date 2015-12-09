@@ -112,7 +112,9 @@
     CIContext *context = [CIImage getCacheRenderingContext];
     
     CGImageRef renderedCGImage =  [context createCGImage:self fromRect:rect];
-    return [CIImage imageWithCGImage:renderedCGImage];
+    CIImage* result = [CIImage imageWithCGImage:renderedCGImage];
+    CGImageRelease(renderedCGImage);
+    return result;
     
 //    UIImage* renderedUIImage = [UIImage imageWithCGImage:renderedCGImage];
 //    CIImage* renderedCIImage = [CIImage imageWithData: UIImageJPEGRepresentation(renderedUIImage, 0.9)];

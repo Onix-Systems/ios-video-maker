@@ -12,7 +12,7 @@
 
 @protocol SegmentsThumbnailDrawer
 
--(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect;
+//-(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect;
 
 @end
 

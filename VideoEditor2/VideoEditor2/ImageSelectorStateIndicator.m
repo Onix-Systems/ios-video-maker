@@ -177,6 +177,8 @@
     }
     CGContextDrawPath(context, kCGPathFillStroke);
     
+    CGPathRelease(borderPath);
+    
     if ([self isDownloading]) {
         CGFloat downlloadLineWidth = 3;
         CGRect downloadRect = CGRectMake(borderRect.origin.x + downlloadLineWidth/2, borderRect.origin.y + downlloadLineWidth/2, borderRect.size.width - downlloadLineWidth, borderRect.size.height - downlloadLineWidth);
@@ -198,6 +200,8 @@
         CGContextSetLineWidth(context, downlloadLineWidth + 1);
         
         CGContextDrawPath(context, kCGPathFillStroke);
+        
+        CGPathRelease(downloadPath);
         
         CGContextRestoreGState(context);
     }

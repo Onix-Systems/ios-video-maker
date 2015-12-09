@@ -201,7 +201,8 @@
             CIImage* image = [CIImage imageWithColor:[CIColor colorWithRed:0x6f/255.0 green:0x6f/255.0 blue:0x6d/255.0]];
             CIContext* context = [CIContext contextWithOptions:nil];
             
-            self.searhBarFieldBackgroundImage = [UIImage imageWithCGImage:[context createCGImage:image fromRect:CGRectMake(0, 0, 100, 100)]];
+            CGRect rect = CGRectMake(0, 0, 100, 100);
+            self.searhBarFieldBackgroundImage = [UIImage imageWithCGImage:[context createCGImage:image fromRect:rect]];
         }
         //[self.searchBar setSearchFieldBackgroundImage:self.searhBarFieldBackgroundImage forState:UIControlStateNormal];
         
