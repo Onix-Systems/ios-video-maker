@@ -12,7 +12,6 @@
 
 @interface VCompositionInstruction ()
 
-@property (strong, nonatomic) NSMutableArray* stillImages;
 @property (strong, nonatomic) NSMutableArray* registeredTrackIDs;
 
 @end

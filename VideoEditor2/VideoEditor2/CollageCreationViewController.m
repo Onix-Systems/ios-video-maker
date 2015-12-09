@@ -23,13 +23,22 @@
 @property (weak, nonatomic) IBOutlet UIImageView *switchForSlidingPanels;
 @property (weak, nonatomic) IBOutlet UIImageView *switchForOrigami;
 
+@property (strong, nonatomic) NSString* activeEffect;
+
 @property (strong, nonatomic) VAssetCollage* assetCollage;
-@property (strong, nonatomic) AssetsCollection* assetsCollection;
-@property (strong, nonatomic) VSegmentsCollection* segmentsCollection;
+@property (strong, nonatomic) VAssetCollage* assetCollageKB;
+@property (strong, nonatomic) VAssetCollage* assetCollageSP;
+@property (strong, nonatomic) VAssetCollage* assetCollageOR;
 
 @property (weak, nonatomic) IBOutlet UILabel *kenBurnsLabel;
 
 @property (strong, nonatomic) PlayerView* playerView;
+@property (strong, nonatomic) PlayerView* backgroundPlayerView;
+
+@property (strong, nonatomic) VideoComposition* videoComposition;
+@property (strong, nonatomic) VideoComposition* videoCompositionKB;
+@property (strong, nonatomic) VideoComposition* videoCompositionSP;
+@property (strong, nonatomic) VideoComposition* videoCompositionOR;
 
 @property (nonatomic, strong) UIView* transitionView;
 
@@ -39,56 +48,74 @@
 
 @implementation CollageCreationViewController
 
+-(VideoComposition*) makeVideoCompositionForCollage: (VAssetCollage*) collage ofSize: (CGSize) videoCompositionSize
+{
+    AssetsCollection* collageAssetsCollection = [AssetsCollection new];
+    VSegmentsCollection* collageSegmentsCollection = nil;
+
+    [collageAssetsCollection addAsset:collage];
+    
+    collageSegmentsCollection = [VSegmentsCollection new];
+    collageSegmentsCollection.assetsCollection = collageAssetsCollection;
+    return [collageSegmentsCollection makeVideoCompositionWithFrameSize:videoCompositionSize];
+}
+
 -(void) setupCollageWithAssets:(AssetsCollection *)assetsCollection andLayout: (CollageLayout*)collageLayout
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        VAssetCollage* assetCollage = [VAssetCollage new];
-        assetCollage.finalSize = CGSizeMake(600, 600);
-        assetCollage.assetsCollection = assetsCollection;
-        assetCollage.collageLayout = collageLayout;
-        assetCollage.collageEffect = kCollageEffectNone;
+    CGSize videoCompositionSize = CGSizeMake(600, 600);
+    
+    self.assetCollage = [VAssetCollage new];
+    self.assetCollage.finalSize = videoCompositionSize;
+    self.assetCollage.assetsCollection = assetsCollection;
+    self.assetCollage.collageLayout = collageLayout;
+    self.assetCollage.collageEffect = kCollageEffectNone;
+    self.videoComposition = [self makeVideoCompositionForCollage:self.assetCollage ofSize:videoCompositionSize];
+    
+    self.kbEnabled = NO;
+    if (collageLayout.frames.count == 1) {
+        self.kbEnabled = YES;
         
-        self.kbEnabled = NO;
-        if (collageLayout.frames.count == 1) {
-            self.kbEnabled = YES;
-        }
-        self.kenBurnsLabel.enabled = self.kbEnabled;
-        
-        if (self.assetCollage != nil) {
-            assetCollage.collageEffect = self.assetCollage.collageEffect;
-        }
-        self.assetCollage = assetCollage;
-        
-        self.assetsCollection = [AssetsCollection new];
-        [self.assetsCollection addAsset:self.assetCollage];
-        
-        self.segmentsCollection = [VSegmentsCollection new];
-        self.segmentsCollection.assetsCollection = self.assetsCollection;
-
-        [self showUpdatedCollagePreview];
-    });
+        self.assetCollageKB = [VAssetCollage new];
+        self.assetCollageKB.finalSize = CGSizeMake(600, 600);
+        self.assetCollageKB.assetsCollection = assetsCollection;
+        self.assetCollageKB.collageLayout = collageLayout;
+        self.assetCollageKB.collageEffect = kCollageEffectKenBurns;
+        self.videoCompositionKB = [self makeVideoCompositionForCollage:self.assetCollageKB ofSize:videoCompositionSize];
+    }
+    self.kenBurnsLabel.enabled = self.kbEnabled;
+    
+    self.assetCollageSP = [VAssetCollage new];
+    self.assetCollageSP.finalSize = CGSizeMake(600, 600);
+    self.assetCollageSP.assetsCollection = assetsCollection;
+    self.assetCollageSP.collageLayout = collageLayout;
+    self.assetCollageSP.collageEffect = kCollageEffectSlidingPanels;
+    self.videoCompositionSP = [self makeVideoCompositionForCollage:self.assetCollageSP ofSize:videoCompositionSize];
+    
+    self.assetCollageOR = [VAssetCollage new];
+    self.assetCollageOR.finalSize = CGSizeMake(600, 600);
+    self.assetCollageOR.assetsCollection = assetsCollection;
+    self.assetCollageOR.collageLayout = collageLayout;
+    self.assetCollageOR.collageEffect = kCollageEffectOrigami;
+    self.videoCompositionOR = [self makeVideoCompositionForCollage:self.assetCollageOR ofSize:videoCompositionSize];
+    
+    [self selectEffect:kCollageEffectNone];
 }
 
 -(void) updateSwitches
 {
-    NSString* collageEffect = kCollageEffectNone;
-    if (self.assetCollage != nil) {
-        collageEffect = self.assetCollage.collageEffect;
-    }
-    
-    if ([collageEffect isEqualToString: kCollageEffectKenBurns]) {
+    if ([self.activeEffect isEqualToString: kCollageEffectKenBurns]) {
         [self.switchForKenBurns setHighlighted: YES];
     } else {
         [self.switchForKenBurns setHighlighted: NO];
     }
     
-    if ([collageEffect isEqualToString: kCollageEffectSlidingPanels]) {
+    if ([self.activeEffect isEqualToString: kCollageEffectSlidingPanels]) {
         [self.switchForSlidingPanels setHighlighted: YES];
     } else {
         [self.switchForSlidingPanels setHighlighted: NO];
     }
     
-    if ([collageEffect isEqualToString: kCollageEffectOrigami]) {
+    if ([self.activeEffect isEqualToString: kCollageEffectOrigami]) {
         [self.switchForOrigami setHighlighted: YES];
     } else {
         [self.switchForOrigami setHighlighted: NO];
@@ -97,23 +124,14 @@
 
 - (void)selectEffect:(NSString *)collageEffect
 {
-    if (self.playerView != nil) {
-        //[self.playerView cleanPlayer];
-    }
-    
-    if (self.assetCollage != nil) {
-        if (self.assetCollage.collageEffect == collageEffect) {
-            self.assetCollage.collageEffect = @"";
-        } else {
-            self.assetCollage.collageEffect = collageEffect;
-        }
+    if (self.activeEffect == collageEffect) {
+        self.activeEffect = kCollageEffectNone;
+    } else {
+        self.activeEffect = collageEffect;
     }
     [self updateSwitches];
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.segmentsCollection resetSegmentsState];
-        [self showUpdatedCollagePreview];
-    });
+    [self playCollagePreview];
 
 }
 
@@ -134,11 +152,7 @@
     [super viewDidLoad];
     
     [self updateSwitches];
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        //[self showUpdatedCollagePreview];
-    });
-
+    [self playCollagePreview];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -146,33 +160,48 @@
     [super viewWillDisappear:animated];
     
     [self.playerView cleanPlayer];
+    [self.backgroundPlayerView cleanPlayer];
 }
 
-- (void) showUpdatedCollagePreview
+- (void) playCollagePreview
 {
-    if (self.collageLayoutViewConainer == nil || self.segmentsCollection == nil) {
+    if (self.collageLayoutViewConainer == nil || self.videoComposition == nil) {
         return;
     }
     
-    
-    CGSize videoCompositionSize = CGSizeMake(600, 600);
-
-    VideoComposition* videoComposition = [self.segmentsCollection makeVideoCompositionWithFrameSize:videoCompositionSize];
-    
-    if (self.segmentsCollection != nil) {
-        if (self.playerView == nil) {
-            self.playerView = [PlayerView new];
-            self.playerView.delegate = self;
-            
-            self.playerView.frame = self.collageLayoutViewConainer.bounds;
-            
-            [self.collageLayoutViewConainer addSubview:self.playerView];
-        }
+    if (self.playerView == nil) {
+        self.playerView = [PlayerView new];
+        self.playerView.delegate = self;
+        self.playerView.frame = self.collageLayoutViewConainer.bounds;
+        [self.collageLayoutViewConainer addSubview:self.playerView];
         
-        self.playerView.autoRewind = 1;
-        [self.playerView playVideoFromAsset:videoComposition.mutableComposition videoComposition:videoComposition.mutableVideoComposition audioMix:videoComposition.mutableAudioMix autoPlay:YES];
+        self.backgroundPlayerView = [PlayerView new];
+        self.backgroundPlayerView.delegate = self;
+        self.backgroundPlayerView.frame = self.collageLayoutViewConainer.bounds;
+        [self.collageLayoutViewConainer addSubview:self.backgroundPlayerView];
+    }
+    
+    [self.playerView pause];
+    [self.backgroundPlayerView cleanPlayer];
+    PlayerView* tmpPlayerView = self.backgroundPlayerView;
+    self.backgroundPlayerView = self.playerView;
+    self.playerView = tmpPlayerView;
+    [self.collageLayoutViewConainer sendSubviewToBack:self.backgroundPlayerView];
+    
+    self.playerView.autoRewind = 1;
+    
+    
+    if ([self.activeEffect isEqualToString: kCollageEffectKenBurns]) {
+        [self.playerView playVideoFromAsset:self.videoCompositionKB.mutableComposition videoComposition:self.videoCompositionKB.mutableVideoComposition audioMix:self.videoCompositionKB.mutableAudioMix autoPlay:YES];
         
-        //self.playerView.renderingStats = videoComposition;
+    } else if ([self.activeEffect isEqualToString: kCollageEffectSlidingPanels]) {
+        [self.playerView playVideoFromAsset:self.videoCompositionSP.mutableComposition videoComposition:self.videoCompositionSP.mutableVideoComposition audioMix:self.videoCompositionSP.mutableAudioMix autoPlay:YES];
+        
+    } else if ([self.activeEffect isEqualToString: kCollageEffectOrigami]) {
+        [self.playerView playVideoFromAsset:self.videoCompositionOR.mutableComposition videoComposition:self.videoCompositionOR.mutableVideoComposition audioMix:self.videoCompositionOR.mutableAudioMix autoPlay:YES];
+        
+    } else {
+        [self.playerView playVideoFromAsset:self.videoComposition.mutableComposition videoComposition:self.videoComposition.mutableVideoComposition audioMix:self.videoComposition.mutableAudioMix autoPlay:YES];
     }
 }
 
@@ -190,7 +219,18 @@
     }];
     
     if (self.delegate != nil) {
-        [self.delegate saveCollage:self.assetCollage];
+        if ([self.activeEffect isEqualToString: kCollageEffectKenBurns]) {
+            [self.delegate saveCollage:self.assetCollageKB];
+            
+        } else if ([self.activeEffect isEqualToString: kCollageEffectSlidingPanels]) {
+            [self.delegate saveCollage:self.assetCollageSP];
+            
+        } else if ([self.activeEffect isEqualToString: kCollageEffectOrigami]) {
+            [self.delegate saveCollage:self.assetCollageOR];
+            
+        } else {
+            [self.delegate saveCollage:self.assetCollage];
+        }
     }
 }
 
@@ -206,6 +246,7 @@
 - (void) viewDidLayoutSubviews {
     if (self.collageLayoutViewConainer != nil && self.playerView != nil) {
         self.playerView.frame = self.collageLayoutViewConainer.bounds;
+        self.backgroundPlayerView.frame = self.collageLayoutViewConainer.bounds;
     }
 }
 
