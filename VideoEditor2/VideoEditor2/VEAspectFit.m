@@ -44,23 +44,24 @@
     CGSize originalSize = [self.frameProvider getOriginalSize];
     CIImage* originalFrame = [self.frameProvider getFrameForRequest:request];
     
-    if ((originalSize.width == self.finalSize.width) && (originalSize.height <= self.finalSize.height)) {
-        return originalFrame;
-    }
-    if ((originalSize.width <= self.finalSize.width) && (originalSize.height == self.finalSize.height)) {
-        return originalFrame;
-    }
-
+    CIImage* result = originalFrame;
+    CGFloat scale = 1;
     
-    CGFloat yScale = originalSize.height / self.finalSize.height;
-    CGFloat xScale = originalSize.width / self.finalSize.width;
-    CGFloat scale = 1 / (xScale > yScale ? xScale : yScale);
+    if ((originalSize.width == self.finalSize.width) && (originalSize.height <= self.finalSize.height)) {
+        //don't scale
+    } else if ((originalSize.width <= self.finalSize.width) && (originalSize.height == self.finalSize.height)) {
+        //don't scale
+    } else {
+        CGFloat yScale = originalSize.height / self.finalSize.height;
+        CGFloat xScale = originalSize.width / self.finalSize.width;
+        scale = 1 / (xScale > yScale ? xScale : yScale);
+        
+        result = [result vScale:scale];
+    }
     
     CGFloat xShift = (self.finalSize.width - (originalSize.width * scale)) / 2;
     CGFloat yShift = (self.finalSize.height - (originalSize.height * scale)) / 2;
     
-    CIImage* result = [originalFrame vScale:scale];
-
     result = [result vShiftX:xShift shiftY:yShift];
     CGRect resultFrame = CGRectMake(0,0, self.finalSize.width, self.finalSize.height);
     result = [result vCrop:resultFrame];
