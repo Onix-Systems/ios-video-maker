@@ -317,7 +317,7 @@
         [footer hideButton];
         
         if (self.dataSource.supportSearch) {
-            if ([self.dataSource getAssets].count > 0) {
+            if (([self.dataSource getAssets].count > 0) && ([self.dataSource getAssets].count % 20 == 0)) {
                 [footer showLoadMore];
             }
         }
