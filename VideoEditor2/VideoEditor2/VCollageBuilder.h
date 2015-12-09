@@ -15,6 +15,7 @@
 
 @interface VCollageBuilder : NSObject
 
+@property (nonatomic) BOOL previewMode;
 
 -(VProvidersCollection*) makeCollageWithItems:(NSArray<VFrameProvider*>*)items layoutFrames:(NSArray*)layoutFrames finalSize:(CGSize)finalSize;
 

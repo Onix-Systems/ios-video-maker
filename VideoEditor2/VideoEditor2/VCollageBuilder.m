@@ -13,6 +13,15 @@
 
 @implementation VCollageBuilder
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.previewMode = NO;
+    }
+    return self;
+}
+
 -(VProvidersCollection*)makeCollageWithItems:(NSArray<VFrameProvider *> *)items layoutFrames:(NSArray *)layoutFrames finalSize:(CGSize)finalSize
 {
     VProvidersCollection* collage = [VProvidersCollection new];
@@ -86,6 +95,10 @@
         }
         
         [collage addFrameProvider:frame withFrontTransition:transition];
+        
+        if (self.previewMode && (i == 0)) {
+            collage.startPositionTime = [frame getDuration]/2;
+        }
         
         previousFrame = frame;
     }

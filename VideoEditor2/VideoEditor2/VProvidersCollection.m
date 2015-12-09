@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic, readwrite) NSMutableArray<VFrameProvider*>* contentItems;
 @property (strong, nonatomic, readwrite) NSMutableArray<NSNumber*>* timing;
+@property (nonatomic) double duration;
 
 @end
 
@@ -28,6 +29,9 @@
         self.contentItems = [NSMutableArray new];
         self.timing = [NSMutableArray new];
         self.isStatic = NO;
+        
+        self.duration = 0;
+        self.startPositionTime = 0.0;
     }
     return self;
 }
@@ -39,14 +43,16 @@
 
 -(double)getDuration
 {
-    if (self.contentItems.count > 0) {
-        NSInteger lastItem = self.contentItems.count - 1;
-        NSNumber* lastTime = self.timing[lastItem];
+    if (self.duration == 0) {
+        if (self.contentItems.count > 0) {
+            NSInteger lastItem = self.contentItems.count - 1;
+            NSNumber* lastTime = self.timing[lastItem];
         
-        return [lastTime doubleValue] + [self.contentItems[lastItem] getDurationWithoutTransitions];
+            self.duration = [lastTime doubleValue] + [self.contentItems[lastItem] getDurationWithoutTransitions];
+        }
     }
 
-    return 0;
+    return self.duration;
 }
 
 - (NSArray<VFrameProvider *> *)getContentItems
@@ -61,6 +67,7 @@
 
 -(void)addFrameProvider: (VFrameProvider*)frameProvider withFrontTransition:(VTransition*)transition
 {
+    self.duration = 0;
     double lastItemFinalTime = [self getDuration];
     
     if (transition != nil) {
@@ -80,6 +87,7 @@
     
     [self.contentItems addObject:frameProvider];
     [self.timing addObject:[NSNumber numberWithDouble:lastItemFinalTime]];
+    self.duration = 0;
 }
 
 -(NSInteger)findItemNoForTime:(double)time
@@ -94,14 +102,26 @@
     return -1;
 }
 
+-(double)adjustTimeWithStartOffset: (double) time
+{
+    double duration = [self getDuration];
+    time += self.startPositionTime;
+    if (time > duration) {
+        time -= duration;
+    }
+    return time;
+}
+
 -(CIImage*) getFrameForRequest:(VFrameRequest *)request
 {
-    NSInteger itemNo = [self findItemNoForTime:request.time];
+    double time = [self adjustTimeWithStartOffset:request.time];
+    
+    NSInteger itemNo = [self findItemNoForTime:time];
     
     if (itemNo >= 0) {
         VFrameProvider* currentItem = self.contentItems[itemNo];
         
-        double itemTime = request.time - [self.timing[itemNo] doubleValue] + currentItem.transitionDurationFront;
+        double itemTime = time - [self.timing[itemNo] doubleValue] + currentItem.transitionDurationFront;
         VFrameRequest* requestWithItemTime = [request cloneWithDifferentTimeValue:itemTime];
                                                         
         return [currentItem getFrameForRequest:requestWithItemTime];

@@ -13,6 +13,8 @@
 
 @interface VProvidersCollection : VFrameProvider
 
+@property (nonatomic) double startPositionTime;
+
 @property (nonatomic) CGSize finalSize;
 
 -(NSArray<VFrameProvider*>*) getContentItems;

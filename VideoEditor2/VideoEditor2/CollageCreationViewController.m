@@ -89,6 +89,7 @@
     self.assetCollageSP.assetsCollection = assetsCollection;
     self.assetCollageSP.collageLayout = collageLayout;
     self.assetCollageSP.collageEffect = kCollageEffectSlidingPanels;
+    self.assetCollageSP.previewMode = YES;
     self.videoCompositionSP = [self makeVideoCompositionForCollage:self.assetCollageSP ofSize:videoCompositionSize];
     
     self.assetCollageOR = [VAssetCollage new];

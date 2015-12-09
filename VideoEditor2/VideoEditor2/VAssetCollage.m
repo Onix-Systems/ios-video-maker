@@ -23,6 +23,15 @@
 
 @implementation VAssetCollage
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.previewMode = NO;
+    }
+    return self;
+}
+
 -(BOOL) isVideo
 {
     return NO;
@@ -89,6 +98,8 @@
         } else {
             collageBuilder = [VCollageBuilder new];
         }
+        
+        collageBuilder.previewMode = self.previewMode;
         
         _cachedFrameProvider = [collageBuilder makeCollageWithItems:collageItems layoutFrames:self.collageLayout.frames finalSize:collageSize];
     }

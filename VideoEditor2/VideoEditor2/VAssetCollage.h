@@ -24,4 +24,6 @@
 @property (strong, nonatomic) CollageLayout* collageLayout;
 @property (strong, nonatomic) NSString* collageEffect;
 
+@property (nonatomic) BOOL previewMode;
+
 @end
