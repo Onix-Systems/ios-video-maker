@@ -82,7 +82,6 @@
         self.assetCollageKB.collageEffect = kCollageEffectKenBurns;
         self.videoCompositionKB = [self makeVideoCompositionForCollage:self.assetCollageKB ofSize:videoCompositionSize];
     }
-    self.kenBurnsLabel.enabled = self.kbEnabled;
     
     self.assetCollageSP = [VAssetCollage new];
     self.assetCollageSP.finalSize = CGSizeMake(600, 600);
@@ -109,6 +108,8 @@
     } else {
         [self.switchForKenBurns setHighlighted: NO];
     }
+    self.kenBurnsLabel.enabled = self.kbEnabled;
+    [self.switchForKenBurns setHidden:!self.kbEnabled];
     
     if ([self.activeEffect isEqualToString: kCollageEffectSlidingPanels]) {
         [self.switchForSlidingPanels setHighlighted: YES];
