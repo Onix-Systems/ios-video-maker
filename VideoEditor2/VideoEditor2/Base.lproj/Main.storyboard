@@ -685,11 +685,11 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="SlidingPanels-disabled" translatesAutoresizingMaskIntoConstraints="NO" id="gte-2p-1S0">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SlidingPanels-disabled" translatesAutoresizingMaskIntoConstraints="NO" id="gte-2p-1S0">
                                         <rect key="frame" x="237" y="0.0" width="85" height="85"/>
                                     </imageView>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SlidingPanels-normal" highlightedImage="SlidingPanels-selected" translatesAutoresizingMaskIntoConstraints="NO" id="gff-k0-2Vp">
-                                        <rect key="frame" x="238" y="0.0" width="85" height="85"/>
+                                        <rect key="frame" x="237.5" y="0.0" width="85" height="85"/>
                                         <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="85" id="37Y-f1-NUK"/>
@@ -935,7 +935,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWn-7h-foZ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Camera-Bg" translatesAutoresizingMaskIntoConstraints="NO" id="nWT-TG-eED">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nWT-TG-eED">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Camera-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="OQZ-Cc-ztr">
@@ -958,7 +958,7 @@
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="QHe-1N-L7a" firstAttribute="leading" secondItem="OQZ-Cc-ztr" secondAttribute="trailing" constant="30" id="2iq-gH-gDb"/>
                                     <constraint firstItem="OQZ-Cc-ztr" firstAttribute="centerY" secondItem="mWn-7h-foZ" secondAttribute="centerY" id="C4G-fS-s7I"/>
@@ -978,7 +978,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KdI-ri-Rb5">
                                 <rect key="frame" x="0.0" y="89" width="600" height="88.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Moments-Bg" translatesAutoresizingMaskIntoConstraints="NO" id="bwc-MY-Nv1">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bwc-MY-Nv1">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Moments-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="KUx-ik-FZA">
@@ -1004,7 +1004,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Alq-7o-FDB" firstAttribute="centerY" secondItem="KdI-ri-Rb5" secondAttribute="centerY" id="46Z-uI-slk"/>
                                     <constraint firstItem="KUx-ik-FZA" firstAttribute="height" secondItem="KdI-ri-Rb5" secondAttribute="height" id="5nM-4B-8DK"/>
@@ -1024,7 +1024,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2K-9L-1V3">
                                 <rect key="frame" x="0.0" y="178" width="600" height="88.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Albums-Bg" translatesAutoresizingMaskIntoConstraints="NO" id="R4s-9p-5c3">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R4s-9p-5c3">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Albums-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="jmq-FY-1tJ">
@@ -1050,7 +1050,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="jmq-FY-1tJ" firstAttribute="centerY" secondItem="Q2K-9L-1V3" secondAttribute="centerY" id="3e9-1E-7nD"/>
                                     <constraint firstItem="jmq-FY-1tJ" firstAttribute="leading" secondItem="Q2K-9L-1V3" secondAttribute="leading" constant="23" id="3vw-Ej-cAH"/>
@@ -1070,7 +1070,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQm-Bn-WtX">
                                 <rect key="frame" x="0.0" y="268" width="600" height="88.5"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Internet-Bg" translatesAutoresizingMaskIntoConstraints="NO" id="dXF-8k-md7">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dXF-8k-md7">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Internet-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="9lN-to-tD9">
@@ -1096,7 +1096,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="zTk-Yi-sc7" firstAttribute="width" secondItem="xQm-Bn-WtX" secondAttribute="width" id="66r-B7-4g6"/>
                                     <constraint firstItem="dXF-8k-md7" firstAttribute="width" secondItem="xQm-Bn-WtX" secondAttribute="width" id="Adz-Tg-BUe"/>
@@ -1116,7 +1116,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuL-n4-jHX">
                                 <rect key="frame" x="0.0" y="357" width="600" height="89"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Facebook-Bg" translatesAutoresizingMaskIntoConstraints="NO" id="n3G-1h-vOi">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n3G-1h-vOi">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Facebook-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="eJl-PC-h19">
@@ -1142,7 +1142,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="n3G-1h-vOi" firstAttribute="centerY" secondItem="nuL-n4-jHX" secondAttribute="centerY" id="16S-Nl-0Us"/>
                                     <constraint firstItem="n3G-1h-vOi" firstAttribute="centerX" secondItem="nuL-n4-jHX" secondAttribute="centerX" id="3DL-1Y-qxw"/>
@@ -1162,7 +1162,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpD-LG-QAT">
                                 <rect key="frame" x="0.0" y="447" width="600" height="89"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Instagram-Bg" translatesAutoresizingMaskIntoConstraints="NO" id="xN4-wL-sbz">
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xN4-wL-sbz">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Instagram-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="J4Y-1N-eSF">
@@ -1188,7 +1188,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="xN4-wL-sbz" firstAttribute="centerY" secondItem="qpD-LG-QAT" secondAttribute="centerY" id="0F9-bU-8Tj"/>
                                     <constraint firstItem="J4Y-1N-eSF" firstAttribute="height" secondItem="qpD-LG-QAT" secondAttribute="height" id="AYM-oj-yDk"/>
@@ -1289,17 +1289,11 @@
         <image name="SlidingPanels-disabled" width="104" height="94"/>
         <image name="SlidingPanels-normal" width="104" height="94"/>
         <image name="SlidingPanels-selected" width="104" height="94"/>
-        <image name="Step-3-Albums-Bg" width="320" height="83"/>
         <image name="Step-3-Albums-Icon" width="39" height="40"/>
-        <image name="Step-3-Camera-Bg" width="320" height="83"/>
         <image name="Step-3-Camera-Icon" width="39" height="30"/>
-        <image name="Step-3-Facebook-Bg" width="320" height="83"/>
         <image name="Step-3-Facebook-Icon" width="39" height="35"/>
-        <image name="Step-3-Instagram-Bg" width="320" height="83"/>
         <image name="Step-3-Instagram-Icon" width="39" height="36"/>
-        <image name="Step-3-Internet-Bg" width="320" height="83"/>
         <image name="Step-3-Internet-Icon" width="39" height="34"/>
-        <image name="Step-3-Moments-Bg" width="320" height="83"/>
         <image name="Step-3-Moments-Icon" width="39" height="41"/>
         <image name="no-photo" width="120" height="120"/>
         <image name="picker-grip" width="36" height="8"/>

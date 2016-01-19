@@ -109,6 +109,8 @@
                   </ActionContent>
                </BreakpointActionProxy>
             </Actions>
+            <Locations>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
