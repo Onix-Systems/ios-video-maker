@@ -70,12 +70,12 @@
     self.hasPanActiveGesure = NO;
 }
 
-//-(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect
-//{
-//    CGImageRef renderedImage = [self.thumbanilDrawingContext createCGImage:thumbailImage fromRect:frameRect];
-//    
-//    return [UIImage imageWithCGImage:renderedImage];
-//}
+-(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect
+{
+    CGImageRef renderedImage = [self.thumbanilDrawingContext createCGImage:thumbailImage fromRect:frameRect];
+    
+    return [UIImage imageWithCGImage:renderedImage];
+}
 
 - (void)pinchGestureAction:(UIPinchGestureRecognizer *)sender
 {

@@ -29,6 +29,8 @@
 
 @property (nonatomic) BOOL isVideoSuspended;
 
+@property (weak, nonatomic) IBOutlet UILabel *testLabel;
+
 @end
 
 @implementation Step5
@@ -36,6 +38,7 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     
     self.playButton.enabled = NO;
     self.pauseButton.enabled = YES;
@@ -111,6 +114,7 @@
 
 -(void) didScrollToTime:(double)time
 {
+    self.testLabel.text = [NSString stringWithFormat:@"%f",time];
     [self.playerView.player seekToTime:CMTimeMakeWithSeconds(time, 1000) toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 
