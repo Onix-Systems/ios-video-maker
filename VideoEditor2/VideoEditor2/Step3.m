@@ -11,9 +11,9 @@
 #import "ImageSelectMomentsDataSource.h"
 #import "ImageSelectorController.h"
 #import "ImageSelectDZNDataSource.h"
+#import "OnlyImageDataSource.h"
 
-
-@interface Step3 () <UINavigationControllerDelegate> {
+@interface Step3 () <UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIPopoverController *popoverController;
 }
 @end
@@ -89,6 +89,13 @@
 }
 
 - (IBAction)facebookButtonAction {
+    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
+    
+    OnlyImageDataSource *dataSource = [OnlyImageDataSource new];
+    
+    imageSelector.dataSource = dataSource;
+    
+    [self presentViewController:imageSelector animated:YES completion:NULL];
 }
 
 - (IBAction)instagramButtonAction {

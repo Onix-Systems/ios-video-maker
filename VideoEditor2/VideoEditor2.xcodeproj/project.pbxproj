@@ -127,6 +127,7 @@
 		11F43D5F1B84674E00011C2D /* VAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D5E1B84674E00011C2D /* VAsset.m */; };
 		11F43D6E1B84CCB500011C2D /* AssetsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D6D1B84CCB500011C2D /* AssetsCollection.m */; };
 		11F5A9241C17088F00FD2611 /* ZOZolaZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */; };
+		24AD523C1D6753D2001F90FD /* OnlyImageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AD523B1D6753D2001F90FD /* OnlyImageDataSource.m */; };
 		AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1801B98896C00403713 /* Fabric.framework */; };
 		AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1811B98896C00403713 /* Crashlytics.framework */; };
 		FB3ACDA7BE4B896EFFA0C234 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC6148C19E5C1D05E669F93A /* libPods.a */; };
@@ -377,6 +378,8 @@
 		11F43D6D1B84CCB500011C2D /* AssetsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetsCollection.m; sourceTree = "<group>"; };
 		11F5A9221C17088F00FD2611 /* ZOZolaZoomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZOZolaZoomTransition.h; path = ZOZolaZoomTransition/ZOZolaZoomTransition.h; sourceTree = "<group>"; };
 		11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZOZolaZoomTransition.m; path = ZOZolaZoomTransition/ZOZolaZoomTransition.m; sourceTree = "<group>"; };
+		24AD523A1D6753D2001F90FD /* OnlyImageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlyImageDataSource.h; sourceTree = "<group>"; };
+		24AD523B1D6753D2001F90FD /* OnlyImageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnlyImageDataSource.m; sourceTree = "<group>"; };
 		69B654D231D53CB9E236F108 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AAB4B1801B98896C00403713 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		AAB4B1811B98896C00403713 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
@@ -616,6 +619,8 @@
 				11B4AE131B95B76600DB43AD /* ImageSelectMomentsDataSource.m */,
 				11B4AE1C1B95E14200DB43AD /* ImageSelectDZNDataSource.h */,
 				11B4AE1D1B95E14200DB43AD /* ImageSelectDZNDataSource.m */,
+				24AD523A1D6753D2001F90FD /* OnlyImageDataSource.h */,
+				24AD523B1D6753D2001F90FD /* OnlyImageDataSource.m */,
 			);
 			name = ImageSelectDataSources;
 			sourceTree = "<group>";
@@ -1137,6 +1142,7 @@
 				11E571661BDFD68A00ADDD1F /* VTransition02CIAccordionFoldTransition.m in Sources */,
 				11A27B321BB5A22B00F06685 /* PlayerView.m in Sources */,
 				11EFEDFE1B820B6300078735 /* DZNPhotoDisplayViewController.m in Sources */,
+				24AD523C1D6753D2001F90FD /* OnlyImageDataSource.m in Sources */,
 				11D70F471BB281BF0091723A /* TransitionFilter.m in Sources */,
 				11E571B41BE0C5ED00ADDD1F /* VTransition25CIPageCurlWithShadowTransition.m in Sources */,
 				111D84D91BD20F1100912E91 /* VEKenBurns.m in Sources */,
