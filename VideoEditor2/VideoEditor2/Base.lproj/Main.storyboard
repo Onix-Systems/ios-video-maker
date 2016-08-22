@@ -1117,14 +1117,14 @@
                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="n3G-1h-vOi">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Facebook-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="eJl-PC-h19">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Albums-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="eJl-PC-h19">
                                         <rect key="frame" x="23" y="0.0" width="39" height="89"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="39" id="8t8-Vg-ETG"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0H-n6-zuE">
-                                        <rect key="frame" x="92" y="32" width="89" height="24.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Photos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0H-n6-zuE">
+                                        <rect key="frame" x="92" y="32" width="63.5" height="24.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1136,7 +1136,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="facebookButtonAction" destination="8fQ-CT-Yp4" eventType="touchUpInside" id="V7X-x0-Eby"/>
+                                            <action selector="photosButtonAction" destination="8fQ-CT-Yp4" eventType="touchUpInside" id="M8i-uC-F36"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1163,14 +1163,14 @@
                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xN4-wL-sbz">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Instagram-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="J4Y-1N-eSF">
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Step-3-Albums-Icon" translatesAutoresizingMaskIntoConstraints="NO" id="J4Y-1N-eSF">
                                         <rect key="frame" x="23" y="0.0" width="39" height="89"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="39" id="48O-GB-10D"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKa-XD-JVL">
-                                        <rect key="frame" x="92" y="32" width="89.5" height="24.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Videos" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKa-XD-JVL">
+                                        <rect key="frame" x="92" y="32" width="60.5" height="24.5"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1182,7 +1182,7 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="instagramButtonAction" destination="8fQ-CT-Yp4" eventType="touchUpInside" id="A4Z-Xv-DJm"/>
+                                            <action selector="videosButtonAction" destination="8fQ-CT-Yp4" eventType="touchUpInside" id="4gm-Bi-5xT"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1289,8 +1289,6 @@
         <image name="SlidingPanels-selected" width="104" height="94"/>
         <image name="Step-3-Albums-Icon" width="39" height="40"/>
         <image name="Step-3-Camera-Icon" width="39" height="30"/>
-        <image name="Step-3-Facebook-Icon" width="39" height="35"/>
-        <image name="Step-3-Instagram-Icon" width="39" height="36"/>
         <image name="Step-3-Internet-Icon" width="39" height="34"/>
         <image name="Step-3-Moments-Icon" width="39" height="41"/>
         <image name="no-photo" width="120" height="120"/>

@@ -11,7 +11,8 @@
 #import "ImageSelectMomentsDataSource.h"
 #import "ImageSelectorController.h"
 #import "ImageSelectDZNDataSource.h"
-#import "OnlyImageDataSource.h"
+#import "OneAssetMediaTypeDataSource.h"
+//@class BaseImageSelectDataSource;
 
 @interface Step3 () <UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIPopoverController *popoverController;
@@ -74,13 +75,8 @@
 }
 
 - (IBAction)momentsButtonAction {
-    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
-    
     ImageSelectMomentsDataSource *dataSource = [ImageSelectMomentsDataSource new];
-    
-    imageSelector.dataSource = dataSource;
-    
-    [self presentViewController:imageSelector animated:YES completion:NULL];
+    [self presentImageSelectorControllerWithSource:dataSource];
 }
 
 - (IBAction)internetButtonAction {
@@ -88,28 +84,26 @@
      |DZNPhotoPickerControllerServiceGettyImages];
 }
 
-- (IBAction)facebookButtonAction {
-    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
-    
-    OnlyImageDataSource *dataSource = [OnlyImageDataSource new];
-    
-    imageSelector.dataSource = dataSource;
-    
-    [self presentViewController:imageSelector animated:YES completion:NULL];
+- (IBAction)photosButtonAction {
+    OneAssetMediaTypeDataSource *dataSource = [OneAssetMediaTypeDataSource new];
+    [self presentImageSelectorControllerWithSource:dataSource];
 }
 
-- (IBAction)instagramButtonAction {
-    [self showImageSelectorForDZVServices:DZNPhotoPickerControllerServiceInstagram];
+- (IBAction)videosButtonAction {
+    OneAssetMediaTypeDataSource *dataSource = [OneAssetMediaTypeDataSource new];
+    dataSource.loadingMediaType = PHAssetMediaTypeVideo;
+    [self presentImageSelectorControllerWithSource:dataSource];
 }
 
 -(void) showImageSelectorForDZVServices:(DZNPhotoPickerControllerServices) services {
-    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
-    
     ImageSelectDZNDataSource *dataSource = [ImageSelectDZNDataSource new];
-    
     dataSource.initialSearchTerm = @"California";
     dataSource.supportedServices = services;
-    
+    [self presentImageSelectorControllerWithSource:dataSource];
+}
+
+-(void)presentImageSelectorControllerWithSource:(BaseImageSelectDataSource *)dataSource {
+    ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
     imageSelector.dataSource = dataSource;
     
     [self presentViewController:imageSelector animated:YES completion:NULL];

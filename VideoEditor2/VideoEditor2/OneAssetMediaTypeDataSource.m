@@ -6,12 +6,11 @@
 //  Copyright © 2016 Onix-Systems. All rights reserved.
 //
 
-#import "OnlyImageDataSource.h"
+#import "OneAssetMediaTypeDataSource.h"
 #import "VAssetPHImage.h"
 
-@interface OnlyImageDataSource() <PHPhotoLibraryChangeObserver>
+@interface OneAssetMediaTypeDataSource() <PHPhotoLibraryChangeObserver>
 
-@property (strong,nonatomic) PHAssetCollection* collection;
 @property (strong,nonatomic) PHFetchResult* fetchResults;
 
 @property (strong,nonatomic) NSArray<NSIndexPath *>* removedIndexes;
@@ -22,12 +21,13 @@
 
 @end
 
-@implementation OnlyImageDataSource
+@implementation OneAssetMediaTypeDataSource
 
 - (instancetype)init {
     self = [super init];
     
     if (self) {
+        self.loadingMediaType = PHAssetMediaTypeImage;
         [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver: self];
     }
     
@@ -37,23 +37,6 @@
 +(PHImageManager*) getImageManager
 {
     return [PHImageManager defaultManager];
-}
-
--(instancetype)initWithAssetsCollection:(PHAssetCollection *)collection
-{
-    self = [super init];
-    if (self) {
-        self.collection = collection;
-        
-        self.assets = [NSMutableArray new];
-        
-        self.supportSearch = NO;
-        self.isLoading = NO;
-        
-        
-        [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver: self];
-    }
-    return self;
 }
 
 - (void)dealloc
@@ -144,7 +127,7 @@
 {
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    options.predicate = [NSPredicate predicateWithFormat:@"mediaType = %d",PHAssetMediaTypeImage];
+    options.predicate = [NSPredicate predicateWithFormat:@"mediaType = %d", self.loadingMediaType];
     
     NSMutableArray* assets = [NSMutableArray new];
     

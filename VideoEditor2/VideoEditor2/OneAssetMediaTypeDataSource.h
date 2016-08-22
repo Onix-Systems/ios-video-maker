@@ -8,10 +8,11 @@
 
 #import "BaseImageSelectDataSource.h"
 
-@interface OnlyImageDataSource : BaseImageSelectDataSource
+@interface OneAssetMediaTypeDataSource : BaseImageSelectDataSource
+
+//Default is PHAssetMediaTypeImage
+@property (nonatomic) PHAssetMediaType loadingMediaType;
 
 +(PHImageManager*) getImageManager;
-
--(instancetype)initWithAssetsCollection:(PHAssetCollection *)collection;
 
 @end
