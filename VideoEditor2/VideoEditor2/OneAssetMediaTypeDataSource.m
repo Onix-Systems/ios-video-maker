@@ -118,32 +118,21 @@
 
 -(void)loadAssets {
     self.isLoading = YES;
-    
-    PHFetchResult *results = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeSmartAlbum subtype:PHAssetCollectionSubtypeSmartAlbumUserLibrary options:nil];
-    [self getAssetsFromFetchResults:results];
-}
 
--(void)getAssetsFromFetchResults: (PHFetchResult*) fetchResult
-{
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    options.predicate = [NSPredicate predicateWithFormat:@"mediaType = %d", self.loadingMediaType];
-    
+    PHFetchResult *fetchResults = [PHAsset fetchAssetsWithMediaType:self.loadingMediaType options:options];
+    [self getAssetsFromFetchResults:fetchResults];
+}
+
+-(void)getAssetsFromFetchResults:(PHFetchResult*)fetchResult
+{
+    self.fetchResults = fetchResult;
     NSMutableArray* assets = [NSMutableArray new];
     
-    for (NSInteger i =0; i < fetchResult.count; i++) {
-        PHAssetCollection *assetCollection = fetchResult[i];
-        PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:assetCollection options:options];
-        self.fetchResults = assetsFetchResult;
-        
-        if (assetsFetchResult.count > 0) {
-            for (PHAsset *asset in assetsFetchResult) {
-                VAsset* phAsset = [VAssetPHImage makeFromPHAsset:asset];
-                if (self.allowVideoAssets || !phAsset.isVideo) {
-                    [assets addObject:phAsset];
-                }
-            }
-        }
+    for (PHAsset *asset in fetchResult) {
+        VAsset* phAsset = [VAssetPHImage makeFromPHAsset:asset];
+        [assets addObject:phAsset];
     }
     
     self.assets = assets;
