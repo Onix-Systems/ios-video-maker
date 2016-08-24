@@ -96,9 +96,11 @@
                                                                    error:&error];
         time++;
         
-        UIImage *videoScreen;
+        UIImage *videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
         
-        videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];
+        if (videoScreen == nil) {
+            break;
+        }
         
         UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
         

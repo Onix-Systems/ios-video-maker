@@ -13,10 +13,15 @@
 #import "ImageSelectDZNDataSource.h"
 #import "OneAssetMediaTypeDataSource.h"
 //@class BaseImageSelectDataSource;
+#import "VDocument.h"
+#import "VAsset.h"
+#import "VAssetPHImage.h"
 
 @interface Step3 () <UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
     UIPopoverController *popoverController;
 }
+@property (strong, nonatomic) AVPlayerItem* playerItem;
+@property (strong, nonatomic) NSString* context;
 @end
 
 @implementation Step3
@@ -72,6 +77,12 @@
 }
 
 - (IBAction)cameraButtonAction {
+    UIImagePickerController *cameraPicker = [[UIImagePickerController alloc] init];
+    cameraPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    cameraPicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+    cameraPicker.delegate = self;
+    
+    [self presentViewController:cameraPicker animated:YES completion:nil];
 }
 
 - (IBAction)momentsButtonAction {
@@ -95,7 +106,7 @@
     [self presentImageSelectorControllerWithSource:dataSource];
 }
 
--(void) showImageSelectorForDZVServices:(DZNPhotoPickerControllerServices) services {
+-(void)showImageSelectorForDZVServices:(DZNPhotoPickerControllerServices) services {
     ImageSelectDZNDataSource *dataSource = [ImageSelectDZNDataSource new];
     dataSource.initialSearchTerm = @"California";
     dataSource.supportedServices = services;
@@ -107,6 +118,63 @@
     imageSelector.dataSource = dataSource;
     
     [self presentViewController:imageSelector animated:YES completion:NULL];
+}
+
+#pragma UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage])
+    {
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+    }
+    else if ([mediaType isEqualToString:(NSString *)kUTTypeMovie]) {
+        NSString *videoPath = [[info objectForKey:UIImagePickerControllerMediaURL] relativePath];
+        UISaveVideoAtPathToSavedPhotosAlbum(videoPath, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+    }
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Photo Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
+        [alert show];
+    }
+    else
+    {
+        [self getAssetsFromCollectionsFetchResults: PHAssetMediaTypeImage];
+    }
+}
+
+- (void)video:(NSString*)videoPath didFinishSavingWithError:(NSError*)error contextInfo:(void*)contextInfo
+{
+    if (error)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Video Saving Failed"  delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil, nil];
+        [alert show];
+    }
+    else
+    {
+        [self getAssetsFromCollectionsFetchResults: PHAssetMediaTypeVideo];
+        
+    }
+}
+
+-(void)getAssetsFromCollectionsFetchResults:(PHAssetMediaType)mediaType
+{
+    PHFetchOptions *options = [[PHFetchOptions alloc] init];
+    options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
+    PHFetchResult *sd = [PHAsset fetchAssetsWithMediaType:mediaType options:options];
+    
+    VAsset* phAsset = [VAssetPHImage makeFromPHAsset:sd.firstObject];
+    [phAsset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
+        [[VDocument getCurrentDocument].assetsCollection addAsset:phAsset];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end
