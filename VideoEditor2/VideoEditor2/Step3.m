@@ -143,7 +143,7 @@
     }
     else
     {
-        [self getAssetsFromCollectionsFetchResults: PHAssetMediaTypeImage];
+        [self getAssetByMediaType: PHAssetMediaTypeImage];
     }
 }
 
@@ -156,18 +156,17 @@
     }
     else
     {
-        [self getAssetsFromCollectionsFetchResults: PHAssetMediaTypeVideo];
-        
+        [self getAssetByMediaType: PHAssetMediaTypeVideo];
     }
 }
 
--(void)getAssetsFromCollectionsFetchResults:(PHAssetMediaType)mediaType
+-(void)getAssetByMediaType:(PHAssetMediaType)mediaType
 {
     PHFetchOptions *options = [[PHFetchOptions alloc] init];
     options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
-    PHFetchResult *sd = [PHAsset fetchAssetsWithMediaType:mediaType options:options];
+    PHFetchResult *fetchResults = [PHAsset fetchAssetsWithMediaType:mediaType options:options];
     
-    VAsset* phAsset = [VAssetPHImage makeFromPHAsset:sd.firstObject];
+    VAsset* phAsset = [VAssetPHImage makeFromPHAsset:fetchResults.firstObject];
     [phAsset downloadWithCompletion:^(UIImage *resultImage, BOOL requestFinished, BOOL requestError) {
         [[VDocument getCurrentDocument].assetsCollection addAsset:phAsset];
     }];
