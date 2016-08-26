@@ -10,12 +10,14 @@
 #import <UIKit/UIKit.h>
 
 #import "VSegmentsCollection.h"
+@class VAsset;
 
 @protocol SegmentsCollectionViewDelegate
 
 -(void) willStartScrolling;
 -(void) didScrollToTime: (double)time;
 -(void) didFinishScrolling;
+-(void) assetSelected:(VAsset *)asset;
 
 @end
 
@@ -25,5 +27,6 @@
 @property (weak, nonatomic) id<SegmentsCollectionViewDelegate> delegate;
 
 -(void) synchronizeToPlayerTime: (double) time;
+-(VAsset *)getSelectedSegment;
 
 @end

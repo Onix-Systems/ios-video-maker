@@ -9,10 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "VAssetSegment.h"
+@class SegmentView;
 
 @protocol SegmentsThumbnailDrawer
 
 -(UIImage*) renderThumbnail:(CIImage *)thumbailImage frameRect:(CGRect)frameRect;
+
+@end
+
+@protocol SegmentViewDelegate
+
+-(void)segmentViewTapped:(SegmentView *)view;
 
 @end
 
@@ -28,8 +35,10 @@
 
 
 @property (nonatomic, weak) id<SegmentsThumbnailDrawer> drawer;
+@property (nonatomic, weak) id<SegmentViewDelegate> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
+-(void)changeHighlightingView:(BOOL)highlighted;
 
 @end

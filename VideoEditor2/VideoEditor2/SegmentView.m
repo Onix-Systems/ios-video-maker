@@ -15,8 +15,28 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.clipsToBounds = YES;
+        UITapGestureRecognizer *gestureRecogniger = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchupAction:)];
+        gestureRecogniger.numberOfTouchesRequired = 1;
+        [self addGestureRecognizer:gestureRecogniger];
     }
     return self;
+}
+
+-(void) touchupAction: (UITapGestureRecognizer*) sender
+{
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        [self.delegate segmentViewTapped:self];
+    }
+}
+
+-(void)changeHighlightingView:(BOOL)highlighted {
+    if (highlighted) {
+        self.layer.borderColor = [[UIColor yellowColor] CGColor];
+        self.layer.borderWidth = 4;
+    } else {
+        self.layer.borderColor = [[UIColor clearColor] CGColor];
+        self.layer.borderWidth = 0;
+    }
 }
 
 - (void) drawRect:(CGRect)rect {

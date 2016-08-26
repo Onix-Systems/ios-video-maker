@@ -882,6 +882,12 @@
                                             <segue destination="8fQ-CT-Yp4" kind="show" id="Y6o-k1-c9X"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="2nW-HZ-j6N"/>
+                                    <barButtonItem systemItem="trash" id="ywb-v0-dtK">
+                                        <connections>
+                                            <action selector="deleteButtonAction:" destination="IdM-zf-vnX" id="HiG-z2-dfA"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cho-kk-whY" customClass="SegmentsCollectionView">
@@ -908,6 +914,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Step 5" id="EO8-zS-DT4"/>
                     <connections>
+                        <outlet property="deleteButton" destination="ywb-v0-dtK" id="SQf-jj-XH9"/>
                         <outlet property="pauseButton" destination="gzg-da-QuW" id="TM1-qc-pEU"/>
                         <outlet property="playButton" destination="ym3-xy-zZq" id="Tik-ZS-g2V"/>
                         <outlet property="playerView" destination="Rqq-26-jpG" id="Kwk-ZP-PTi"/>

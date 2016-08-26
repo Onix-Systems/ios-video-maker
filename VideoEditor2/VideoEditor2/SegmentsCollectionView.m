@@ -15,7 +15,7 @@
 #define maxPxPerSecond 300.0
 #define minPxPerSecond 40.0
 
-@interface SegmentsCollectionView() <SegmentsThumbnailDrawer>
+@interface SegmentsCollectionView() <SegmentsThumbnailDrawer, SegmentViewDelegate>
 
 @property (nonatomic) double currentZoomScale;
 @property (nonatomic) double currentScrollingTime;
@@ -41,6 +41,8 @@
 
 @property (nonatomic) BOOL hasPanActiveGesure;
 
+@property (nonatomic, strong) SegmentView *selectedSegmentView;
+
 @end
 
 @implementation SegmentsCollectionView
@@ -63,6 +65,7 @@
     [self addGestureRecognizer:self.panGestureRecognizer];
     
     self.timePointer = [[TimePionter alloc] initWithFrame:self.bounds];
+    self.timePointer.userInteractionEnabled = NO;
     [self addSubview:self.timePointer];
     
     self.thumbanilDrawingContext = [CIContext contextWithOptions:nil];
@@ -273,6 +276,7 @@
         segmentView.calculatedDuration = segmentDuration;
         
         segmentView.drawer = self;
+        segmentView.delegate = self;
         
         [self.segmentViews addObject:segmentView];
         
@@ -329,5 +333,17 @@
     self.timePointer.frame = self.bounds;
 }
 
+-(VAsset *)getSelectedSegment {
+    return self.selectedSegmentView.segment.asset;
+}
+
+#pragma SegmentViewDelegate 
+-(void)segmentViewTapped:(SegmentView *)view {
+    [self.selectedSegmentView changeHighlightingView:NO];
+    [view changeHighlightingView:YES];
+    self.selectedSegmentView = view;
+    
+    [self.delegate assetSelected:view.segment.asset];
+}
 
 @end

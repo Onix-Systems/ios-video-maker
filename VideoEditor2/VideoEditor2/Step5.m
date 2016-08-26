@@ -19,6 +19,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *pauseButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
 
 @property (weak, nonatomic) VSegmentsCollection* segmentsCollection;
 @property (weak, nonatomic) IBOutlet SegmentsCollectionView *segmentsCollectionView;
@@ -29,6 +30,7 @@
 
 @property (nonatomic) BOOL isVideoSuspended;
 
+
 @end
 
 @implementation Step5
@@ -37,21 +39,27 @@
 {
     [super viewWillAppear:animated];
     
-    
     self.playButton.enabled = NO;
     self.pauseButton.enabled = YES;
     
     self.playerView.delegate = self;
     
+    self.segmentsCollectionView.delegate = self;
+    
+    self.isVideoSuspended = NO;
+    
+    self.deleteButton.enabled = NO;
+    
+    [self configureView];
+}
+
+-(void)configureView {
     self.videoComposition = [[VDocument getCurrentDocument].segmentsCollection makeVideoCompositionWithFrameSize:CGSizeMake(1280, 720)];
     
     [self.playerView playVideoFromAsset:self.videoComposition.mutableComposition videoComposition:self.videoComposition.mutableVideoComposition audioMix:self.videoComposition.mutableAudioMix autoPlay:NO];
     
     self.segmentsCollection = [VDocument getCurrentDocument].segmentsCollection;
     self.segmentsCollectionView.segmentsCollection = self.segmentsCollection;
-    self.segmentsCollectionView.delegate = self;
-    
-    self.isVideoSuspended = NO;
 }
 
 -(void) viewDidDisappear:(BOOL)animated
@@ -74,6 +82,11 @@
     if (self.playerView.isPlayingNow) {
         [self.playerView pause];
     }
+}
+
+- (IBAction)deleteButtonAction:(id)sender {
+    [[VDocument getCurrentDocument].assetsCollection removeAsset:[self.segmentsCollectionView getSelectedSegment]];
+    [self configureView];
 }
 
 -(void) playerStateDidChanged: (PlayerView*) playerView
@@ -102,6 +115,7 @@
     [self.segmentsCollectionView synchronizeToPlayerTime:CMTimeGetSeconds(playerView.playerTime)];
 }
 
+#pragma SegmentsCollectionViewDelegate
 -(void) willStartScrolling
 {
     if (self.playerView.isPlayingNow) {
@@ -117,11 +131,14 @@
 
 -(void)didFinishScrolling
 {
-
     if (self.isVideoSuspended) {
         self.isVideoSuspended = NO;
         [self.playerView play];
     }
+}
+
+- (void)selectedAsset:(VAsset *)asset {
+    self.deleteButton.enabled = YES;
 }
 
 @end
