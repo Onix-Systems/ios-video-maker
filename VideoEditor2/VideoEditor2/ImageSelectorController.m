@@ -37,7 +37,8 @@
     
     ImageSelectorCollectionViewController *collectionController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorCollectionViewController"];
     [collectionController loadDataFromDataSource:self.dataSource];
-    collectionController.selectionStorage = currentDoccument.assetsCollection;
+    
+    collectionController.selectionStorage = currentDoccument.tmpAssetsCollection;
    
     ImageSelectorCollageController *collageController = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorCollageController"];
     collageController.parentSplitController = self.splitController;

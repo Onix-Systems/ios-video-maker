@@ -16,5 +16,7 @@
 
 @property (strong, readonly) AssetsCollection* assetsCollection;
 @property (strong, readonly) VSegmentsCollection* segmentsCollection;
+@property (strong, readonly) AssetsCollection* tmpAssetsCollection;
 
+-(void)updateAssetsCollection;
 @end

@@ -19,6 +19,7 @@
 -(BOOL) hasAsset: (VAsset*) asset;
 -(NSInteger) getIndexOfAsset: (VAsset*) asset;
 -(void) addAsset: (VAsset*) asset;
+-(void) addArrayAssets: (NSArray*) assets;
 -(void) removeAsset: (VAsset*) asset;
 
 -(NSArray*) getAssets;

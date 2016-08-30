@@ -54,6 +54,7 @@
 }
 
 -(void)configureView {
+    [[VDocument getCurrentDocument] updateAssetsCollection];
     self.videoComposition = [[VDocument getCurrentDocument].segmentsCollection makeVideoCompositionWithFrameSize:CGSizeMake(1280, 720)];
     
     [self.playerView playVideoFromAsset:self.videoComposition.mutableComposition videoComposition:self.videoComposition.mutableVideoComposition audioMix:self.videoComposition.mutableAudioMix autoPlay:NO];
@@ -137,8 +138,7 @@
     }
 }
 
-- (void)selectedAsset:(VAsset *)asset {
+- (void)assetSelected:(VAsset *)asset {
     self.deleteButton.enabled = YES;
 }
-
 @end

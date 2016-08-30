@@ -78,6 +78,11 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kAssetsCollectionAssetAddedNitification object:self];
 }
 
+-(void) addArrayAssets: (NSArray*) assets {
+    [self.assets addObjectsFromArray:assets];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAssetsCollectionAssetAddedNitification object:self];
+}
+
 -(void) removeAsset: (VAsset*) asset {
     NSInteger index = [self findIndexOfAsset:asset];
     

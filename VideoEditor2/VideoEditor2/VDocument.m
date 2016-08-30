@@ -11,6 +11,7 @@
 @interface VDocument ()
 
 @property (strong, readwrite) AssetsCollection* assetsCollection;
+@property (strong, readwrite) AssetsCollection* tmpAssetsCollection;
 @property (strong, readwrite) VSegmentsCollection* segmentsCollection;
 
 @end
@@ -36,11 +37,19 @@
     self = [super init];
     if (self) {
         self.assetsCollection = [AssetsCollection new];
+        self.tmpAssetsCollection = [AssetsCollection new];
         self.segmentsCollection = [VSegmentsCollection new];
         
         self.segmentsCollection.assetsCollection = self.assetsCollection;
     }
     return self;
+}
+
+-(void)updateAssetsCollection {
+    if (self.tmpAssetsCollection.getAssets.count > 0) {
+        [self.assetsCollection addArrayAssets:self.tmpAssetsCollection.getAssets];
+        self.tmpAssetsCollection = [AssetsCollection new];
+    }
 }
 
 @end
