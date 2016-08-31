@@ -84,7 +84,7 @@
     
     VDocument* currentDoccument = [VDocument getCurrentDocument];
 
-    collectionViewConrtroller.selectionStorage = currentDoccument.assetsCollection;
+    collectionViewConrtroller.selectionStorage = currentDoccument.tmpAssetsCollection;
     
     self.splitController.navigationItem.title = @"SELECT";
     [self.splitController showOkButton];
