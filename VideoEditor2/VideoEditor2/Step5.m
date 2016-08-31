@@ -15,6 +15,8 @@
 
 @interface Step5 () <PlayerViewDelegate, SegmentsCollectionViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *createFilmView;
+@property (weak, nonatomic) IBOutlet UIButton *createFilmButton;
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
