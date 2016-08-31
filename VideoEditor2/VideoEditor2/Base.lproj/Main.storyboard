@@ -853,13 +853,13 @@
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="firstScreen" translatesAutoresizingMaskIntoConstraints="NO" id="uEG-wK-dPT">
                                 <rect key="frame" x="0.0" y="-65" width="379" height="668"/>
                             </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rqq-26-jpG" customClass="PlayerView">
-                                <rect key="frame" x="26" y="0.0" width="322" height="181"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tapeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Lvh-zg-VF5">
+                                <rect key="frame" x="149" y="86" width="77" height="61"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="Rqq-26-jpG" secondAttribute="height" multiplier="16:9" id="THj-VD-JUh"/>
+                                    <constraint firstAttribute="height" constant="61" id="R9c-wm-JbD"/>
+                                    <constraint firstAttribute="width" constant="77" id="T2U-nn-YmN"/>
                                 </constraints>
-                            </view>
+                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9dV-Xn-1pP">
                                 <rect key="frame" x="0.0" y="181" width="375" height="44"/>
                                 <items>
@@ -877,7 +877,23 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Spw-LN-NFe"/>
                                 </items>
                             </toolbar>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a3L-Le-Ccr">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rqq-26-jpG" customClass="PlayerView">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="181"/>
+                                <color key="backgroundColor" red="0.2196078431372549" green="0.22745098039215686" blue="0.30588235294117649" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Rqq-26-jpG" secondAttribute="height" multiplier="16:9" id="THj-VD-JUh"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="THj-VD-JUh"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cho-kk-whY" customClass="SegmentsCollectionView">
+                                <rect key="frame" x="-4" y="225" width="383" height="334"/>
+                                <color key="backgroundColor" red="0.1647058824" green="0.17254901959999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="a3L-Le-Ccr">
                                 <rect key="frame" x="0.0" y="559" width="375" height="44"/>
                                 <items>
                                     <barButtonItem title="Item" id="AZt-Tp-9Tx">
@@ -893,11 +909,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cho-kk-whY" customClass="SegmentsCollectionView">
-                                <rect key="frame" x="-4" y="225" width="383" height="334"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcX-H8-fam">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcX-H8-fam">
                                 <rect key="frame" x="0.0" y="225" width="375" height="378"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpv-MN-G35">
@@ -941,6 +953,8 @@ to start your first project</string>
                             <constraint firstAttribute="trailing" secondItem="fcX-H8-fam" secondAttribute="trailing" id="GHt-fA-9Q7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cho-kk-whY" secondAttribute="trailing" constant="-20" id="Jf5-v3-DQK"/>
                             <constraint firstItem="a3L-Le-Ccr" firstAttribute="top" secondItem="Cho-kk-whY" secondAttribute="bottom" id="LgH-Rc-baz"/>
+                            <constraint firstItem="Lvh-zg-VF5" firstAttribute="top" secondItem="VA9-yG-DqC" secondAttribute="topMargin" constant="86" id="M0K-Kj-UMw"/>
+                            <constraint firstItem="Rqq-26-jpG" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leading" id="MS5-9P-VG8"/>
                             <constraint firstItem="P5j-Hn-gAI" firstAttribute="top" secondItem="a3L-Le-Ccr" secondAttribute="bottom" id="OfR-cZ-ahK"/>
                             <constraint firstItem="Rqq-26-jpG" firstAttribute="top" secondItem="Y58-X0-b8g" secondAttribute="bottom" id="PCV-wk-WcW"/>
                             <constraint firstItem="a3L-Le-Ccr" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="Roa-dV-nnV"/>
@@ -948,21 +962,27 @@ to start your first project</string>
                             <constraint firstItem="Cho-kk-whY" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="agf-QR-Ntz"/>
                             <constraint firstItem="9dV-Xn-1pP" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="ams-TI-Eha"/>
                             <constraint firstItem="fcX-H8-fam" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="c06-Ic-ZYR"/>
+                            <constraint firstAttribute="trailing" secondItem="Rqq-26-jpG" secondAttribute="trailing" id="da9-cV-8tj"/>
                             <constraint firstAttribute="centerX" secondItem="Rqq-26-jpG" secondAttribute="centerX" id="lla-IP-ut2"/>
                             <constraint firstItem="Cho-kk-whY" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leadingMargin" constant="-20" id="nYD-md-HZd"/>
                             <constraint firstAttribute="bottomMargin" secondItem="fcX-H8-fam" secondAttribute="bottom" id="otB-vP-Z8L"/>
                             <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="3/10" id="pUT-ws-YPx"/>
                             <constraint firstItem="9dV-Xn-1pP" firstAttribute="top" secondItem="Rqq-26-jpG" secondAttribute="bottom" id="y2l-jp-cfm"/>
+                            <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerXWithinMargins" id="yCa-c2-uvZ"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lla-IP-ut2"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Step 5" id="EO8-zS-DT4"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="createFilmButton" destination="klC-m1-ZN4" id="MBZ-uT-JYv"/>
+                        <outlet property="createFilmImage" destination="Lvh-zg-VF5" id="48G-TK-nmA"/>
                         <outlet property="createFilmView" destination="fcX-H8-fam" id="UGY-pq-8Mf"/>
                         <outlet property="deleteButton" destination="ywb-v0-dtK" id="SQf-jj-XH9"/>
-                        <outlet property="newFilmButton" destination="klC-m1-ZN4" id="ED2-O3-zMd"/>
-                        <outlet property="newFilmView" destination="fcX-H8-fam" id="NHd-bY-bgx"/>
                         <outlet property="pauseButton" destination="gzg-da-QuW" id="TM1-qc-pEU"/>
                         <outlet property="playButton" destination="ym3-xy-zZq" id="Tik-ZS-g2V"/>
                         <outlet property="playerView" destination="Rqq-26-jpG" id="Kwk-ZP-PTi"/>
@@ -1355,5 +1375,6 @@ to start your first project</string>
         <image name="picker-grip-vertical" width="8" height="36"/>
         <image name="play" width="30" height="30"/>
         <image name="straighten-grid" width="307" height="307"/>
+        <image name="tapeIcon" width="128" height="101"/>
     </resources>
 </document>
