@@ -38,6 +38,11 @@
 
 @implementation Step5
 
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    self.createFilmButton.layer.cornerRadius = 4;
+}
+
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
