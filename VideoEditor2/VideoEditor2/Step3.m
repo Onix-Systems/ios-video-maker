@@ -22,9 +22,18 @@
 }
 @property (strong, nonatomic) AVPlayerItem* playerItem;
 @property (strong, nonatomic) NSString* context;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *mediaButtons;
+
 @end
 
 @implementation Step3
+
+-(void)viewDidLoad {
+    [super viewDidLoad];
+    for (UIButton *button in self.mediaButtons) {
+        button.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
+}
 
 +(void)initialize {
     //Below is a copy of API keys from original DZNPhotoPickerController repo
@@ -77,12 +86,14 @@
 }
 
 - (IBAction)cameraButtonAction {
-    UIImagePickerController *cameraPicker = [[UIImagePickerController alloc] init];
-    cameraPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    cameraPicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-    cameraPicker.delegate = self;
-    
-    [self presentViewController:cameraPicker animated:YES completion:nil];
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        UIImagePickerController *cameraPicker = [[UIImagePickerController alloc] init];
+        cameraPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        cameraPicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        cameraPicker.delegate = self;
+        
+        [self presentViewController:cameraPicker animated:YES completion:nil];
+    }
 }
 
 - (IBAction)momentsButtonAction {

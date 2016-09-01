@@ -941,9 +941,15 @@ to start your first project</string>
                                 <constraints>
                                     <constraint firstItem="Qpv-MN-G35" firstAttribute="top" secondItem="fcX-H8-fam" secondAttribute="top" constant="128" id="4uF-Xs-OuY"/>
                                     <constraint firstItem="klC-m1-ZN4" firstAttribute="centerX" secondItem="Qpv-MN-G35" secondAttribute="centerX" id="DS5-Gd-zW3"/>
+                                    <constraint firstItem="Qpv-MN-G35" firstAttribute="centerY" secondItem="fcX-H8-fam" secondAttribute="centerY" multiplier="0.9" id="Gax-w5-Qhh"/>
                                     <constraint firstItem="klC-m1-ZN4" firstAttribute="top" secondItem="Qpv-MN-G35" secondAttribute="bottom" constant="21" id="nqf-QH-kpx"/>
                                     <constraint firstItem="Qpv-MN-G35" firstAttribute="centerX" secondItem="fcX-H8-fam" secondAttribute="centerX" id="pgP-6k-jRJ"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4uF-Xs-OuY"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.1647058824" green="0.17254901959999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -1011,9 +1017,9 @@ to start your first project</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWn-7h-foZ">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LrO-rh-9bp">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LrO-rh-9bp">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
-                                        <state key="normal">
+                                        <state key="normal" image="Layer 3">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1050,9 +1056,9 @@ to start your first project</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KdI-ri-Rb5">
                                 <rect key="frame" x="0.0" y="90" width="600" height="89"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9c-tl-fxY">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9c-tl-fxY">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
-                                        <state key="normal">
+                                        <state key="normal" image="Layer 4">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1089,9 +1095,9 @@ to start your first project</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2K-9L-1V3">
                                 <rect key="frame" x="0.0" y="180" width="600" height="88.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YmM-GF-dbY">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YmM-GF-dbY">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
-                                        <state key="normal">
+                                        <state key="normal" image="Layer 5">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1128,9 +1134,9 @@ to start your first project</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xQm-Bn-WtX">
                                 <rect key="frame" x="0.0" y="269" width="600" height="88.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTk-Yi-sc7">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zTk-Yi-sc7">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
-                                        <state key="normal">
+                                        <state key="normal" image="Layer 7">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1167,9 +1173,9 @@ to start your first project</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nuL-n4-jHX">
                                 <rect key="frame" x="0.0" y="359" width="600" height="88.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HbY-Be-omm">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HbY-Be-omm">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
-                                        <state key="normal">
+                                        <state key="normal" image="Layer 6">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -1206,13 +1212,13 @@ to start your first project</string>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qpD-LG-QAT">
                                 <rect key="frame" x="0.0" y="448" width="600" height="88.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NM6-4p-FfE">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NM6-4p-FfE">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
-                                        <state key="normal">
+                                        <state key="normal" image="Layer 8">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="videosButtonAction" destination="8fQ-CT-Yp4" eventType="touchUpInside" id="4gm-Bi-5xT"/>
+                                            <action selector="internetButtonAction" destination="8fQ-CT-Yp4" eventType="touchUpInside" id="L09-PJ-YBo"/>
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifier58" translatesAutoresizingMaskIntoConstraints="NO" id="J4Y-1N-eSF">
@@ -1293,10 +1299,18 @@ to start your first project</string>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outletCollection property="mediaButtons" destination="LrO-rh-9bp" id="IW5-Y0-91O"/>
+                        <outletCollection property="mediaButtons" destination="c9c-tl-fxY" id="M05-eX-dvp"/>
+                        <outletCollection property="mediaButtons" destination="YmM-GF-dbY" id="Ioj-Af-RKD"/>
+                        <outletCollection property="mediaButtons" destination="zTk-Yi-sc7" id="2MH-vz-7x4"/>
+                        <outletCollection property="mediaButtons" destination="HbY-Be-omm" id="JAR-zV-qxO"/>
+                        <outletCollection property="mediaButtons" destination="NM6-4p-FfE" id="67i-ad-rsh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBj-uz-Q02" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-703" y="190"/>
+            <point key="canvasLocation" x="-711" y="196"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ehk-vY-xdA">
@@ -1328,6 +1342,12 @@ to start your first project</string>
         <image name="KenBurns-disabled" width="104" height="94"/>
         <image name="KenBurns-normal" width="104" height="94"/>
         <image name="KenBurns-selected" width="104" height="94"/>
+        <image name="Layer 3" width="640" height="167"/>
+        <image name="Layer 4" width="640" height="167"/>
+        <image name="Layer 5" width="640" height="167"/>
+        <image name="Layer 6" width="640" height="167"/>
+        <image name="Layer 7" width="640" height="167"/>
+        <image name="Layer 8" width="640" height="166"/>
         <image name="Origami-disabled" width="104" height="94"/>
         <image name="Origami-normal" width="104" height="94"/>
         <image name="Origami-selected" width="104" height="94"/>
