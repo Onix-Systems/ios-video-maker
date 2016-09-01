@@ -69,6 +69,14 @@
     
     self.segmentsCollection = [VDocument getCurrentDocument].segmentsCollection;
     self.segmentsCollectionView.segmentsCollection = self.segmentsCollection;
+    
+    if (self.segmentsCollection.segmentsCount && self.segmentsCollection.segmentsCount > 0) {
+        self.createFilmView.hidden = YES;
+        self.createFilmImage.hidden = YES;
+    } else {
+        self.createFilmView.hidden = NO;
+        self.createFilmImage.hidden = NO;
+    }
 }
 
 -(void) viewDidDisappear:(BOOL)animated

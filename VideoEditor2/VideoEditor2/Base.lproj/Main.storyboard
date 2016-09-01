@@ -850,13 +850,6 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tapeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Lvh-zg-VF5">
-                                <rect key="frame" x="261" y="86" width="77" height="61"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="R9c-wm-JbD"/>
-                                    <constraint firstAttribute="width" constant="77" id="T2U-nn-YmN"/>
-                                </constraints>
-                            </imageView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9dV-Xn-1pP">
                                 <rect key="frame" x="0.0" y="161" width="600" height="44"/>
                                 <items>
@@ -886,6 +879,13 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tapeIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Lvh-zg-VF5">
+                                <rect key="frame" x="261" y="50" width="77" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="R9c-wm-JbD"/>
+                                    <constraint firstAttribute="width" constant="77" id="T2U-nn-YmN"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cho-kk-whY" customClass="SegmentsCollectionView">
                                 <rect key="frame" x="0.0" y="205" width="600" height="287"/>
                                 <color key="backgroundColor" red="0.1647058824" green="0.17254901959999999" blue="0.23529411759999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -932,6 +932,9 @@ to start your first project</string>
                                         <state key="normal" title="Create New Film">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="8fQ-CT-Yp4" kind="show" id="rB5-78-iI8"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.16470588235294117" green="0.17254901960784313" blue="0.23529411764705882" alpha="1" colorSpace="calibratedRGB"/>
@@ -960,16 +963,20 @@ to start your first project</string>
                             <constraint firstItem="9dV-Xn-1pP" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="ams-TI-Eha"/>
                             <constraint firstItem="fcX-H8-fam" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="c06-Ic-ZYR"/>
                             <constraint firstAttribute="trailing" secondItem="Rqq-26-jpG" secondAttribute="trailing" id="da9-cV-8tj"/>
+                            <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerX" secondItem="Rqq-26-jpG" secondAttribute="centerX" id="gxY-nx-Ld4"/>
                             <constraint firstAttribute="centerX" secondItem="Rqq-26-jpG" secondAttribute="centerX" id="lla-IP-ut2"/>
                             <constraint firstItem="Cho-kk-whY" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leadingMargin" constant="-20" id="nYD-md-HZd"/>
                             <constraint firstAttribute="bottomMargin" secondItem="fcX-H8-fam" secondAttribute="bottom" id="otB-vP-Z8L"/>
                             <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="3/10" id="pUT-ws-YPx"/>
+                            <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerY" secondItem="Rqq-26-jpG" secondAttribute="centerY" id="ub9-Kb-UND"/>
                             <constraint firstItem="9dV-Xn-1pP" firstAttribute="top" secondItem="Rqq-26-jpG" secondAttribute="bottom" id="y2l-jp-cfm"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerXWithinMargins" id="yCa-c2-uvZ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="lla-IP-ut2"/>
+                                <exclude reference="M0K-Kj-UMw"/>
+                                <exclude reference="gxY-nx-Ld4"/>
                             </mask>
                         </variation>
                     </view>
@@ -1372,4 +1379,7 @@ to start your first project</string>
         <image name="straighten-grid" width="307" height="307"/>
         <image name="tapeIcon" width="128" height="101"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="rB5-78-iI8"/>
+    </inferredMetricsTieBreakers>
 </document>
