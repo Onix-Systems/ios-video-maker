@@ -801,22 +801,6 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="9dV-Xn-1pP">
-                                <items>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="L2W-cL-Whi"/>
-                                    <barButtonItem systemItem="play" id="ym3-xy-zZq">
-                                        <connections>
-                                            <action selector="playButtonAction:" destination="IdM-zf-vnX" id="uYI-pN-zib"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem systemItem="pause" id="gzg-da-QuW">
-                                        <connections>
-                                            <action selector="pauseButtonAction:" destination="IdM-zf-vnX" id="XAd-qS-6Zt"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Spw-LN-NFe"/>
-                                </items>
-                            </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rqq-26-jpG" customClass="PlayerView">
                                 <color key="backgroundColor" red="0.2196078431372549" green="0.22745098039215686" blue="0.30588235294117649" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -834,6 +818,74 @@
                                     <constraint firstAttribute="width" constant="77" id="T2U-nn-YmN"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cTu-xz-ER9">
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NMY-hP-aWx">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="NMY-hP-aWx" secondAttribute="height" multiplier="1:1" id="KDI-a5-Mxh"/>
+                                        </constraints>
+                                        <state key="normal" title=" " image="Pause-1"/>
+                                        <connections>
+                                            <action selector="playButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="Ck1-r9-2kZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFA-o1-VVi">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="OFA-o1-VVi" secondAttribute="height" multiplier="9:7" id="EYF-fZ-CUw"/>
+                                        </constraints>
+                                        <state key="normal" title=" " image="Fast Back"/>
+                                        <connections>
+                                            <action selector="fastBackButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="TcD-Qp-NqY"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jni-eO-bpa">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Jni-eO-bpa" secondAttribute="height" multiplier="25:24" id="53E-0u-Cl5"/>
+                                        </constraints>
+                                        <state key="normal" title=" " image="Back-1"/>
+                                        <connections>
+                                            <action selector="backButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="nAw-ho-sCk"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AO-FU-94D">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="0AO-FU-94D" secondAttribute="height" multiplier="25:24" id="OcC-hp-faX"/>
+                                        </constraints>
+                                        <state key="normal" title=" " image="Next"/>
+                                        <connections>
+                                            <action selector="forwardButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="FNT-Dq-Jz2"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sU3-pI-CLL">
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="sU3-pI-CLL" secondAttribute="height" multiplier="9:7" id="92W-s7-3uI"/>
+                                        </constraints>
+                                        <state key="normal" title=" " image="Fast forward"/>
+                                        <connections>
+                                            <action selector="fastForwardButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="EKc-tj-8O3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Jni-eO-bpa" firstAttribute="centerY" secondItem="OFA-o1-VVi" secondAttribute="centerY" id="8KS-CG-MZQ"/>
+                                    <constraint firstItem="sU3-pI-CLL" firstAttribute="leading" secondItem="NMY-hP-aWx" secondAttribute="trailing" constant="35" id="Aow-23-veH"/>
+                                    <constraint firstItem="Jni-eO-bpa" firstAttribute="height" secondItem="OFA-o1-VVi" secondAttribute="height" id="ITx-d8-m3d"/>
+                                    <constraint firstItem="NMY-hP-aWx" firstAttribute="centerY" secondItem="cTu-xz-ER9" secondAttribute="centerY" id="Jx7-nr-ojm"/>
+                                    <constraint firstItem="sU3-pI-CLL" firstAttribute="centerY" secondItem="NMY-hP-aWx" secondAttribute="centerY" id="Lb3-Q4-x2Z"/>
+                                    <constraint firstItem="OFA-o1-VVi" firstAttribute="leading" secondItem="Jni-eO-bpa" secondAttribute="trailing" constant="35" id="OXG-Py-HJZ"/>
+                                    <constraint firstItem="sU3-pI-CLL" firstAttribute="height" secondItem="NMY-hP-aWx" secondAttribute="height" multiplier="0.6" id="SR6-ZY-pWX"/>
+                                    <constraint firstItem="0AO-FU-94D" firstAttribute="height" secondItem="sU3-pI-CLL" secondAttribute="height" id="SRp-ZB-P8g"/>
+                                    <constraint firstItem="NMY-hP-aWx" firstAttribute="leading" secondItem="OFA-o1-VVi" secondAttribute="trailing" constant="35" id="SYU-8g-NVs"/>
+                                    <constraint firstItem="0AO-FU-94D" firstAttribute="leading" secondItem="sU3-pI-CLL" secondAttribute="trailing" constant="35" id="TS1-B8-u7B"/>
+                                    <constraint firstItem="NMY-hP-aWx" firstAttribute="centerX" secondItem="cTu-xz-ER9" secondAttribute="centerX" id="UZW-GI-r2x"/>
+                                    <constraint firstItem="0AO-FU-94D" firstAttribute="centerY" secondItem="sU3-pI-CLL" secondAttribute="centerY" id="Vt1-e4-TjY"/>
+                                    <constraint firstItem="OFA-o1-VVi" firstAttribute="centerY" secondItem="NMY-hP-aWx" secondAttribute="centerY" id="oi9-87-i6D"/>
+                                    <constraint firstItem="NMY-hP-aWx" firstAttribute="height" secondItem="cTu-xz-ER9" secondAttribute="height" multiplier="0.54" id="t9i-Uu-xcR"/>
+                                    <constraint firstItem="OFA-o1-VVi" firstAttribute="height" secondItem="NMY-hP-aWx" secondAttribute="height" multiplier="0.6" id="tnz-JR-AN9"/>
+                                    <constraint firstAttribute="height" constant="75" id="xzQ-Df-L3N"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cho-kk-whY" customClass="SegmentsCollectionView">
                                 <color key="backgroundColor" red="0.1647058824" green="0.17254901959999999" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -972,17 +1024,17 @@ to start your first project</string>
                         <constraints>
                             <constraint firstAttribute="bottomMargin" secondItem="JAf-Hp-yWn" secondAttribute="bottom" id="1Ib-qw-MyQ"/>
                             <constraint firstItem="fcX-H8-fam" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leading" id="40k-xV-Ngq"/>
+                            <constraint firstItem="Cho-kk-whY" firstAttribute="top" secondItem="cTu-xz-ER9" secondAttribute="bottom" id="BC9-5B-bHQ"/>
+                            <constraint firstItem="cTu-xz-ER9" firstAttribute="top" secondItem="Rqq-26-jpG" secondAttribute="bottom" constant="1" id="CWf-OK-Avd"/>
                             <constraint firstItem="JAf-Hp-yWn" firstAttribute="top" secondItem="Cho-kk-whY" secondAttribute="bottom" id="GCY-sS-SyW"/>
                             <constraint firstAttribute="trailing" secondItem="fcX-H8-fam" secondAttribute="trailing" id="GHt-fA-9Q7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Cho-kk-whY" secondAttribute="trailing" constant="-20" id="Jf5-v3-DQK"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="top" secondItem="VA9-yG-DqC" secondAttribute="topMargin" constant="86" id="M0K-Kj-UMw"/>
                             <constraint firstItem="Rqq-26-jpG" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leading" id="MS5-9P-VG8"/>
+                            <constraint firstAttribute="trailing" secondItem="cTu-xz-ER9" secondAttribute="trailing" id="Net-Z2-feg"/>
                             <constraint firstItem="Rqq-26-jpG" firstAttribute="top" secondItem="Y58-X0-b8g" secondAttribute="bottom" id="PCV-wk-WcW"/>
                             <constraint firstItem="JAf-Hp-yWn" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leading" id="Tjb-9U-OnO"/>
-                            <constraint firstItem="9dV-Xn-1pP" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerX" id="Vc7-3C-rZD"/>
-                            <constraint firstItem="Cho-kk-whY" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="agf-QR-Ntz"/>
-                            <constraint firstItem="9dV-Xn-1pP" firstAttribute="width" secondItem="VA9-yG-DqC" secondAttribute="width" id="ams-TI-Eha"/>
-                            <constraint firstItem="fcX-H8-fam" firstAttribute="top" secondItem="9dV-Xn-1pP" secondAttribute="bottom" id="c06-Ic-ZYR"/>
+                            <constraint firstItem="fcX-H8-fam" firstAttribute="top" secondItem="Rqq-26-jpG" secondAttribute="bottom" constant="1" id="U6x-s0-tCZ"/>
                             <constraint firstAttribute="trailing" secondItem="Rqq-26-jpG" secondAttribute="trailing" id="da9-cV-8tj"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerX" secondItem="Rqq-26-jpG" secondAttribute="centerX" id="gxY-nx-Ld4"/>
                             <constraint firstAttribute="centerX" secondItem="Rqq-26-jpG" secondAttribute="centerX" id="lla-IP-ut2"/>
@@ -991,7 +1043,7 @@ to start your first project</string>
                             <constraint firstAttribute="bottomMargin" secondItem="fcX-H8-fam" secondAttribute="bottom" id="otB-vP-Z8L"/>
                             <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="3/10" id="pUT-ws-YPx"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerY" secondItem="Rqq-26-jpG" secondAttribute="centerY" id="ub9-Kb-UND"/>
-                            <constraint firstItem="9dV-Xn-1pP" firstAttribute="top" secondItem="Rqq-26-jpG" secondAttribute="bottom" id="y2l-jp-cfm"/>
+                            <constraint firstItem="cTu-xz-ER9" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leading" id="x4X-tN-1q0"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerXWithinMargins" id="yCa-c2-uvZ"/>
                         </constraints>
                         <variation key="default">
@@ -1008,8 +1060,7 @@ to start your first project</string>
                         <outlet property="createFilmImage" destination="Lvh-zg-VF5" id="48G-TK-nmA"/>
                         <outlet property="createFilmView" destination="fcX-H8-fam" id="UGY-pq-8Mf"/>
                         <outlet property="deleteButton" destination="zBb-31-b65" id="VSy-cm-Mu7"/>
-                        <outlet property="pauseButton" destination="gzg-da-QuW" id="TM1-qc-pEU"/>
-                        <outlet property="playButton" destination="ym3-xy-zZq" id="Tik-ZS-g2V"/>
+                        <outlet property="playButton" destination="NMY-hP-aWx" id="fFV-jj-2t9"/>
                         <outlet property="playerView" destination="Rqq-26-jpG" id="Kwk-ZP-PTi"/>
                         <outlet property="segmentsCollectionView" destination="Cho-kk-whY" id="sY5-Sr-Naf"/>
                         <outlet property="timeLabel" destination="eHm-5t-nLR" id="iXo-gO-9bd"/>
@@ -1017,7 +1068,7 @@ to start your first project</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MX7-SL-QJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-703" y="-676"/>
+            <point key="canvasLocation" x="-703.20000000000005" y="-676.01199400299856"/>
         </scene>
         <!--Step 3-->
         <scene sceneID="NCv-AG-7zg">
@@ -1332,7 +1383,10 @@ to start your first project</string>
     </scenes>
     <resources>
         <image name="Albums" width="74" height="63"/>
+        <image name="Back-1" width="39" height="36"/>
         <image name="Delete icon" width="36" height="35"/>
+        <image name="Fast Back" width="67" height="36"/>
+        <image name="Fast forward" width="67" height="36"/>
         <image name="KenBurns-disabled" width="104" height="94"/>
         <image name="KenBurns-normal" width="104" height="94"/>
         <image name="KenBurns-selected" width="104" height="94"/>
@@ -1342,9 +1396,11 @@ to start your first project</string>
         <image name="Layer 6" width="640" height="167"/>
         <image name="Layer 7" width="640" height="167"/>
         <image name="Layer 8" width="640" height="166"/>
+        <image name="Next" width="39" height="36"/>
         <image name="Origami-disabled" width="104" height="94"/>
         <image name="Origami-normal" width="104" height="94"/>
         <image name="Origami-selected" width="104" height="94"/>
+        <image name="Pause-1" width="91" height="73"/>
         <image name="SlidingPanels-disabled" width="104" height="94"/>
         <image name="SlidingPanels-normal" width="104" height="94"/>
         <image name="SlidingPanels-selected" width="104" height="94"/>

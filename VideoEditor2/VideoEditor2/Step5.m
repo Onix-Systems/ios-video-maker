@@ -23,8 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *createFilmImage;
 @property (weak, nonatomic) IBOutlet PlayerView *playerView;
 
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *pauseButton;
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
 @property (weak, nonatomic) IBOutlet VEButton *deleteButton;
 
 @property (weak, nonatomic) VSegmentsCollection* segmentsCollection;
@@ -52,7 +51,6 @@
     [super viewWillAppear:animated];
     
     self.playButton.enabled = NO;
-    self.pauseButton.enabled = YES;
     
     self.playerView.delegate = self;
     
@@ -92,17 +90,28 @@
 
 - (IBAction)playButtonAction:(id)sender
 {
-    if (self.playerView.isReadyToPlay) {
-        [self.playerView play];
+    if (self.playerView.isPlayingNow) {
+        [self.playerView pause];
+    } else {
+        if (self.playerView.isReadyToPlay) {
+            [self.playerView play];
+        }
     }
 }
 
+- (IBAction)fastBackButtonAction:(id)sender {
+    
+}
 
-- (IBAction)pauseButtonAction:(id)sender
-{
-    if (self.playerView.isPlayingNow) {
-        [self.playerView pause];
-    }
+- (IBAction)backButtonAction:(id)sender {
+    [self.playerView.player seekToTime: kCMTimeZero];
+}
+
+- (IBAction)fastForwardButtonAction:(id)sender {
+}
+
+- (IBAction)forwardButtonAction:(id)sender {
+    [self.playerView.player seekToTime: [self.playerView maxDuration]];
 }
 
 - (IBAction)deleteButtonAction:(id)sender {
@@ -119,21 +128,18 @@
 -(void) playerStateDidChanged: (PlayerView*) playerView
 {
     if (self.playerView.isReadyToPlay) {
-        
+        self.playButton.enabled = YES;
         if (self.currentDebugViewAsset != self.videoComposition.mutableComposition) {
             self.currentDebugViewAsset = self.videoComposition.mutableComposition;
         }
 
         if (self.playerView.isPlayingNow) {
-            self.playButton.enabled = NO;
-            self.pauseButton.enabled = YES;
+            [self.playButton setImage:[UIImage imageNamed:@"Pause-1"] forState:UIControlStateNormal];
         } else {
-            self.playButton.enabled = YES;
-            self.pauseButton.enabled = NO;
+            [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
         }
     } else {
         self.playButton.enabled = NO;
-        self.pauseButton.enabled = NO;
     }
 }
 
