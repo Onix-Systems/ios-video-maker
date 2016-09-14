@@ -127,6 +127,8 @@
 		11F43D5F1B84674E00011C2D /* VAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D5E1B84674E00011C2D /* VAsset.m */; };
 		11F43D6E1B84CCB500011C2D /* AssetsCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F43D6D1B84CCB500011C2D /* AssetsCollection.m */; };
 		11F5A9241C17088F00FD2611 /* ZOZolaZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */; };
+		2479DE5C1D8800D400754343 /* VEButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2479DE5B1D8800D400754343 /* VEButton.m */; };
+		2479DE641D88591600754343 /* NSStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2479DE631D88591600754343 /* NSStringHelper.m */; };
 		24AD523C1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AD523B1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m */; };
 		AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1801B98896C00403713 /* Fabric.framework */; };
 		AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1811B98896C00403713 /* Crashlytics.framework */; };
@@ -378,6 +380,10 @@
 		11F43D6D1B84CCB500011C2D /* AssetsCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetsCollection.m; sourceTree = "<group>"; };
 		11F5A9221C17088F00FD2611 /* ZOZolaZoomTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZOZolaZoomTransition.h; path = ZOZolaZoomTransition/ZOZolaZoomTransition.h; sourceTree = "<group>"; };
 		11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZOZolaZoomTransition.m; path = ZOZolaZoomTransition/ZOZolaZoomTransition.m; sourceTree = "<group>"; };
+		2479DE5A1D8800D400754343 /* VEButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VEButton.h; sourceTree = "<group>"; };
+		2479DE5B1D8800D400754343 /* VEButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VEButton.m; sourceTree = "<group>"; };
+		2479DE621D88591600754343 /* NSStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringHelper.h; sourceTree = "<group>"; };
+		2479DE631D88591600754343 /* NSStringHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringHelper.m; sourceTree = "<group>"; };
 		24AD523A1D6753D2001F90FD /* OneAssetMediaTypeDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneAssetMediaTypeDataSource.h; sourceTree = "<group>"; };
 		24AD523B1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneAssetMediaTypeDataSource.m; sourceTree = "<group>"; };
 		69B654D231D53CB9E236F108 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -778,6 +784,7 @@
 		11EFEDC11B81C27D00078735 /* VideoEditor2 */ = {
 			isa = PBXGroup;
 			children = (
+				2479DE581D8800A400754343 /* Helpers */,
 				11F5A9251C17089300FD2611 /* ZOZolaZoomTransition */,
 				115C21121BA94F16002DD526 /* DMPagingScrollView */,
 				11EFEDF41B820B4F00078735 /* DZNPhotoPickerController */,
@@ -890,6 +897,33 @@
 				11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */,
 			);
 			name = ZOZolaZoomTransition;
+			sourceTree = "<group>";
+		};
+		2479DE581D8800A400754343 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				2479DE5F1D8858B000754343 /* NSStringHelper */,
+				2479DE591D8800C500754343 /* MBButton */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		2479DE591D8800C500754343 /* MBButton */ = {
+			isa = PBXGroup;
+			children = (
+				2479DE5A1D8800D400754343 /* VEButton.h */,
+				2479DE5B1D8800D400754343 /* VEButton.m */,
+			);
+			name = MBButton;
+			sourceTree = "<group>";
+		};
+		2479DE5F1D8858B000754343 /* NSStringHelper */ = {
+			isa = PBXGroup;
+			children = (
+				2479DE621D88591600754343 /* NSStringHelper.h */,
+				2479DE631D88591600754343 /* NSStringHelper.m */,
+			);
+			name = NSStringHelper;
 			sourceTree = "<group>";
 		};
 		FFAE5A8FD0109141F8181AEF /* Pods */ = {
@@ -1071,6 +1105,7 @@
 				11194A651BD6799500B0721D /* VFrameProvider.m in Sources */,
 				1139D6DB1BEBB14D00532BAE /* TimePionter.m in Sources */,
 				11E5717E1BE0A3C200ADDD1F /* VTransition08CIBarsSwipeTransition.m in Sources */,
+				2479DE641D88591600754343 /* NSStringHelper.m in Sources */,
 				11EFEE1F1B820C0300078735 /* UIImagePickerController+Block.m in Sources */,
 				11EFEE1C1B820BF600078735 /* DZNPhotoTag.m in Sources */,
 				11EFEDEE1B81D2EF00078735 /* Step2.m in Sources */,
@@ -1154,6 +1189,7 @@
 				119B87741BA0259B000E5BD3 /* ImageSelectorPreviewController.m in Sources */,
 				11EFEE1A1B820BF600078735 /* DZNPhotoServiceConstants.m in Sources */,
 				11F43D5F1B84674E00011C2D /* VAsset.m in Sources */,
+				2479DE5C1D8800D400754343 /* VEButton.m in Sources */,
 				11E571AE1BE0C52D00ADDD1F /* VTransition23CIPageCurlWithShadowTransition.m in Sources */,
 				11EFEE0B1B820BEB00078735 /* DZNPhotoEditorViewController.m in Sources */,
 				11BB65C91BFA0D0B0048B3B7 /* CIImage+Convenience.m in Sources */,

@@ -116,6 +116,10 @@
     return (self.player != nil) && (self.playerItem != nil) && (self.playerItem.status == AVPlayerItemStatusReadyToPlay);
 }
 
+- (CMTime)maxDuration {
+    return self.playerItem.duration;
+}
+
 - (void)play
 {
     if (self.isReadyToPlay && !self.isPlayingNow) {
@@ -222,6 +226,10 @@
             
             if (status == AVKeyValueStatusLoaded) {
                 self.playerItem = [AVPlayerItem playerItemWithAsset:asset];
+                if (self.delegate) {
+                    [self.delegate playerUpdatedDuration:self];
+                }
+                
                 self.playerItem.videoComposition = videoComposition;
                 self.playerItem.audioMix = audioMix;
                 

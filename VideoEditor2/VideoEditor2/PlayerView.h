@@ -22,6 +22,8 @@
 @optional
 -(void) playerTimeDidChanged: (PlayerView*) playerView;
 
+-(void) playerUpdatedDuration: (PlayerView*) playerView;
+
 @end
 
 @interface PlayerView : UIView
@@ -45,5 +47,5 @@
 
 -(void) play;
 -(void) pause;
-
+- (CMTime)maxDuration;
 @end

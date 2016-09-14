@@ -12,6 +12,9 @@
 #import "VDocument.h"
 #import "APLCompositionDebugView.h"
 #import "SegmentsCollectionView.h"
+#import "VEButton.h"
+#import "Step3.h"
+#import "NSStringHelper.h"
 
 @interface Step5 () <PlayerViewDelegate, SegmentsCollectionViewDelegate>
 
@@ -22,7 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *playButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *pauseButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *deleteButton;
+@property (weak, nonatomic) IBOutlet VEButton *deleteButton;
 
 @property (weak, nonatomic) VSegmentsCollection* segmentsCollection;
 @property (weak, nonatomic) IBOutlet SegmentsCollectionView *segmentsCollectionView;
@@ -33,6 +36,7 @@
 
 @property (nonatomic) BOOL isVideoSuspended;
 
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end
 
@@ -106,6 +110,12 @@
     [self configureView];
 }
 
+- (IBAction)addButtonAction:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    Step3 *vc = [storyboard instantiateViewControllerWithIdentifier:@"Step3"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 -(void) playerStateDidChanged: (PlayerView*) playerView
 {
     if (self.playerView.isReadyToPlay) {
@@ -129,7 +139,19 @@
 
 -(void) playerTimeDidChanged:(PlayerView *)playerView
 {
+    [self updateTimeLabel:playerView.playerTime maxDuration:[playerView maxDuration]];
     [self.segmentsCollectionView synchronizeToPlayerTime:CMTimeGetSeconds(playerView.playerTime)];
+}
+
+- (void)playerUpdatedDuration:(PlayerView *)playerView {
+    [self updateTimeLabel:playerView.playerTime maxDuration:[playerView maxDuration]];
+}
+
+-(void)updateTimeLabel:(CMTime)currentTime maxDuration:(CMTime)duration {
+    NSString *currentStr = [NSStringHelper stringFromTimeInterval:CMTimeGetSeconds(currentTime)];
+    NSString *durationStr = [NSStringHelper stringFromTimeInterval:CMTimeGetSeconds(duration)];
+    
+    self.timeLabel.text = [NSString stringWithFormat:@"%@ / %@", currentStr, durationStr];
 }
 
 #pragma SegmentsCollectionViewDelegate
