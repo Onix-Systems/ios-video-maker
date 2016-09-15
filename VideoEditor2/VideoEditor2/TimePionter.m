@@ -37,7 +37,7 @@
 -(void) setup
 {
     self.opaque = NO;
-    self.timePointer = [UIImage imageNamed:@"timePointer"];
+    self.timePointer = [UIImage imageNamed:@"pointer"];
 }
 
 -(void)drawRect:(CGRect)rect
@@ -48,16 +48,15 @@
     
     CGContextClearRect(context, self.bounds);
     
-    CGContextSetRGBFillColor(context, 0x9e/255.0, 0x0b/255.0, 0x0f/255.0, 1.0);
+    CGContextSetRGBFillColor(context, 255.0/255.0, 255.0/255.0, 255.0/255.0, 1.0);
     
     double lineWidth = 2;
-    CGContextFillRect(context, CGRectMake((self.bounds.size.width/2.0) - (lineWidth/2.0), 0, lineWidth, self.bounds.size.height));
+    double pointerWidth = self.timePointer.size.width/2;
+    double pointerHeight = (self.timePointer.size.height/2) + 3;
     
+    CGContextFillRect(context, CGRectMake((self.bounds.size.width/2.0) - (lineWidth/2.0), pointerHeight, lineWidth, self.bounds.size.height - pointerHeight));
     
-    double pointerWidth = self.timePointer.size.width;
-    double pointerHeight = self.timePointer.size.height;
-    
-    [self.timePointer drawInRect:CGRectMake((self.bounds.size.width/2.0) - (pointerWidth/2.0), 0, pointerWidth, pointerHeight)];
+    [self.timePointer drawInRect:CGRectMake((self.bounds.size.width/2.0) - (pointerWidth/2.0), pointerHeight - 8, pointerWidth, pointerHeight)];
 }
 
 @end
