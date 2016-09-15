@@ -824,7 +824,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="NMY-hP-aWx" secondAttribute="height" multiplier="1:1" id="KDI-a5-Mxh"/>
                                         </constraints>
-                                        <state key="normal" title=" " image="Pause-1"/>
+                                        <state key="normal" title=" " image="Play-1"/>
                                         <connections>
                                             <action selector="playButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="Ck1-r9-2kZ"/>
                                         </connections>
@@ -1400,7 +1400,7 @@ to start your first project</string>
         <image name="Origami-disabled" width="104" height="94"/>
         <image name="Origami-normal" width="104" height="94"/>
         <image name="Origami-selected" width="104" height="94"/>
-        <image name="Pause-1" width="91" height="73"/>
+        <image name="Play-1" width="91" height="73"/>
         <image name="SlidingPanels-disabled" width="104" height="94"/>
         <image name="SlidingPanels-normal" width="104" height="94"/>
         <image name="SlidingPanels-selected" width="104" height="94"/>

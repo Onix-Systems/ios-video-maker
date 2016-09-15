@@ -26,6 +26,12 @@
 @property (weak, nonatomic) VSegmentsCollection* segmentsCollection;
 @property (weak, nonatomic) id<SegmentsCollectionViewDelegate> delegate;
 
+//Default is 5
+@property (nonatomic) NSInteger countSmallLineBetweenSeconds;
+
+//Default is 35
+@property (nonatomic) CGFloat timeLineHeight;
+
 -(void) synchronizeToPlayerTime: (double) time;
 -(VAsset *)getSelectedSegment;
 

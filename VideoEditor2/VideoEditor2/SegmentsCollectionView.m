@@ -42,6 +42,7 @@
 @property (nonatomic) BOOL hasPanActiveGesure;
 
 @property (nonatomic, strong) SegmentView *selectedSegmentView;
+@property (nonatomic, strong) UIView *timeLineView;
 
 @end
 
@@ -52,6 +53,8 @@
     if (self.self.segmentViews != nil) {
         return;
     }
+    self.countSmallLineBetweenSeconds = 5;
+    self.timeLineHeight = 35;
     
     self.segmentViews = [NSMutableArray new];
     self.transitionViews = [NSMutableArray new];
@@ -199,6 +202,9 @@
 //    NSLog(@"scrollContentToTime=%f timePx=%f", time, timePx);
     
     self.contentContainer.frame = CGRectMake(timePx, [self getSegmentsVerticalPosition], self.contentContainer.frame.size.width, self.contentContainer.frame.size.height);
+    CGRect newRect = self.timeLineView.frame;
+    newRect.origin.x = self.contentContainer.frame.origin.x;
+    self.timeLineView.frame = newRect;
 }
 
 -(double)getPxForTime: (CMTime)time
@@ -213,7 +219,7 @@
 
 -(double) getSegmentsVerticalPosition
 {
-    return (self.bounds.size.height  - [self getSegmentsHeight]) / 2;
+    return self.timeLineHeight;
 }
 
 -(void) setSegmentsCollection:(VSegmentsCollection *)segmentsCollection
@@ -234,6 +240,10 @@
     
     if (self.contentContainer != nil) {
         [self.contentContainer removeFromSuperview];
+    }
+    
+    if (self.timeLineView != nil) {
+        [self.timeLineView removeFromSuperview];
     }
     
     CMTime totalDuration = CMTimeMakeWithSeconds(0, 1000);
@@ -287,6 +297,12 @@
     self.contentContainer = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width/2.0 + [self getPxForTime:CMTimeMakeWithSeconds(self.currentScrollingTime, 1000)], [self getSegmentsVerticalPosition], [self getPxForTime:totalDuration], [self getSegmentsHeight])];
     [self addSubview:self.contentContainer];
     
+    
+    CGFloat countSecond = CMTimeGetSeconds(totalDuration);
+    if (countSecond > 0) {
+        [self drawTimeLineByTime:countSecond];
+    }
+    
     for (NSInteger i = 0; i < self.segmentViews.count; i++) {
         [self.contentContainer addSubview: self.segmentViews[i]];
     }
@@ -296,6 +312,52 @@
     }
     
     [self bringSubviewToFront:self.timePointer];
+}
+
+-(void)drawTimeLineByTime:(CGFloat)seconds {
+    CGRect contentFrame = self.contentContainer.frame;
+    self.timeLineView = [[UIView alloc] initWithFrame:CGRectMake(contentFrame.origin.x, 0, contentFrame.size.width, self.timeLineHeight)];
+    self.timeLineView.clipsToBounds = YES;
+    self.timeLineView.backgroundColor = [UIColor colorWithRed:56.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0];
+    [self addSubview:self.timeLineView];
+    
+    [self drawLineInTimeLineByTime:seconds];
+}
+
+-(void)drawLineInTimeLineByTime:(CGFloat)seconds {
+    UIColor *lineColor = [UIColor colorWithRed:98.0/255.0 green:100.0/255.0 blue:119.0/255.0 alpha:1.0];
+    for (NSInteger i = 0; i <= seconds; i++) {
+        UIView *line = [UIView new];
+        line.backgroundColor = lineColor;
+        CGRect frameTimeLine = self.timeLineView.frame;
+        CGFloat positionLine = (frameTimeLine.size.width / seconds) * i;
+        CGFloat heigthLine = frameTimeLine.size.height * 0.65;
+        line.frame = CGRectMake(positionLine,
+                                frameTimeLine.origin.y + (frameTimeLine.size.height - heigthLine),
+                                1,
+                                heigthLine);
+        [self.timeLineView addSubview:line];
+        
+        if (i < seconds) {
+            CGFloat firstLinePosition = (frameTimeLine.size.width / seconds) * i;
+            CGFloat secondLinePosition = (frameTimeLine.size.width / seconds) * (i + 1);
+            CGFloat durationBetweenSeconds = (secondLinePosition - firstLinePosition);
+            
+            for (NSInteger lineNumber = 1; lineNumber <= self.countSmallLineBetweenSeconds; lineNumber++) {
+                CGFloat smallLinePosition = (durationBetweenSeconds / (self.countSmallLineBetweenSeconds + 1) * lineNumber) + firstLinePosition;
+                
+                UIView *smallLine = [UIView new];
+                smallLine.backgroundColor = lineColor;
+                CGRect frameTimeLine = self.timeLineView.frame;
+                CGFloat heigthLine = frameTimeLine.size.height * 0.35;
+                smallLine.frame = CGRectMake(smallLinePosition,
+                                             frameTimeLine.origin.y + (frameTimeLine.size.height - heigthLine),
+                                             1,
+                                             heigthLine);
+                [self.timeLineView addSubview:smallLine];
+            }
+        }
+    }
 }
 
 -(void) layoutSubviews
