@@ -831,55 +831,31 @@
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFA-o1-VVi">
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="OFA-o1-VVi" secondAttribute="height" multiplier="9:7" id="EYF-fZ-CUw"/>
-                                        </constraints>
-                                        <state key="normal" title=" " image="Fast Back"/>
-                                        <connections>
-                                            <action selector="fastBackButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="TcD-Qp-NqY"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jni-eO-bpa">
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="Jni-eO-bpa" secondAttribute="height" multiplier="25:24" id="53E-0u-Cl5"/>
+                                            <constraint firstAttribute="width" secondItem="OFA-o1-VVi" secondAttribute="height" multiplier="9:7" constant="-5.8571428571428612" id="EYF-fZ-CUw"/>
                                         </constraints>
                                         <state key="normal" title=" " image="Back-1"/>
                                         <connections>
-                                            <action selector="backButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="nAw-ho-sCk"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0AO-FU-94D">
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="0AO-FU-94D" secondAttribute="height" multiplier="25:24" id="OcC-hp-faX"/>
-                                        </constraints>
-                                        <state key="normal" title=" " image="Next"/>
-                                        <connections>
-                                            <action selector="forwardButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="FNT-Dq-Jz2"/>
+                                            <action selector="backButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="Azs-bM-3Ek"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sU3-pI-CLL">
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="sU3-pI-CLL" secondAttribute="height" multiplier="9:7" id="92W-s7-3uI"/>
+                                            <constraint firstAttribute="width" secondItem="sU3-pI-CLL" secondAttribute="height" multiplier="9:7" constant="-5.8571428571428612" id="92W-s7-3uI"/>
                                         </constraints>
-                                        <state key="normal" title=" " image="Fast forward"/>
+                                        <state key="normal" title=" " image="Next"/>
                                         <connections>
-                                            <action selector="fastForwardButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="EKc-tj-8O3"/>
+                                            <action selector="forwardButtonAction:" destination="IdM-zf-vnX" eventType="touchUpInside" id="Pye-Xk-FLH"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Jni-eO-bpa" firstAttribute="centerY" secondItem="OFA-o1-VVi" secondAttribute="centerY" id="8KS-CG-MZQ"/>
                                     <constraint firstItem="sU3-pI-CLL" firstAttribute="leading" secondItem="NMY-hP-aWx" secondAttribute="trailing" constant="35" id="Aow-23-veH"/>
-                                    <constraint firstItem="Jni-eO-bpa" firstAttribute="height" secondItem="OFA-o1-VVi" secondAttribute="height" id="ITx-d8-m3d"/>
                                     <constraint firstItem="NMY-hP-aWx" firstAttribute="centerY" secondItem="cTu-xz-ER9" secondAttribute="centerY" id="Jx7-nr-ojm"/>
                                     <constraint firstItem="sU3-pI-CLL" firstAttribute="centerY" secondItem="NMY-hP-aWx" secondAttribute="centerY" id="Lb3-Q4-x2Z"/>
-                                    <constraint firstItem="OFA-o1-VVi" firstAttribute="leading" secondItem="Jni-eO-bpa" secondAttribute="trailing" constant="35" id="OXG-Py-HJZ"/>
                                     <constraint firstItem="sU3-pI-CLL" firstAttribute="height" secondItem="NMY-hP-aWx" secondAttribute="height" multiplier="0.6" id="SR6-ZY-pWX"/>
-                                    <constraint firstItem="0AO-FU-94D" firstAttribute="height" secondItem="sU3-pI-CLL" secondAttribute="height" id="SRp-ZB-P8g"/>
-                                    <constraint firstItem="NMY-hP-aWx" firstAttribute="leading" secondItem="OFA-o1-VVi" secondAttribute="trailing" constant="35" id="SYU-8g-NVs"/>
-                                    <constraint firstItem="0AO-FU-94D" firstAttribute="leading" secondItem="sU3-pI-CLL" secondAttribute="trailing" constant="35" id="TS1-B8-u7B"/>
+                                    <constraint firstItem="NMY-hP-aWx" firstAttribute="leading" secondItem="OFA-o1-VVi" secondAttribute="trailing" constant="41" id="SYU-8g-NVs"/>
                                     <constraint firstItem="NMY-hP-aWx" firstAttribute="centerX" secondItem="cTu-xz-ER9" secondAttribute="centerX" id="UZW-GI-r2x"/>
-                                    <constraint firstItem="0AO-FU-94D" firstAttribute="centerY" secondItem="sU3-pI-CLL" secondAttribute="centerY" id="Vt1-e4-TjY"/>
                                     <constraint firstItem="OFA-o1-VVi" firstAttribute="centerY" secondItem="NMY-hP-aWx" secondAttribute="centerY" id="oi9-87-i6D"/>
                                     <constraint firstItem="NMY-hP-aWx" firstAttribute="height" secondItem="cTu-xz-ER9" secondAttribute="height" multiplier="0.54" id="t9i-Uu-xcR"/>
                                     <constraint firstItem="OFA-o1-VVi" firstAttribute="height" secondItem="NMY-hP-aWx" secondAttribute="height" multiplier="0.6" id="tnz-JR-AN9"/>
@@ -1385,8 +1361,6 @@ to start your first project</string>
         <image name="Albums" width="74" height="63"/>
         <image name="Back-1" width="39" height="36"/>
         <image name="Delete icon" width="36" height="35"/>
-        <image name="Fast Back" width="67" height="36"/>
-        <image name="Fast forward" width="67" height="36"/>
         <image name="KenBurns-disabled" width="104" height="94"/>
         <image name="KenBurns-normal" width="104" height="94"/>
         <image name="KenBurns-selected" width="104" height="94"/>

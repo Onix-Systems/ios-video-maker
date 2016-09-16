@@ -43,6 +43,7 @@
 
 @property (nonatomic, strong) SegmentView *selectedSegmentView;
 @property (nonatomic, strong) UIView *timeLineView;
+@property (nonatomic, strong) UIView *timeLineBackgroundView;
 
 @end
 
@@ -244,6 +245,11 @@
     
     if (self.timeLineView != nil) {
         [self.timeLineView removeFromSuperview];
+        
+    }
+    
+    if (self.timeLineBackgroundView != nil) {
+        [self.timeLineBackgroundView removeFromSuperview];
     }
     
     CMTime totalDuration = CMTimeMakeWithSeconds(0, 1000);
@@ -316,9 +322,14 @@
 
 -(void)drawTimeLineByTime:(CGFloat)seconds {
     CGRect contentFrame = self.contentContainer.frame;
+    self.timeLineBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, self.timeLineHeight)];
+    self.timeLineBackgroundView.backgroundColor = [UIColor colorWithRed:56.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0];
+    
+    [self addSubview:self.timeLineBackgroundView];
+    
     self.timeLineView = [[UIView alloc] initWithFrame:CGRectMake(contentFrame.origin.x, 0, contentFrame.size.width, self.timeLineHeight)];
     self.timeLineView.clipsToBounds = YES;
-    self.timeLineView.backgroundColor = [UIColor colorWithRed:56.0/255.0 green:58.0/255.0 blue:78.0/255.0 alpha:1.0];
+    self.timeLineView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.timeLineView];
     
     [self drawLineInTimeLineByTime:seconds];
@@ -330,7 +341,7 @@
         UIView *line = [UIView new];
         line.backgroundColor = lineColor;
         CGRect frameTimeLine = self.timeLineView.frame;
-        CGFloat positionLine = (frameTimeLine.size.width / seconds) * i;
+        CGFloat positionLine = ((frameTimeLine.size.width - 1) / seconds) * i;
         CGFloat heigthLine = frameTimeLine.size.height * 0.65;
         line.frame = CGRectMake(positionLine,
                                 frameTimeLine.origin.y + (frameTimeLine.size.height - heigthLine),
