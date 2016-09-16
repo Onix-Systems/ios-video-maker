@@ -226,7 +226,7 @@
             
             if (status == AVKeyValueStatusLoaded) {
                 self.playerItem = [AVPlayerItem playerItemWithAsset:asset];
-                if (self.delegate) {
+                if ([self.delegate respondsToSelector:@selector(playerUpdatedDuration:)]) {
                     [self.delegate playerUpdatedDuration:self];
                 }
                 

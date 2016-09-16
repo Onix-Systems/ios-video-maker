@@ -7,6 +7,8 @@
 //
 
 #import "SegmentView.h"
+#import "VAssetCollage.h"
+#import "VCollageFrame.h"
 
 @implementation SegmentView
 
@@ -53,7 +55,31 @@
 //    [segmentImage drawInRect:frameRect];
     
 //    [self getMovieFrame];
-    [self addedMovieImagesToView];
+    if (self.segment.asset.isVideo) {
+        [self addedMovieImagesToView];
+    }
+    else if ([self.segment.asset isKindOfClass:[VAssetCollage class]]) {
+        VAssetCollage * collage = (VAssetCollage *)self.segment.asset;
+        
+        VAsset * asset = [collage.assetsCollection getAssets].firstObject;
+        
+        VFrameRequest* frameRequest = [VFrameRequest new];
+        frameRequest.time = 2;
+        
+        VCollageFrame *frameProvider = [VCollageFrame new];
+        frameProvider.finalSize = CGSizeMake(600, 600);
+        
+        CIImage* frameContent = [frameProvider getFrameForRequest:frameRequest];
+        UIImage *videoScreen = [[UIImage alloc] initWithCIImage:frameContent];
+        UIImageView *tmp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        tmp.image = videoScreen;
+        [self addSubview:tmp];
+//        [self addImageToView:videoScreen];
+        NSLog(@"d");
+    }
+    else {
+        [self addImageToView:self.segment.asset.downloadedImage];
+    }
 }
 
 -(BOOL)isRetina{
@@ -141,6 +167,32 @@
         CGImageRelease(halfWayImage);
     }
 }
+
+-(void)addImageToView:(UIImage *)image {
+    
+    int picMaxHeight = self.frame.size.height;
+    
+    CGFloat allImagesWidth = 0;
+    while (allImagesWidth < self.frame.size.width) {
+        UIImageView *tmp = [[UIImageView alloc] initWithImage:image];
+        
+        CGFloat heightRatio = picMaxHeight > tmp.frame.size.height ? tmp.frame.size.height / picMaxHeight : picMaxHeight / tmp.frame.size.height;
+        
+        CGRect currentFrame = tmp.frame;
+        currentFrame.size.width = currentFrame.size.width * heightRatio;
+        currentFrame.size.height = currentFrame.size.height * heightRatio;
+        currentFrame.origin.x = allImagesWidth;
+        
+        tmp.frame = currentFrame;
+        allImagesWidth += tmp.frame.size.width;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self addSubview:tmp];
+        });
+    }
+}
+
+
 
 -(void)getMovieFrame{
     

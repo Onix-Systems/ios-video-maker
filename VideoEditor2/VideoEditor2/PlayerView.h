@@ -15,7 +15,7 @@
 
 @class PlayerView;
 
-@protocol PlayerViewDelegate
+@protocol PlayerViewDelegate <NSObject>
 
 -(void) playerStateDidChanged: (PlayerView*) playerView;
 

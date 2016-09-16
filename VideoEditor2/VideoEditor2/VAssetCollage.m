@@ -18,15 +18,19 @@
 @interface VAssetCollage()
 
 @property (strong,nonatomic) VFrameProvider* cachedFrameProvider;
+@property (nonatomic) NSInteger collageIdentifierInMemory;
 
 @end
 
 @implementation VAssetCollage
 
+NSInteger collagesCounter = 0;
 - (instancetype)init
 {
     self = [super init];
     if (self) {
+        self.collageIdentifierInMemory = collagesCounter;
+        collagesCounter++;
         self.previewMode = NO;
     }
     return self;
@@ -35,6 +39,10 @@
 -(BOOL) isVideo
 {
     return NO;
+}
+
+- (NSString *)getIdentifier {
+    return [NSString stringWithFormat:@"collage%ld",self.collageIdentifierInMemory];
 }
 
 -(BOOL) isStatic
