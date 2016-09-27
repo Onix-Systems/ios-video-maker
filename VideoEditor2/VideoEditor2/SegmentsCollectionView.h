@@ -18,6 +18,7 @@
 -(void) didScrollToTime: (double)time;
 -(void) didFinishScrolling;
 -(void) assetSelected:(VAsset *)asset;
+-(void) assetDeselected:(VAsset *)asset;
 
 @end
 

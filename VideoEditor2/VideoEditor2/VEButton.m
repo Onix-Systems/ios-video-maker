@@ -9,6 +9,19 @@
 
 @implementation VEButton
 
+- (void)setEnabledWithAplha:(BOOL)enabled {
+    CGFloat alpha = 1;
+    if(!enabled) {
+        alpha = 0.3;
+    }
+    self.label.alpha = alpha;
+    self.picture.alpha = alpha;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.enabled = enabled;
+    }];
+    
+}
+
 - (instancetype)awakeAfterUsingCoder:(NSCoder *)aDecoder{
     self = [super awakeAfterUsingCoder:aDecoder];
     if(self){
@@ -49,7 +62,6 @@
             view.alpha = 1;
         }
     }];
-
 }
 
 @end

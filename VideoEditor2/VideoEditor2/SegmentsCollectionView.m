@@ -419,4 +419,27 @@
     [self.delegate assetSelected:view.segment.asset];
 }
 
+- (void)deselctSelectedSegmentView {
+    [self.delegate assetDeselected:self.selectedSegmentView.segment.asset];
+    [self.selectedSegmentView changeHighlightingView:NO];
+    self.selectedSegmentView = nil;
+}
+
+#pragma mark - Hit testing view
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    
+    [self endEditing:NO];
+    return [super pointInside:point withEvent:event];
+}
+
+- (BOOL)endEditing:(BOOL)force {
+    
+    if([self getSelectedSegment] != nil || force) {
+        [self deselctSelectedSegmentView];
+        return YES;
+    }else {
+        return NO;
+    }
+}
+
 @end

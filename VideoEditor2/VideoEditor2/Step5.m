@@ -58,7 +58,7 @@
     
     self.isVideoSuspended = NO;
     
-    self.deleteButton.enabled = NO;
+    [self.deleteButton setEnabledWithAplha:NO];
     
     [self configureView];
 }
@@ -183,6 +183,11 @@
 }
 
 - (void)assetSelected:(VAsset *)asset {
-    self.deleteButton.enabled = YES;
+    [self.deleteButton setEnabledWithAplha:YES];
 }
+
+- (void)assetDeselected:(VAsset *)asset {
+    [self.deleteButton setEnabledWithAplha:NO];
+}
+
 @end
