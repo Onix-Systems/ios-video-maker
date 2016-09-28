@@ -163,18 +163,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLh-bM-rQT">
                                 <color key="backgroundColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <imageView contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="picker-grip-vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ZNa-oZ-naW">
-                                <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="ATZ-fK-pBF"/>
-                                    <constraint firstAttribute="height" constant="80" id="mJ5-kF-iHd"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Yhb-Qd-LfR" appends="YES" id="KlZ-5v-rKd"/>
-                                    <outletCollection property="gestureRecognizers" destination="Wul-8g-rcE" appends="YES" id="yuY-sL-eIS"/>
-                                </connections>
-                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="THR-2y-hM2">
                                 <color key="backgroundColor" red="0.20784313730000001" green="0.18039215689999999" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -204,10 +192,21 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="collage_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ZNa-oZ-naW">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="4gC-tk-Q9b"/>
+                                    <constraint firstAttribute="width" constant="25" id="xgK-1y-Ere"/>
+                                </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Yhb-Qd-LfR" appends="YES" id="KlZ-5v-rKd"/>
+                                    <outletCollection property="gestureRecognizers" destination="Wul-8g-rcE" appends="YES" id="yuY-sL-eIS"/>
+                                </connections>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.20784313725490194" green="0.1803921568627451" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ZNa-oZ-naW" firstAttribute="leading" secondItem="rbn-3o-IOK" secondAttribute="trailing" id="1xP-Rh-jQA"/>
                             <constraint firstItem="VFy-n7-iNv" firstAttribute="centerX" secondItem="4Hi-DA-GdB" secondAttribute="centerX" id="25I-k5-FvA"/>
                             <constraint firstItem="rbn-3o-IOK" firstAttribute="top" secondItem="VFy-n7-iNv" secondAttribute="bottom" id="58T-AR-feD"/>
                             <constraint firstItem="VwF-1o-QZN" firstAttribute="leading" secondItem="4Hi-DA-GdB" secondAttribute="leading" id="8Zs-a6-Yrs"/>
@@ -215,33 +214,34 @@
                             <constraint firstItem="HN7-cB-H02" firstAttribute="bottom" secondItem="MUr-ie-D2x" secondAttribute="top" id="BMS-a3-fUd"/>
                             <constraint firstAttribute="height" secondItem="VwF-1o-QZN" secondAttribute="height" priority="999" id="COe-vM-EKj"/>
                             <constraint firstItem="rbn-3o-IOK" firstAttribute="height" secondItem="VwF-1o-QZN" secondAttribute="height" id="Ccs-og-wRZ"/>
+                            <constraint firstItem="HN7-cB-H02" firstAttribute="leading" secondItem="rbn-3o-IOK" secondAttribute="trailing" constant="10" id="EWi-Rz-sYX"/>
                             <constraint firstItem="DtJ-1I-CPC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VwF-1o-QZN" secondAttribute="bottom" constant="150" id="EyU-NX-rWb"/>
+                            <constraint firstItem="ZNa-oZ-naW" firstAttribute="centerY" secondItem="MUr-ie-D2x" secondAttribute="centerY" id="Gd7-gJ-wtr"/>
                             <constraint firstItem="rbn-3o-IOK" firstAttribute="height" secondItem="VwF-1o-QZN" secondAttribute="height" id="HAa-D5-5aX"/>
-                            <constraint firstAttribute="width" secondItem="HN7-cB-H02" secondAttribute="width" constant="40" id="PKC-ll-rpg"/>
                             <constraint firstItem="zLh-bM-rQT" firstAttribute="width" secondItem="4Hi-DA-GdB" secondAttribute="width" id="T1j-zY-6wv"/>
                             <constraint firstItem="VFy-n7-iNv" firstAttribute="width" secondItem="4Hi-DA-GdB" secondAttribute="width" id="U3t-YT-Mxt"/>
                             <constraint firstItem="THR-2y-hM2" firstAttribute="bottom" secondItem="VFy-n7-iNv" secondAttribute="bottom" id="Wej-JC-pTG"/>
                             <constraint firstAttribute="centerX" secondItem="MUr-ie-D2x" secondAttribute="centerX" id="XUv-p0-KIa"/>
-                            <constraint firstItem="rbn-3o-IOK" firstAttribute="width" secondItem="4Hi-DA-GdB" secondAttribute="width" constant="-40" id="aAt-p5-dYB"/>
-                            <constraint firstItem="ZNa-oZ-naW" firstAttribute="trailing" secondItem="HN7-cB-H02" secondAttribute="leading" id="cRw-3M-GSA"/>
+                            <constraint firstItem="HN7-cB-H02" firstAttribute="width" secondItem="rbn-3o-IOK" secondAttribute="width" id="Z2e-F0-O6f"/>
+                            <constraint firstItem="rbn-3o-IOK" firstAttribute="width" secondItem="4Hi-DA-GdB" secondAttribute="width" id="aAt-p5-dYB"/>
                             <constraint firstItem="VFy-n7-iNv" firstAttribute="top" secondItem="caz-wR-50z" secondAttribute="bottom" id="du1-lg-gs2"/>
                             <constraint firstItem="zLh-bM-rQT" firstAttribute="centerX" secondItem="4Hi-DA-GdB" secondAttribute="centerX" id="eQF-lQ-KI7"/>
                             <constraint firstItem="HN7-cB-H02" firstAttribute="top" secondItem="VFy-n7-iNv" secondAttribute="bottom" id="fIl-7q-2AK"/>
-                            <constraint firstItem="rbn-3o-IOK" firstAttribute="centerY" secondItem="ZNa-oZ-naW" secondAttribute="centerY" id="fRy-be-yEl"/>
                             <constraint firstItem="THR-2y-hM2" firstAttribute="width" secondItem="4Hi-DA-GdB" secondAttribute="width" id="fTR-je-JmG"/>
                             <constraint firstItem="zLh-bM-rQT" firstAttribute="top" secondItem="MUr-ie-D2x" secondAttribute="bottom" id="g65-2t-YGj"/>
                             <constraint firstItem="MUr-ie-D2x" firstAttribute="top" secondItem="rbn-3o-IOK" secondAttribute="bottom" id="h6F-Fd-2aZ"/>
                             <constraint firstItem="DtJ-1I-CPC" firstAttribute="top" secondItem="zLh-bM-rQT" secondAttribute="bottom" id="hiS-t9-Avj"/>
-                            <constraint firstItem="ZNa-oZ-naW" firstAttribute="leading" secondItem="4Hi-DA-GdB" secondAttribute="leading" constant="296" id="k5w-EO-56f"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="VwF-1o-QZN" secondAttribute="trailing" constant="40" id="k8S-ln-sqQ"/>
+                            <constraint firstItem="HN7-cB-H02" firstAttribute="leading" secondItem="4Hi-DA-GdB" secondAttribute="leadingMargin" constant="369" id="lnn-zX-NhY"/>
                             <constraint firstItem="THR-2y-hM2" firstAttribute="top" secondItem="caz-wR-50z" secondAttribute="bottom" constant="-40" id="nPN-nj-uEr"/>
+                            <constraint firstItem="ZNa-oZ-naW" firstAttribute="leading" secondItem="MUr-ie-D2x" secondAttribute="trailing" constant="-1" id="ufI-br-d3p"/>
                             <constraint firstItem="VwF-1o-QZN" firstAttribute="top" secondItem="VFy-n7-iNv" secondAttribute="bottom" id="zZo-5x-Snw"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="bottomView" destination="zLh-bM-rQT" id="HKq-FU-9Kq"/>
                         <outlet property="horizontalGrip" destination="MUr-ie-D2x" id="f5I-cV-7WJ"/>
-                        <outlet property="leftPositionConstraint" destination="k5w-EO-56f" id="U5h-tb-51I"/>
+                        <outlet property="leftPositionConstraint" destination="lnn-zX-NhY" id="JDr-iX-9l5"/>
                         <outlet property="leftView" destination="rbn-3o-IOK" id="Mxc-uq-rvp"/>
                         <outlet property="navigationItem" destination="fCt-Wu-dQC" id="tad-Rk-bRh"/>
                         <outlet property="okButtonItem" destination="P4G-xd-E7G" id="Xxk-sV-yeB"/>
@@ -272,7 +272,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1944" y="-1358"/>
+            <point key="canvasLocation" x="1943.2" y="-1358.7706146926537"/>
         </scene>
         <!--Image Selector Controller-->
         <scene sceneID="1tD-3i-goU">
@@ -1380,11 +1380,11 @@ to start your first project</string>
         <image name="SlidingPanels-selected" width="104" height="94"/>
         <image name="Video" width="72" height="73"/>
         <image name="balloon20" width="67" height="83"/>
+        <image name="collage_icon" width="512" height="512"/>
         <image name="magnifier58" width="70" height="71"/>
         <image name="no-photo" width="120" height="120"/>
         <image name="photography60" width="65" height="78"/>
         <image name="picker-grip" width="36" height="8"/>
-        <image name="picker-grip-vertical" width="8" height="36"/>
         <image name="pictures21" width="72" height="61"/>
         <image name="play" width="30" height="30"/>
         <image name="plus icon" width="36" height="36"/>

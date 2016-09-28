@@ -117,6 +117,10 @@
 {
     [super viewDidLoad];
     
+    UIImage * image = [[UIImage imageNamed:@"collage_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.verticalGrip.image = image;
+    self.verticalGrip.tintColor = [UIColor whiteColor];
+    
     [self addController:self.leftViewController toView:self.leftView];
     [self addController:self.rightViewController toView:self.rightView];
     [self addController:self.bottomViewController toView:self.bottomView];
@@ -302,6 +306,7 @@
     };
     
     self.leftPositionConstraint.constant = newHorizontalPosition;
+    
     [self.view setNeedsLayout];
     
     if (withAnimation) {
