@@ -116,6 +116,7 @@
 
 - (IBAction)deleteButtonAction:(id)sender {
     [[VDocument getCurrentDocument].assetsCollection removeAsset:[self.segmentsCollectionView getSelectedSegment]];
+    [self.segmentsCollectionView endEditing:YES];
     [self configureView];
 }
 
