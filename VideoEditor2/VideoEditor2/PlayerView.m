@@ -100,7 +100,9 @@
         [prevPlayer removeTimeObserver:self.timeObserverObj];
         self.timeObserverObj = nil;
     }
-
+    
+    ((AVPlayerLayer*)self.layer).videoGravity = AVLayerVideoGravityResizeAspectFill;
+    
     ((AVPlayerLayer*)self.layer).player = player;
 }
 
@@ -241,7 +243,7 @@
                 self.playerItemObserversSetUp = YES;
                 
                 self.player = [AVPlayer playerWithPlayerItem:self.playerItem];
-                
+            
                 self.timeObserverObj = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 60) queue:nil usingBlock:^(CMTime time) {
                     self.playerTime = time;
                     [self updateRenderingStats];

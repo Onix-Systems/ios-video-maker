@@ -955,7 +955,7 @@
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcX-H8-fam">
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpv-MN-G35">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpv-MN-G35">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="41" id="B7z-Hg-aMC"/>
                                             <constraint firstAttribute="width" constant="156" id="Zhr-XH-uKW"/>
@@ -985,8 +985,8 @@ to start your first project</string>
                                 <constraints>
                                     <constraint firstItem="Qpv-MN-G35" firstAttribute="top" secondItem="fcX-H8-fam" secondAttribute="top" constant="128" id="4uF-Xs-OuY"/>
                                     <constraint firstItem="klC-m1-ZN4" firstAttribute="centerX" secondItem="Qpv-MN-G35" secondAttribute="centerX" id="DS5-Gd-zW3"/>
-                                    <constraint firstItem="Qpv-MN-G35" firstAttribute="centerY" secondItem="fcX-H8-fam" secondAttribute="centerY" multiplier="0.9" id="Gax-w5-Qhh"/>
-                                    <constraint firstItem="klC-m1-ZN4" firstAttribute="top" secondItem="Qpv-MN-G35" secondAttribute="bottom" constant="21" id="nqf-QH-kpx"/>
+                                    <constraint firstItem="Qpv-MN-G35" firstAttribute="centerY" secondItem="fcX-H8-fam" secondAttribute="centerY" multiplier="0.9" constant="-30.825000000000017" id="Gax-w5-Qhh"/>
+                                    <constraint firstItem="klC-m1-ZN4" firstAttribute="top" secondItem="Qpv-MN-G35" secondAttribute="bottom" constant="8" id="nqf-QH-kpx"/>
                                     <constraint firstItem="Qpv-MN-G35" firstAttribute="centerX" secondItem="fcX-H8-fam" secondAttribute="centerX" id="pgP-6k-jRJ"/>
                                 </constraints>
                                 <variation key="default">
@@ -1017,7 +1017,7 @@ to start your first project</string>
                             <constraint firstAttribute="trailing" secondItem="JAf-Hp-yWn" secondAttribute="trailing" id="mVZ-L8-Szw"/>
                             <constraint firstItem="Cho-kk-whY" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leadingMargin" constant="-20" id="nYD-md-HZd"/>
                             <constraint firstAttribute="bottomMargin" secondItem="fcX-H8-fam" secondAttribute="bottom" id="otB-vP-Z8L"/>
-                            <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="3/10" id="pUT-ws-YPx"/>
+                            <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="4.2/10" id="pUT-ws-YPx"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerY" secondItem="Rqq-26-jpG" secondAttribute="centerY" id="ub9-Kb-UND"/>
                             <constraint firstItem="cTu-xz-ER9" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leading" id="x4X-tN-1q0"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerXWithinMargins" id="yCa-c2-uvZ"/>

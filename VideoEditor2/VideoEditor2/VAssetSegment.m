@@ -9,6 +9,7 @@
 #import "VAssetSegment.h"
 #import "VCompositionInstruction.h"
 #import "VEAspectFit.h"
+#import "VEAspectFill.h"
 #import "VStillImage.h"
 #import "VCoreVideoFrameProvider.h"
 
@@ -40,6 +41,8 @@
     _asset = asset;
     
     VEAspectFit* aspectFitFrameProvider = [VEAspectFit new];
+//    VEAspectFill* aspectFitFrameProvider = [VEAspectFill new];
+
     aspectFitFrameProvider.frameProvider = [self.asset getFrameProvider];
     
     self.assetFrameProvider = aspectFitFrameProvider;
