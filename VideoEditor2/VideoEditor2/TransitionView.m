@@ -37,7 +37,7 @@
 -(void)setup
 {
     self.opaque = NO;
-    self.transitionIcon = [UIImage imageNamed:@"transitionIcon"];
+    self.transitionIcon = [UIImage imageNamed:@"transitionIcon2"];
 }
 
 - (void) drawRect:(CGRect)rect {
