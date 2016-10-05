@@ -296,6 +296,7 @@
         if (self.delegate != nil) {
             [self.delegate willPresentRightController];
         }
+        [self scrollTopViewToTop: YES];
     } else {
         self.navigationItem.title = @"SELECT";
         
@@ -303,6 +304,7 @@
         if (self.delegate != nil) {
             [self.delegate willPresentLeftController];
         }
+        [self scrollTopViewToTop: NO];
     };
     
     self.leftPositionConstraint.constant = newHorizontalPosition;
