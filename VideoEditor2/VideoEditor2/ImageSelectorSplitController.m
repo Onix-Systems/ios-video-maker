@@ -8,6 +8,7 @@
 
 #import "ImageSelectorSplitController.h"
 #import "ImageSelectorPreviewController.h"
+#import "CustomSegmentedControl.h"
 
 @interface ImageSelectorSplitController ()
 
@@ -25,6 +26,8 @@
 @property (nonatomic) CGFloat horizontalGestureBeginConstant;
 
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *okButtonItem;
+
+@property (strong, nonatomic) IBOutlet CustomSegmentedControl *segmentControl;
 
 @end
 
@@ -126,6 +129,34 @@
     [self addController:self.bottomViewController toView:self.bottomView];
     
     [self initPositions];
+    
+    UIColor *lightBlue = [UIColor colorWithRed:37.0/255.0 green:150.0/255.0 blue:255.0/255.0 alpha:1.0];
+    
+    self.segmentControl.sectionTitles = @[@"Photos", @"Collage"];
+    self.segmentControl.backgroundColor = [UIColor clearColor];
+    self.segmentControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    self.segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    self.segmentControl.selectionIndicatorColor = lightBlue;
+    self.segmentControl.selectionIndicatorHeight = 1.5;
+    
+    __block ImageSelectorSplitController *weakSelf = self;
+    self.segmentControl.indexChangeBlock = ^(NSInteger index) {
+        if (index == 0) {
+            [weakSelf scrollLeftViewToLeft:NO withAnimation:YES];
+        } else {
+            [weakSelf scrollLeftViewToLeft:YES withAnimation:YES];
+        }
+    };
+    
+    self.segmentControl.titleFormatter = ^(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected) {
+        UIColor *color = [UIColor whiteColor];
+        if (selected) {
+            color = lightBlue;
+        }
+        NSAttributedString *attribut = [[NSAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName : color, NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue-Medium" size:12]}];
+        
+        return attribut;
+    };
 }
 
 - (void) viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
@@ -135,6 +166,14 @@
             [self.view layoutIfNeeded];
         };
     });
+}
+
+- (void)setHorizontalGripUp:(BOOL)up {
+    if (up) {
+        self.horizontalGrip.transform = CGAffineTransformMakeRotation((180.0 * M_PI) / 180.0);
+    } else {
+        self.horizontalGrip.transform = CGAffineTransformMakeRotation(0);
+    }
 }
 
 - (IBAction)horizontalGripPanGestureAction:(UIPanGestureRecognizer *)sender
@@ -149,8 +188,9 @@
                 self.topPositionConstraint.constant = [self getOffsetForTopPosition];
             } else {
                 self.topPositionConstraint.constant = [self getOffsetForBottomPosition];
-                
             }
+            
+            [self setHorizontalGripUp:self.topPositionConstraint.constant < self.topGestureBeginConstant];
             
             [self.view setNeedsLayout];
             
@@ -200,6 +240,8 @@
 - (void) scrollTopViewToTop: (BOOL) toTop
 {
     CGFloat newTopPosition = toTop ? [self getOffsetForTopPosition] : [self getOffsetForBottomPosition];
+    
+    [self setHorizontalGripUp:toTop];
     
     if (self.delegate != nil) {
         [self.delegate willStartVerticalResizing];

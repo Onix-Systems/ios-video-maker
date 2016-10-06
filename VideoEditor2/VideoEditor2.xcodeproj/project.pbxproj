@@ -129,6 +129,8 @@
 		11F5A9241C17088F00FD2611 /* ZOZolaZoomTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F5A9231C17088F00FD2611 /* ZOZolaZoomTransition.m */; };
 		2479DE5C1D8800D400754343 /* VEButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2479DE5B1D8800D400754343 /* VEButton.m */; };
 		2479DE641D88591600754343 /* NSStringHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2479DE631D88591600754343 /* NSStringHelper.m */; };
+		249BB4751DA6613A005A8135 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 249BB4741DA6613A005A8135 /* HMSegmentedControl.m */; };
+		249BB4791DA66BAB005A8135 /* CustomSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 249BB4781DA66BAB005A8135 /* CustomSegmentedControl.m */; };
 		24AD523C1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AD523B1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m */; };
 		AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1801B98896C00403713 /* Fabric.framework */; };
 		AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1811B98896C00403713 /* Crashlytics.framework */; };
@@ -384,6 +386,10 @@
 		2479DE5B1D8800D400754343 /* VEButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VEButton.m; sourceTree = "<group>"; };
 		2479DE621D88591600754343 /* NSStringHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringHelper.h; sourceTree = "<group>"; };
 		2479DE631D88591600754343 /* NSStringHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringHelper.m; sourceTree = "<group>"; };
+		249BB4731DA6613A005A8135 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		249BB4741DA6613A005A8135 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		249BB4771DA66BAB005A8135 /* CustomSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegmentedControl.h; sourceTree = "<group>"; };
+		249BB4781DA66BAB005A8135 /* CustomSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegmentedControl.m; sourceTree = "<group>"; };
 		24AD523A1D6753D2001F90FD /* OneAssetMediaTypeDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OneAssetMediaTypeDataSource.h; sourceTree = "<group>"; };
 		24AD523B1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneAssetMediaTypeDataSource.m; sourceTree = "<group>"; };
 		69B654D231D53CB9E236F108 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -784,6 +790,7 @@
 		11EFEDC11B81C27D00078735 /* VideoEditor2 */ = {
 			isa = PBXGroup;
 			children = (
+				249BB4761DA6681B005A8135 /* Views */,
 				2479DE581D8800A400754343 /* Helpers */,
 				11F5A9251C17089300FD2611 /* ZOZolaZoomTransition */,
 				115C21121BA94F16002DD526 /* DMPagingScrollView */,
@@ -902,6 +909,7 @@
 		2479DE581D8800A400754343 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				249BB4721DA6613A005A8135 /* HMSegmentedControl */,
 				2479DE5F1D8858B000754343 /* NSStringHelper */,
 				2479DE591D8800C500754343 /* MBButton */,
 			);
@@ -924,6 +932,24 @@
 				2479DE631D88591600754343 /* NSStringHelper.m */,
 			);
 			name = NSStringHelper;
+			sourceTree = "<group>";
+		};
+		249BB4721DA6613A005A8135 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				249BB4731DA6613A005A8135 /* HMSegmentedControl.h */,
+				249BB4741DA6613A005A8135 /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		249BB4761DA6681B005A8135 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				249BB4771DA66BAB005A8135 /* CustomSegmentedControl.h */,
+				249BB4781DA66BAB005A8135 /* CustomSegmentedControl.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		FFAE5A8FD0109141F8181AEF /* Pods */ = {
@@ -1160,6 +1186,7 @@
 				1157DDED1BA074DF00A8D4CB /* ImageSelectorCollectionViewFooter.m in Sources */,
 				11EFEDC51B81C27D00078735 /* main.m in Sources */,
 				11E571991BE0BA8800ADDD1F /* VTransition17CIModTransition.m in Sources */,
+				249BB4751DA6613A005A8135 /* HMSegmentedControl.m in Sources */,
 				110578871BA1A380000A8EA5 /* ImageSelectorScrollView.m in Sources */,
 				114421391BB51409006722BD /* VCompositionInstruction.m in Sources */,
 				111D84D61BD20EDB00912E91 /* VProvidersCollection.m in Sources */,
@@ -1182,6 +1209,7 @@
 				11E571B41BE0C5ED00ADDD1F /* VTransition25CIPageCurlWithShadowTransition.m in Sources */,
 				111D84D91BD20F1100912E91 /* VEKenBurns.m in Sources */,
 				111D84DF1BD21F6900912E91 /* VEFadeInFadeOut.m in Sources */,
+				249BB4791DA66BAB005A8135 /* CustomSegmentedControl.m in Sources */,
 				11B041391BAEE416007DB2A4 /* CollageLayout.m in Sources */,
 				11F43D6E1B84CCB500011C2D /* AssetsCollection.m in Sources */,
 				11E571961BE0B90B00ADDD1F /* VTransition16CIModTransition.m in Sources */,
