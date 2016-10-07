@@ -10,6 +10,10 @@
 #import "VAssetCollage.h"
 #import "VCollageFrame.h"
 
+@interface SegmentView()
+@property (nonatomic) CGFloat allImagesWidth2;
+@end
+
 @implementation SegmentView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -55,30 +59,226 @@
 //    [segmentImage drawInRect:frameRect];
     
 //    [self getMovieFrame];
+
     if (self.segment.asset.isVideo) {
-        [self addedMovieImagesToView];
+//        [self addedMovieImagesToView];
+        
+        self.imageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:self.segment.asset.downloadedAsset];
+        self.imageGenerator.appliesPreferredTrackTransform = YES;
+        
+        if ([self isRetina]) {
+            self.imageGenerator.maximumSize = CGSizeMake(self.frame.size.width * 2, self.frame.size.height * 2);
+        } else {
+            self.imageGenerator.maximumSize = CGSizeMake(self.frame.size.width, self.frame.size.height);
+        }
+        
+        
+        _durationSeconds = CMTimeGetSeconds([self.segment.asset.downloadedAsset duration]);
+        
+        
+//        CMTime thumbTime = CMTimeMakeWithSeconds(30,30);
+//        
+//        AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
+//            if (result != AVAssetImageGeneratorSucceeded) {
+//                NSLog(@"couldn't generate thumbnail, error:%@", error);
+//            }
+//            UIImage *videoScreen = [[UIImage alloc] initWithCGImage:im];
+//            UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
+//        };
+//        
+//        CGSize maxSize = CGSizeMake(128, 128);
+//        self.imageGenerator.maximumSize = maxSize;
+//        [self.imageGenerator generateCGImagesAsynchronouslyForTimes:[NSArray arrayWithObject:[NSValue valueWithCMTime:thumbTime]] completionHandler:handler];
+        
+        
+        
+        int picMaxHeight = self.frame.size.height;
+        
+        CGFloat time4Pic = 0;
+        
+        CGFloat allImagesWidth = 0;
+        
+        NSMutableArray *times = [NSMutableArray new];
+        CGSize videoSize =  [[self.segment.asset getFrameProvider] getOriginalSize];
+        
+        while (allImagesWidth < self.frame.size.width) {
+            if (allImagesWidth == 0) {
+                time4Pic = 0;
+            } else {
+                time4Pic = (allImagesWidth / self.frame.size.width ) * _durationSeconds;
+            }
+            
+            [times addObject: [NSValue valueWithCMTime:CMTimeMake(time4Pic, 1)]];
+            
+            NSLog(@"%f", time4Pic);
+            
+            
+            UIImageView *tmp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, videoSize.width, videoSize.height)];
+            
+            CGFloat heightRatio = picMaxHeight > tmp.frame.size.height ? tmp.frame.size.height / picMaxHeight : picMaxHeight / tmp.frame.size.height;
+            
+            CGRect currentFrame = tmp.frame;
+            currentFrame.size.width = currentFrame.size.width * heightRatio;
+            currentFrame.size.height = currentFrame.size.height * heightRatio;
+            currentFrame.origin.x = allImagesWidth;
+            
+            tmp.frame = currentFrame;
+            allImagesWidth += tmp.frame.size.width;
+        }
+        
+        self.allImagesWidth2 = 0;
+        __block SegmentView *weakSelf = self;
+        [self.imageGenerator generateCGImagesAsynchronouslyForTimes:times.copy completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
+            UIImage *videoScreen = [[UIImage alloc] initWithCGImage:image];
+            UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
+            
+            CGFloat heightRatio = picMaxHeight > tmp.frame.size.height ? tmp.frame.size.height / picMaxHeight : picMaxHeight / tmp.frame.size.height;
+            
+            CGRect currentFrame = tmp.frame;
+            currentFrame.size.width = currentFrame.size.width * heightRatio;
+            currentFrame.size.height = currentFrame.size.height * heightRatio;
+            currentFrame.origin.x = weakSelf.allImagesWidth2;
+            
+            tmp.frame = currentFrame;
+            weakSelf.allImagesWidth2 += tmp.frame.size.width;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self addSubview:tmp];
+            });
+
+        }];
+        
+        
+    } else {
+        [self addedImagesByAsset:self.segment.asset allDuration:self.segment.totalDuration];
     }
-    else if ([self.segment.asset isKindOfClass:[VAssetCollage class]]) {
-        VAssetCollage * collage = (VAssetCollage *)self.segment.asset;
+
+//    if (self.segment.asset.isVideo) {
+//        [self addedMovieImagesToView];
+//    }
+//    else if ([self.segment.asset isKindOfClass:[VAssetCollage class]]) {
+////        VAssetCollage * collage = (VAssetCollage *)self.segment.asset;
+////        
+//////        VAsset * asset = [collage.assetsCollection getAssets].firstObject;
+////        
+////        VFrameRequest* frameRequest = [VFrameRequest new];
+////        frameRequest.time = 2;
+////        
+////        VFrameProvider *frameProvider = [collage getFrameProvider];
+//////        frameProvider.finalSize = CGSizeMake(600, 600);
+////        
+////        
+////        
+////        CIImage* frameContent = [frameProvider getFrameForRequest:frameRequest];
+////        CGSize imageSize = [frameProvider getOriginalSize];
+////        CGRect frameRect = CGRectMake(0, 0, imageSize.width, imageSize.height);
+////        UIImage* segmentImage = [self.drawer renderThumbnail:frameContent frameRect:frameRect];
+////        
+////        UIImageView *tmp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+////        tmp.image = segmentImage;
+////        [self addSubview:tmp];
+//        
+//        
+//        _durationSeconds = CMTimeGetSeconds(self.segment.totalDuration);
+//        
+//        int picMaxHeight = self.frame.size.height;
+//        
+//        CGFloat time4Pic = 0;
+//        
+//        VAssetCollage * collage = (VAssetCollage *)self.segment.asset;
+//        VFrameProvider *frameProvider = [collage getFrameProvider];
+//        VFrameRequest* frameRequest = [VFrameRequest new];
+//        
+//        CGFloat allImagesWidth = 0;
+//        while (allImagesWidth < self.frame.size.width) {
+//            if (allImagesWidth == 0) {
+//                time4Pic = 0;
+//            } else {
+//                time4Pic = (allImagesWidth / self.frame.size.width ) * _durationSeconds;
+//            }
+//            
+//            NSLog(@"%f", time4Pic);
+//            
+//            frameRequest.time = time4Pic;
+//
+//            CIImage* frameContent = [frameProvider getFrameForRequest:frameRequest];
+//            CGSize imageSize = [frameProvider getOriginalSize];
+//            CGRect frameRect = CGRectMake(0, 0, imageSize.width, imageSize.height);
+//            UIImage* segmentImage = [self.drawer renderThumbnail:frameContent frameRect:frameRect];
+//            
+//            
+//            UIImageView *tmp = [[UIImageView alloc] initWithImage:segmentImage];
+//            
+//            CGFloat heightRatio = picMaxHeight > tmp.frame.size.height ? tmp.frame.size.height / picMaxHeight : picMaxHeight / tmp.frame.size.height;
+//            
+//            CGRect currentFrame = tmp.frame;
+//            currentFrame.size.width = currentFrame.size.width * heightRatio;
+//            currentFrame.size.height = currentFrame.size.height * heightRatio;
+//            currentFrame.origin.x = allImagesWidth;
+//            
+//            tmp.frame = currentFrame;
+//            allImagesWidth += tmp.frame.size.width;
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [self addSubview:tmp];
+//            });
+//        }
+//        
+//        
+//        
+//        
+////        [self addImageToView:videoScreen];
+//        NSLog(@"d");
+//    }
+//    else {
+////        [self addImageToView:self.segment.asset.downloadedImage];
+//        [self addedImagesByAsset:self.segment.asset allDuration:self.segment.totalDuration];
+//    }
+}
+
+-(void)addedImagesByAsset:(VAsset *)asset allDuration:(CMTime)duration {
+    _durationSeconds = CMTimeGetSeconds(duration);
+    
+    int picMaxHeight = self.frame.size.height;
+    
+    CGFloat time4Pic = 0;
+    
+//    VAssetCollage * collage = (VAssetCollage *)self.segment.asset;
+    VFrameProvider *frameProvider = [asset getFrameProvider];
+    VFrameRequest* frameRequest = [VFrameRequest new];
+    
+    CGFloat allImagesWidth = 0;
+    while (allImagesWidth < self.frame.size.width) {
+        if (allImagesWidth == 0) {
+            time4Pic = 0;
+        } else {
+            time4Pic = (allImagesWidth / self.frame.size.width ) * _durationSeconds;
+        }
         
-        VAsset * asset = [collage.assetsCollection getAssets].firstObject;
+        NSLog(@"%f", time4Pic);
         
-        VFrameRequest* frameRequest = [VFrameRequest new];
-        frameRequest.time = 2;
-        
-        VCollageFrame *frameProvider = [VCollageFrame new];
-        frameProvider.finalSize = CGSizeMake(600, 600);
+        frameRequest.time = time4Pic;
         
         CIImage* frameContent = [frameProvider getFrameForRequest:frameRequest];
-        UIImage *videoScreen = [[UIImage alloc] initWithCIImage:frameContent];
-        UIImageView *tmp = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        tmp.image = videoScreen;
-        [self addSubview:tmp];
-//        [self addImageToView:videoScreen];
-        NSLog(@"d");
-    }
-    else {
-        [self addImageToView:self.segment.asset.downloadedImage];
+        CGSize imageSize = [frameProvider getOriginalSize];
+        CGRect frameRect = CGRectMake(0, 0, imageSize.width, imageSize.height);
+        UIImage* segmentImage = [self.drawer renderThumbnail:frameContent frameRect:frameRect];
+        
+        
+        UIImageView *tmp = [[UIImageView alloc] initWithImage:segmentImage];
+        
+        CGFloat heightRatio = picMaxHeight > tmp.frame.size.height ? tmp.frame.size.height / picMaxHeight : picMaxHeight / tmp.frame.size.height;
+        
+        CGRect currentFrame = tmp.frame;
+        currentFrame.size.width = currentFrame.size.width * heightRatio;
+        currentFrame.size.height = currentFrame.size.height * heightRatio;
+        currentFrame.origin.x = allImagesWidth;
+        
+        tmp.frame = currentFrame;
+        allImagesWidth += tmp.frame.size.width;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self addSubview:tmp];
+        });
     }
 }
 
@@ -140,6 +340,9 @@
         CGImageRef halfWayImage = [self.imageGenerator copyCGImageAtTime:timeFrame
                                                               actualTime:&actualTime
                                                                    error:&error];
+//        CMTime *times = CMTimeMake(time4Pic, 1);
+       
+        
         time++;
         
         UIImage *videoScreen = [[UIImage alloc] initWithCGImage:halfWayImage];

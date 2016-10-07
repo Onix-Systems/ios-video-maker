@@ -103,7 +103,7 @@
         CMTime actualTime;
         NSError *error;
         
-        CGImageRef image = [self.imageGenerator copyCGImageAtTime:CMTimeMake(request.time, 1000) actualTime:&actualTime error:&error];
+        CGImageRef image = [self.imageGenerator copyCGImageAtTime:CMTimeMake(request.time, 1) actualTime:&actualTime error:&error];
         
         return [CIImage imageWithCGImage:image];
     }
