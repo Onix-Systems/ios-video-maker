@@ -35,5 +35,5 @@
 
 -(void) synchronizeToPlayerTime: (double) time;
 -(VAsset *)getSelectedSegment;
-
+-(void) deselectSelectedSegmentView;
 @end

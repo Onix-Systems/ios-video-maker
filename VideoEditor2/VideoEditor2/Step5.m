@@ -36,7 +36,7 @@
 @property (nonatomic) BOOL isVideoSuspended;
 
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-
+@property (nonatomic, strong) UITapGestureRecognizer* tapGestureRecognizer;
 @end
 
 @implementation Step5
@@ -44,6 +44,8 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.createFilmButton.layer.cornerRadius = 4;
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
+    [self.view addGestureRecognizer:self.tapGestureRecognizer];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -189,6 +191,10 @@
 
 - (void)assetDeselected:(VAsset *)asset {
     [self.deleteButton setEnabledWithAplha:NO];
+}
+
+- (void)panGestureAction:(UITapGestureRecognizer *)sender {
+    [self.segmentsCollectionView deselectSelectedSegmentView];
 }
 
 @end
