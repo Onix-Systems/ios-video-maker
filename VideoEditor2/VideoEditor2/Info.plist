@@ -45,6 +45,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Use camera</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Use microphone</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Use library</string>
 	<key>UILaunchStoryboardName</key>

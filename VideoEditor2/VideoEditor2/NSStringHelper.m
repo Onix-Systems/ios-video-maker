@@ -16,7 +16,8 @@
 //        NSInteger hours = (time / 3600);
         NSInteger minutes = (time / 60) % 60;
         NSInteger seconds = time % 60;
-//        NSInteger ms = (time % 1) * 1000;
+//        NSInteger ms = (fmod(interval, 1) * 1000);
+    
         return [NSString stringWithFormat:@"%0.2ld:%0.2ld", (long)minutes, (long)seconds];
     }
     

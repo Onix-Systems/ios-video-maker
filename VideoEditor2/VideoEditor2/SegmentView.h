@@ -29,11 +29,6 @@
 @property (nonatomic) CMTime startTime;
 @property (nonatomic) CMTime calculatedDuration;
 
-
-@property (nonatomic, strong) AVAssetImageGenerator *imageGenerator;
-@property (nonatomic) Float64 durationSeconds;
-
-
 @property (nonatomic, weak) id<SegmentsThumbnailDrawer> drawer;
 @property (nonatomic, weak) id<SegmentViewDelegate> delegate;
 
