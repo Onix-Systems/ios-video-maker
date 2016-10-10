@@ -15,7 +15,7 @@
 #define maxPxPerSecond 300.0
 #define minPxPerSecond 40.0
 
-@interface SegmentsCollectionView() <SegmentsThumbnailDrawer, SegmentViewDelegate>
+@interface SegmentsCollectionView() <SegmentsThumbnailDrawer, SegmentViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic) double currentZoomScale;
 @property (nonatomic) double currentScrollingTime;
@@ -28,6 +28,8 @@
 
 @property (nonatomic, strong) UIPinchGestureRecognizer* pinchGestureRecognizer;
 @property (nonatomic, strong) UIPanGestureRecognizer* panGestureRecognizer;
+@property (nonatomic, strong) UISwipeGestureRecognizer* swipeLeftGestureRecognizer;
+@property (nonatomic, strong) UISwipeGestureRecognizer* swipeRightGestureRecognizer;
 
 @property (nonatomic) double scrollingStartTime;
 @property (nonatomic) double scrollingStartCoordinate;
@@ -66,8 +68,19 @@
     [self addGestureRecognizer:self.pinchGestureRecognizer];
     
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
+    self.panGestureRecognizer.delegate = self;
     [self addGestureRecognizer:self.panGestureRecognizer];
     
+    self.swipeLeftGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGestureAction:)];
+    [self.swipeLeftGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    self.swipeLeftGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:self.swipeLeftGestureRecognizer];
+    
+    self.swipeRightGestureRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeGestureAction:)];
+    [self.swipeRightGestureRecognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    self.swipeRightGestureRecognizer.delegate = self;
+    [self addGestureRecognizer:self.swipeRightGestureRecognizer];
+   
     self.timePointer = [[TimePionter alloc] initWithFrame:self.bounds];
     self.timePointer.userInteractionEnabled = NO;
     [self addSubview:self.timePointer];
@@ -412,34 +425,32 @@
 
 #pragma SegmentViewDelegate 
 -(void)segmentViewTapped:(SegmentView *)view {
-    [self.selectedSegmentView changeHighlightingView:NO];
-    [view changeHighlightingView:YES];
-    self.selectedSegmentView = view;
     
-    [self.delegate assetSelected:view.segment.asset];
+    if ([self.selectedSegmentView isEqual:view]) {
+        [self deselectSelectedSegmentView];
+    } else {
+        [self.selectedSegmentView changeHighlightingView:NO];
+        [view changeHighlightingView:YES];
+        self.selectedSegmentView = view;
+        [self.delegate assetSelected:view.segment.asset];
+    }
 }
 
-- (void)deselctSelectedSegmentView {
+
+- (void)swipeGestureAction:(UISwipeGestureRecognizer *)sender {
+    [self deselectSelectedSegmentView];
+}
+
+- (void)deselectSelectedSegmentView {
     [self.delegate assetDeselected:self.selectedSegmentView.segment.asset];
     [self.selectedSegmentView changeHighlightingView:NO];
     self.selectedSegmentView = nil;
 }
 
-#pragma mark - Hit testing view
-- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-    
-    [self endEditing:NO];
-    return [super pointInside:point withEvent:event];
-}
+#pragma mark - UIGesturerecognizerdelegate
 
-- (BOOL)endEditing:(BOOL)force {
-    
-    if([self getSelectedSegment] != nil || force) {
-        [self deselctSelectedSegmentView];
-        return YES;
-    }else {
-        return NO;
-    }
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    return YES;
 }
 
 @end
