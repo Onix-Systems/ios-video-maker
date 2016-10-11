@@ -426,14 +426,10 @@
 #pragma SegmentViewDelegate 
 -(void)segmentViewTapped:(SegmentView *)view {
     
-    if ([self.selectedSegmentView isEqual:view]) {
-        [self deselectSelectedSegmentView];
-    } else {
         [self.selectedSegmentView changeHighlightingView:NO];
         [view changeHighlightingView:YES];
         self.selectedSegmentView = view;
         [self.delegate assetSelected:view.segment.asset];
-    }
 }
 
 
