@@ -46,14 +46,13 @@
     self.selectedBackgroundColor = [UIColor whiteColor];
     self.downloadColor = [UIColor colorWithRed:0x29/0xFF green:0xFF/0xFF blue:0x37/0xFF alpha:0xFF/0xFF];
     
-    self.selectionLabel = [[UILabel alloc] initWithFrame:self.bounds];
+    self.selectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 90, 90)];
     self.selectionLabel.backgroundColor = [UIColor clearColor];
     self.selectionLabel.opaque = NO;
     self.selectionLabel.textAlignment = NSTextAlignmentCenter;
-    self.selectionLabel.font = [self.selectionLabel.font fontWithSize: ceil(self.bounds.size.height/5.0)];
-    
+    self.selectionLabel.font = [self.selectionLabel.font fontWithSize: 20.0];
     [self addSubview:self.selectionLabel];
-    self.selectedTextColor = [UIColor darkTextColor];
+    self.selectedTextColor = [UIColor blueColor];
     
     [self setClearState];
     

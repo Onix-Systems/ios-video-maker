@@ -176,16 +176,10 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="SELECT" id="fCt-Wu-dQC">
-                                        <barButtonItem key="leftBarButtonItem" title="❮ Back" id="TnC-43-HNi">
-                                            <color key="tintColor" red="0.58823529411764708" green="0.58431372549019611" blue="0.58823529411764708" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Done" id="TnC-43-HNi">
+                                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <action selector="backButtonAction:" destination="7jk-5k-SJ7" id="PBg-5y-0vP"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="P4G-xd-E7G">
-                                            <color key="tintColor" red="0.1450980392" green="0.58823529409999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <action selector="okButtonAction:" destination="7jk-5k-SJ7" id="1ph-N5-rz9"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -238,7 +232,6 @@
                         <outlet property="leftPositionConstraint" destination="lnn-zX-NhY" id="JDr-iX-9l5"/>
                         <outlet property="leftView" destination="rbn-3o-IOK" id="Mxc-uq-rvp"/>
                         <outlet property="navigationItem" destination="fCt-Wu-dQC" id="tad-Rk-bRh"/>
-                        <outlet property="okButtonItem" destination="P4G-xd-E7G" id="Xxk-sV-yeB"/>
                         <outlet property="rightView" destination="HN7-cB-H02" id="dK7-a3-bhy"/>
                         <outlet property="segmentControl" destination="GhA-Lu-g36" id="rmU-h6-RTS"/>
                         <outlet property="topPositionConstraint" destination="58T-AR-feD" id="lbV-ya-ch5"/>
