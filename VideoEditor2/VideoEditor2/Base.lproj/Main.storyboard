@@ -176,7 +176,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="SELECT" id="fCt-Wu-dQC">
-                                        <barButtonItem key="leftBarButtonItem" title="Done" id="TnC-43-HNi">
+                                        <barButtonItem key="leftBarButtonItem" id="TnC-43-HNi">
                                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
                                                 <action selector="backButtonAction:" destination="7jk-5k-SJ7" id="PBg-5y-0vP"/>
@@ -964,7 +964,7 @@ to start your first project</string>
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
-                                            <segue destination="8fQ-CT-Yp4" kind="show" id="rB5-78-iI8"/>
+                                            <segue destination="EXo-2h-GjR" kind="presentation" id="rB5-78-iI8"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1298,14 +1298,7 @@ to start your first project</string>
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Step 3" id="UZ1-IU-e6E">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="OGV-dY-5CX">
-                            <color key="tintColor" red="0.1450980392" green="0.58823529409999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <connections>
-                                <segue destination="KdG-hQ-g2T" kind="show" id="dfe-OI-kth"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="UZ1-IU-e6E"/>
                     <connections>
                         <outletCollection property="mediaButtons" destination="LrO-rh-9bp" id="IW5-Y0-91O"/>
                         <outletCollection property="mediaButtons" destination="c9c-tl-fxY" id="M05-eX-dvp"/>
@@ -1341,7 +1334,29 @@ to start your first project</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hy0-8e-A3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1370" y="-675"/>
+            <point key="canvasLocation" x="-1618" y="-676"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="SD9-M5-rGh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EXo-2h-GjR" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="TeH-vM-uLr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8fQ-CT-Yp4" kind="relationship" relationship="rootViewController" id="AaK-OG-Apj"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2zm-hz-qS2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-703.20000000000005" y="137.18140929535232"/>
         </scene>
     </scenes>
     <resources>

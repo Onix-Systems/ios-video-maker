@@ -85,6 +85,15 @@
                                    consumerSecret:kGettyImagesConsumerSecret];    
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.rightBarButtonItem = doneButton;
+}
+
+- (void)back {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (IBAction)cameraButtonAction {
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         UIImagePickerController *cameraPicker = [[UIImagePickerController alloc] init];
@@ -127,8 +136,7 @@
 -(void)presentImageSelectorControllerWithSource:(BaseImageSelectDataSource *)dataSource {
     ImageSelectorController *imageSelector = [self.storyboard instantiateViewControllerWithIdentifier:@"ImageSelectorController"];
     imageSelector.dataSource = dataSource;
-    
-    [self presentViewController:imageSelector animated:YES completion:NULL];
+    [self.navigationController pushViewController:imageSelector animated:YES];
 }
 
 #pragma UIImagePickerControllerDelegate

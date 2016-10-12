@@ -55,6 +55,16 @@
     self.splitController.delegate = self;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    self.navigationItem.title = @"Select";
+    UIBarButtonItem *popButton = [[UIBarButtonItem alloc] initWithTitle:@"Show" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = popButton;
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(ImageSelectorCollageController*) getCollageControler
 {
     return (ImageSelectorCollageController*) self.splitController.rightViewController;
