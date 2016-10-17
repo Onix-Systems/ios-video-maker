@@ -268,8 +268,8 @@
 
 - (IBAction)addButtonAction:(id)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    Step3 *vc = [storyboard instantiateViewControllerWithIdentifier:@"Step3"];
-    [self.navigationController pushViewController:vc animated:YES];
+    Step3 *vc = [storyboard instantiateViewControllerWithIdentifier:@"NavigationControllerStep3"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 -(void) playerStateDidChanged: (PlayerView*) playerView

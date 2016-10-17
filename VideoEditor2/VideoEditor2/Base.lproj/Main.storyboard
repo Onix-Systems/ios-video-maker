@@ -1339,7 +1339,7 @@ to start your first project</string>
         <!--Navigation Controller-->
         <scene sceneID="SD9-M5-rGh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EXo-2h-GjR" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationControllerStep3" automaticallyAdjustsScrollViewInsets="NO" id="EXo-2h-GjR" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="TeH-vM-uLr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
