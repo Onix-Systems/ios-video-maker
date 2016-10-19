@@ -14,6 +14,8 @@
 
 #import "VAssetSegment.h"
 
+@import Photos;
+
 @interface VideoComposition () <VFPSTracker>
 
 @property (strong, nonatomic, readwrite) AVAsset* placeholder;
@@ -44,7 +46,7 @@
         self.mutableComposition = [AVMutableComposition new];
         
         self.mutableVideoComposition = [AVMutableVideoComposition new];
-        self.mutableVideoComposition.frameDuration = CMTimeMake(1, 60);
+        self.mutableVideoComposition.frameDuration = CMTimeMake(1, 30);
         
         self.mutableVideoComposition.customVideoCompositorClass = [VideoCompositor class];
         
@@ -153,58 +155,78 @@
     return self.videoTracks[trackNumber -1];
 }
 
-//-(void) exportMovieToFileWithCompletion: (void(^)(void)) completionBlock
-//{
-//    NSFileManager* fileManager = [NSFileManager defaultManager];
-//    
-//    NSDateFormatter* dateFormatter = [NSDateFormatter new];
-//    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
-//    dateFormatter.timeStyle = NSDateFormatterShortStyle;
-//    
-//    AVAssetExportSession* exportSession = [AVAssetExportSession exportSessionWithAsset:[self getAsset] presetName:AVAssetExportPresetHighestQuality];
-//    
-//    NSError* error;
-//    
-//    NSURL* exportURL = [fileManager URLForDirectory: NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error: &error];
-//    
-//    exportURL = [exportURL URLByAppendingPathComponent: [dateFormatter stringFromDate: [NSDate new]]];
-//    
-////    NSString* pathExtension = (__bridge NSString *)(UTTypeCopyPreferredTagWithClass(AVFileTypeQuickTimeMovie, kUTTagClassFilenameExtension));
-//    
-////    exportURL = [exportURL URLByAppendingPathExtension: pathExtension];
-//    
-//    NSLog(@"Export movie to URL = \%@", exportURL);
-//    
-//    exportSession.outputURL = exportURL;
-//    
-//    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
-//    exportSession.shouldOptimizeForNetworkUse = YES;
-//    exportSession.videoComposition = self.mutableVideoComposition;
-//    exportSession.audioMix = self.mutableAudioMix;
-//    
-//    [exportSession exportAsynchronouslyWithCompletionHandler:^{
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            if (exportSession.status == AVAssetExportSessionStatusCompleted) {
-//                NSLog(@"Export finished; status==Completed;");
-//                
-//                ALAssetsLibrary* assetsLibrary = [ALAssetsLibrary new];
-//                
-//                if ([assetsLibrary videoAtPathIsCompatibleWithSavedPhotosAlbum: exportSession.outputURL]) {
-//                    
-//                    NSLog(@"Add to asset library");
-//                    
-//                    [assetsLibrary writeVideoAtPathToSavedPhotosAlbum:exportSession.outputURL completionBlock:^(NSURL *assetURL, NSError *error) {
-//                        NSLog(@"Finished adding to asset library - %@", error);
-//                    }];
-//                                                                      
-//                }
-//            } else {
-//                NSLog(@"Export finished; status!=Completed; error=\(exportSession.error)");
-//            }
-//            
-//            completionBlock();
-//        });
-//    }];
-//}
+-(void)exportMovieToFileWithCompletion: (void(^)(NSError * error))completionBlock
+{
+    NSFileManager* fileManager = [NSFileManager defaultManager];
+    
+    NSDateFormatter* dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    
+    AVAssetExportSession* exportSession = [AVAssetExportSession exportSessionWithAsset:self.mutableComposition presetName:AVAssetExportPresetHighestQuality];
+    
+    NSError* error;
+    
+    NSURL* exportURL = [fileManager URLForDirectory: NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error: &error];
+    
+    exportURL = [exportURL URLByAppendingPathComponent: [NSString stringWithFormat:@"%@.mov",[dateFormatter stringFromDate: [NSDate new]]]];
+    
+//    NSString* pathExtension = (__bridge NSString *)(UTTypeCopyPreferredTagWithClass(AVFileTypeQuickTimeMovie, kUTTagClassFilenameExtension));
+    
+//    exportURL = [exportURL URLByAppendingPathExtension: pathExtension];
+    
+    NSLog(@"Export movie to URL = \%@", exportURL);
+    
+    exportSession.outputURL = exportURL;
+    
+    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
+    exportSession.shouldOptimizeForNetworkUse = YES;
+    exportSession.videoComposition = self.mutableVideoComposition;
+    exportSession.audioMix = self.mutableAudioMix;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self saveToLibraryWithExportSession:exportSession andCompletion:completionBlock];
+        });
+    }];
+}
+
+-(void)saveToLibraryWithExportSession:(AVAssetExportSession *)exportSession
+                        andCompletion:(void(^)(NSError * error))completionBlock {
+    if (exportSession.status == AVAssetExportSessionStatusCompleted) {
+        NSLog(@"Export finished; status==Completed;");
+        
+        __block PHObjectPlaceholder *placeholder;
+        
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            PHAssetChangeRequest* createAssetRequest = [PHAssetChangeRequest creationRequestForAssetFromVideoAtFileURL: exportSession.outputURL];
+            placeholder = [createAssetRequest placeholderForCreatedAsset];
+            
+        } completionHandler:^(BOOL success, NSError *error) {
+            BOOL removeSuccess = [[NSFileManager defaultManager] removeItemAtURL:exportSession.outputURL error:&error];
+            if (removeSuccess) {
+                NSLog(@"File deleted");
+            } else {
+                NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+            }
+            
+            if (success) {
+                NSLog(@"didFinishRecordingToOutputFileAtURL - success");
+                completionBlock(nil);
+            } else {
+                NSLog(@"%@", error);
+                completionBlock(error);
+            }
+        }];
+    } else {
+        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+        NSString *message = [NSString stringWithFormat:@"AVAssetExportSessionStatus:%ld", (long)exportSession.status];
+        [details setValue:message forKey:NSLocalizedDescriptionKey];
+        
+        NSError *error = [NSError errorWithDomain:@"VideoEditor" code:400 userInfo:details];
+        completionBlock(error);
+        NSLog(@"Export finished; status!=Completed; error=\(exportSession.error)");
+    }
+}
 
 @end

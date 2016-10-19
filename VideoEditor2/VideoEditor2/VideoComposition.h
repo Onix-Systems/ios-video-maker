@@ -31,5 +31,5 @@
 
 -(void) appendVideoCompositionInstruction: (VCompositionInstruction*) vCompositionInstruction;
 -(void) appendAudioMixInputParameters: (AVMutableAudioMixInputParameters*) parameters;
-
+-(void) exportMovieToFileWithCompletion: (void(^)(NSError *error)) completionBlock;
 @end

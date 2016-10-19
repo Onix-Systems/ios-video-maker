@@ -187,4 +187,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)dealloc {
+    NSLog(@"Step3 dealloc");
+}
 @end

@@ -115,4 +115,8 @@
     [self.splitController hideOkButton];
 }
 
+-(void)dealloc {
+    NSLog(@"ImageSelectorController dealloc");
+}
+
 @end
