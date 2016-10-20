@@ -203,20 +203,23 @@
             placeholder = [createAssetRequest placeholderForCreatedAsset];
             
         } completionHandler:^(BOOL success, NSError *error) {
-            BOOL removeSuccess = [[NSFileManager defaultManager] removeItemAtURL:exportSession.outputURL error:&error];
-            if (removeSuccess) {
-                NSLog(@"File deleted");
-            } else {
-                NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
-            }
-            
-            if (success) {
-                NSLog(@"didFinishRecordingToOutputFileAtURL - success");
-                completionBlock(nil);
-            } else {
-                NSLog(@"%@", error);
-                completionBlock(error);
-            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSError *removeError;
+                BOOL removeSuccess = [[NSFileManager defaultManager] removeItemAtURL:exportSession.outputURL error:&removeError];
+                if (removeSuccess) {
+                    NSLog(@"File deleted");
+                } else {
+                    NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+                }
+                
+                if (success) {
+                    NSLog(@"didFinishRecordingToOutputFileAtURL - success");
+                    completionBlock(nil);
+                } else {
+                    NSLog(@"%@", error);
+                    completionBlock(error);
+                }
+            });
         }];
     } else {
         NSMutableDictionary* details = [NSMutableDictionary dictionary];
