@@ -33,6 +33,16 @@
     [self loadAlbums];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    UIBarButtonItem *popButton = [[UIBarButtonItem alloc] initWithTitle:@"Show" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = popButton;
+}
+
+- (void)back {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)dealloc
 {
     [[PHPhotoLibrary sharedPhotoLibrary] unregisterChangeObserver:self];
@@ -211,7 +221,7 @@
     
     imageSelector.dataSource = dataSource;
     
-    [self presentViewController:imageSelector animated:YES completion:NULL];
+    [self.navigationController pushViewController:imageSelector animated:YES];
 }
 
 @end
