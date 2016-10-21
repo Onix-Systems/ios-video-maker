@@ -85,7 +85,7 @@
     self.timePointer.userInteractionEnabled = NO;
     [self addSubview:self.timePointer];
     
-    self.thumbanilDrawingContext = [CIContext contextWithOptions:nil];
+    self.thumbanilDrawingContext = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(YES)}];
     
     self.hasPanActiveGesure = NO;
 }

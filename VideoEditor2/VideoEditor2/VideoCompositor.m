@@ -34,6 +34,7 @@
             NSDictionary *options = @{
                                       kCIContextOutputColorSpace : [NSNull null],
                                       kCIContextWorkingColorSpace : [NSNull null],
+                                      kCIContextUseSoftwareRenderer : @(NO)
                                       };
             
             self.ciContext = [CIContext contextWithEAGLContext:self.myEAGLContext options: options];
@@ -42,6 +43,7 @@
             NSDictionary *options = @{
                                       kCIContextOutputColorSpace : [NSNull null],
                                       kCIContextWorkingColorSpace : [NSNull null],
+                                      kCIContextUseSoftwareRenderer : @(YES)
                                       };
             
             self.ciContext = [CIContext contextWithOptions:options];

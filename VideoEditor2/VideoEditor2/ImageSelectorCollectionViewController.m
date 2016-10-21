@@ -199,7 +199,7 @@
         
         if (self.searhBarFieldBackgroundImage == nil) {
             CIImage* image = [CIImage imageWithColor:[CIColor colorWithRed:0x6f/255.0 green:0x6f/255.0 blue:0x6d/255.0]];
-            CIContext* context = [CIContext contextWithOptions:nil];
+            CIContext* context = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(YES)}];
             
             CGRect rect = CGRectMake(0, 0, 100, 100);
             self.searhBarFieldBackgroundImage = [UIImage imageWithCGImage:[context createCGImage:image fromRect:rect]];
