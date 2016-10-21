@@ -11,6 +11,7 @@
 @interface VCoreVideoFrameProvider ()
 
 @property (nonatomic,strong) AVAssetTrack* videoTrack;
+@property (nonatomic,strong) AVAssetTrack* audioTrack;
 
 @property (nonatomic,strong) CIImage* image;
 @property (nonatomic) CVPixelBufferRef pixelBuffer;
@@ -41,7 +42,16 @@
     
     self.videoDuration = CMTimeGetSeconds(asset.duration);
     
-    self.videoTrack = [asset tracksWithMediaType:AVMediaTypeVideo][0];
+    if ([asset tracksWithMediaType:AVMediaTypeVideo] &&
+        [asset tracksWithMediaType:AVMediaTypeVideo].count > 0) {
+        self.videoTrack = [asset tracksWithMediaType:AVMediaTypeVideo][0];
+    }
+
+    if ([asset tracksWithMediaType:AVMediaTypeAudio] &&
+        [asset tracksWithMediaType:AVMediaTypeAudio].count > 0) {
+        self.audioTrack = [asset tracksWithMediaType:AVMediaTypeAudio][0];
+    }
+    
     
     self.videoSize = self.videoTrack.naturalSize;
     
@@ -112,24 +122,43 @@
 -(void)reqisterIntoVideoComposition:(VideoComposition *)videoComposition withInstruction:(VCompositionInstruction *)instruction withFinalSize:(CGSize)finalSize
 {
     AVMutableCompositionTrack* destinationTrack = nil;
+    AVMutableCompositionTrack* destinationAudioTrack = nil;
     
     if (self.activeTrackNo > 0) {
         destinationTrack = [videoComposition getVideoTrackNo:self.activeTrackNo];
+        destinationAudioTrack = [videoComposition getAudioTrackNo:self.activeTrackNo];
     } else {
         destinationTrack = [videoComposition getFreeVideoTrack];
+        destinationAudioTrack = [videoComposition getFreeAudioTrack];
     }
 
     self.registeredTrackID = destinationTrack.trackID;
 
-    AVAssetTrack* sourceTrack = [self.asset tracksWithMediaType:AVMediaTypeVideo][0];
     CMTimeRange trackTimeRange = CMTimeRangeMake(kCMTimeZero, instruction.segmentTimeRange.duration);
-    
     NSError *error = nil;
-    [destinationTrack insertTimeRange:trackTimeRange ofTrack:sourceTrack atTime:instruction.segmentTimeRange.start error:&error];
-    if (error != nil) {
-        NSLog(@"Can not insert track timerange (%@) into track (%@) - %@", sourceTrack, destinationTrack, error);
+    
+    if ([self.asset tracksWithMediaType:AVMediaTypeVideo] &&
+        [self.asset tracksWithMediaType:AVMediaTypeVideo].count > 0) {
+        AVAssetTrack* sourceTrack = [self.asset tracksWithMediaType:AVMediaTypeVideo][0];
+        
+        [destinationTrack insertTimeRange:trackTimeRange ofTrack:sourceTrack atTime:instruction.segmentTimeRange.start error:&error];
+        if (error != nil) {
+            NSLog(@"Can not insert track timerange (%@) into track (%@) - %@", sourceTrack, destinationTrack, error);
+        }
     }
     
+    if ([self.asset tracksWithMediaType:AVMediaTypeAudio] &&
+        [self.asset tracksWithMediaType:AVMediaTypeAudio].count > 0) {
+        AVAssetTrack* audioTrack = [self.asset tracksWithMediaType:AVMediaTypeAudio][0];
+        [destinationAudioTrack insertTimeRange:trackTimeRange ofTrack:audioTrack atTime:instruction.segmentTimeRange.start error:&error];
+        if (error != nil) {
+            NSLog(@"Can not insert audio track timerange (%@) into track (%@) - %@", audioTrack, destinationAudioTrack, error);
+        }
+        
+        AVMutableAudioMixInputParameters *exportAudioMixInputParameters = [AVMutableAudioMixInputParameters audioMixInputParametersWithTrack:audioTrack];
+        [videoComposition appendAudioMixInputParameters:exportAudioMixInputParameters];
+    }
+
     [instruction registerTrackIDAsInputFrameProvider: self.registeredTrackID];
 }
 

@@ -146,13 +146,18 @@
     return self.videoTracks[trackNumber -1];
 }
 
+-(AVMutableCompositionTrack*) getFreeAudioTrack
+{
+    return [self getAudioTrackNo: (self.audioTracks.count + 1)];
+}
+
 -(AVMutableCompositionTrack*) getAudioTrackNo: (NSInteger) trackNumber
 {
     while (self.audioTracks.count < trackNumber) {
         [self.audioTracks addObject:[self.mutableComposition addMutableTrackWithMediaType:AVMediaTypeAudio preferredTrackID:kCMPersistentTrackID_Invalid]];
     };
     
-    return self.videoTracks[trackNumber -1];
+    return self.audioTracks[trackNumber -1];
 }
 
 -(void)exportMovieToFileWithCompletion: (void(^)(NSError * error))completionBlock

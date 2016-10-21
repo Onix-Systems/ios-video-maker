@@ -27,6 +27,7 @@
 
 -(AVMutableCompositionTrack*) getFreeVideoTrack;
 -(AVMutableCompositionTrack*) getVideoTrackNo: (NSInteger) trackNumber;
+-(AVMutableCompositionTrack*) getFreeAudioTrack;
 -(AVMutableCompositionTrack*) getAudioTrackNo: (NSInteger) trackNumber;
 
 -(void) appendVideoCompositionInstruction: (VCompositionInstruction*) vCompositionInstruction;
