@@ -120,6 +120,8 @@
 {
     [super viewDidLoad];
     
+    self.view.clipsToBounds = YES;
+    
     UIImage * image = [[UIImage imageNamed:@"collage_icon"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.verticalGrip.image = image;
     self.verticalGrip.tintColor = [UIColor whiteColor];
@@ -343,7 +345,7 @@
     } else {
         [self scrollTopViewToTop: NO];
         
-        self.navigationItem.title = @"SELECT";
+//        self.navigationItem.title = @"SELECT";
         newHorizontalPosition = [self getOffsetForRightGripPosition];
         if (self.delegate != nil) {
             [self.delegate willPresentLeftController];

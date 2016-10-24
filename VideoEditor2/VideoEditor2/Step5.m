@@ -101,6 +101,11 @@
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:cancelButton];
     UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Save" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if (self.playerView.isPlayingNow) {
+            [self.playerView pause];
+        }
+        
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [self.videoComposition exportMovieToFileWithCompletion:^(NSError *error) {
             [MBProgressHUD hideHUDForView:self.view animated:YES];

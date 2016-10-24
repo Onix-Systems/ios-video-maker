@@ -97,7 +97,7 @@
 
     collectionViewConrtroller.selectionStorage = currentDoccument.tmpAssetsCollection;
     
-    self.splitController.navigationItem.title = @"SELECT";
+//    self.splitController.navigationItem.title = @"SELECT";
     [self.splitController showOkButton];
 }
 
@@ -122,7 +122,7 @@
         NSLog(@"[newCollection addAsset:lastActiveAsset]=%@", [lastActiveAsset getIdentifier]);
     }
     
-    self.splitController.navigationItem.title = @"Select collage layout";
+//    self.splitController.navigationItem.title = @"Select collage layout";
     [self.splitController hideOkButton];
 }
 
