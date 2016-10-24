@@ -218,22 +218,21 @@
 
 - (IBAction)saveButtonAction:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-    }];
-    
-    if (self.delegate != nil) {
-        if ([self.activeEffect isEqualToString: kCollageEffectKenBurns]) {
-            [self.delegate saveCollage:self.assetCollageKB];
-            
-        } else if ([self.activeEffect isEqualToString: kCollageEffectSlidingPanels]) {
-            [self.delegate saveCollage:self.assetCollageSP];
-            
-        } else if ([self.activeEffect isEqualToString: kCollageEffectOrigami]) {
-            [self.delegate saveCollage:self.assetCollageOR];
-            
-        } else {
-            [self.delegate saveCollage:self.assetCollage];
+        if (self.delegate != nil) {
+            if ([self.activeEffect isEqualToString: kCollageEffectKenBurns]) {
+                [self.delegate saveCollage:self.assetCollageKB];
+                
+            } else if ([self.activeEffect isEqualToString: kCollageEffectSlidingPanels]) {
+                [self.delegate saveCollage:self.assetCollageSP];
+                
+            } else if ([self.activeEffect isEqualToString: kCollageEffectOrigami]) {
+                [self.delegate saveCollage:self.assetCollageOR];
+                
+            } else {
+                [self.delegate saveCollage:self.assetCollage];
+            }
         }
-    }
+    }];
 }
 
 - (IBAction)cancelButtonAction:(UIBarButtonItem *)sender {

@@ -189,7 +189,8 @@
 {
     [[VDocument getCurrentDocument].assetsCollection addAsset:collage];
     
-    [self.parentSplitController scrollLeftViewToLeft:NO withAnimation:NO];
+//    [self.parentSplitController scrollLeftViewToLeft:NO withAnimation:NO];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)cancelCollage
