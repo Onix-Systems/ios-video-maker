@@ -95,6 +95,25 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             [self addSubview:tmp];
         });
+        
+        //Added last image for fill all segment view line
+        if (allImagesWidth >= self.frame.size.width) {
+            UIImageView *tmp = [[UIImageView alloc] initWithImage:segmentImage];
+            
+            CGFloat heightRatio = maxImageHeight > tmp.frame.size.height ? tmp.frame.size.height / maxImageHeight : maxImageHeight / tmp.frame.size.height;
+            
+            CGRect currentFrame = tmp.frame;
+            currentFrame.size.width = currentFrame.size.width * heightRatio;
+            currentFrame.size.height = currentFrame.size.height * heightRatio;
+            currentFrame.origin.x = allImagesWidth;
+            
+            tmp.frame = currentFrame;
+            allImagesWidth += tmp.frame.size.width;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self addSubview:tmp];
+            });
+        }
     }
 }
 
@@ -146,6 +165,8 @@
         allImagesWidth += updatedWidth;
     }
     
+    //Added last times  for fill all segment view line
+    [times addObject: [NSValue valueWithCMTime:assetTime]];
     
     self.allImagesWidth = 0;
     __block SegmentView *weakSelf = self;

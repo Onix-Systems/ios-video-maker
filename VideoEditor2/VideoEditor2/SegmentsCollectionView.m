@@ -21,6 +21,7 @@
 @property (nonatomic) double currentScrollingTime;
 
 @property (nonatomic, strong) NSMutableArray<SegmentView*>* segmentViews;
+@property (nonatomic, strong) NSMutableArray<SegmentView*>* cachingSegmentViews;
 @property (nonatomic, strong) NSMutableArray<TransitionView*>* transitionViews;
 @property (nonatomic, strong) UIView* contentContainer;
 
@@ -60,6 +61,7 @@
     self.timeLineHeight = 35;
     
     self.segmentViews = [NSMutableArray new];
+    self.cachingSegmentViews = [NSMutableArray new];
     self.transitionViews = [NSMutableArray new];
     
     self.currentZoomScale = 1;
@@ -299,18 +301,32 @@
         
         CGRect segmentFrame = CGRectMake(segmentX, segmentY, segmentWidth, segmentHeight);
         
-        SegmentView* segmentView = [[SegmentView alloc] initWithFrame:segmentFrame];
-        segmentView.segment = segment;
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"segment.asset == %@", segment.asset];
+        NSArray *filteredArray = [self.cachingSegmentViews filteredArrayUsingPredicate:predicate];
+        
+        SegmentView *segmentView;
+        if (filteredArray.count > 0) {
+            segmentView = (SegmentView *)filteredArray.firstObject;
+            segmentView.frame = segmentFrame;
+        } else {
+            segmentView = [[SegmentView alloc] initWithFrame:segmentFrame];
+            segmentView.segment = segment;
+        }
+        
         segmentView.startTime = totalDuration;
         segmentView.calculatedDuration = segmentDuration;
         
         segmentView.drawer = self;
         segmentView.delegate = self;
-        
         [self.segmentViews addObject:segmentView];
+        
         
         totalDuration = CMTimeAdd(totalDuration, segmentDuration);
     }
+    
+    self.cachingSegmentViews = self.segmentViews.copy;
+    
     self.totalDuration = totalDuration;
     
     self.contentContainer = [[UIView alloc] initWithFrame:CGRectMake(self.bounds.size.width/2.0 + [self getPxForTime:CMTimeMakeWithSeconds(self.currentScrollingTime, 1000)], [self getSegmentsVerticalPosition], [self getPxForTime:totalDuration], [self getSegmentsHeight])];
