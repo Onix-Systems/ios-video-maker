@@ -92,6 +92,11 @@
     }
 }
 
+-(void) removeAllAssets {
+    [self.assets removeAllObjects];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAssetsCollectionAssetRemovedNitification object:self];
+}
+
 -(NSArray*) getAssets
 {
     return self.assets;

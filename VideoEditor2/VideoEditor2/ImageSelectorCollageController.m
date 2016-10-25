@@ -178,7 +178,7 @@
     
     [collageCreationViewController setupCollageWithAssets:self.assetsCollection andLayout:collageLayoutView.collageLayout];
     
-    [collageCreationViewController setupTransitionForView:collageLayoutView];
+//    [collageCreationViewController setupTransitionForView:collageLayoutView];
     
     collageCreationViewController.delegate = self;
 

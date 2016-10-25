@@ -66,8 +66,8 @@
     
     self.currentZoomScale = 1;
     
-    self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureAction:)];
-    [self addGestureRecognizer:self.pinchGestureRecognizer];
+//    self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(pinchGestureAction:)];
+//    [self addGestureRecognizer:self.pinchGestureRecognizer];
     
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
     self.panGestureRecognizer.delegate = self;
@@ -441,11 +441,10 @@
 
 #pragma SegmentViewDelegate 
 -(void)segmentViewTapped:(SegmentView *)view {
-    
-        [self.selectedSegmentView changeHighlightingView:NO];
-        [view changeHighlightingView:YES];
-        self.selectedSegmentView = view;
-        [self.delegate assetSelected:view.segment.asset];
+    [self.selectedSegmentView changeHighlightingView:NO];
+    [view changeHighlightingView:YES];
+    self.selectedSegmentView = view;
+    [self.delegate assetSelected:view.segment.asset];
 }
 
 

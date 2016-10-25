@@ -52,12 +52,12 @@
     if (playerView.isReadyToPlay) {
         self.playButton.enabled = YES;
         if (playerView.isPlayingNow) {
-            [self.playButton setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+            [self.playButton setImage:[UIImage imageNamed:@"Pause-1"] forState:UIControlStateNormal];
         } else {
-            [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+            [self.playButton setImage:[UIImage imageNamed:@"Play-1"] forState:UIControlStateNormal];
         }
     } else {
-        [self.playButton setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+        [self.playButton setImage:[UIImage imageNamed:@"Play-1"] forState:UIControlStateNormal];
         //        self.playButton.enabled = NO;
     }
 }

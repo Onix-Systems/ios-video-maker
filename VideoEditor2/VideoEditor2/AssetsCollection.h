@@ -21,6 +21,7 @@
 -(void) addAsset: (VAsset*) asset;
 -(void) addArrayAssets: (NSArray*) assets;
 -(void) removeAsset: (VAsset*) asset;
+-(void) removeAllAssets;
 
 -(NSArray*) getAssets;
 

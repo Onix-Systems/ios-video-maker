@@ -19,7 +19,6 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.enabled = enabled;
     }];
-    
 }
 
 - (instancetype)awakeAfterUsingCoder:(NSCoder *)aDecoder{

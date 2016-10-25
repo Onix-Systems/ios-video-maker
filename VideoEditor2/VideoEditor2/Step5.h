@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#define kShowMyFilmControllerNotificationKey @"kShowMyFilmControllerNotificationKey"
+
 @interface Step5 : UIViewController
 
 @end

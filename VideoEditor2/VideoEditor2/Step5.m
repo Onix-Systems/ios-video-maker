@@ -34,6 +34,7 @@
 
 @property (strong, nonatomic) VideoComposition* videoComposition;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
+@property (weak, nonatomic) IBOutlet UIButton *resetButton;
 
 @property (nonatomic) BOOL isVideoSuspended;
 
@@ -48,6 +49,12 @@
     self.createFilmButton.layer.cornerRadius = 4;
     self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
     [self.view addGestureRecognizer:self.tapGestureRecognizer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dismissModalVC) name:kShowMyFilmControllerNotificationKey object:nil];
+}
+
+-(void)dismissModalVC {
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void) viewWillAppear:(BOOL)animated
@@ -81,11 +88,15 @@
         self.createFilmImage.hidden = YES;
         self.saveButton.enabled = YES;
         self.saveButton.alpha = 1.0;
+        self.resetButton.enabled = YES;
+        self.resetButton.alpha = 1.0;
     } else {
         self.createFilmView.hidden = NO;
         self.createFilmImage.hidden = NO;
         self.saveButton.enabled = NO;
         self.saveButton.alpha = 0.5;
+        self.resetButton.enabled = NO;
+        self.resetButton.alpha = 0.5;
     }
 }
 
@@ -129,6 +140,24 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (IBAction)resetButtonAction:(id)sender {
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Video reset" message:@"The video items will be reset" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+    [alertController addAction:cancelButton];
+    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"Reset" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if (self.playerView.isPlayingNow) {
+            [self.playerView pause];
+        }
+        
+        [[VDocument getCurrentDocument].assetsCollection removeAllAssets];
+        [self configureView];
+    }];
+    [alertController addAction:okButton];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 - (IBAction)playButtonAction:(id)sender
 {
     if (self.playerView.isPlayingNow) {
@@ -157,7 +186,7 @@
 
 - (IBAction)deleteButtonAction:(id)sender {
     [[VDocument getCurrentDocument].assetsCollection removeAsset:[self.segmentsCollectionView getSelectedSegment]];
-    [self.segmentsCollectionView endEditing:YES];
+    [self.segmentsCollectionView deselectSelectedSegmentView];
     [self configureView];
 }
 
@@ -234,6 +263,10 @@
 
 - (void)panGestureAction:(UITapGestureRecognizer *)sender {
     [self.segmentsCollectionView deselectSelectedSegmentView];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
