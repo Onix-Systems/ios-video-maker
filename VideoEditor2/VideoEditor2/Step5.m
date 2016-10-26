@@ -134,14 +134,13 @@
             
             [self presentViewController:alertController animated:YES completion:nil];
         }];
-        
     }];
+    
     [alertController addAction:okButton];
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (IBAction)resetButtonAction:(id)sender {
-    
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Video reset" message:@"The video items will be reset" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
     [alertController addAction:cancelButton];

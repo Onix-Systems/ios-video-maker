@@ -199,7 +199,7 @@
     self.playerTime = CMTimeMake(0, 1000);
     
     self.renderingStats = nil;
-    
+    [self.player seekToTime: kCMTimeZero];
     [self updateControls];
 }
 
