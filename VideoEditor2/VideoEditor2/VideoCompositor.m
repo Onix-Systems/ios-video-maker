@@ -53,7 +53,7 @@
         [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue1", DISPATCH_QUEUE_SERIAL)];
         [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue2", DISPATCH_QUEUE_SERIAL)];
         [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue3", DISPATCH_QUEUE_SERIAL)];
-//        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue4", DISPATCH_QUEUE_SERIAL)];
+        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue4", DISPATCH_QUEUE_SERIAL)];
 //        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue5", DISPATCH_QUEUE_SERIAL)];
 //        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue6", DISPATCH_QUEUE_SERIAL)];
 //        [renderingQueue addObject: dispatch_queue_create("CustomVideoCompositorRenderingQueue7", DISPATCH_QUEUE_SERIAL)];
@@ -88,21 +88,19 @@
 -(void) startVideoCompositionRequest:(AVAsynchronousVideoCompositionRequest *)asyncVideoCompositionRequest
 {
     self.requestNumber++;
-//    dispatch_async(self.renderingQueue[self.requestNumber % self.renderingQueue.count], ^{
-//        dispatch_async(dispatch_get_main_queue(), ^{
-    
-//        });
-//    });
-    
+    dispatch_async(self.renderingQueue[self.requestNumber % self.renderingQueue.count], ^{
+        [self processRequest: asyncVideoCompositionRequest];
+    });
+
 //    NSOperationQueue *operation = [NSOperationQueue new];
 //    
 //    [operation addOperationWithBlock:^{
 //        [self processRequest: asyncVideoCompositionRequest];
 //    }];
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ // 1
-        [self processRequest: asyncVideoCompositionRequest];
-    });
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ // 1
+//        [self processRequest: asyncVideoCompositionRequest];
+//    });
 }
 
 -(void) processRequest: (AVAsynchronousVideoCompositionRequest*) request

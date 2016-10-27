@@ -9,7 +9,7 @@
 #import "CIImage+Convenience.h"
 #import <UIKit/UIKit.h>
 
-#define useFilters YES
+#define useFilters NO
 
 @implementation CIImage (Convenience)
 

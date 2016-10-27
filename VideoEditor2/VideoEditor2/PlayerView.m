@@ -101,7 +101,7 @@
         self.timeObserverObj = nil;
     }
     
-    ((AVPlayerLayer*)self.layer).videoGravity = AVLayerVideoGravityResizeAspectFill;
+//    ((AVPlayerLayer*)self.layer).videoGravity = AVLayerVideoGravityResizeAspectFill;
     
     ((AVPlayerLayer*)self.layer).player = player;
 }

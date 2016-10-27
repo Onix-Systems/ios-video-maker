@@ -14,7 +14,6 @@
 @property (nonatomic,strong) AVAssetTrack* audioTrack;
 
 @property (nonatomic,strong) CIImage* image;
-@property (nonatomic) CVPixelBufferRef pixelBuffer;
 @property (nonatomic) CGSize lastPixelBufferSize;
 @property (nonatomic) CGAffineTransform preferredTransform;
 
@@ -29,7 +28,6 @@
     self = [super init];
     if (self) {
         self.image = nil;
-        self.pixelBuffer = nil;
         self.activeTrackNo = -1;
         self.isStatic = NO;
     }
@@ -80,22 +78,16 @@
 
 -(void)setPixelBuffer:(CVPixelBufferRef)pixelBuffer
 {
-    if (self.pixelBuffer != nil) {
-        [self releasePixelBuffer];
-    }
-    
-    //_pixelBuffer = CVPixelBufferRetain(pixelBuffer);
-    self.image = [CIImage imageWithCVPixelBuffer: pixelBuffer];
-    self.image = [self.image imageByApplyingTransform:self.preferredTransform];
-
-
-}
-
--(void) releasePixelBuffer
-{
-    if (self.pixelBuffer != nil) {
-        CVPixelBufferRelease(self.pixelBuffer);
-        _pixelBuffer = nil;
+    self.image = nil;
+    if (pixelBuffer != nil) {
+        CIImage* img  = [CIImage imageWithCVPixelBuffer: pixelBuffer];
+        if (img != nil) {
+            self.image = [img imageByApplyingTransform:self.preferredTransform];
+        } else {
+            NSLog(@"ERROR - Can't create image from pixelBuffer = \n%@", pixelBuffer);
+        }
+    } else {
+        NSLog(@"ERROR - empty pixelBuffer = \n%@", pixelBuffer);
     }
 }
 
@@ -103,18 +95,12 @@
 {
     if (request.videoCompositionRequest != nil) {
         [self setPixelBuffer:[request.videoCompositionRequest sourceFrameByTrackID:self.registeredTrackID]];
-        
-        [request addCompletionBlock:^{
-            [self releasePixelBuffer];
-        }];
-        
         return self.image;
     } else {
         CMTime actualTime;
         NSError *error;
         
         CGImageRef image = [self.imageGenerator copyCGImageAtTime:CMTimeMake(request.time, 1) actualTime:&actualTime error:&error];
-        
         return [CIImage imageWithCGImage:image];
     }
 }
