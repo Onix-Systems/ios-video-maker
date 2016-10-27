@@ -176,7 +176,6 @@
                             <constraint firstItem="VwF-1o-QZN" firstAttribute="top" secondItem="caz-wR-50z" secondAttribute="bottom" constant="44" id="BD4-a2-n5V"/>
                             <constraint firstItem="HN7-cB-H02" firstAttribute="bottom" secondItem="MUr-ie-D2x" secondAttribute="top" constant="-3" id="BMS-a3-fUd"/>
                             <constraint firstAttribute="height" secondItem="VwF-1o-QZN" secondAttribute="height" priority="999" id="COe-vM-EKj"/>
-                            <constraint firstItem="rbn-3o-IOK" firstAttribute="height" secondItem="VwF-1o-QZN" secondAttribute="height" id="Ccs-og-wRZ"/>
                             <constraint firstItem="HN7-cB-H02" firstAttribute="leading" secondItem="rbn-3o-IOK" secondAttribute="trailing" constant="20" id="EWi-Rz-sYX"/>
                             <constraint firstItem="DtJ-1I-CPC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VwF-1o-QZN" secondAttribute="bottom" constant="150" id="EyU-NX-rWb"/>
                             <constraint firstItem="rbn-3o-IOK" firstAttribute="height" secondItem="VwF-1o-QZN" secondAttribute="height" id="HAa-D5-5aX"/>
@@ -971,7 +970,7 @@ to start your first project</string>
                             <constraint firstAttribute="trailing" secondItem="JAf-Hp-yWn" secondAttribute="trailing" id="mVZ-L8-Szw"/>
                             <constraint firstItem="Cho-kk-whY" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leadingMargin" constant="-20" id="nYD-md-HZd"/>
                             <constraint firstAttribute="bottomMargin" secondItem="fcX-H8-fam" secondAttribute="bottom" id="otB-vP-Z8L"/>
-                            <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="4.2/10" id="pUT-ws-YPx"/>
+                            <constraint firstItem="Rqq-26-jpG" firstAttribute="height" secondItem="VA9-yG-DqC" secondAttribute="height" multiplier="3.5/10" id="pUT-ws-YPx"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerY" secondItem="Rqq-26-jpG" secondAttribute="centerY" id="ub9-Kb-UND"/>
                             <constraint firstItem="cTu-xz-ER9" firstAttribute="leading" secondItem="VA9-yG-DqC" secondAttribute="leading" id="x4X-tN-1q0"/>
                             <constraint firstItem="Lvh-zg-VF5" firstAttribute="centerX" secondItem="VA9-yG-DqC" secondAttribute="centerXWithinMargins" id="yCa-c2-uvZ"/>
