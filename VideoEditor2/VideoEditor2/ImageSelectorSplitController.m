@@ -135,7 +135,7 @@
     UIColor *lightBlue = [UIColor colorWithRed:37.0/255.0 green:150.0/255.0 blue:255.0/255.0 alpha:1.0];
     
     self.segmentControl.sectionTitles = @[@"Photos", @"Collage"];
-    self.segmentControl.backgroundColor = [UIColor colorWithRed:53.0/255.0 green:46.0/255.0 blue:51.0/255.0 alpha:1.0];
+    self.segmentControl.backgroundColor = [UIColor clearColor];
     self.segmentControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     self.segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     self.segmentControl.selectionIndicatorColor = lightBlue;
