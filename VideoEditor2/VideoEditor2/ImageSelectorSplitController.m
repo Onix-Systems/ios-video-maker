@@ -95,7 +95,7 @@
 
 - (CGFloat) getOffsetForBottomPosition
 {
-    return 0;
+    return 5;
 }
 
 - (CGFloat) getOffsetForLeftGripPosition
