@@ -91,14 +91,8 @@
     dispatch_async(self.renderingQueue[self.requestNumber % self.renderingQueue.count], ^{
         [self processRequest: asyncVideoCompositionRequest];
     });
-
-//    NSOperationQueue *operation = [NSOperationQueue new];
-//    
-//    [operation addOperationWithBlock:^{
-//        [self processRequest: asyncVideoCompositionRequest];
-//    }];
     
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ // 1
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 //        [self processRequest: asyncVideoCompositionRequest];
 //    });
 }

@@ -47,6 +47,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
     if (self.segment.asset.isVideo) {
         [self addedMovieImagesToView];
     } else {
@@ -170,21 +171,22 @@
     
     self.allImagesWidth = 0;
     __block SegmentView *weakSelf = self;
-    [imageGenerator generateCGImagesAsynchronouslyForTimes:times.copy completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
+    [imageGenerator generateCGImagesAsynchronouslyForTimes:times completionHandler:^(CMTime requestedTime, CGImageRef  _Nullable image, CMTime actualTime, AVAssetImageGeneratorResult result, NSError * _Nullable error) {
+        
         UIImage *videoScreen = [[UIImage alloc] initWithCGImage:image];
-        UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
-        
-        CGFloat heightRatio = maxImageHeight > tmp.frame.size.height ? tmp.frame.size.height / maxImageHeight : maxImageHeight / tmp.frame.size.height;
-        
-        CGRect currentFrame = tmp.frame;
-        currentFrame.size.width = currentFrame.size.width * heightRatio;
-        currentFrame.size.height = currentFrame.size.height * heightRatio;
-        currentFrame.origin.x = weakSelf.allImagesWidth;
-        
-        tmp.frame = currentFrame;
-        weakSelf.allImagesWidth += tmp.frame.size.width;
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self addSubview:tmp];
+            UIImageView *tmp = [[UIImageView alloc] initWithImage:videoScreen];
+            CGFloat heightRatio = maxImageHeight > tmp.frame.size.height ? tmp.frame.size.height / maxImageHeight : maxImageHeight / tmp.frame.size.height;
+            
+            CGRect currentFrame = tmp.frame;
+            currentFrame.size.width = currentFrame.size.width * heightRatio;
+            currentFrame.size.height = currentFrame.size.height * heightRatio;
+            currentFrame.origin.x = weakSelf.allImagesWidth;
+            
+            tmp.frame = currentFrame;
+            weakSelf.allImagesWidth += tmp.frame.size.width;
+        
+            [weakSelf addSubview:tmp];
         });
     }];
 }

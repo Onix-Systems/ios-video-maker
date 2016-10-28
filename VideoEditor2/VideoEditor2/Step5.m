@@ -84,19 +84,9 @@
     self.segmentsCollectionView.segmentsCollection = self.segmentsCollection;
     
     if (self.segmentsCollection.segmentsCount && self.segmentsCollection.segmentsCount > 0) {
-        self.createFilmView.hidden = YES;
-        self.createFilmImage.hidden = YES;
-        self.saveButton.enabled = YES;
-        self.saveButton.alpha = 1.0;
-        self.resetButton.enabled = YES;
-        self.resetButton.alpha = 1.0;
+        [self unlockButtons];
     } else {
-        self.createFilmView.hidden = NO;
-        self.createFilmImage.hidden = NO;
-        self.saveButton.enabled = NO;
-        self.saveButton.alpha = 0.5;
-        self.resetButton.enabled = NO;
-        self.resetButton.alpha = 0.5;
+        [self lockButtons];
     }
 }
 
@@ -105,6 +95,24 @@
     [super viewDidDisappear:animated];
     
     [self.playerView cleanPlayer];
+}
+
+-(void)unlockButtons {
+    self.createFilmView.hidden = YES;
+    self.createFilmImage.hidden = YES;
+    self.saveButton.enabled = YES;
+    self.saveButton.alpha = 1.0;
+    self.resetButton.enabled = YES;
+    self.resetButton.alpha = 1.0;
+}
+
+-(void)lockButtons {
+    self.createFilmView.hidden = NO;
+    self.createFilmImage.hidden = NO;
+    self.saveButton.enabled = NO;
+    self.saveButton.alpha = 0.5;
+    self.resetButton.enabled = NO;
+    self.resetButton.alpha = 0.5;
 }
 
 - (IBAction)saveButtonAction:(id)sender {
@@ -117,9 +125,9 @@
             [self.playerView pause];
         }
         
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
         [self.videoComposition exportMovieToFileWithCompletion:^(NSError *error) {
-            [MBProgressHUD hideHUDForView:self.view animated:YES];
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
             NSString *title = @"Video Saved";
             NSString *message = @"Saved To Photo Album";
             
@@ -180,7 +188,7 @@
 }
 
 - (IBAction)forwardButtonAction:(id)sender {
-    [self.playerView.player seekToTime: [self.playerView maxDuration]];
+    [self.playerView.player seekToTime:[self.playerView maxDuration] toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero];
 }
 
 - (IBAction)deleteButtonAction:(id)sender {
