@@ -38,7 +38,7 @@
     UIColor *lightBlue = [UIColor colorWithRed:0.0/255.0 green:175.0/255.0 blue:228.0/255.0 alpha:1.0];
     self.navigationController.navigationBar.tintColor = lightBlue;
     self.title = @"Albums";
-    [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName:lightBlue}];
+    [self.navigationController.navigationBar setTitleTextAttributes: @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
 }
 
 - (void)back {

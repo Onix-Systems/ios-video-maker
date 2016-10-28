@@ -611,12 +611,13 @@
                                 <items>
                                     <navigationItem title="Create Collage" id="QRF-3z-GXi">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="e6W-mD-Jep">
-                                            <color key="tintColor" red="0.58823529409999997" green="0.58431372550000005" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="tintColor" red="0.0" green="0.68627450980000004" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="cancelButtonAction:" destination="gbw-vN-py3" id="o7a-Ky-isa"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="UdM-hL-erJ">
+                                            <color key="tintColor" red="0.0" green="0.68627450980000004" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="saveButtonAction:" destination="gbw-vN-py3" id="JK0-DS-twl"/>
                                             </connections>
