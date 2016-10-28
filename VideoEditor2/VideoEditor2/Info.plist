@@ -44,11 +44,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Use camera</string>
+	<string>You can use camera for shooting photos and videos and add them directly to the movie track</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Use microphone</string>
+	<string>It needs for sound recording in video, so the video has audio part</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Use library</string>
+	<string>You can add photos and videos from your Photo Library</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
