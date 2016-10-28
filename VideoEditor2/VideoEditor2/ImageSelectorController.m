@@ -59,6 +59,7 @@
     [super viewWillAppear:animated];
 //    self.navigationItem.title = @"Select";
     UIBarButtonItem *popButton = [[UIBarButtonItem alloc] initWithTitle:@"Select" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    popButton.tintColor = [UIColor colorWithRed:0.0/255.0 green:175.0/255.0 blue:228.0/255.0 alpha:1.0];
     self.navigationItem.leftBarButtonItem = popButton;
 }
 

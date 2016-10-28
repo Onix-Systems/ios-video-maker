@@ -88,6 +88,7 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    doneButton.tintColor = [UIColor colorWithRed:0.0/255.0 green:175.0/255.0 blue:228.0/255.0 alpha:1.0];
     self.navigationItem.rightBarButtonItem = doneButton;
 }
 

@@ -132,14 +132,16 @@
     
     [self initPositions];
     
-    UIColor *lightBlue = [UIColor colorWithRed:37.0/255.0 green:150.0/255.0 blue:255.0/255.0 alpha:1.0];
-    
+    UIColor *lightBlue = [UIColor colorWithRed:0.0/255.0 green:175.0/255.0 blue:228.0/255.0 alpha:1.0];
     self.segmentControl.sectionTitles = @[@"Photos", @"Collage"];
     self.segmentControl.backgroundColor = [UIColor clearColor];
     self.segmentControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     self.segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     self.segmentControl.selectionIndicatorColor = lightBlue;
     self.segmentControl.selectionIndicatorHeight = 1.5;
+    
+    UIImage *imageGrip = [self.horizontalGrip.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    self.horizontalGrip.image = imageGrip;
     
     __block ImageSelectorSplitController *weakSelf = self;
     self.segmentControl.indexChangeBlock = ^(NSInteger index) {
