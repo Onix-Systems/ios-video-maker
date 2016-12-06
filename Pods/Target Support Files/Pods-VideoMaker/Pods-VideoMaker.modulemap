@@ -1,0 +1,6 @@
+framework module Pods_VideoMaker {
+  umbrella header "Pods-VideoMaker-umbrella.h"
+
+  export *
+  module * { export * }
+}
