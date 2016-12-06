@@ -1,0 +1,6 @@
+framework module GROAuth2SessionManager {
+  umbrella header "GROAuth2SessionManager-umbrella.h"
+
+  export *
+  module * { export * }
+}
