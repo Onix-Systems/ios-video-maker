@@ -133,7 +133,6 @@
 		24AD523C1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AD523B1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m */; };
 		48D91A3BF20F48769C0C119F /* Pods_VideoMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E4381F252314A37D59E223E /* Pods_VideoMaker.framework */; };
 		AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1801B98896C00403713 /* Fabric.framework */; };
-		AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAB4B1811B98896C00403713 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -393,7 +392,6 @@
 		24AD523B1D6753D2001F90FD /* OneAssetMediaTypeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OneAssetMediaTypeDataSource.m; sourceTree = "<group>"; };
 		9E4381F252314A37D59E223E /* Pods_VideoMaker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VideoMaker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB4B1801B98896C00403713 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		AAB4B1811B98896C00403713 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		D65E3641A2F57F825888D208 /* Pods-VideoMaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VideoMaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-VideoMaker/Pods-VideoMaker.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -408,7 +406,6 @@
 				1139D6E31BF62C3100532BAE /* Photos.framework in Frameworks */,
 				1139D6E91BF62FD100532BAE /* UIKit.framework in Frameworks */,
 				1139D6EB1BF62FFD00532BAE /* QuartzCore.framework in Frameworks */,
-				AAB4B1831B98896C00403713 /* Crashlytics.framework in Frameworks */,
 				AAB4B1821B98896C00403713 /* Fabric.framework in Frameworks */,
 				48D91A3BF20F48769C0C119F /* Pods_VideoMaker.framework in Frameworks */,
 			);
@@ -434,7 +431,6 @@
 				1139D6E41BF62C3D00532BAE /* CoreImage.framework */,
 				1139D6E21BF62C3100532BAE /* Photos.framework */,
 				AAB4B1801B98896C00403713 /* Fabric.framework */,
-				AAB4B1811B98896C00403713 /* Crashlytics.framework */,
 				9E4381F252314A37D59E223E /* Pods_VideoMaker.framework */,
 			);
 			name = Frameworks;
@@ -969,7 +965,7 @@
 				11EFEDBB1B81C27D00078735 /* Sources */,
 				11EFEDBC1B81C27D00078735 /* Frameworks */,
 				11EFEDBD1B81C27D00078735 /* Resources */,
-				AAB4B17F1B98893F00403713 /* ShellScript */,
+				AAB4B17F1B98893F00403713 /* Run Script */,
 				0BBF2F0CD2B6168080910C80 /* [CP] Embed Pods Frameworks */,
 				4C6114AE2AF33B1591665D08 /* [CP] Copy Pods Resources */,
 			);
@@ -1105,18 +1101,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VideoMaker/Pods-VideoMaker-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		AAB4B17F1B98893F00403713 /* ShellScript */ = {
+		AAB4B17F1B98893F00403713 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 71b87d4516d60ca4803f075498a8b283db3c13d3 289d003c56f0db9f78ee8728e8865b1d21d6fe6d9d7e9f7c698bd550899b3982";
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
